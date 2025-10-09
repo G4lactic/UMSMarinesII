@@ -1,7 +1,7 @@
 //=============================================================================
 // UMSSpaceCommander - GFour
 //=============================================================================
-class UMSSpaceCommander extends umsspacemarine;
+class UMSSpaceCommander extends UMSSpecialForces;
 
 Var() float fReinforceRadius;
 Var() bool bCallBackup;
