@@ -1,5 +1,6 @@
 //=============================================================================
 // UMSSpaceCommander - GFour
+// WIP -- Not sure what i fully want this guy to do right now.
 //=============================================================================
 class UMSSpaceCommander extends UMSSpecialForces;
 
@@ -14,12 +15,13 @@ var bool Beamed;
 function PostBeginPlay()
 {
     //Glowy=Spawn(Class'UMSGlowyVisorCom',Self,,Location,Rotation);
+    GiveItems();
     Super.PostBeginPlay();
 }
 
 Function FireWeapon()
 {
-    if(bCallBackup && Health < Default.Health/3 && !Beamed && FRand() < 0.5 )
+    if(bDoSpecial && bCallBackup && Health < Default.Health/3 && !Beamed && FRand() < 0.5 )
     GotoState('CallBackup');
     else
     super.FireWeapon();
@@ -71,6 +73,19 @@ function BeamBrothers()
         }
         SM++;
     }
+}
+
+Function GiveItems()
+{
+    local ShieldBelt SB;
+    Local Armor AM;
+
+    bIsPlayer=True;
+    SB=Spawn(class'ShieldBelt');
+    SB.Touch(Self);
+    AM=Spawn(class'Armor');
+    AM.Touch(Self);
+    bIsPlayer=False;
 }
 
 defaultproperties
