@@ -356,6 +356,8 @@ var BlackSmoke bsm;
 var bool bInitz;
 var int Randsir;
 
+var int TBU;
+var bool bReadyToTalk;
 var bool bGetResponse;
 var bool bRespond;
 
@@ -1066,10 +1068,90 @@ function PlayChallenge()
 {
 	local float decision;
     //local name newAnim;
-
+	local int RandNum;
+    local sound voice;
+    local float vol;
+	local umsspacemarine Friend;
 	bFire = 0;
 	bAltFire = 0;
 
+    LastTalkTime=level.TimeSeconds;
+	vol = 2.0;
+    LastTalker = self;
+    Talker( LastTalker );
+    bGetResponse=false;
+    bRespond=false;
+
+	if( !bIsFemale && bReadyToTalk )
+	{
+		RandNum = Rand( 12 );
+
+		if (RandNum==0)
+				voice=sound'UMSMarinesII.MS101a';
+		else if (RandNum==1)
+				voice=sound'UMSMarinesII.MS101b';
+		else if (RandNum==2)
+				voice=sound'UMSMarinesII.MS102a';
+		else if (RandNum==3)
+				voice=sound'UMSMarinesII.MS102b';
+		else if (RandNum==4)
+				voice=sound'UMSMarinesII.MS201a';
+        else if (RandNum==5)
+				voice=sound'UMSMarinesII.MS201b';
+        else if (RandNum==6)
+				voice=sound'UMSMarinesII.MS202a';
+        else if (RandNum==7)
+				voice=sound'UMSMarinesII.MS202b';
+        else if (RandNum==8)
+				voice=sound'UMSMarinesII.MS103a';
+        else if (RandNum==9)
+				voice=sound'UMSMarinesII.MS103b';
+        else if (RandNum==10)
+				voice=sound'UMSMarinesII.MS203a';
+        else if (RandNum==11)
+				voice=sound'UMSMarinesII.MS203b';
+	}
+	else if ( bReadyToTalk )
+	{
+		RandNum = Rand( 6 );
+
+		if (RandNum==0)
+				voice=sound'UMSMarinesII.MS301a';
+		else if (RandNum==1)
+				voice=sound'UMSMarinesII.MS301b';
+		else if (RandNum==2)
+				voice=sound'UMSMarinesII.MS302a';
+		else if (RandNum==3)
+				voice=sound'UMSMarinesII.MS302b';
+		else if (RandNum==4)
+				voice=sound'UMSMarinesII.MS303a';
+        else if (RandNum==5)
+				voice=sound'UMSMarinesII.MS303b';
+
+	}
+    if(voice!=none)
+    {
+		bReadyToTalk=False;
+		if(TBU !=3 ){
+     	PlaySound( voice, SLOT_Talk,vol*0.9 );
+     	PlaySound( voice, SLOT_None,vol*0.9 );}
+		if (Frand() < 0.5)
+		PlayAnim('Wave');
+		else
+		PlayAnim('CockGun');
+		if(TBU != 3)
+		SetTimer(3,false);
+		else{
+		AttitudeToPlayer=ATTITUDE_Hate;
+ 		foreach RadiusActors( class'UMSSpacemarine', Friend, CommandRadius )
+ 		{
+			if (Friend != self)
+			Friend.AttitudeToPlayer=ATTITUDE_Hate;
+			Friend.GotoState('Attacking');
+ 		}
+		GotoState('Attacking');}
+    }
+/*
 	decision = FRand();
     if (Region.Zone.bWaterZone )
        TweenToWaiting(0.1);
@@ -1086,6 +1168,15 @@ function PlayChallenge()
 	    PlayAnim('CockGun');
 	else
         PlayAnim('Talk');
+*/
+}
+
+Function Timer()
+{
+	if(!bReadyToTalk){
+	TBU++;
+	log(TBU);
+	bReadyToTalk=True;}
 }
 
 function PlayPatrolStop()
