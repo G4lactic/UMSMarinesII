@@ -14,7 +14,7 @@
 
 class UMSSpaceMarine extends UMSSpaceMarineBase;
 
-#exec OBJ LOAD FILE=..\Sounds\Marine.uax
+#exec OBJ LOAD FILE=..\Sounds\Marine.uax PACKAGE=UMSMarinesII.Marine
 #exec OBJ LOAD FILE=..\Sounds\Activates.uax
 
 #exec AUDIO IMPORT FILE="Sounds\UMSStatic.WAV" NAME="UMSStatic" GROUP="UMSMarines"
@@ -1349,13 +1349,13 @@ Begin:
 		    Randsir = Rand( 2 );
 		    if (Randsir==0)
               {
-			   PlaySound( sound'Marine.MS208a', SLOT_Talk );  //yes sir
-	           PlaySound( sound'Marine.MS208a', SLOT_None );  //yes sir
+			   PlaySound( sound'UMSMarinesII.MS208a', SLOT_Talk );  //yes sir
+	           PlaySound( sound'UMSMarinesII.MS208a', SLOT_None );  //yes sir
               }
             else if (Randsir==1)
               {
-               PlaySound( sound'Marine.MS208b', SLOT_Talk );  //yes sir
-               PlaySound( sound'Marine.MS208b', SLOT_None );  //yes sir
+               PlaySound( sound'UMSMarinesII.MS208b', SLOT_Talk );  //yes sir
+               PlaySound( sound'UMSMarinesII.MS208b', SLOT_None );  //yes sir
               }
 		}
 		else
@@ -1363,13 +1363,13 @@ Begin:
             Randsir = Rand( 2 );
 			if (Randsir==0)
               {
-			   PlaySound( sound'Marine.MS308a', SLOT_Talk );  //yes sir
-               PlaySound( sound'Marine.MS308a', SLOT_None );  //yes sir
+			   PlaySound( sound'UMSMarinesII.MS308a', SLOT_Talk );  //yes sir
+               PlaySound( sound'UMSMarinesII.MS308a', SLOT_None );  //yes sir
               }
 			else if (Randsir==1)
               {
-               PlaySound( sound'Marine.MS308b', SLOT_Talk );  //yes sir
-               PlaySound( sound'Marine.MS308b', SLOT_None );  //yes sir
+               PlaySound( sound'UMSMarinesII.MS308b', SLOT_Talk );  //yes sir
+               PlaySound( sound'UMSMarinesII.MS308b', SLOT_None );  //yes sir
               }
 		}
      }
@@ -1543,21 +1543,21 @@ function KillPhrase()
 		RandNum = Rand( 15 );
 
 		if (RandNum==0)
-				voice=sound'Marine.MS110';  //target eliminated
+				voice=sound'UMSMarinesII.MS110';  //target eliminated
 		else if (RandNum==1)
-				voice=sound'Marine.MS115';  //enemy's dead
+				voice=sound'UMSMarinesII.MS115';  //enemy's dead
 		else if (RandNum==2)
-				voice=sound'Marine.MS116';  //target eliminated
+				voice=sound'UMSMarinesII.MS116';  //target eliminated
 		else if (RandNum==3)
-				voice=sound'Marine.MS210a';  //target eliminated
+				voice=sound'UMSMarinesII.MS210a';  //target eliminated
 		else if (RandNum==4)
-				voice=sound'Marine.MS210b';  //target eliminated
+				voice=sound'UMSMarinesII.MS210b';  //target eliminated
         else if (RandNum==5)
-				voice=sound'Marine.MS216a';  //target eliminated
+				voice=sound'UMSMarinesII.MS216a';  //target eliminated
         else if (RandNum==6)
-				voice=sound'Marine.MS215a';  //enemy's dead
+				voice=sound'UMSMarinesII.MS215a';  //enemy's dead
         else if (RandNum==7)
-				voice=sound'Marine.MS215b';  //enemy's dead
+				voice=sound'UMSMarinesII.MS215b';  //enemy's dead
         else if (RandNum==8)
 				voice=sound'gotemm';  //ha gotem
         else if (RandNum==9)
@@ -1580,15 +1580,15 @@ function KillPhrase()
 
 
         if (RandNum==0)
-				voice=sound'Marine.MS315a'; //enemies dead
+				voice=sound'UMSMarinesII.MS315a'; //enemies dead
         else if (RandNum==1)
-				voice=sound'Marine.MS315b';  //enemies dead
+				voice=sound'UMSMarinesII.MS315b';  //enemies dead
 		else if (RandNum==2)
-				voice=sound'Marine.MS310b';  //target elim
+				voice=sound'UMSMarinesII.MS310b';  //target elim
 		else if (RandNum==3)
-				voice=sound'Marine.MS316a';  //target elim
+				voice=sound'UMSMarinesII.MS316a';  //target elim
 		else if (RandNum==4)
-				voice=sound'Marine.MS316b';  //target elim
+				voice=sound'UMSMarinesII.MS316b';  //target elim
         else if (RandNum==5)
 				voice=sound'gotemf';  //got em
         else if (RandNum==6)
@@ -1627,15 +1627,15 @@ function HelpPhrase()
     {
          RandNum = Rand( 6 );
          if (RandNum==0)
-		    	voice=sound'Marine.MS214a';  //I need some help here
+		    	voice=sound'UMSMarinesII.MS214a';  //I need some help here
 	     else if (RandNum==1)
-				voice=sound'Marine.MS214b';  //I need some help here
+				voice=sound'UMSMarinesII.MS214b';  //I need some help here
          else if (RandNum==2)
-				voice=sound'Marine.MS209a';  //Im in trouble
+				voice=sound'UMSMarinesII.MS209a';  //Im in trouble
          else if (RandNum==3)
-				voice=sound'Marine.MS209b';  //Im in trouble
+				voice=sound'UMSMarinesII.MS209b';  //Im in trouble
          else if (RandNum==4)
-				voice=sound'Marine.MS204a';  //I'm Hit
+				voice=sound'UMSMarinesII.MS204a';  //I'm Hit
          else if (RandNum==5)
 				voice=sound'backupm';  // need backup
 
@@ -1644,15 +1644,15 @@ function HelpPhrase()
 	{
 		RandNum = Rand( 6 );
         if (RandNum==0)
-				voice=sound'Marine.MS314a'; //I need some help here
+				voice=sound'UMSMarinesII.MS314a'; //I need some help here
 		else if (RandNum==1)
-				voice=sound'Marine.MS314b'; //I need some help here
+				voice=sound'UMSMarinesII.MS314b'; //I need some help here
         else if (RandNum==2)
-				voice=sound'Marine.MS309a';  //Im in trouble
+				voice=sound'UMSMarinesII.MS309a';  //Im in trouble
         else if (RandNum==3)
-				voice=sound'Marine.MS309b';  //Im in trouble
+				voice=sound'UMSMarinesII.MS309b';  //Im in trouble
         else if (RandNum==4)
-				voice=sound'Marine.MS304a';  //I'm Hit
+				voice=sound'UMSMarinesII.MS304a';  //I'm Hit
         else if (RandNum==5)
 				voice=sound'backupf';  // I need backup
 	}
@@ -1680,11 +1680,11 @@ function AcquirePhrase()
   	    RandNum = Rand( 7 );
 
     	if (RandNum==0)
-				voice=sound'Marine.MS106'; //target acquired
+				voice=sound'UMSMarinesII.MS106'; //target acquired
 		else if (RandNum==1)
-				voice=sound'Marine.MS206a'; //target acquired
+				voice=sound'UMSMarinesII.MS206a'; //target acquired
 		else if (RandNum==2)
-				voice=sound'Marine.MS206b'; //target acquired
+				voice=sound'UMSMarinesII.MS206b'; //target acquired
         else if (RandNum==3)
 				voice=sound'incomingm'; //incoming
         else if (RandNum==4)
@@ -1699,9 +1699,9 @@ function AcquirePhrase()
 		RandNum = Rand( 6 );
 
 		if (RandNum==0)
-				voice=sound'Marine.MS306a'; //target acquired
+				voice=sound'UMSMarinesII.MS306a'; //target acquired
 		else if (RandNum==1)
-				voice=sound'Marine.MS306b';  //target acquired
+				voice=sound'UMSMarinesII.MS306b';  //target acquired
         else if (RandNum==2)
 				voice=sound'incomingf'; //incoming
         else if (RandNum==3)
@@ -1735,31 +1735,31 @@ function ChargePhrase()
        	RandNum = Rand( 17 );
 
 		if (RandNum==0)
-				voice=sound'Marine.MS111';  //fire
+				voice=sound'UMSMarinesII.MS111';  //fire
 		else if (RandNum==1)
-				voice=sound'Marine.MS211a'; //fire
+				voice=sound'UMSMarinesII.MS211a'; //fire
 		else if (RandNum==2)
-				voice=sound'Marine.MS211b';  //fire
+				voice=sound'UMSMarinesII.MS211b';  //fire
         else if (RandNum==3)
-				voice=sound'Marine.MS212a'; //open fire
+				voice=sound'UMSMarinesII.MS212a'; //open fire
 		else if (RandNum==4)
-				voice=sound'Marine.MS212b'; //open fire
+				voice=sound'UMSMarinesII.MS212b'; //open fire
 		else if (RandNum==5)
-				voice=sound'Marine.MS213a'; //attack my target
+				voice=sound'UMSMarinesII.MS213a'; //attack my target
 		else if (RandNum==6)
-				voice=sound'Marine.MS213b'; //attack my target
+				voice=sound'UMSMarinesII.MS213b'; //attack my target
 		else if (RandNum==7)
-				voice=sound'Marine.MS112';  //open fire
+				voice=sound'UMSMarinesII.MS112';  //open fire
 		else if (RandNum==8)
-				voice=sound'Marine.MS113';  //attack my target
+				voice=sound'UMSMarinesII.MS113';  //attack my target
         else if (RandNum==9)
-				voice=sound'Marine.MS205a'; //im closing in
+				voice=sound'UMSMarinesII.MS205a'; //im closing in
 		else if (RandNum==10)
-				voice=sound'Marine.MS205b'; //im closing in
+				voice=sound'UMSMarinesII.MS205b'; //im closing in
         else if (RandNum==11)
-				voice=sound'Marine.MS207a'; //go
+				voice=sound'UMSMarinesII.MS207a'; //go
 		else if (RandNum==12)
-				voice=sound'Marine.MS207b'; //go
+				voice=sound'UMSMarinesII.MS207b'; //go
 		else if (RandNum==13)
 				voice=sound'covermem';  //cover me
 		else if (RandNum==14)
@@ -1780,25 +1780,25 @@ function ChargePhrase()
 		RandNum = Rand( 12 );
 
 		if (RandNum==0)
-				voice=sound'Marine.MS305a';  //im closing in
+				voice=sound'UMSMarinesII.MS305a';  //im closing in
         else if (RandNum==1)
-				voice=sound'Marine.MS305b';  //im closing in
+				voice=sound'UMSMarinesII.MS305b';  //im closing in
 		else if (RandNum==2)
-				voice=sound'Marine.MS311a';  //fire
+				voice=sound'UMSMarinesII.MS311a';  //fire
 		else if (RandNum==3)
-				voice= sound'Marine.MS311b';  //fire
+				voice= sound'UMSMarinesII.MS311b';  //fire
 		else if (RandNum==4)
-				voice= sound'Marine.MS312a';  //open fire
+				voice= sound'UMSMarinesII.MS312a';  //open fire
 		else if (RandNum==5)
-				voice=sound'Marine.MS312b';  //open fire
+				voice=sound'UMSMarinesII.MS312b';  //open fire
 		else if (RandNum==6)
-				voice=sound'Marine.MS313a';  //attack my target
+				voice=sound'UMSMarinesII.MS313a';  //attack my target
 		else if (RandNum==7)
-				voice=sound'Marine.MS313b';  //attack my target
+				voice=sound'UMSMarinesII.MS313b';  //attack my target
         else if (RandNum==8)
-				voice=sound'Marine.MS307a';  //go
+				voice=sound'UMSMarinesII.MS307a';  //go
 		else if (RandNum==9)
-				voice=sound'Marine.MS307b';  //go
+				voice=sound'UMSMarinesII.MS307b';  //go
 		else if (RandNum==10)
 				voice=sound'covermef';  //cover me
 		else if (RandNum==11)

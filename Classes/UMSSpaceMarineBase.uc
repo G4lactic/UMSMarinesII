@@ -25,7 +25,6 @@ class UMSSpaceMarineBase extends UMSSM abstract;
 #exec texture IMPORT NAME=I_MarineSuit   FILE=MODELS\i_MarineSuit.PCX   GROUP="Icons" MIPS=OFF
 */
 
-#exec OBJ LOAD FILE=..\Sounds\Marine.uax
 #exec OBJ LOAD FILE=..\Sounds\Ambmodern.uax
 #exec AUDIO IMPORT FILE="Sounds\MAmb.WAV" NAME="MAmb" GROUP="MarineSuit"
 #exec AUDIO IMPORT FILE="Sounds\PowerON.WAV" NAME="PowerON" GROUP="Marinsuit"

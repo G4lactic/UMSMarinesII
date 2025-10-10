@@ -532,13 +532,13 @@ Begin:
 		    Randsir = Rand( 2 );
 		    if (Randsir==0)
               {
-			   PlaySound( sound'Marine.MS208a', SLOT_Talk );  //yes sir
-	           PlaySound( sound'Marine.MS208a', SLOT_None );  //yes sir
+			   PlaySound( sound'UMSMarinesII.MS208a', SLOT_Talk );  //yes sir
+	           PlaySound( sound'UMSMarinesII.MS208a', SLOT_None );  //yes sir
               }
             else if (Randsir==1)
               {
-               PlaySound( sound'Marine.MS208b', SLOT_Talk );  //yes sir
-               PlaySound( sound'Marine.MS208b', SLOT_None );  //yes sir
+               PlaySound( sound'UMSMarinesII.MS208b', SLOT_Talk );  //yes sir
+               PlaySound( sound'UMSMarinesII.MS208b', SLOT_None );  //yes sir
               }
 		}
 		else
@@ -546,13 +546,13 @@ Begin:
             Randsir = Rand( 2 );
 			if (Randsir==0)
               {
-			   PlaySound( sound'Marine.MS308a', SLOT_Talk );  //yes sir
-               PlaySound( sound'Marine.MS308a', SLOT_None );  //yes sir
+			   PlaySound( sound'UMSMarinesII.MS308a', SLOT_Talk );  //yes sir
+               PlaySound( sound'UMSMarinesII.MS308a', SLOT_None );  //yes sir
               }
 			else if (Randsir==1)
               {
-               PlaySound( sound'Marine.MS308b', SLOT_Talk );  //yes sir
-               PlaySound( sound'Marine.MS308b', SLOT_None );  //yes sir
+               PlaySound( sound'UMSMarinesII.MS308b', SLOT_Talk );  //yes sir
+               PlaySound( sound'UMSMarinesII.MS308b', SLOT_None );  //yes sir
               }
 		}
      }
