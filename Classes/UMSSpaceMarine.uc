@@ -1066,7 +1066,7 @@ function WhatToDoNext(name LikelyState, name LikelyLabel)
 
 function PlayChallenge()
 {
-	local float decision;
+	//local float decision;
     //local name newAnim;
 	local int RandNum;
     local sound voice;

@@ -194,6 +194,6 @@ defaultproperties
 	BodyParts(6)=LodMesh'UnrealShare.LiverM'
 	BodyParts(7)=LodMesh'UnrealShare.stomachM'
 	flies=0
-	Mesh=LodMesh'UMSMarinesII.UMSMarine'
+	Mesh=LodMesh'UMSMarinesII.Marine'
 	AnimSequence="Dead2"
 }

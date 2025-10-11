@@ -48,9 +48,9 @@ GotoState('Attacking');
 
 function BeamBrothers()
 {
-	local int i,M,W,SM,Rand;
+	local int i,M,W,SM; //Rand;
 	local umsspacemarine NewMarine;
-	local UMSMarineBeampoint MSP;
+	//local UMSMarineBeampoint MSP;
     local vector SpawnLoc;
 
     while(SM < 2)

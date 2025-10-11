@@ -7,7 +7,7 @@ var bool bExpanding;
 
 simulated function PostBeginPlay()
 {
-	local int i;
+	//local int i;
 
 	if(Owner!=None || Owner.bDeleteMe)
 	{

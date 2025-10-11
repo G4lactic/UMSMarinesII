@@ -41,7 +41,7 @@ Event Trigger(Actor Other,Pawn EventInstigator)
 
 Function SpawnMarine()
 {
-	local actor A;
+	//local actor A;
 
 	if(!HasSpawned){
     NewMarine = Spawn(cMarine,,,Self.Location,Self.Rotation);

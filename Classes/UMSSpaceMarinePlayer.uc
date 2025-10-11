@@ -79,7 +79,7 @@ static function SetMultiSkin(Actor SkinActor, string SkinName, string FaceName, 
 static function bool SetSkinElement(Actor SkinActor, int SkinNo, string SkinName, string DefaultSkinName)
 {
 	local Texture NewSkin;
-	local bool bIsFake;
+	//local bool bIsFake;
 
 	//Dirty workaround for skins in the U file
 	//Looks for our fake names that we gave the int file and manually replaces them with the real texture names
@@ -1210,7 +1210,7 @@ function PlayLanded(float impactVel)
 	
 function PlayInAir()
 {
-	local float f, TweenTime;
+	local float /*f,*/ TweenTime;
 
 	BaseEyeHeight =  0.7 * Default.BaseEyeHeight;
 	if ( (Weapon == None) || (Weapon.Mass < 20) )

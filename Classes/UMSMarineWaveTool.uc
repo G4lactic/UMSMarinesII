@@ -45,7 +45,7 @@ Function Timer()
 
 Function RandomBeamMarineIn()
 {
-    local int i,M,W,Rand,MarineCount;
+    local int i,M,W,/*Rand,*/MarineCount;
     local umsspacemarine NewMarine;
     local UMSMarineBeampoint MSP;
     local UMSMarineBeampoint UMSBP[16];
@@ -106,7 +106,7 @@ Function RandomBeamMarineIn()
 
 Function BeamMarineIn()
 {
-	local int i,M,W,Rand;
+	local int i,M,W;//Rand;
 	local umsspacemarine NewMarine;
 	local UMSMarineBeampoint MSP;
 
