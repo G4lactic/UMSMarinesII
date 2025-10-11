@@ -1074,7 +1074,7 @@ function PlayChallenge()
 	local umsspacemarine Friend;
 	bFire = 0;
 	bAltFire = 0;
-
+	If(AttitudeToPlayer!=ATTITUDE_Hate){
     LastTalkTime=level.TimeSeconds;
 	vol = 2.0;
     LastTalker = self;
@@ -1082,7 +1082,7 @@ function PlayChallenge()
     bGetResponse=false;
     bRespond=false;
 
-	if( !bIsFemale && bReadyToTalk )
+	if( !bIsFemale && bReadyToTalk && TBU != 3 )
 	{
 		RandNum = Rand( 12 );
 
@@ -1111,7 +1111,7 @@ function PlayChallenge()
         else if (RandNum==11)
 				voice=sound'UMSMarinesII.MS203b';
 	}
-	else if ( bReadyToTalk )
+	else if ( bReadyToTalk && TBU != 3 )
 	{
 		RandNum = Rand( 6 );
 
@@ -1129,12 +1129,32 @@ function PlayChallenge()
 				voice=sound'UMSMarinesII.MS303b';
 
 	}
+	else if (!bIsFemale && bReadyToTalk &&  TBU == 3 )
+	{
+		RandNum = Rand( 3 );
+
+		if (RandNum==0)
+				voice=sound'UMSMarinesII.MS112';
+		else if (RandNum==1)
+				voice=sound'UMSMarinesII.MS212a';
+		else if (RandNum==2)
+				voice=sound'UMSMarinesII.MS212b';
+	}
+	else if (bReadyToTalk &&  TBU == 3 )
+	{
+		RandNum = Rand( 2 );
+
+		if (RandNum==0)
+				voice=sound'UMSMarinesII.MS312a';
+		if (RandNum==1)
+				voice=sound'UMSMarinesII.MS312b';
+
+	}
     if(voice!=none)
     {
 		bReadyToTalk=False;
-		if(TBU !=3 ){
      	PlaySound( voice, SLOT_Talk,vol*0.9 );
-     	PlaySound( voice, SLOT_None,vol*0.9 );}
+     	PlaySound( voice, SLOT_None,vol*0.9 );
 		if (Frand() < 0.5)
 		PlayAnim('Wave');
 		else
@@ -1148,9 +1168,10 @@ function PlayChallenge()
 			if (Friend != self)
 			Friend.AttitudeToPlayer=ATTITUDE_Hate;
 			Friend.GotoState('Attacking');
+			Friend.AcquirePhrase();
  		}
 		GotoState('Attacking');}
-    }
+    }}
 /*
 	decision = FRand();
     if (Region.Zone.bWaterZone )
