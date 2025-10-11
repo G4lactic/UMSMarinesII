@@ -1510,5 +1510,5 @@ defaultproperties
 	CollisionHeight=39.0
 	Buoyancy=99.0
 	Skin=Texture'UnrealShare.Skins.Kurgan'
-	Mesh=LodMesh'UMSMarinesII.Marine'
+	Mesh=LodMesh'UMSMarinesII.UMSMarine'
 }
