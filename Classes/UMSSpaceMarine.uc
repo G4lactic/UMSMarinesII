@@ -392,18 +392,18 @@ class UMSSpaceMarine extends UMSSM;
 #exec MESH NOTIFY MESH=UMSMarine SEQ=walkstrafel   TIME=0.75 FUNCTION=PlayFootStep
 #exec MESH NOTIFY MESH=UMSMarine SEQ=walkstrafer   TIME=0.25 FUNCTION=PlayFootStep
 #exec MESH NOTIFY MESH=UMSMarine SEQ=walkstrafer   TIME=0.75 FUNCTION=PlayFootStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=strafer   TIME=0.25 FUNCTION=RunStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=strafer   TIME=0.75 FUNCTION=RunStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=strafel   TIME=0.25 FUNCTION=RunStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=strafel   TIME=0.75 FUNCTION=RunStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=straferLG TIME=0.25 FUNCTION=RunStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=straferLG TIME=0.75 FUNCTION=RunStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=strafelLG TIME=0.25 FUNCTION=RunStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=strafelLG TIME=0.75 FUNCTION=RunStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=straferSM TIME=0.25 FUNCTION=RunStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=straferSM TIME=0.75 FUNCTION=RunStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=strafelSM TIME=0.25 FUNCTION=RunStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=strafelSM TIME=0.75 FUNCTION=RunStep
+#exec MESH NOTIFY MESH=UMSMarine SEQ=strafer   TIME=0.25 FUNCTION=PlayFootStep //Here
+#exec MESH NOTIFY MESH=UMSMarine SEQ=strafer   TIME=0.75 FUNCTION=PlayFootStep
+#exec MESH NOTIFY MESH=UMSMarine SEQ=strafel   TIME=0.25 FUNCTION=PlayFootStep
+#exec MESH NOTIFY MESH=UMSMarine SEQ=strafel   TIME=0.75 FUNCTION=PlayFootStep
+#exec MESH NOTIFY MESH=UMSMarine SEQ=straferLG TIME=0.25 FUNCTION=PlayFootStep
+#exec MESH NOTIFY MESH=UMSMarine SEQ=straferLG TIME=0.75 FUNCTION=PlayFootStep
+#exec MESH NOTIFY MESH=UMSMarine SEQ=strafelLG TIME=0.25 FUNCTION=PlayFootStep
+#exec MESH NOTIFY MESH=UMSMarine SEQ=strafelLG TIME=0.75 FUNCTION=PlayFootStep
+#exec MESH NOTIFY MESH=UMSMarine SEQ=straferSM TIME=0.25 FUNCTION=PlayFootStep
+#exec MESH NOTIFY MESH=UMSMarine SEQ=straferSM TIME=0.75 FUNCTION=PlayFootStep
+#exec MESH NOTIFY MESH=UMSMarine SEQ=strafelSM TIME=0.25 FUNCTION=PlayFootStep
+#exec MESH NOTIFY MESH=UMSMarine SEQ=strafelSM TIME=0.75 FUNCTION=PlayFootStep // Here
 #exec mesh NOTIFY MESH=UMSMarine SEQ=Backstep TIME=0.25 FUNCTION=PlayFootStep
 #exec mesh NOTIFY MESH=UMSMarine SEQ=Backstep TIME=0.75 FUNCTION=PlayFootStep
 #exec mesh NOTIFY MESH=UMSMarine SEQ=BackstepLgFr TIME=0.25 FUNCTION=PlayFootStep
