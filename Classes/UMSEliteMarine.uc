@@ -147,12 +147,12 @@ ignores SeePlayer, HearNoise;
        }
       if ( Enemy != None && Enemy.Health >0 )
        NotifyPeers( 'Attack', Enemy );
- 	  Super(UMSSpaceMarineBase).BeginState();
+ 	  Super(UMSSpaceMarine).BeginState();
 	}
 
 	function EndState()
 	{
-	    super(UMSSpaceMarineBase).EndState();
+	    super(UMSSpaceMarine).EndState();
 	}
 }
 
@@ -741,7 +741,7 @@ ignores SeePlayer, HearNoise, Bump;
 
 	function BeginState()
 	{
-	  Super(UMSSpaceMarineBase).BeginState();
+	  Super(UMSSpaceMarine).BeginState();
       bCanDuck = false;
 	  bFire = 0;
 	  bAltFire = 0;
@@ -749,7 +749,7 @@ ignores SeePlayer, HearNoise, Bump;
 
 	function EndState()
 	{
-	    super(UMSSpaceMarineBase).EndState();
+	    super(UMSSpaceMarine).EndState();
  	    if ( skill <= 1 )
  	      bCanDuck = false;
     	else
