@@ -4784,7 +4784,7 @@ defaultproperties
 	CollisionHeight=39.0
 	Buoyancy=100.0
 	Skin=Texture'UnrealShare.Skins.Kurgan'
-	Mesh=LodMesh'UnrealI.Male1'
+	Mesh=LodMesh'UMSMarinesII.UMSMarine'
 	AnimSequence="Breath1L"
 	RotationRate=(Pitch=3072,Yaw=30000,Roll=2048)
 	DrawType=DT_Mesh
