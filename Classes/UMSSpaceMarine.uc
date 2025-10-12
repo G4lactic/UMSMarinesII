@@ -1,15 +1,8 @@
 //=============================================================================
-// UMSSpaceMarine  -- Asgard
+// UMSSpaceMarine  -- Asgard/Xaleros/GFour
 //
-//   Source code rights:
-//   Copyright 2005 Asgard. All right reserved.
-//   asgard15000@iprimus.com.au
-//    http://www.angelfire.com/empire/napali/
-//
-// Special thanks to Turboman for extracting, fixing and adding new animation
-// sequences to the spacemarine model.
-// Nice work :)
-//
+// Code Refactoring by : Xaleros :
+// the code from UMSSpaceMarineBase and UMSSM will be merged with this. currently UMSSpaceMarineBase is fully factored over!!!
 //=============================================================================
 
 class UMSSpaceMarine extends UMSSM;
