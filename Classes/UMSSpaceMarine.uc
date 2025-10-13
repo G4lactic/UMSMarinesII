@@ -189,6 +189,8 @@ class UMSSpaceMarine extends UMSSM;
 #exec AUDIO IMPORT FILE="Sounds\st9.WAV" NAME="st9" GROUP="UMSMarines"
 #exec AUDIO IMPORT FILE="Sounds\st10.WAV" NAME="st10" GROUP="UMSMarines"
 
+#exec AUDIO IMPORT FILE="Sounds\MarineTP.WAV" NAME="MarineTP" GROUP="UMSMarines"
+
 #exec AUDIO IMPORT FILE="Sounds\tripExplo.WAV" NAME="tripExplo" GROUP="tripwire"
 #exec AUDIO IMPORT FILE="Sounds\TWalarm.WAV" NAME="TWalarm" GROUP="tripwire"
 
