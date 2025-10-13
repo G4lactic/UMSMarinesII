@@ -4469,25 +4469,28 @@ function Died(pawn Killer, name damageType, vector HitLocation)
 {
 	if ( bDeleteMe )
 		return;
-	if ( !Level.Game.bDeathMatch && bIsPlayer )
-	       bIsPlayer=false;
+
+	bIsPlayer = false;
+
 	if ( bTeleportWhenHurt )
 	{
         bExplodeWhenHurt=false;
 	    PlayAnim('Activate');
         bInitz=true;
 	    GotoState('Teleporting');
+		return;
 	}
 	else if ( bExplodeWhenHurt )
 	{
 		PlayAnim('Activate');
 		GotoState('Exploding');
+		return;
 	}
 	else if ( Weapon != none )
 	{
 		Weapon.AmmoType.AmmoAmount = Weapon.AmmoType.Default.AmmoAmount - Rand( 3 );
 	}
-    bIsPlayer = false;
+
 	super.Died(Killer, damageType, HitLocation);
 }
 
@@ -4808,7 +4811,7 @@ defaultproperties
 	Reloadsound=None
 	PunchDamage=5
 	SlamDamage=9
-	bTeleportWhenHurt=False
+	bTeleportWhenHurt=True
 	bExplodeWhenHurt=False
 	ExploRange=650.0
 	ExploDamage=501.0
