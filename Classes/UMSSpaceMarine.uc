@@ -2,7 +2,7 @@
 // UMSSpaceMarine  -- Asgard/Xaleros/GFour
 //
 // Code Refactoring by : Xaleros :
-// the code from UMSSpaceMarineBase and UMSSM will be merged with this. currently UMSSpaceMarineBase is fully factored over!!!
+// UMSsp and spb were mergerd into this class, thanks Xal.
 //=============================================================================
 
 class UMSSpaceMarine extends ScriptedPawn;
@@ -505,6 +505,8 @@ var	  Weapon myWeapon;
 
 var(SpaceMarine) string HumanKillMessage;
 Var(SpaceMarine) int DispPowerLevel;
+var(SpaceMarine) bool bCadet; // You can now just set marines to be cadets from here. to avoid having un-needed classes.
+var bool bWimp;
 
 var bool strafedodge;
 var bool bBeamingIn;
@@ -1450,6 +1452,15 @@ function FireWeapon()
 {
 	local int bUseAltMode;
 
+	if(bCadet)
+	{
+    	if(!bWimp && Health < 0.65 * Default.Health)
+    	WimpOut();
+   	 	else if (bWimp && Frand() < 0.35){
+		AttitudeToPlayer=ATTITUDE_Fear;
+    	GotoState('Retreating');}
+	}
+
 	if (Weapon != None)
 	{
 		if ( Weapon.AmmoType != None )
@@ -1476,6 +1487,18 @@ function FireWeapon()
 		PlayFiring();
 	}
 	bShootSpecial = false;
+}
+
+Function WimpOut()
+{
+bIsWuss=True;
+bWimp=True;
+if(!bIsFemale)
+PlaySound(Sound'UMSMarinesII.Marine.Backupm', SLOT_Interact);
+else
+PlaySound(Sound'UMSMarinesII.Marine.Backupf', SLOT_Interact);
+CombatStyle=-0.4;
+//GotoState('Retreating');
 }
 
 // check for line of sight to target deltatime from now.
