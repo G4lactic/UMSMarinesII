@@ -480,8 +480,6 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec mesh NOTIFY MESH=UMSMarine SEQ=RELOADSM TIME=0.45 FUNCTION=Reload
 #exec mesh NOTIFY MESH=UMSMarine SEQ=RELOADLG TIME=0.45 FUNCTION=Reload
 
-
-
 // UMSSpaceMarine
 var float Accuracy;
 
@@ -7260,7 +7258,6 @@ Begin:
 function Died(pawn Killer, name damageType, vector HitLocation)
 {
 	local pawn OtherPawn;
-	local actor A;
 
 	if ( bDeleteMe )
 		return;
@@ -7294,9 +7291,6 @@ function Died(pawn Killer, name damageType, vector HitLocation)
     if ( killer != none )
        level.game.Killed(Killer, self, damageType);
 	//log(class$" dying");
-	if( Event != '' )
-		foreach AllActors( class 'Actor', A, Event )
-			A.Trigger( Self, Killer );
 	Level.Game.DiscardInventory(self);
 	Velocity.Z *= 1.3;
 	if ( Gibbed(damageType) )
