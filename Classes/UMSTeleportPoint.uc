@@ -5,7 +5,7 @@
 class UMSTeleportPoint extends UMSTools;
 
 var() class <umsspacemarine> cMarine;
-var() class <weapon> cMarineWeapon;
+Var() Class <Weapon> cWeaponType;
 
 var bool bSpawned;
 
@@ -24,13 +24,14 @@ Function SpawnMarine()
     local umsspacemarine TPMarine;
 
     TPMarine=Spawn(cMarine,,,Self.Location,Self.Rotation);
-    if(TPmarine != None)
+    if(TPMarine != None)
     {
-        SMEfx=Spawn(class'SMteleport');
-        TPMarine.WeaponType=cMarineWeapon;
+        SMEfx=Spawn(class'SMteleport',,,TPMarine.Location,);
+        TPMarine.WeaponType = cWeaponType; //WIP
         TPMarine.Enemy=GetPlayerPawn();
         TPMarine.Target=GetPlayerPawn();
         TPMarine.GotoState('Hunting');
+        bSpawned=True;
     }
     else
     Log("!!!ERROR NO MARINE FOUND!!!");
