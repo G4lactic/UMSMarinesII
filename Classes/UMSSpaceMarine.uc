@@ -189,6 +189,11 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec AUDIO IMPORT FILE="Sounds\st9.WAV" NAME="st9" GROUP="UMSMarines"
 #exec AUDIO IMPORT FILE="Sounds\st10.WAV" NAME="st10" GROUP="UMSMarines"
 
+#exec AUDIO IMPORT FILE="Sounds\MetalHollowR.WAV" NAME="MStep1" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\MetalHollowR2.WAV" NAME="MStep2" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\MetalHollowL.WAV" NAME="MStep3" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\MetalHollowL2.WAV" NAME="MStep4" GROUP="Footsteps"
+
 #exec AUDIO IMPORT FILE="Sounds\tripExplo.WAV" NAME="tripExplo" GROUP="tripwire"
 #exec AUDIO IMPORT FILE="Sounds\TWalarm.WAV" NAME="TWalarm" GROUP="tripwire"
 
@@ -1271,9 +1276,6 @@ function SetFemaleGender()
 {
 	drown=Sound'UnrealShare.Female.mdrown2fem';
 	breathagain=Sound'UnrealShare.Female.hgasp3fem';
-	Footstep1=Sound'UnrealShare.Female.stwalk1';
-	Footstep2=Sound'UnrealShare.Female.stwalk2';
-	Footstep3=Sound'UnrealShare.Female.stwalk3';
 	HitSound3=Sound'UnrealShare.Female.linjur3fem';
 	HitSound4=Sound'UnrealShare.Female.hinjur4fem';
 	Die2=Sound'UnrealShare.Female.death3cfem';
@@ -7680,9 +7682,9 @@ defaultproperties
 	Accuracy=0.0
 	drown=Sound'UnrealShare.Male.MDrown1'
 	breathagain=Sound'UnrealShare.Male.MGasp1'
-	Footstep1=Sound'UnrealI.Male.metwalk1'
-	Footstep2=Sound'UnrealI.Male.metwalk2'
-	Footstep3=Sound'UnrealI.Male.metwalk3'
+	Footstep1=Sound'UMSMarinesII.Footsteps.MStep1'
+	Footstep2=Sound'UMSMarinesII.Footsteps.MStep2'
+	Footstep3=Sound'UMSMarinesII.Footsteps.MStep3'
 	HitSound3=Sound'UnrealShare.Male.MInjur3'
 	HitSound4=Sound'UnrealShare.Male.MInjur4'
 	Die2=None
