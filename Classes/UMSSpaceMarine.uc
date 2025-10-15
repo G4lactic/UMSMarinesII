@@ -7349,6 +7349,7 @@ function Died(pawn Killer, name damageType, vector HitLocation)
 		ClientDying(DamageType, HitLocation);
 	GotoState('Dying');
 
+	ForEach AllActors(class'RLPlayer',P)
 	P.AddExp(130);
 	super.Died(Killer, damageType, HitLocation);
 }

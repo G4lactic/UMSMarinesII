@@ -6,11 +6,11 @@
 class UMSSpaceMarineCarcass extends CreatureCarcass;
 
 
-function ForceMeshToExist()
+/*function ForceMeshToExist()
 {
 	//never called
 	Spawn(class 'UMSSpaceMarine');
-}
+}*/
 
 function Initfor(actor Other)
 {
