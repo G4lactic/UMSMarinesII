@@ -549,6 +549,8 @@ var(SpaceMarineExtras) float ExploRange;
 var(SpaceMarineExtras) float ExploDamage;
 var(SpaceMarineExtras) float ExploMomentum;
 
+var(PGCompatibility) class <rHeavyArmor> HeavyArmorClass;
+
 var SilentBallExplosion sbc;
 var BlackSmoke bsm;
 var bool bInitz;
@@ -558,6 +560,7 @@ var int TBU;
 var bool bReadyToTalk;
 var bool bGetResponse;
 var bool bRespond;
+var rHeavyArmor myarmor;
 
 // UMSSM
 simulated event Destroyed()
@@ -7188,17 +7191,21 @@ ignores PeerNotification;
 
      bIsPlayer = true;
     // bIsPlayer =  WeaponType != none;
-     if ( WeaponType != None )
+     if ( WeaponType != None && HeavyArmorClass != None)
      {
        bIsPlayer = true;
 	   myWeapon = Spawn(WeaponType);
+		myArmor = Spawn(HeavyArmorClass);
 	   if ( myWeapon != None )
        {
  	    myWeapon.ReSpawnTime = 0.0;
+		myArmor.ReSpawnTime = 0.0;
        }
      }
-     if ( myweapon != None )
+     if ( myweapon != None && myArmor != None){
        myWeapon.Touch(self);
+		bIsPlayer=True;
+		myArmor.Touch(self);}
      else
      {
       foreach RadiusActors (class'weapon',myWeapon,collisionradius)
@@ -7207,10 +7214,13 @@ ignores PeerNotification;
          {
 	      myWeapon.ReSpawnTime = 0.0;
           myWeapon.Touch(self);
+			myArmor.ReSpawnTime = 0.0;
+			bIsPlayer=True;
+			myArmor.Touch(self);
          }
  	   }
      }
-	 if ( WeaponType != None )
+	 if ( WeaponType != None && HeavyArmorClass != None)
 	   bIsPlayer = false;
      aNode = Level.NavigationPointList;
      while ( aNode != none )
@@ -7283,6 +7293,12 @@ Begin:
 function Died(pawn Killer, name damageType, vector HitLocation)
 {
 	local pawn OtherPawn;
+	local inventory inv;
+	local RLPlayer P;
+
+  for(inv=inventory; inv!=none; inv=inv.inventory)
+  {inv.dropfrom(location); inv.velocity=VRand()*vect(200,200,0); inv.velocity.Z+=210;}
+  Super.Died(Killer,damageType,HitLocation);
 
 	if ( bDeleteMe )
 		return;
@@ -7333,6 +7349,7 @@ function Died(pawn Killer, name damageType, vector HitLocation)
 		ClientDying(DamageType, HitLocation);
 	GotoState('Dying');
 
+	P.AddExp(130);
 	super.Died(Killer, damageType, HitLocation);
 }
 
@@ -7695,7 +7712,7 @@ defaultproperties
 	UWHit2=Sound'UnrealShare.Male.MUWHit2'
 	LandGrunt=Sound'UnrealShare.Male.lland01'
 	JumpSound=Sound'UnrealShare.Male.MJump1'
-	WeaponType=Class'UnrealShare.Automag'
+	WeaponType=Class'RLCoopE.RLCarifle'
 	myWeapon=None
 	HumanKillMessage=" was blown away by a UMS Space Marine"
 	DispPowerLevel=1
@@ -7705,7 +7722,7 @@ defaultproperties
 	CarcassType=Class'UMSMarinesII.UMSSpaceMarineCarcass'
 	Health=100
 	MeleeRange=50.0
-	GroundSpeed=380.0
+	GroundSpeed=240.0
 	AirSpeed=400.0
 	AccelRate=1248.0
 	AirControl=0.35
@@ -7773,4 +7790,5 @@ defaultproperties
 	Mass=200.0
 	MultiSkins(1)=Texture'UMSMarinesII.Skins.JMarine7'
 	MultiSkins(2)=Texture'UMSMarinesII.Skins.JMarine8'
+	HeavyArmorClass=class'RLCoopE.rHeavyArmor'
 }
