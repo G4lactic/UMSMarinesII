@@ -4,6 +4,12 @@
 // Code Refactoring by : Xaleros :
 // UMSsp and spb were mergerd into this class, thanks Xal.
 //=============================================================================
+//
+// TODO:
+//	-Fix multiple carcass' spawning on kill.
+//	-Add ability to trick player by acting friendly.
+//
+//=============================================================================
 
 class UMSSpaceMarine extends ScriptedPawn;
 

@@ -1,7 +1,5 @@
 //=============================================================================
 // UMSDesertMarine - Asgard
-//   asgard12000@iprimus.com.au
-//   http://www.angelfire.com/empire/napali/
 //=============================================================================
 class UMSDesertMarine extends UMSSpaceMarine;
 

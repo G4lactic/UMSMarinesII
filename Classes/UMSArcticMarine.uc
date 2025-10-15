@@ -1,6 +1,5 @@
 //=============================================================================
 // UMSArcticMarine - Asgard
-// http://www.angelfire.com/empire/napali/
 //=============================================================================
 class UMSArcticMarine extends UMSSpaceMarine;
 
