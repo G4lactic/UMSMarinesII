@@ -5,7 +5,6 @@
 //=============================================================================
 //
 // TODO:
-//	-A marine dying can cause another marines corpse to explode.
 //	-Add ability to trick player by acting friendly.
 //=============================================================================
 
