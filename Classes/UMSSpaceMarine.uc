@@ -7354,7 +7354,7 @@ function Died(pawn Killer, name damageType, vector HitLocation)
 		ClientDying(DamageType, HitLocation);
 	GotoState('Dying');
 
-	//super.Died(Killer, damageType, HitLocation);
+	super.Died(Killer, damageType, HitLocation);
 }
 
 state Exploding
