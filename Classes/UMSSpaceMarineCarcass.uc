@@ -1,6 +1,6 @@
 //=============================================================================
 // UMSSpaceMarineCarcass  -- Asgard
-//   http://www.angelfire.com/empire/napali/
+// CARCASS USED BY PAWNS!!! PLEASE USE "UMSSpaceMarineBody" FOR DECORATION.
 //=============================================================================
 
 class UMSSpaceMarineCarcass extends CreatureCarcass;
