@@ -7298,7 +7298,6 @@ function Died(pawn Killer, name damageType, vector HitLocation)
 
   for(inv=inventory; inv!=none; inv=inv.inventory)
   {inv.dropfrom(location); inv.velocity=VRand()*vect(200,200,0); inv.velocity.Z+=210;}
-  Super.Died(Killer,damageType,HitLocation);
 
 	if ( bDeleteMe )
 		return;
