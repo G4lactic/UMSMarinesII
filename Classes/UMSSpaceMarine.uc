@@ -5,6 +5,7 @@
 //=============================================================================
 //
 // TODO:
+//	-A marine dying can cause another marines corpse to explode.
 //	-Add ability to trick player by acting friendly.
 //=============================================================================
 
@@ -7338,6 +7339,7 @@ function Died(pawn Killer, name damageType, vector HitLocation)
     if ( killer != none )
        level.game.Killed(Killer, self, damageType);
 	//log(class$" dying");
+	if( Event != '' )
 		foreach AllActors( class 'Actor', A, Event )
 			A.Trigger( Self, Killer );
 	Level.Game.DiscardInventory(self);
@@ -7704,6 +7706,7 @@ Begin:
 
 defaultproperties
 {
+	Event='None'
 	Accuracy=0.0
 	drown=Sound'UnrealShare.Male.MDrown1'
 	breathagain=Sound'UnrealShare.Male.MGasp1'
