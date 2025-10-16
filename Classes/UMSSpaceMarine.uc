@@ -5,9 +5,7 @@
 //=============================================================================
 //
 // TODO:
-//	-Fix multiple carcass' spawning on kill.
 //	-Add ability to trick player by acting friendly.
-//
 //=============================================================================
 
 class UMSSpaceMarine extends ScriptedPawn;
