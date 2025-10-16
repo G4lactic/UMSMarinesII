@@ -490,7 +490,12 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec mesh NOTIFY MESH=UMSMarine SEQ=COCKGUNL TIME=0.45 FUNCTION=Reload
 #exec mesh NOTIFY MESH=UMSMarine SEQ=RELOADSM TIME=0.45 FUNCTION=Reload
 #exec mesh NOTIFY MESH=UMSMarine SEQ=RELOADLG TIME=0.45 FUNCTION=Reload
-
+//Struct
+Struct GOverride
+{
+	var() bool bAlwaysMale;
+	var() bool bAlwaysFemale;
+};
 // UMSSpaceMarine
 var float Accuracy;
 
@@ -554,6 +559,7 @@ var(SpaceMarineExtras) bool bExplodeWhenHurt;
 var(SpaceMarineExtras) float ExploRange;
 var(SpaceMarineExtras) float ExploDamage;
 var(SpaceMarineExtras) float ExploMomentum;
+var(SpaceMarineExtras) GOverride GenderOverride;
 
 var SilentBallExplosion sbc;
 var BlackSmoke bsm;
@@ -1274,8 +1280,20 @@ function PostBeginPlay()
 	MessageTime=0;
 	bRespond=false;
 
-	if( !Level.Game.bDeathMatch && FRand() < 0.5 )
+	if(GenderOverride.bAlwaysMale && !GenderOverride.bAlwaysFemale)
+	return;
+	else if (GenderOverride.bAlwaysFemale && !GenderOverride.bAlwaysMale)
+	SetFemaleGender();
+	else if (GenderOverride.bAlwaysMale && GenderOverride.bAlwaysFemale)
+	{
+		Log("Jokes on you that just cancels it out!");
+		if( FRand() < 0.5 )
 		SetFemaleGender();
+		else
+		return;
+	}
+	else if( FRand() < 0.5 )
+	SetFemaleGender();
 }
 
 function SetFemaleGender()
