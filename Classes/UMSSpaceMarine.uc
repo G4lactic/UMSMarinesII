@@ -7304,6 +7304,7 @@ Begin:
 function Died(pawn Killer, name damageType, vector HitLocation)
 {
 	local pawn OtherPawn;
+	local actor A;
 
 	if ( bDeleteMe )
 		return;
@@ -7337,6 +7338,8 @@ function Died(pawn Killer, name damageType, vector HitLocation)
     if ( killer != none )
        level.game.Killed(Killer, self, damageType);
 	//log(class$" dying");
+		foreach AllActors( class 'Actor', A, Event )
+			A.Trigger( Self, Killer );
 	Level.Game.DiscardInventory(self);
 	Velocity.Z *= 1.3;
 	if ( Gibbed(damageType) )
@@ -7354,7 +7357,7 @@ function Died(pawn Killer, name damageType, vector HitLocation)
 		ClientDying(DamageType, HitLocation);
 	GotoState('Dying');
 
-	super.Died(Killer, damageType, HitLocation);
+	//super.Died(Killer, damageType, HitLocation);
 }
 
 state Exploding
@@ -7522,7 +7525,8 @@ Begin:
 
 state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 {
-	ignores SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Trigger, Bump, HitWall, Falling, WarnTarget, Died, LongFall, PlayLanded, TakeDamage, PeerNotification;
+	ignores PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
+	//ignores SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Trigger, Bump, HitWall, Falling, WarnTarget, Died, LongFall, PlayLanded, TakeDamage, PeerNotification;
 	
 	function BeginState()
 	{
