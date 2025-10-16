@@ -185,12 +185,12 @@ state Dead
 
 defaultproperties
 {
-	BodyParts(0)=LodMesh'UMSMarinesII.SMGib1R'
-	BodyParts(1)=LodMesh'UMSMarinesII.SMGib1'
-	BodyParts(2)=LodMesh'UMSMarinesII.SMGib2'
-	BodyParts(3)=LodMesh'UMSMarinesII.SMGib3'
-	BodyParts(4)=LodMesh'UMSMarinesII.SMGib3R'
-	BodyParts(5)=LodMesh'UMSMarinesII.SMGib4'
+	BodyParts(0)=LodMesh'UMSMarinesII.UMSSMGib1R'
+	BodyParts(1)=LodMesh'UMSMarinesII.UMSSMGib1'
+	BodyParts(2)=LodMesh'UMSMarinesII.UMSSMGib2'
+	BodyParts(3)=LodMesh'UMSMarinesII.UMSSMGib3'
+	BodyParts(4)=LodMesh'UMSMarinesII.UMSSMGib3R'
+	BodyParts(5)=LodMesh'UMSMarinesII.UMSSMGib4'
 	BodyParts(6)=LodMesh'UnrealShare.LiverM'
 	BodyParts(7)=LodMesh'UnrealShare.stomachM'
 	flies=0

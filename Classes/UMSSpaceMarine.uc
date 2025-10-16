@@ -2266,17 +2266,17 @@ function PlayDying(name DamageType, vector HitLoc)
 	    Ran=Frand();
 	    if (Ran <0.2)
 	    {
-	     SpawnbodyPart(Class 'smgib3', Location + (CollisionRadius* 0.2)*X + (CollisionHeight* -0.6)*Z +(CollisionRadius *-0.5)*Y, Rotation + rot(16384,-32468,-16384));
-         SpawnbodyPart(Class 'SMGib3R', Location + (CollisionRadius* 0.2)*X + (CollisionHeight* -0.6)*Z +(CollisionRadius *0.5)*Y, Rotation + rot(16384,-32468,16384));
+	     SpawnbodyPart(Class 'UMSsmgib3', Location + (CollisionRadius* 0.2)*X + (CollisionHeight* -0.6)*Z +(CollisionRadius *-0.5)*Y, Rotation + rot(16384,-32468,-16384));
+         SpawnbodyPart(Class 'UMSSMGib3R', Location + (CollisionRadius* 0.2)*X + (CollisionHeight* -0.6)*Z +(CollisionRadius *0.5)*Y, Rotation + rot(16384,-32468,16384));
 		 PlayAnim('Dead7a', 0.7, 0.1);
 
 		}
 	    else if (Ran <0.4)
 	    {
 	     PlayHeadDeath(DamageType);
-	     SpawnbodyPart(Class 'SMGib1R', Location + (CollisionRadius* 0.7)*X + (CollisionHeight* 0.3)*Z +(CollisionRadius *0.9)*Y, Rotation + rot(8182,32468,-16384));
-         SpawnbodyPart(Class 'smgib1', Location + (CollisionRadius* 0.7)*X + (CollisionHeight* 0.3)*Z +(CollisionRadius *-0.9)*Y, Rotation + rot(8182,32468,16384));
-         SpawnbodyPart(Class 'smgib4', Location + (CollisionHeight* 0.3)*Z , Rotation);
+	     SpawnbodyPart(Class 'UMSSMGib1R', Location + (CollisionRadius* 0.7)*X + (CollisionHeight* 0.3)*Z +(CollisionRadius *0.9)*Y, Rotation + rot(8182,32468,-16384));
+         SpawnbodyPart(Class 'UMSsmgib1', Location + (CollisionRadius* 0.7)*X + (CollisionHeight* 0.3)*Z +(CollisionRadius *-0.9)*Y, Rotation + rot(8182,32468,16384));
+         SpawnbodyPart(Class 'UMSsmgib4', Location + (CollisionHeight* 0.3)*Z , Rotation);
 		 PlayAnim('Dead7b', 0.7, 0.1);
 
 		}
@@ -2330,7 +2330,7 @@ function PlayDying(name DamageType, vector HitLoc)
 	  }
 	  if (doty > 0.5)  //right arm
 	  {
-	   SpawnbodyPart(Class 'SMGib1R', Location + (CollisionRadius* 0.7)*X + (CollisionHeight* 0.3)*Z +(CollisionRadius *0.9)*Y, Rotation + rot(8182,32468,-16384));
+	   SpawnbodyPart(Class 'UMSSMGib1R', Location + (CollisionRadius* 0.7)*X + (CollisionHeight* 0.3)*Z +(CollisionRadius *0.9)*Y, Rotation + rot(8182,32468,-16384));
        if(dotx < 0)
           PlayAnim('Dead8c', 0.7, 0.1);
        else
@@ -2339,7 +2339,7 @@ function PlayDying(name DamageType, vector HitLoc)
       }
       if (doty < -0.5)  //left arm
       {
-        SpawnbodyPart(Class 'smgib1', Location + (CollisionRadius* 0.7)*X + (CollisionHeight* 0.3)*Z +(CollisionRadius *-0.9)*Y, Rotation + rot(8182,32468,16384));
+        SpawnbodyPart(Class 'UMSsmgib1', Location + (CollisionRadius* 0.7)*X + (CollisionHeight* 0.3)*Z +(CollisionRadius *-0.9)*Y, Rotation + rot(8182,32468,16384));
         if(dotx < 0)
          PlayAnim('Dead8d', 0.7, 0.1);
         else
@@ -2362,7 +2362,7 @@ function PlayDying(name DamageType, vector HitLoc)
 	     }
          if (doty < -0.2)  //left leg
          {
-          SpawnbodyPart(Class 'smgib3', Location + (CollisionRadius* 0.2)*X + (CollisionHeight* -0.6)*Z +(CollisionRadius *-0.5)*Y, Rotation + rot(16384,-32468,-16384));
+          SpawnbodyPart(Class 'UMSsmgib3', Location + (CollisionRadius* 0.2)*X + (CollisionHeight* -0.6)*Z +(CollisionRadius *-0.5)*Y, Rotation + rot(16384,-32468,-16384));
           if(dotx < 0)
            PlayAnim('Dead10a', 0.7, 0.1);
           else
@@ -2371,7 +2371,7 @@ function PlayDying(name DamageType, vector HitLoc)
          }
          if (doty > 0.2)  //Right leg
          {
-          SpawnbodyPart(Class 'SMGib3R', Location + (CollisionRadius* 0.2)*X + (CollisionHeight* -0.6)*Z +(CollisionRadius *0.5)*Y, Rotation + rot(16384,-32468,16384));
+          SpawnbodyPart(Class 'UMSSMGib3R', Location + (CollisionRadius* 0.2)*X + (CollisionHeight* -0.6)*Z +(CollisionRadius *0.5)*Y, Rotation + rot(16384,-32468,16384));
           if(dotx < 0)
            PlayAnim('Dead10c', 0.7, 0.1);
           else
@@ -2445,7 +2445,7 @@ function PlayHeadDeath(name DamageType)
 	PlayAnim('Dead4', 0.7, 0.1);
 	if ( Level.NetMode != NM_Client )
 	{
-	    carc = Spawn(class 'smgib2',,,  Location + CollisionHeight * vect(0,0,0.8), Rotation + rot(3000,0,16384) );
+	    carc = Spawn(class 'UMSsmgib2',,,  Location + CollisionHeight * vect(0,0,0.8), Rotation + rot(3000,0,16384) );
 		if (carc != None)
 		{
 			carc.Initfor(self);
