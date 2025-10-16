@@ -1,8 +1,7 @@
 //=============================================================================
 // UMSSpaceMarine  -- Asgard/Xaleros/GFour
 //
-// Code Refactoring by : Xaleros :
-// UMSsp and spb were mergerd into this class, thanks Xal.
+// Code Refactoring by : Xaleros : Merged UMSsp and spb into 1 class.
 //=============================================================================
 //
 // TODO:

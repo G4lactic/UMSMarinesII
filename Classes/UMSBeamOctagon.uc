@@ -32,7 +32,7 @@ simulated event Landed( vector HitNormal )
 	AmbientSound = sound'BeamIn';
 	SoundVolume = 1;
 	SoundRadius = 128;
-	Mesh = mesh'Octagon';
+	Mesh = mesh'UMSOctagon';
 	Enable( 'Tick' );
 }
 simulated function Tick( float DeltaTime )
