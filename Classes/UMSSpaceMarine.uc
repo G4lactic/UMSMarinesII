@@ -7725,8 +7725,6 @@ defaultproperties
 	bCanStrafe=True
 	bAutoActivate=True
 	TransientSoundVolume=1.0
-	CollisionRadius=20.5
-	CollisionHeight=41.0
 	Buoyancy=200.0
 	Skin=Texture'UnrealShare.Skins.Kurgan'
 	Mesh=LodMesh'UMSMarinesII.UMSMarine'
@@ -7779,4 +7777,8 @@ defaultproperties
 	Mass=200.0
 	MultiSkins(1)=Texture'UMSMarinesII.Skins.JMarine7'
 	MultiSkins(2)=Texture'UMSMarinesII.Skins.JMarine8'
+	DrawScale=1.05
+	CollisionRadius=21.0
+	CollisionHeight=43.0
+	Fatness=130
 }
