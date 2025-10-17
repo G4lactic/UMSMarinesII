@@ -6,6 +6,7 @@
 //
 // TODO:
 //	-Add ability to trick player by acting friendly.
+//  -Figure out why marines are playing a rifle holding walk anim on a pistol.
 //=============================================================================
 
 class UMSSpaceMarine extends ScriptedPawn;
