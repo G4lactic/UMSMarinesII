@@ -27,7 +27,7 @@ static function GetMultiSkin( Actor SkinActor, out string SkinName, out string F
 
 static function bool bIsFakeSkin(String givenSkinName)
 {
-	if (inStr(Caps(givenSkinName),Caps("MarineSkins_Fake.")) > -1)
+	if (inStr(Caps(givenSkinName),Caps("UMSMarineSkins_Fake.")) > -1)
 		return true;
 	return false;
 }
@@ -79,40 +79,40 @@ static function SetMultiSkin(Actor SkinActor, string SkinName, string FaceName, 
 static function bool SetSkinElement(Actor SkinActor, int SkinNo, string SkinName, string DefaultSkinName)
 {
 	local Texture NewSkin;
-	local bool bIsFake;
+	//local bool bIsFake;
 
 	//Dirty workaround for skins in the U file
 	//Looks for our fake names that we gave the int file and manually replaces them with the real texture names
 	if (bIsFakeSkin(SkinName))
 	{
 		if (inStr(Caps(SkinName),Caps("arct1")) > -1)
-			SkinName = Replace(SkinName, "MarineSkins_Fake.arct1", "UMSMarinesII.skins.jMarine1");
+			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.arct1", "UMSMarinesII.skins.jMarine1");
 		else if (inStr(Caps(SkinName),Caps("arct2")) > -1)
-			SkinName = Replace(SkinName, "MarineSkins_Fake.arct2", "UMSMarinesII.skins.jMarine2");
+			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.arct2", "UMSMarinesII.skins.jMarine2");
 		else if (inStr(Caps(SkinName),Caps("jung1")) > -1)
-			SkinName = Replace(SkinName, "MarineSkins_Fake.jung1", "UMSMarinesII.skins.jMarine3");
+			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.jung1", "UMSMarinesII.skins.jMarine3");
 		else if (inStr(Caps(SkinName),Caps("jung2")) > -1)
-			SkinName = Replace(SkinName, "MarineSkins_Fake.jung2", "UMSMarinesII.skins.jMarine4");
+			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.jung2", "UMSMarinesII.skins.jMarine4");
 		else if (inStr(Caps(SkinName),Caps("dsrt1")) > -1)
-			SkinName = Replace(SkinName, "MarineSkins_Fake.dsrt1", "UMSMarinesII.skins.jMarine5");
+			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.dsrt1", "UMSMarinesII.skins.jMarine5");
 		else if (inStr(Caps(SkinName),Caps("dsrt2")) > -1)
-			SkinName = Replace(SkinName, "MarineSkins_Fake.dsrt2", "UMSMarinesII.skins.jMarine6");
+			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.dsrt2", "UMSMarinesII.skins.jMarine6");
 		else if (inStr(Caps(SkinName),Caps("spce1")) > -1)
-			SkinName = Replace(SkinName, "MarineSkins_Fake.spce1", "UMSMarinesII.skins.jMarine7");
+			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.spce1", "UMSMarinesII.skins.jMarine7");
 		else if (inStr(Caps(SkinName),Caps("spce2")) > -1)
-			SkinName = Replace(SkinName, "MarineSkins_Fake.spce2", "UMSMarinesII.skins.jMarine8");
+			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.spce2", "UMSMarinesII.skins.jMarine8");
 		else if (inStr(Caps(SkinName),Caps("gibb1")) > -1)
-			SkinName = Replace(SkinName, "MarineSkins_Fake.gibb1", "UMSMarinesII.skins.jSMGib1");
+			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.gibb1", "UMSMarinesII.skins.jSMGib1");
 		else if (inStr(Caps(SkinName),Caps("gibb2")) > -1)
-			SkinName = Replace(SkinName, "MarineSkins_Fake.gibb2", "UMSMarinesII.skins.jSMGib2");
+			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.gibb2", "UMSMarinesII.skins.jSMGib2");
 		else if (inStr(Caps(SkinName),Caps("blop1")) > -1)
-			SkinName = Replace(SkinName, "MarineSkins_Fake.blop1", "UMSMarinesII.skins.sMarine1");
+			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.blop1", "UMSMarinesII.skins.sMarine1");
 		else if (inStr(Caps(SkinName),Caps("blop2")) > -1)
-			SkinName = Replace(SkinName, "MarineSkins_Fake.blop2", "UMSMarinesII.skins.sMarine2");
+			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.blop2", "UMSMarinesII.skins.sMarine2");
 		else if (inStr(Caps(SkinName),Caps("EliteM1")) > -1)
-			SkinName = Replace(SkinName, "MarineSkins_Fake.EliteM1", "UMSMarinesII.skins.EMarine1");
+			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.EliteM1", "UMSMarinesII.skins.EMarine1");
 		else if (inStr(Caps(SkinName),Caps("EliteM2")) > -1)
-			SkinName = Replace(SkinName, "MarineSkins_Fake.EliteM2", "UMSMarinesII.skins.EMarine2");
+			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.EliteM2", "UMSMarinesII.skins.EMarine2");
 	}
 	
 	if (SkinName == "")
@@ -1210,7 +1210,7 @@ function PlayLanded(float impactVel)
 	
 function PlayInAir()
 {
-	local float f, TweenTime;
+	local float /*f,*/ TweenTime;
 
 	BaseEyeHeight =  0.7 * Default.BaseEyeHeight;
 	if ( (Weapon == None) || (Weapon.Mass < 20) )
@@ -1477,17 +1477,17 @@ exec function Taunt( name Sequence )
 
 defaultproperties
 {
-	DefaultPackage="MarineSkins_Fake"
-	DefaultSkinName="MarineSkins_Fake"
+	DefaultPackage="UMSMarineSkins_Fake."
+	DefaultSkinName="UMSMarineSkins_Fake.spce"
 	DeathStatic=Sound'UMSMarinesII.UMSMarines.UMSStatic'
 	Gesture1Cue=Sound'UMSMarinesII.Marine.sirmale'
 	Gesture2Cue=Sound'UMSMarinesII.Marine.gotemm'
 	Gesture3Cue=Sound'UMSMarinesII.Marine.him2'
 	drown=Sound'UnrealShare.Male.MDrown1'
 	breathagain=Sound'UnrealShare.Male.MGasp1'
-	Footstep1=Sound'UnrealShare.Female.stwalk1'
-	Footstep2=Sound'UnrealShare.Female.stwalk2'
-	Footstep3=Sound'UnrealShare.Female.stwalk3'
+	Footstep1=Sound'UMSMarinesII.Footsteps.MStep1'
+	Footstep2=Sound'UMSMarinesII.Footsteps.MStep2'
+	Footstep3=Sound'UMSMarinesII.Footsteps.MStep3'
 	HitSound3=Sound'UnrealShare.Male.MInjur3'
 	HitSound4=Sound'UnrealShare.Male.MInjur4'
 	Die2=Sound'UnrealShare.Male.MDeath3'
@@ -1510,5 +1510,5 @@ defaultproperties
 	CollisionHeight=39.0
 	Buoyancy=99.0
 	Skin=Texture'UnrealShare.Skins.Kurgan'
-	Mesh=LodMesh'UMSMarinesII.Marine'
+	Mesh=LodMesh'UMSMarinesII.UMSMarine'
 }

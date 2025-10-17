@@ -35,6 +35,12 @@ var(SentryGun) bool bIgnoreFriendlies; // Could be used for a malfunctioning tur
 //Override Variables
 var(SentryGunOverrides) bool bProjectileOverride;
 
+state LostTarget // Sorta like portal turrets doing a sweep before going idle or acquiring the target again.
+{
+//begin:
+	
+}
+
 defaultproperties
 {
 	iHitDamage=4

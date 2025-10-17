@@ -1,6 +1,5 @@
 //=============================================================================
 // UMSMarineChunks. -- Asgard
-//  http://www.angelfire.com/empire/napali/
 //=============================================================================
 class UMSMarineChunks extends CreatureChunks;
 
