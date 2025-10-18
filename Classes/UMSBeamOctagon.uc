@@ -86,8 +86,8 @@ defaultproperties
 	LifeSpan=20
 	CollisionRadius=22.0
 	CollisionHeight=1.0
-	Texture=FireTexture'UMSMarinesII.BeamEffect.beam3'
-	Skin=FireTexture'UMSMarinesII.BeamEffect.beam3'
+	Texture=FireTexture'UMSMarinesII.FX.beam3'
+	Skin=FireTexture'UMSMarinesII.FX.beam3'
 	Physics=PHYS_Falling
 	RemoteRole=ROLE_SimulatedProxy
 	DrawType=DT_Mesh

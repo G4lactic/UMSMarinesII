@@ -189,11 +189,11 @@ defaultproperties
 	CloakDuration=4
 	CooldownDuration=8
 	WeaponType=class'UnrealShare.Flakcannon'
-	CloakAmbient=Sound'UMSMarinesII.Marinsuit.MCloakL'
-	CloakOn=Sound'UMSMarinesII.Marinsuit.PowerON'
-	CloakOff=Sound'UMSMarinesII.Marinsuit.PowerOFF'
+	CloakAmbient=Sound'UMSMarinesII.MCloakL'
+	CloakOn=Sound'UMSMarinesII.PowerON'
+	CloakOff=Sound'UMSMarinesII.PowerOFF'
 	bExpanding=False
-	CloakTexture=Texture'UMSMarinesII.Marinsuit.MCloak'
+	CloakTexture=Texture'UMSMarinesII.MCloak'
 	HumanKillMessage=" was assassinated by a UMS Spectre Marine"
 	DispPowerLevel=4
 	CombatStyle=0.3
