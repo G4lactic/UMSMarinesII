@@ -23,9 +23,9 @@ simulated function PostBeginPlay()
 	Fatness = 0;
 	Disable( 'Tick' );
 	if (Level.Game.Difficulty >= 3)
-	SetTimer( 2.5, false );
+	SetTimer( 2.2, false );
 	else
-	SetTimer( 5.5, false );
+	SetTimer( 5.2, false );
 }
 simulated event Landed( vector HitNormal )
 {
@@ -65,7 +65,7 @@ simulated state FadingOut
 		{
 			Fatness -= 1;
 			if( DrawScale > 1 )
-				DrawScale -= 0.01;
+				DrawScale -= 0.1;
 		}
 		else
 		{
@@ -74,7 +74,7 @@ simulated state FadingOut
 				if( SoundVolume > 15 )
 					SoundVolume -= 1;
 				bUnlit = false;
-				ScaleGlow -= 0.01;
+				ScaleGlow -= 0.25;
 			}
 			else Destroy();
 		}
@@ -83,7 +83,7 @@ simulated state FadingOut
 
 defaultproperties
 {
-	LifeSpan=10.0
+	LifeSpan=20
 	CollisionRadius=22.0
 	CollisionHeight=1.0
 	Texture=FireTexture'UMSMarinesII.BeamEffect.beam3'

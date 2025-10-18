@@ -494,6 +494,12 @@ Struct GOverride
 	var() bool bAlwaysMale;
 	var() bool bAlwaysFemale;
 };
+
+Struct LurePStr
+{
+	var() bool bLurePlayer;
+	var() int MaxLies;
+};
 // UMSSpaceMarine
 var float Accuracy;
 
@@ -520,6 +526,7 @@ var	  Weapon myWeapon;
 var(SpaceMarine) string HumanKillMessage;
 Var(SpaceMarine) int DispPowerLevel;
 var(SpaceMarine) bool bCadet; // You can now just set marines to be cadets from here. to avoid having un-needed classes.
+var(SpaceMarine) LurePStr LurePlayer;
 var bool bWimp;
 
 var bool strafedodge;
@@ -2709,6 +2716,32 @@ function WhatToDoNext(name LikelyState, name LikelyLabel)
 }
 
 function PlayChallenge()
+{
+	local float decision;
+    //local name newAnim;
+
+	bFire = 0;
+	bAltFire = 0;
+
+	decision = FRand();
+    if (Region.Zone.bWaterZone )
+       TweenToWaiting(0.1);
+    else  if (  Weapon == none )
+       PlayAnim('Talk');
+    else if ( decision < 0.4 && Weapon != none && Weapon.bInstantHit )
+    {
+        if (Weapon.Mass < 20)
+          PlayAnim('RELOADSM');
+        else
+          PlayAnim('RELOADLG');
+    }
+    else if ( decision < 0.8 )
+	    PlayAnim('CockGun');
+	else
+        PlayAnim('Talk');
+}
+
+Function FakeFriend()
 {
 	//local float decision;
     //local name newAnim;
@@ -7525,6 +7558,13 @@ Begin:
 		gotoState('Attacking');
 }
 
+State BetrayPlayer
+{
+ignores EnemyNotVisible;
+
+
+}
+
 state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 {
 	ignores PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
@@ -7557,6 +7597,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 			MyWeapon.bMeshEnviroMap = true;
 			MyWeapon.Texture = Texture'UMSMarinesII.beamtexture';
 			MyWeapon.ScaleGlow = 0.01;
+			MyWeapon.bUnlit=True;
 		}
 
 		SetMovementPhysics(); 
@@ -7574,7 +7615,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		SetCollision(True,True,True);
 		if(BeamEffect!=None)
 		BeamEffect.Destroy();
-		Octagon.Destroy();
+		//Octagon.Destroy();
 		bHidden = False;
 		SightRadius=227327;
 		GoToState('Hunting');
@@ -7604,13 +7645,22 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 
 		if( MyWeapon != none && MyWeapon.ScaleGlow < 1.5 )
 		{
-			MyWeapon.ScaleGlow += 0.03;
+			MyWeapon.ScaleGlow += 0.01;
+		}
+		else
+		{
+			MyWeapon.Style = STY_Normal;
+			MyWeapon.bMeshEnviroMap = false;
+			MyWeapon.ScaleGlow = Weapon.Default.ScaleGlow;
+			MyWeapon.Texture = Weapon.Default.Texture;
+			MyWeapon.Fatness = Weapon.Default.Fatness;
+			MyWeapon.bUnlit=Weapon.Default.bUnlit;
 		}
 
 		if( bHidden )
 		{
 			bHidden = false;
-			Weapon.bHidden = false;
+			MyWeapon.bHidden = false;
 		}
 		
 		else
@@ -7618,7 +7668,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		if( FRand() < 0.2 && !bHidden )
 		{
 			bHidden = true;
-			Weapon.bHidden = true;
+			MyWeapon.bHidden = true;
 		}
 	}
 
@@ -7639,6 +7689,7 @@ Begin:
 	MyWeapon.ScaleGlow = MyWeapon.Default.ScaleGlow;
 	MyWeapon.bMeshEnviroMap = false;
 	MyWeapon.Style=STY_Normal;
+	MyWeapon.bUnlit=Weapon.Default.bUnlit;
 	Mass = Default.Mass;
 	GotoState( 'Hunting' );
 }
