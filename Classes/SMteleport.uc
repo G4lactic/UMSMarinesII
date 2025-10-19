@@ -1,7 +1,5 @@
 //=============================================================================
-// SMteleport  -- Asgard
-//   asgard12000@iprimus.com.au
-//   http://www.angelfire.com/empire/napali/
+// SMteleport - Asgard
 //=============================================================================
 
 class SMteleport expands effects;

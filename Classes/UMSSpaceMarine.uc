@@ -1,11 +1,10 @@
 //=============================================================================
-// UMSSpaceMarine  -- Asgard/Xaleros/GFour
+// UMSSpaceMarine - Asgard/Xaleros/GFour
 //
 // Code Refactoring by : Xaleros : Merged UMSsp and spb into 1 class.
 //=============================================================================
 //
 // TODO:
-//	-Add ability to trick player by acting friendly.
 //  -Figure out why marines are playing a rifle holding walk anim on a pistol.
 //=============================================================================
 

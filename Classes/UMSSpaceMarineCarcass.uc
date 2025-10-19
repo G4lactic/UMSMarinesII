@@ -1,5 +1,5 @@
 //=============================================================================
-// UMSSpaceMarineCarcass  -- Asgard
+// UMSSpaceMarineCarcass - Asgard
 // CARCASS USED BY PAWNS!!! PLEASE USE "UMSSpaceMarineBody" FOR DECORATION.
 //=============================================================================
 

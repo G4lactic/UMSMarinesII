@@ -1,5 +1,5 @@
 //=============================================================================
-// UMSEliteMarine  - GFour
+// UMSEliteMarine - GFour
 //=============================================================================
 
 class UMSEliteMarine extends UMSSpecialForces;

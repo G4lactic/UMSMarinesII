@@ -1,5 +1,5 @@
 //=============================================================================
-// UMSSpaceMarineBody  -- GFour
+// UMSSpaceMarineBody - GFour
 // Use this to decorate your level with dead marines!!!
 //=============================================================================
 

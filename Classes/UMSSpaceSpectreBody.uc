@@ -1,5 +1,5 @@
 //=============================================================================
-// UMSSpaceSpectreBody  -- GFour
+// UMSSpaceSpectreBody - GFour
 //=============================================================================
 
 class UMSSpaceSpectreBody extends UMSSpaceMarineBody;

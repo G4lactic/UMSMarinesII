@@ -1,5 +1,5 @@
 //=============================================================================
-// UMSMarineChunks. -- Asgard
+// UMSMarineChunks - Asgard
 //=============================================================================
 class UMSMarineChunks extends CreatureChunks;
 

@@ -1,5 +1,5 @@
 //=============================================================================
-// UMSEliteMarineBody  -- GFour
+// UMSEliteMarineBody - GFour
 //=============================================================================
 
 class UMSEliteMarineBody extends UMSSpaceMarineBody;

@@ -1,5 +1,5 @@
 //=============================================================================
-// UMSJungleMarineBody  -- GFour
+// UMSJungleMarineBody - GFour
 //=============================================================================
 
 class UMSJungleMarineBody extends UMSSpaceMarineBody;

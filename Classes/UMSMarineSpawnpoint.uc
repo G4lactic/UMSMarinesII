@@ -1,5 +1,5 @@
 //=============================================================================
-//  UMSMarineSpawnpoint -- GFour.
+//  UMSMarineSpawnpoint - GFour.
 //=============================================================================
 class UMSMarineSpawnPoint extends UMSTools;
 
