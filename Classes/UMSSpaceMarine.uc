@@ -7126,6 +7126,14 @@ ignores PeerNotification;
 	   myWeapon = Spawn(WeaponType);
 	   if ( myWeapon != None )
        {
+		if(bBeamingIn)
+		{
+			myWeapon.PickupSound = None;
+			myWeapon.SelectSound = None;
+			myWeapon.Misc1Sound = None;
+			myWeapon.Misc2Sound = None;
+			myWeapon.Misc3Sound = None;
+		}
  	    myWeapon.ReSpawnTime = 0.0;
        }
      }
@@ -7488,6 +7496,11 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		//Octagon.Destroy();
 		bHidden = False;
 		SightRadius=227327;
+		myWeapon.PickupSound = myWeapon.Default.PickupSound;
+		myWeapon.SelectSound = myWeapon.Default.SelectSound;
+		myWeapon.Misc1Sound = myWeapon.Default.Misc1Sound;
+		myWeapon.Misc2Sound = myWeapon.Default.Misc2Sound;
+		myWeapon.Misc3Sound = myWeapon.Default.Misc3Sound;
 		GoToState('Hunting');
 	}
 
