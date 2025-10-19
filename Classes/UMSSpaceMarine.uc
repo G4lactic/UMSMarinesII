@@ -1,9 +1,6 @@
 //=============================================================================
 // UMSSpaceMarine - Asgard/Xaleros/GFour
-//
-// Code Refactoring by : Xaleros : Merged UMSsp and spb into 1 class.
 //=============================================================================
-
 class UMSSpaceMarine extends ScriptedPawn;
 
 #exec OBJ LOAD FILE=..\Sounds\Ambmodern.uax
@@ -520,8 +517,10 @@ var bool bWimp;
 
 var bool strafedodge;
 var bool bBeamingIn;
+var(SpaceMarineExtras) float BeamWaitTime;
+var(SpaceMarineExtras) float BeamTime;
 //var UMSMarineWaveTool MarineBeamController;
-var Effects Octagon;
+var UMSBeamOctagon Octagon;
 
 // UMSSpaceMarine
 var Pawn SaluteTarget;
@@ -7099,7 +7098,6 @@ ignores PeerNotification;
 
 	function BeginState()
 	{
-
 		if( bBeamingIn )
 		{
 			Style = STY_Translucent;
@@ -7179,7 +7177,8 @@ Begin:
 		Land = none;
 		LandGrunt = none;
 		Octagon = Spawn( class'UMSBeamOctagon',,, Location );
-		Sleep( 2.0 );
+		Octagon.SetFade( BeamWaitTime, 0.5, BeamTime );
+		Sleep( BeamWaitTime );
 		GotoState( 'BeamingIn' );
 	}
 
@@ -7506,7 +7505,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 
 	simulated function Tick( float DeltaTime )
 	{
-		if( ScaleGlow < 1.5 )
+		if ( ScaleGlow < 1.5 )
 			ScaleGlow += 0.03;
 		else
 		{
@@ -7516,17 +7515,17 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 				ScaleGlow -= 0.03;
 		}
 
-		if( Fatness < 128)
+		if ( Fatness < 128)
 		{
 			Fatness++;
 		}
 
-		if( BeamEffect.Fatness < 165)
+		if ( BeamEffect.Fatness < 165)
 		{
 			BeamEffect.Fatness++;
 		}
 
-		if( MyWeapon != none && MyWeapon.ScaleGlow < 1.5 )
+		if ( MyWeapon != none && MyWeapon.ScaleGlow < 1.5 )
 		{
 			MyWeapon.ScaleGlow += 0.01;
 		}
@@ -7540,7 +7539,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 			MyWeapon.bUnlit=Weapon.Default.bUnlit;
 		}
 
-		if( bHidden )
+		if ( bHidden )
 		{
 			bHidden = false;
 			MyWeapon.bHidden = false;
@@ -7548,7 +7547,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		
 		else
 		
-		if( FRand() < 0.2 && !bHidden )
+		if ( FRand() < 0.2 && !bHidden )
 		{
 			bHidden = true;
 			MyWeapon.bHidden = true;
@@ -7563,10 +7562,7 @@ Begin:
 	}
 	Texture = None;
 	bMeshEnviroMap = False;
-	if (Level.Game.Difficulty >= 3)
-	sleep( 3.0 );
-	else 
-	sleep( 6.0 );
+	Sleep( BeamTime );
 	Style = Default.Style;
 	MyWeapon.Texture = MyWeapon.Default.Texture;
 	MyWeapon.ScaleGlow = MyWeapon.Default.ScaleGlow;
@@ -7737,4 +7733,6 @@ defaultproperties
 	CollisionRadius=21.0
 	CollisionHeight=43.0
 	Fatness=130
+	BeamWaitTime=2.0
+	BeamTime=4.0
 }
