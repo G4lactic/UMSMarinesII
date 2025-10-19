@@ -18,15 +18,18 @@ class UMSBeamOctagon expands Effects;
 
 #exec AUDIO IMPORT FILE="SOUNDS\BeamIn.WAV" NAME="BeamIn" GROUP="SFX"
 
+var float FadeOutTime;
 
 simulated function PostBeginPlay()
 {
 	Fatness = 0;
 	Disable( 'Tick' );
-	If(Level.Game.Difficulty >= 3)
-	SetTimer( 1.8, false );
-	else
-	SetTimer( 3.2, false );
+	If(Level.Game.Difficulty >= 3){
+	FadeOutTime=3.5;
+	SetTimer( 0.5, false );}
+	else{
+	FadeOutTime=6.5;
+	SetTimer( 0.5, false );}
 }
 simulated event Landed( vector HitNormal )
 {
@@ -62,22 +65,30 @@ simulated state FadingOut
 	
 	simulated function Tick( float DeltaTime )
 	{
-		if( Fatness > 0.0 )
+		If(FadeOutTime != 0.5)
 		{
-			Fatness -= 1;
-			if( DrawScale > 1 )
-				DrawScale -= 0.01;
-		}
-		else
-		{
-			if( ScaleGlow > 0.01 )
+			FadeOutTime -= DeltaTime;
+			//Log(FadeOutTime);
+			if(FadeOutTime <= 0.5)
 			{
-				if( SoundVolume > 15 )
-					SoundVolume -= 1;
-				bUnlit = True;
-				ScaleGlow -= 0.01;
+				if( Fatness > 0.0 )
+				{
+					Fatness -= 1;
+					if( DrawScale > 1 )
+						DrawScale -= 0.01;
+				}
+				else
+				{
+					if( ScaleGlow > 0.01 )
+					{
+						if( SoundVolume > 15 )
+						SoundVolume -= 1;
+						bUnlit = True;
+						ScaleGlow -= 0.01;
+					}
+					else Destroy();
+				}
 			}
-			else Destroy();
 		}
 	}
 }
@@ -95,5 +106,6 @@ defaultproperties
 	DrawType=DT_Mesh
 	Style=STY_Translucent
 	bUnlit=True
+	fatness=64
 	bCollideWorld=True
 }
