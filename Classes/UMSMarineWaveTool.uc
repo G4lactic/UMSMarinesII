@@ -2,7 +2,6 @@
 // UMSMarineWaveTool - GFour
 // Requires UMSMarineBeampoints to be placed.
 // Beams in SpaceMarines and allows you chain waves together by setting MarineDeathEvent and using a Counter.
-// Beaming happens faster on difficulty 3 or higher.
 // Note to Mappers: I heavily reccomend keeping the ammount of Marines spawned at around 3-4.
 //=============================================================================
 class UMSMarineWaveTool extends UMSTools;
