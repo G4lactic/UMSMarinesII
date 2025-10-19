@@ -653,8 +653,8 @@ function Bump(actor Other)
 				return;
 			}
 		}
-		if ( TimerRate <= 0 )
-			setTimer(1.0, false);
+		//if ( TimerRate <= 0 )
+			//setTimer(1.0, false);
 		if ( bCanSpeak && (ScriptedPawn(Other) != None) && ((TeamLeader == None) || !TeamLeader.bTeamSpeaking) )
 			SpeakTo(ScriptedPawn(Other));
 	}
@@ -2727,14 +2727,6 @@ function PlayChallenge()
 	    PlayAnim('CockGun');
 	else
         PlayAnim('Talk');
-}
-
-Function Timer()
-{
-	if(!bReadyToTalk){
-	TBU++;
-	log(TBU);
-	bReadyToTalk=True;}
 }
 
 function PlayPatrolStop()
@@ -7734,5 +7726,5 @@ defaultproperties
 	CollisionHeight=43.0
 	Fatness=130
 	BeamWaitTime=2.0
-	BeamTime=4.0
+	BeamTime=6.0
 }
