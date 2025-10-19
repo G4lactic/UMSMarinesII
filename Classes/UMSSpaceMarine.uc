@@ -7551,9 +7551,9 @@ Begin:
 	Texture = None;
 	bMeshEnviroMap = False;
 	if (Level.Game.Difficulty >= 3)
-	sleep( 2.5 );
+	sleep( 3.0 );
 	else 
-	sleep( 5.0 );
+	sleep( 6.0 );
 	Style = Default.Style;
 	MyWeapon.Texture = MyWeapon.Default.Texture;
 	MyWeapon.ScaleGlow = MyWeapon.Default.ScaleGlow;

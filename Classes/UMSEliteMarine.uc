@@ -1,8 +1,8 @@
 //=============================================================================
-// UMSEliteSoldier - GFour
+// UMSEliteMarine - GFour
 //=============================================================================
 
-class UMSEliteSoldier extends UMSSpecialForces;
+class UMSEliteMarine extends UMSSpecialForces;
 
 #exec texture IMPORT NAME=EMarine1 FILE=MODELS\banditmarine1.PCX GROUP=Skins LODSET=2
 #exec texture IMPORT NAME=EMarine2 FILE=MODELS\banditmarine2.PCX GROUP=Skins LODSET=2

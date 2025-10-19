@@ -18,18 +18,19 @@ class UMSBeamOctagon expands Effects;
 
 #exec AUDIO IMPORT FILE="SOUNDS\BeamIn.WAV" NAME="BeamIn" GROUP="SFX"
 
+
 simulated function PostBeginPlay()
 {
 	Fatness = 0;
 	Disable( 'Tick' );
-	if (Level.Game.Difficulty >= 3)
-	SetTimer( 2.2, false );
+	If(Level.Game.Difficulty >= 3)
+	SetTimer( 1.8, false );
 	else
-	SetTimer( 5.2, false );
+	SetTimer( 3.2, false );
 }
 simulated event Landed( vector HitNormal )
 {
-	AmbientSound = sound'BeamIn';
+	AmbientSound = sound'UMSMarinesII.SFX.BeamIn';
 	SoundVolume = 1;
 	SoundRadius = 128;
 	Mesh = mesh'UMSOctagon';
@@ -65,7 +66,7 @@ simulated state FadingOut
 		{
 			Fatness -= 1;
 			if( DrawScale > 1 )
-				DrawScale -= 0.1;
+				DrawScale -= 0.01;
 		}
 		else
 		{
@@ -73,17 +74,18 @@ simulated state FadingOut
 			{
 				if( SoundVolume > 15 )
 					SoundVolume -= 1;
-				bUnlit = false;
-				ScaleGlow -= 0.25;
+				bUnlit = True;
+				ScaleGlow -= 0.01;
 			}
 			else Destroy();
 		}
 	}
 }
 
+
 defaultproperties
 {
-	LifeSpan=20
+	LifeSpan=10.0
 	CollisionRadius=22.0
 	CollisionHeight=1.0
 	Texture=FireTexture'UMSMarinesII.FX.beam3'
@@ -92,8 +94,6 @@ defaultproperties
 	RemoteRole=ROLE_SimulatedProxy
 	DrawType=DT_Mesh
 	Style=STY_Translucent
-	ScaleGlow=1.25
 	bUnlit=True
 	bCollideWorld=True
-	bMeshEnviroMap=false
 }
