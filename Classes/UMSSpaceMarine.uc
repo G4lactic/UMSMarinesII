@@ -3,10 +3,6 @@
 //
 // Code Refactoring by : Xaleros : Merged UMSsp and spb into 1 class.
 //=============================================================================
-//
-// TODO:
-//  -Figure out why marines are playing a rifle holding walk anim on a pistol.
-//=============================================================================
 
 class UMSSpaceMarine extends ScriptedPawn;
 
