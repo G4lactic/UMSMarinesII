@@ -189,7 +189,7 @@ ignores SeePlayer, HearNoise;
 		         if (Weapon.Mass < 20)
 				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
 			     else
-				    LoopAnim('BackStepLGFR',-7/GroundSpeed,, 0.5);
+				    LoopAnim('walkstrafel',-7/GroundSpeed,, 0.5);
 		      }
 			}
 		   else
@@ -201,7 +201,7 @@ ignores SeePlayer, HearNoise;
 		         if (Weapon.Mass < 20)
 				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
 			     else
-				    LoopAnim('BackStepLGFR',-7/GroundSpeed,, 0.5);
+				    LoopAnim('walkstrafer',-7/GroundSpeed,, 0.5);
 		      }
 			}
 	   }
@@ -357,7 +357,7 @@ function PlayWalking()
 			 if (Weapon.Mass < 20)
 				LoopAnim('BackStepSMFR');
 			 else
-				LoopAnim('BackStepLGFR');
+				LoopAnim('walkstrafel');
 			}
 		}
 		else
@@ -369,7 +369,7 @@ function PlayWalking()
 			 if (Weapon.Mass < 20)
 				LoopAnim('BackStepSMFR');
 			 else
-				LoopAnim('BackStepLGFR');
+				LoopAnim('walkstrafer');
 			}
 		}
 	}
