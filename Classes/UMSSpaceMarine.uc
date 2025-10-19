@@ -495,11 +495,6 @@ Struct GOverride
 	var() bool bAlwaysFemale;
 };
 
-Struct LurePStr
-{
-	var() bool bLurePlayer;
-	var() int MaxLies;
-};
 // UMSSpaceMarine
 var float Accuracy;
 
@@ -526,7 +521,6 @@ var	  Weapon myWeapon;
 var(SpaceMarine) string HumanKillMessage;
 Var(SpaceMarine) int DispPowerLevel;
 var(SpaceMarine) bool bCadet; // You can now just set marines to be cadets from here. to avoid having un-needed classes.
-var(SpaceMarine) LurePStr LurePlayer;
 var bool bWimp;
 
 var bool strafedodge;
@@ -2739,118 +2733,6 @@ function PlayChallenge()
 	    PlayAnim('CockGun');
 	else
         PlayAnim('Talk');
-}
-
-Function FakeFriend()
-{
-	//local float decision;
-    //local name newAnim;
-	local int RandNum;
-    local sound voice;
-    local float vol;
-	local umsspacemarine Friend;
-	bFire = 0;
-	bAltFire = 0;
-	if (AttitudeToPlayer!=ATTITUDE_Hate)
-	{
-		LastTalkTime=level.TimeSeconds;
-		vol = 2.0;
-		LastTalker = self;
-		Talker( LastTalker );
-		bGetResponse=false;
-		bRespond=false;
-
-		if(!bIsFemale && bReadyToTalk && TBU != 3)
-		{
-			RandNum = Rand( 12 );
-
-			if (RandNum==0)
-					voice=sound'UMSMarinesII.MS101a';
-			else if (RandNum==1)
-					voice=sound'UMSMarinesII.MS101b';
-			else if (RandNum==2)
-					voice=sound'UMSMarinesII.MS102a';
-			else if (RandNum==3)
-					voice=sound'UMSMarinesII.MS102b';
-			else if (RandNum==4)
-					voice=sound'UMSMarinesII.MS201a';
-			else if (RandNum==5)
-					voice=sound'UMSMarinesII.MS201b';
-			else if (RandNum==6)
-					voice=sound'UMSMarinesII.MS202a';
-			else if (RandNum==7)
-					voice=sound'UMSMarinesII.MS202b';
-			else if (RandNum==8)
-					voice=sound'UMSMarinesII.MS103a';
-			else if (RandNum==9)
-					voice=sound'UMSMarinesII.MS103b';
-			else if (RandNum==10)
-					voice=sound'UMSMarinesII.MS203a';
-			else if (RandNum==11)
-					voice=sound'UMSMarinesII.MS203b';
-		}
-		else if ( bReadyToTalk && TBU != 3 )
-		{
-			RandNum = Rand( 6 );
-
-			if (RandNum==0)
-					voice=sound'UMSMarinesII.MS301a';
-			else if (RandNum==1)
-					voice=sound'UMSMarinesII.MS301b';
-			else if (RandNum==2)
-					voice=sound'UMSMarinesII.MS302a';
-			else if (RandNum==3)
-					voice=sound'UMSMarinesII.MS302b';
-			else if (RandNum==4)
-					voice=sound'UMSMarinesII.MS303a';
-			else if (RandNum==5)
-					voice=sound'UMSMarinesII.MS303b';
-
-		}
-		else if (!bIsFemale && bReadyToTalk &&  TBU == 3 )
-		{
-			RandNum = Rand( 3 );
-
-			if (RandNum==0)
-					voice=sound'UMSMarinesII.MS112';
-			else if (RandNum==1)
-					voice=sound'UMSMarinesII.MS212a';
-			else if (RandNum==2)
-					voice=sound'UMSMarinesII.MS212b';
-		}
-		else if (bReadyToTalk &&  TBU == 3 )
-		{
-			RandNum = Rand( 2 );
-
-			if (RandNum==0)
-					voice=sound'UMSMarinesII.MS312a';
-			if (RandNum==1)
-					voice=sound'UMSMarinesII.MS312b';
-
-		}
-		if(voice!=none)
-		{
-			bReadyToTalk=False;
-			PlaySound( voice, SLOT_Talk,vol*0.9 );
-			PlaySound( voice, SLOT_None,vol*0.9 );
-			if (Frand() < 0.5)
-			PlayAnim('Wave');
-			else
-			PlayAnim('CockGun');
-			if(TBU != 3)
-			SetTimer(3,false);
-			else{
-			AttitudeToPlayer=ATTITUDE_Hate;
-			foreach RadiusActors( class'UMSSpacemarine', Friend, CommandRadius )
-			{
-				if (Friend != self)
-				Friend.AttitudeToPlayer=ATTITUDE_Hate;
-				Friend.GotoState('Attacking');
-				Friend.AcquirePhrase();
-			}
-			GotoState('Attacking');}
-		}
-	}
 }
 
 Function Timer()
@@ -7556,13 +7438,6 @@ Begin:
 	}
     else
 		gotoState('Attacking');
-}
-
-State BetrayPlayer
-{
-ignores EnemyNotVisible;
-
-
 }
 
 state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
