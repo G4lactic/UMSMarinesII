@@ -139,6 +139,6 @@ defaultproperties
 	SoundVolume=128
     SoundRadius=128
 	FadeInTime=2.0
-	FadeOutTime=6.0
+	FadeOutTime=5
 	HoldTime=0.5
 }

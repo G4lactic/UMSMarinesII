@@ -7726,5 +7726,5 @@ defaultproperties
 	CollisionHeight=43.0
 	Fatness=130
 	BeamWaitTime=2.0
-	BeamTime=6.0
+	BeamTime=5
 }
