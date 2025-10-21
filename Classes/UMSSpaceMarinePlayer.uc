@@ -1,5 +1,5 @@
 //=============================================================================
-// UMSSpaceMarinePlayer  -- GFour
+// UMSSpaceMarinePlayer - GFour
 // Huge thanks to AlCapowned for getting the skins working!
 //=============================================================================
 
@@ -113,6 +113,10 @@ static function bool SetSkinElement(Actor SkinActor, int SkinNo, string SkinName
 			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.EliteM1", "UMSMarinesII.skins.EMarine1");
 		else if (inStr(Caps(SkinName),Caps("EliteM2")) > -1)
 			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.EliteM2", "UMSMarinesII.skins.EMarine2");
+		else if (inStr(Caps(SkinName),Caps("ATM1")) > -1)
+			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.ATM1", "UMSMarinesII.skins.ATMarine1");
+		else if (inStr(Caps(SkinName),Caps("ATM2")) > -1)
+			SkinName = Replace(SkinName, "UMSMarineSkins_Fake.ATM2", "UMSMarinesII.skins.ATMarine2");
 	}
 	
 	if (SkinName == "")

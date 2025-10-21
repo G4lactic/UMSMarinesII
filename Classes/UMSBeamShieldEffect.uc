@@ -72,9 +72,10 @@ state OwnerFadeIn
 
 defaultproperties
 {
+	LifeSpan=999
 	bUnlit=True
 	LastDrawScale=0.0
 	ScaleGlow=1.25
-	Texture=FireTexture'UMSMarinesII.BeamEffect.BeamTexture'
+	Texture=FireTexture'UMSMarinesII.FX.BeamTexture'
 	Fatness=240
 }

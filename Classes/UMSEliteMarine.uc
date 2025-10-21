@@ -1,5 +1,5 @@
 //=============================================================================
-// UMSEliteMarine  - GFour
+// UMSEliteMarine - GFour
 //=============================================================================
 
 class UMSEliteMarine extends UMSSpecialForces;
@@ -251,9 +251,29 @@ ignores SeePlayer, HearNoise;
 
 	       }
 		   else if ( Dir Dot Y > 0 )
-			   LoopAnim('WalkStrafeL',-7/GroundSpeed,, 0.5);
+			{
+		      if (Weapon == None)
+				LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
+		      else
+		      {
+		         if (Weapon.Mass < 20)
+				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
+			     else
+				    LoopAnim('BackStepLGFR',-7/GroundSpeed,, 0.5);
+		      }
+			}
 		   else
-		       LoopAnim('WalkStrafeR',-7/GroundSpeed,, 0.5);
+			{
+		      if (Weapon == None)
+				LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
+		      else
+		      {
+		         if (Weapon.Mass < 20)
+				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
+			     else
+				    LoopAnim('BackStepLGFR',-7/GroundSpeed,, 0.5);
+		      }
+			}
 	   }
        else if(Weapon == None)
 	   {
@@ -398,10 +418,30 @@ function PlayWalking()
 			}
 
 		}
-		else if ( Dir Dot Y > 0 )
-			LoopAnim('WalkStrafeL');
-		else
-			LoopAnim('WalkStrafeR');
+		   else if ( Dir Dot Y > 0 )
+			{
+		      if (Weapon == None)
+				LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
+		      else
+		      {
+		         if (Weapon.Mass < 20)
+				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
+			     else
+				    LoopAnim('BackStepLGFR',-7/GroundSpeed,, 0.5);
+		      }
+			}
+		   else
+			{
+		      if (Weapon == None)
+				LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
+		      else
+		      {
+		         if (Weapon.Mass < 20)
+				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
+			     else
+				    LoopAnim('BackStepLGFR',-7/GroundSpeed,, 0.5);
+		      }
+			}
 	}
 	else if (Weapon == None)
 	{
@@ -762,13 +802,13 @@ defaultproperties
 {
     bShieldOn=False
 	WeaponType=Class'ASMD'
-	HumanKillMessage=" was blown away by a UMS Elite Marine"
+	HumanKillMessage=" was blown away by a UMS Elite Soldier"
 	DispPowerLevel=5
 	bWarnTarget=False
 	Health=100
 	CombatStyle=0.3
     Skill=3.0
-	MenuName="UMS Elite Marine"
+	MenuName="UMS Elite Soldier"
 	MultiSkins(1)=Texture'UMSMarinesII.Skins.EMarine1'
 	MultiSkins(2)=Texture'UMSMarinesII.Skins.EMarine2'
 }

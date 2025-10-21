@@ -1,201 +1,197 @@
 //=============================================================================
-// UMSSpaceMarine  -- Asgard/Xaleros/GFour
-//
-// Code Refactoring by : Xaleros :
-// UMSsp and spb were mergerd into this class, thanks Xal.
+// UMSSpaceMarine - Asgard/Xaleros/GFour
 //=============================================================================
-
 class UMSSpaceMarine extends ScriptedPawn;
 
 #exec OBJ LOAD FILE=..\Sounds\Ambmodern.uax
-#exec AUDIO IMPORT FILE="Sounds\MAmb.WAV" NAME="MAmb" GROUP="MarineSuit"
-#exec AUDIO IMPORT FILE="Sounds\PowerON.WAV" NAME="PowerON" GROUP="Marinsuit"
-#exec AUDIO IMPORT FILE="Sounds\PowerOFF.WAV" NAME="PowerOFF" GROUP="Marinsuit"
-#exec AUDIO IMPORT FILE="Sounds\sirmale.WAV" NAME="sirmale" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\sirfemale.WAV" NAME="sirfemale" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\clank.WAV" NAME="clank" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\snore.WAV" NAME="snore" GROUP="Marine"
+#exec AUDIO IMPORT FILE="Sounds\MAmb.WAV" NAME="MAmb" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\PowerON.WAV" NAME="PowerON" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\PowerOFF.WAV" NAME="PowerOFF" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\sirmale.WAV" NAME="sirmale" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\sirfemale.WAV" NAME="sirfemale" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\clank.WAV" NAME="clank" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\snore.WAV" NAME="snore" GROUP="Voice"
 
-#exec AUDIO IMPORT FILE="Sounds\stepm.WAV" NAME="stepm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\stepf.WAV" NAME="stepf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\gladm.WAV" NAME="gladm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\gladf.WAV" NAME="gladf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\bodiesm.WAV" NAME="bodiesm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\bodiesf.WAV" NAME="bodiesf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\moveonm.WAV" NAME="moveonm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\moveonf.WAV" NAME="moveonf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\howm.WAV" NAME="howm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\howf.WAV" NAME="howf" GROUP="Marine"
+#exec AUDIO IMPORT FILE="Sounds\stepm.WAV" NAME="stepm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\stepf.WAV" NAME="stepf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\gladm.WAV" NAME="gladm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\gladf.WAV" NAME="gladf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\bodiesm.WAV" NAME="bodiesm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\bodiesf.WAV" NAME="bodiesf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\moveonm.WAV" NAME="moveonm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\moveonf.WAV" NAME="moveonf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\howm.WAV" NAME="howm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\howf.WAV" NAME="howf" GROUP="Voice"
 
-#exec AUDIO IMPORT FILE="Sounds\hopelessm.WAV" NAME="hopelessm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\hopelessf.WAV" NAME="hopelessf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\bastm.WAV" NAME="bastm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\bastf.WAV" NAME="bastf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\closem.WAV" NAME="closem" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\closef.WAV" NAME="closef" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\hellm.WAV" NAME="hellm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\hellf.WAV" NAME="hellf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\godm.WAV" NAME="godm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\godf.WAV" NAME="godf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\nightm.WAV" NAME="nightm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\nightf.WAV" NAME="nightf" GROUP="Marine
-#exec AUDIO IMPORT FILE="Sounds\startm.WAV" NAME="startm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\startf.WAV" NAME="startf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\atlastm.WAV" NAME="atlastm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\atlastf.WAV" NAME="atlastf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\luckym.WAV" NAME="luckym" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\luckyf.WAV" NAME="luckyf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\sprintm.WAV" NAME="sprintm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\sprintf.WAV" NAME="sprintf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\expectm.WAV" NAME="expectm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\expectf.WAV" NAME="expectf" GROUP="Marine"
+#exec AUDIO IMPORT FILE="Sounds\hopelessm.WAV" NAME="hopelessm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\hopelessf.WAV" NAME="hopelessf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\bastm.WAV" NAME="bastm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\bastf.WAV" NAME="bastf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\closem.WAV" NAME="closem" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\closef.WAV" NAME="closef" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\hellm.WAV" NAME="hellm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\hellf.WAV" NAME="hellf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\godm.WAV" NAME="godm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\godf.WAV" NAME="godf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\nightm.WAV" NAME="nightm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\nightf.WAV" NAME="nightf" GROUP="Voice
+#exec AUDIO IMPORT FILE="Sounds\startm.WAV" NAME="startm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\startf.WAV" NAME="startf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\atlastm.WAV" NAME="atlastm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\atlastf.WAV" NAME="atlastf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\luckym.WAV" NAME="luckym" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\luckyf.WAV" NAME="luckyf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\sprintm.WAV" NAME="sprintm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\sprintf.WAV" NAME="sprintf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\expectm.WAV" NAME="expectm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\expectf.WAV" NAME="expectf" GROUP="Voice"
 
-#exec AUDIO IMPORT FILE="Sounds\friendlyff.WAV" NAME="friendlyfF" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\friendlyfm.WAV" NAME="friendlyfM" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\coastf.WAV" NAME="coastf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\coastm.WAV" NAME="coastm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\lookoutf.WAV" NAME="lookoutf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\lookoutm.WAV" NAME="lookoutm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\incomingf.WAV" NAME="incomingf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\incomingm.WAV" NAME="incomingm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\onmywayf.WAV" NAME="onmywayf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\onmywaym.WAV" NAME="onmywaym" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\infestf.WAV" NAME="infestf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\infestm.WAV" NAME="infestm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\letsgof.WAV" NAME="letsgof" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\letsgom.WAV" NAME="letsgom" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\saddlef.WAV" NAME="saddlef" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\saddlem.WAV" NAME="saddlem" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\whatthehellf.WAV" NAME="whatthehellf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\whatthehellm.WAV" NAME="whatthehellm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\beforef.WAV" NAME="beforef" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\beforem.WAV" NAME="beforem" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\getf.WAV" NAME="getf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\getm.WAV" NAME="getm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\rogerf.WAV" NAME="rogerf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\rogerm.WAV" NAME="rogerm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\negativef.WAV" NAME="negativef" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\negativem.WAV" NAME="negativem" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\scratchf.WAV" NAME="scratchf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\scratchm.WAV" NAME="scratchm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\wasteammof.WAV" NAME="wasteammof" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\wasteammom.WAV" NAME="wasteammom" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\sorryf.WAV" NAME="sorryf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\sorrym.WAV" NAME="sorrym" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\gotemf.WAV" NAME="gotemf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\gotemm.WAV" NAME="gotemm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\UhOhf.WAV" NAME="UhOhf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\UhOhm.WAV" NAME="UhOhm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\betterf.WAV" NAME="betterf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\dammgoodm.WAV" NAME="dammgoodm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\blowupf.WAV" NAME="blowupf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\livinm.WAV" NAME="livinm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\marksmanf.WAV" NAME="marksmanf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\cockym.WAV" NAME="cockym" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\herof.WAV" NAME="herof" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\doitagainm.WAV" NAME="doitagainm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\welldonef.WAV" NAME="welldonef" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\niceworkm.WAV" NAME="niceworkm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\missionf.WAV" NAME="missionf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\tooeasym.WAV" NAME="tooeasym" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\tooeasym2.WAV" NAME="tooeasym2" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\takethatf.WAV" NAME="takethatf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\ashesm.WAV" NAME="ashesm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\messf.WAV" NAME="messf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\messm.WAV" NAME="messm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\nastyf.WAV" NAME="nastyf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\thathurtm.WAV" NAME="thathurtm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\rockf.WAV" NAME="rockf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\rockm.WAV" NAME="rockm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\covermef.WAV" NAME="covermef" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\covermem.WAV" NAME="covermem" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\bestf.WAV" NAME="bestf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\seethatm.WAV" NAME="seethatm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\woof.WAV" NAME="woof" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\lockm.WAV" NAME="lockm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\wasclosef.WAV" NAME="wasclosef" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\quietm.WAV" NAME="quietm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\hif.WAV" NAME="hif" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\hif2.WAV" NAME="hif2" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\him.WAV" NAME="him" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\him2.WAV" NAME="him2" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\playf.WAV" NAME="playf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\nextonem.WAV" NAME="nextonem" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\prepf.WAV" NAME="prepf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\prepm.WAV" NAME="prepm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\adownf.WAV" name="adownf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\sdownm.WAV" name="sdownm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\takeemf.WAV" name="takeemf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\takeemm.WAV" name="takeemm" GROUP="Marine"
+#exec AUDIO IMPORT FILE="Sounds\friendlyff.WAV" NAME="friendlyfF" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\friendlyfm.WAV" NAME="friendlyfM" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\coastf.WAV" NAME="coastf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\coastm.WAV" NAME="coastm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\lookoutf.WAV" NAME="lookoutf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\lookoutm.WAV" NAME="lookoutm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\incomingf.WAV" NAME="incomingf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\incomingm.WAV" NAME="incomingm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\onmywayf.WAV" NAME="onmywayf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\onmywaym.WAV" NAME="onmywaym" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\infestf.WAV" NAME="infestf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\infestm.WAV" NAME="infestm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\letsgof.WAV" NAME="letsgof" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\letsgom.WAV" NAME="letsgom" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\saddlef.WAV" NAME="saddlef" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\saddlem.WAV" NAME="saddlem" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\whatthehellf.WAV" NAME="whatthehellf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\whatthehellm.WAV" NAME="whatthehellm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\beforef.WAV" NAME="beforef" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\beforem.WAV" NAME="beforem" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\getf.WAV" NAME="getf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\getm.WAV" NAME="getm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\rogerf.WAV" NAME="rogerf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\rogerm.WAV" NAME="rogerm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\negativef.WAV" NAME="negativef" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\negativem.WAV" NAME="negativem" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\scratchf.WAV" NAME="scratchf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\scratchm.WAV" NAME="scratchm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\wasteammof.WAV" NAME="wasteammof" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\wasteammom.WAV" NAME="wasteammom" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\sorryf.WAV" NAME="sorryf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\sorrym.WAV" NAME="sorrym" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\gotemf.WAV" NAME="gotemf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\gotemm.WAV" NAME="gotemm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\UhOhf.WAV" NAME="UhOhf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\UhOhm.WAV" NAME="UhOhm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\betterf.WAV" NAME="betterf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\dammgoodm.WAV" NAME="dammgoodm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\blowupf.WAV" NAME="blowupf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\livinm.WAV" NAME="livinm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\marksmanf.WAV" NAME="marksmanf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\cockym.WAV" NAME="cockym" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\herof.WAV" NAME="herof" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\doitagainm.WAV" NAME="doitagainm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\welldonef.WAV" NAME="welldonef" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\niceworkm.WAV" NAME="niceworkm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\missionf.WAV" NAME="missionf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\tooeasym.WAV" NAME="tooeasym" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\tooeasym2.WAV" NAME="tooeasym2" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\takethatf.WAV" NAME="takethatf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\ashesm.WAV" NAME="ashesm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\messf.WAV" NAME="messf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\messm.WAV" NAME="messm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\nastyf.WAV" NAME="nastyf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\thathurtm.WAV" NAME="thathurtm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\rockf.WAV" NAME="rockf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\rockm.WAV" NAME="rockm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\covermef.WAV" NAME="covermef" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\covermem.WAV" NAME="covermem" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\bestf.WAV" NAME="bestf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\seethatm.WAV" NAME="seethatm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\woof.WAV" NAME="woof" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\lockm.WAV" NAME="lockm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\wasclosef.WAV" NAME="wasclosef" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\quietm.WAV" NAME="quietm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\hif.WAV" NAME="hif" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\hif2.WAV" NAME="hif2" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\him.WAV" NAME="him" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\him2.WAV" NAME="him2" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\playf.WAV" NAME="playf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\nextonem.WAV" NAME="nextonem" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\prepf.WAV" NAME="prepf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\prepm.WAV" NAME="prepm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\adownf.WAV" name="adownf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\sdownm.WAV" name="sdownm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\takeemf.WAV" name="takeemf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\takeemm.WAV" name="takeemm" GROUP="Voice"
 
-#exec AUDIO IMPORT FILE="Sounds\seeyaf.WAV" NAME="seeyaf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\seeyam.WAV" NAME="seeyam" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\seeyaf2.WAV" NAME="seeyaf2" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\seeyam2.WAV" NAME="seeyam2" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\backupf.WAV" NAME="backupf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\backupm.WAV" NAME="backupm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\hellof.WAV" NAME="hellof" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\hellom.WAV" NAME="hellom" GROUP="Marine"
+#exec AUDIO IMPORT FILE="Sounds\seeyaf.WAV" NAME="seeyaf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\seeyam.WAV" NAME="seeyam" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\seeyaf2.WAV" NAME="seeyaf2" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\seeyam2.WAV" NAME="seeyam2" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\backupf.WAV" NAME="backupf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\backupm.WAV" NAME="backupm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\hellof.WAV" NAME="hellof" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\hellom.WAV" NAME="hellom" GROUP="Voice"
 
-#exec AUDIO IMPORT FILE="Sounds\brbackf.WAV" NAME="brbackf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\brbackm.WAV" name="brbackm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\breakf.WAV" NAME="breakf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\breakm.WAV" name="breakm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\sloggingf.WAV" NAME="sloggingf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\sloggingm.WAV" name="sloggingm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\heref.WAV" name="heref" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\herem.WAV" name="herem" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\imgoodf.WAV" name="imgoodf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\imgoodm.WAV" name="imgoodm" GROUP="Marine"
+#exec AUDIO IMPORT FILE="Sounds\brbackf.WAV" NAME="brbackf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\brbackm.WAV" name="brbackm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\breakf.WAV" NAME="breakf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\breakm.WAV" name="breakm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\sloggingf.WAV" NAME="sloggingf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\sloggingm.WAV" name="sloggingm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\heref.WAV" name="heref" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\herem.WAV" name="herem" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\imgoodf.WAV" name="imgoodf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\imgoodm.WAV" name="imgoodm" GROUP="Voice"
 
-#exec AUDIO IMPORT FILE="Sounds\companyf.WAV" name="companyf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\companym.WAV" name="companym" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\gogom.WAV" name="gogom" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\gogof.WAV" name="gogof" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\moveitm.WAV" name="moveitm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\movem.WAV" name="movem" GROUP="Marine"
+#exec AUDIO IMPORT FILE="Sounds\companyf.WAV" name="companyf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\companym.WAV" name="companym" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\gogom.WAV" name="gogom" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\gogof.WAV" name="gogof" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\moveitm.WAV" name="moveitm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\movem.WAV" name="movem" GROUP="Voice"
 
-#exec AUDIO IMPORT FILE="Sounds\imonitf.WAV" name="imonitf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\imonitm.WAV" name="imonitm" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\affirmativef.WAV" name="affirmativef" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\affirmativem.WAV" name="affirmativem" GROUP="Marine"
+#exec AUDIO IMPORT FILE="Sounds\imonitf.WAV" name="imonitf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\imonitm.WAV" name="imonitm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\affirmativef.WAV" name="affirmativef" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\affirmativem.WAV" name="affirmativem" GROUP="Voice"
 
-#exec AUDIO IMPORT FILE="Sounds\willdom.WAV" name="willdom" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\aquiref.WAV" name="aquiref" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\okf.WAV" name="okf" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\yougotitm.WAV" name="yougotitm" GROUP="Marine"
+#exec AUDIO IMPORT FILE="Sounds\willdom.WAV" name="willdom" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\aquiref.WAV" name="aquiref" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\okf.WAV" name="okf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\yougotitm.WAV" name="yougotitm" GROUP="Voice"
 
-#exec AUDIO IMPORT FILE="Sounds\ten4f.WAV" name="ten4f" GROUP="Marine"
-#exec AUDIO IMPORT FILE="Sounds\ten4m.WAV" name="ten4m" GROUP="Marine"
+#exec AUDIO IMPORT FILE="Sounds\ten4f.WAV" name="ten4f" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\ten4m.WAV" name="ten4m" GROUP="Voice"
 
-#exec OBJ LOAD FILE=Textures\beam.utx PACKAGE=UMSMarinesII.BeamEffect
-#exec AUDIO IMPORT FILE="SOUNDS\CloakOff.WAV" NAME="BeamedIn" GROUP="Beam"
+#exec OBJ LOAD FILE=Textures\beam.utx PACKAGE=UMSMarinesII.FX
+#exec AUDIO IMPORT FILE="SOUNDS\CloakOff.WAV" NAME="BeamedIn" GROUP="SFX"
 
-#exec texture IMPORT NAME=MCloak FILE=Models\MCloak.PCX GROUP="Marinsuit"
-#exec AUDIO IMPORT FILE="Sounds\MCloakL.WAV" NAME="MCloakL" GROUP="Marinsuit"
+#exec texture IMPORT NAME=MCloak FILE=Models\MCloak.PCX GROUP="FX"
+#exec AUDIO IMPORT FILE="Sounds\MCloakL.WAV" NAME="MCloakL" GROUP="SFX"
 
-#exec OBJ LOAD FILE=..\Sounds\Marine.uax PACKAGE=UMSMarinesII.Marine
+#exec OBJ LOAD FILE=..\Sounds\Marine.uax PACKAGE=UMSMarinesII.Voice
 #exec OBJ LOAD FILE=..\Sounds\Activates.uax
 
-#exec AUDIO IMPORT FILE="Sounds\UMSStatic.WAV" NAME="UMSStatic" GROUP="UMSMarines"
-#exec AUDIO IMPORT FILE="Sounds\st1.WAV" NAME="st1" GROUP="UMSMarines"
-#exec AUDIO IMPORT FILE="Sounds\st2.WAV" NAME="st2" GROUP="UMSMarines"
-#exec AUDIO IMPORT FILE="Sounds\st3.WAV" NAME="st3" GROUP="UMSMarines"
-#exec AUDIO IMPORT FILE="Sounds\st4.WAV" NAME="st4" GROUP="UMSMarines"
-#exec AUDIO IMPORT FILE="Sounds\st5.WAV" NAME="st5" GROUP="UMSMarines"
-#exec AUDIO IMPORT FILE="Sounds\st6.WAV" NAME="st6" GROUP="UMSMarines"
-#exec AUDIO IMPORT FILE="Sounds\st7.WAV" NAME="st7" GROUP="UMSMarines"
-#exec AUDIO IMPORT FILE="Sounds\st8.WAV" NAME="st8" GROUP="UMSMarines"
-#exec AUDIO IMPORT FILE="Sounds\st9.WAV" NAME="st9" GROUP="UMSMarines"
-#exec AUDIO IMPORT FILE="Sounds\st10.WAV" NAME="st10" GROUP="UMSMarines"
+#exec AUDIO IMPORT FILE="Sounds\UMSStatic.WAV" NAME="UMSStatic" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\st1.WAV" NAME="st1" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\st2.WAV" NAME="st2" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\st3.WAV" NAME="st3" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\st4.WAV" NAME="st4" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\st5.WAV" NAME="st5" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\st6.WAV" NAME="st6" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\st7.WAV" NAME="st7" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\st8.WAV" NAME="st8" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\st9.WAV" NAME="st9" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\st10.WAV" NAME="st10" GROUP="SFX"
 
 #exec AUDIO IMPORT FILE="Sounds\MetalHollowR.WAV" NAME="MStep1" GROUP="Footsteps"
 #exec AUDIO IMPORT FILE="Sounds\MetalHollowR2.WAV" NAME="MStep2" GROUP="Footsteps"
 #exec AUDIO IMPORT FILE="Sounds\MetalHollowL.WAV" NAME="MStep3" GROUP="Footsteps"
 #exec AUDIO IMPORT FILE="Sounds\MetalHollowL2.WAV" NAME="MStep4" GROUP="Footsteps"
 
-#exec AUDIO IMPORT FILE="Sounds\tripExplo.WAV" NAME="tripExplo" GROUP="tripwire"
-#exec AUDIO IMPORT FILE="Sounds\TWalarm.WAV" NAME="TWalarm" GROUP="tripwire"
+#exec AUDIO IMPORT FILE="Sounds\tripExplo.WAV" NAME="tripExplo" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\TWalarm.WAV" NAME="TWalarm" GROUP="SFX"
 
 #exec mesh IMPORT MESH=UMSMarine ANIVFILE=MODELS\UMSMarine_a.3d DATAFILE=MODELS\UMSMarine_d.3d X=0 Y=0 Z=0 UNMIRROR=0
 #exec mesh ORIGIN MESH=UMSMarine X=0 Y=0 Z=0
@@ -484,6 +480,12 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec mesh NOTIFY MESH=UMSMarine SEQ=COCKGUNL TIME=0.45 FUNCTION=Reload
 #exec mesh NOTIFY MESH=UMSMarine SEQ=RELOADSM TIME=0.45 FUNCTION=Reload
 #exec mesh NOTIFY MESH=UMSMarine SEQ=RELOADLG TIME=0.45 FUNCTION=Reload
+//Struct
+Struct GOverride
+{
+	var() bool bAlwaysMale;
+	var() bool bAlwaysFemale;
+};
 
 // UMSSpaceMarine
 var float Accuracy;
@@ -515,8 +517,10 @@ var bool bWimp;
 
 var bool strafedodge;
 var bool bBeamingIn;
+var(SpaceMarineExtras) float BeamWaitTime;
+var(SpaceMarineExtras) float BeamTime;
 //var UMSMarineWaveTool MarineBeamController;
-var Effects Octagon;
+var UMSBeamOctagon Octagon;
 
 // UMSSpaceMarine
 var Pawn SaluteTarget;
@@ -548,6 +552,7 @@ var(SpaceMarineExtras) bool bExplodeWhenHurt;
 var(SpaceMarineExtras) float ExploRange;
 var(SpaceMarineExtras) float ExploDamage;
 var(SpaceMarineExtras) float ExploMomentum;
+var(SpaceMarineExtras) GOverride GenderOverride;
 
 var(PGCompatibility) class <rHeavyArmor> HeavyArmorClass;
 
@@ -651,8 +656,8 @@ function Bump(actor Other)
 				return;
 			}
 		}
-		if ( TimerRate <= 0 )
-			setTimer(1.0, false);
+		//if ( TimerRate <= 0 )
+			//setTimer(1.0, false);
 		if ( bCanSpeak && (ScriptedPawn(Other) != None) && ((TeamLeader == None) || !TeamLeader.bTeamSpeaking) )
 			SpeakTo(ScriptedPawn(Other));
 	}
@@ -1271,8 +1276,20 @@ function PostBeginPlay()
 	MessageTime=0;
 	bRespond=false;
 
-	if( !Level.Game.bDeathMatch && FRand() < 0.5 )
+	if(GenderOverride.bAlwaysMale && !GenderOverride.bAlwaysFemale)
+	return;
+	else if (GenderOverride.bAlwaysFemale && !GenderOverride.bAlwaysMale)
+	SetFemaleGender();
+	else if (GenderOverride.bAlwaysMale && GenderOverride.bAlwaysFemale)
+	{
+		Log("Jokes on you that just cancels it out!");
+		if( FRand() < 0.5 )
 		SetFemaleGender();
+		else
+		return;
+	}
+	else if( FRand() < 0.5 )
+	SetFemaleGender();
 }
 
 function SetFemaleGender()
@@ -1499,9 +1516,9 @@ Function WimpOut()
 bIsWuss=True;
 bWimp=True;
 if(!bIsFemale)
-PlaySound(Sound'UMSMarinesII.Marine.Backupm', SLOT_Interact);
+PlaySound(Sound'UMSMarinesII.Voice.Backupm', SLOT_Interact);
 else
-PlaySound(Sound'UMSMarinesII.Marine.Backupf', SLOT_Interact);
+PlaySound(Sound'UMSMarinesII.Voice.Backupf', SLOT_Interact);
 CombatStyle=-0.4;
 //GotoState('Retreating');
 }
@@ -2245,17 +2262,17 @@ function PlayDying(name DamageType, vector HitLoc)
 	    Ran=Frand();
 	    if (Ran <0.2)
 	    {
-	     SpawnbodyPart(Class 'smgib3', Location + (CollisionRadius* 0.2)*X + (CollisionHeight* -0.6)*Z +(CollisionRadius *-0.5)*Y, Rotation + rot(16384,-32468,-16384));
-         SpawnbodyPart(Class 'SMGib3R', Location + (CollisionRadius* 0.2)*X + (CollisionHeight* -0.6)*Z +(CollisionRadius *0.5)*Y, Rotation + rot(16384,-32468,16384));
+	     SpawnbodyPart(Class 'UMSsmgib3', Location + (CollisionRadius* 0.2)*X + (CollisionHeight* -0.6)*Z +(CollisionRadius *-0.5)*Y, Rotation + rot(16384,-32468,-16384));
+         SpawnbodyPart(Class 'UMSSMGib3R', Location + (CollisionRadius* 0.2)*X + (CollisionHeight* -0.6)*Z +(CollisionRadius *0.5)*Y, Rotation + rot(16384,-32468,16384));
 		 PlayAnim('Dead7a', 0.7, 0.1);
 
 		}
 	    else if (Ran <0.4)
 	    {
 	     PlayHeadDeath(DamageType);
-	     SpawnbodyPart(Class 'SMGib1R', Location + (CollisionRadius* 0.7)*X + (CollisionHeight* 0.3)*Z +(CollisionRadius *0.9)*Y, Rotation + rot(8182,32468,-16384));
-         SpawnbodyPart(Class 'smgib1', Location + (CollisionRadius* 0.7)*X + (CollisionHeight* 0.3)*Z +(CollisionRadius *-0.9)*Y, Rotation + rot(8182,32468,16384));
-         SpawnbodyPart(Class 'smgib4', Location + (CollisionHeight* 0.3)*Z , Rotation);
+	     SpawnbodyPart(Class 'UMSSMGib1R', Location + (CollisionRadius* 0.7)*X + (CollisionHeight* 0.3)*Z +(CollisionRadius *0.9)*Y, Rotation + rot(8182,32468,-16384));
+         SpawnbodyPart(Class 'UMSsmgib1', Location + (CollisionRadius* 0.7)*X + (CollisionHeight* 0.3)*Z +(CollisionRadius *-0.9)*Y, Rotation + rot(8182,32468,16384));
+         SpawnbodyPart(Class 'UMSsmgib4', Location + (CollisionHeight* 0.3)*Z , Rotation);
 		 PlayAnim('Dead7b', 0.7, 0.1);
 
 		}
@@ -2309,7 +2326,7 @@ function PlayDying(name DamageType, vector HitLoc)
 	  }
 	  if (doty > 0.5)  //right arm
 	  {
-	   SpawnbodyPart(Class 'SMGib1R', Location + (CollisionRadius* 0.7)*X + (CollisionHeight* 0.3)*Z +(CollisionRadius *0.9)*Y, Rotation + rot(8182,32468,-16384));
+	   SpawnbodyPart(Class 'UMSSMGib1R', Location + (CollisionRadius* 0.7)*X + (CollisionHeight* 0.3)*Z +(CollisionRadius *0.9)*Y, Rotation + rot(8182,32468,-16384));
        if(dotx < 0)
           PlayAnim('Dead8c', 0.7, 0.1);
        else
@@ -2318,7 +2335,7 @@ function PlayDying(name DamageType, vector HitLoc)
       }
       if (doty < -0.5)  //left arm
       {
-        SpawnbodyPart(Class 'smgib1', Location + (CollisionRadius* 0.7)*X + (CollisionHeight* 0.3)*Z +(CollisionRadius *-0.9)*Y, Rotation + rot(8182,32468,16384));
+        SpawnbodyPart(Class 'UMSsmgib1', Location + (CollisionRadius* 0.7)*X + (CollisionHeight* 0.3)*Z +(CollisionRadius *-0.9)*Y, Rotation + rot(8182,32468,16384));
         if(dotx < 0)
          PlayAnim('Dead8d', 0.7, 0.1);
         else
@@ -2341,7 +2358,7 @@ function PlayDying(name DamageType, vector HitLoc)
 	     }
          if (doty < -0.2)  //left leg
          {
-          SpawnbodyPart(Class 'smgib3', Location + (CollisionRadius* 0.2)*X + (CollisionHeight* -0.6)*Z +(CollisionRadius *-0.5)*Y, Rotation + rot(16384,-32468,-16384));
+          SpawnbodyPart(Class 'UMSsmgib3', Location + (CollisionRadius* 0.2)*X + (CollisionHeight* -0.6)*Z +(CollisionRadius *-0.5)*Y, Rotation + rot(16384,-32468,-16384));
           if(dotx < 0)
            PlayAnim('Dead10a', 0.7, 0.1);
           else
@@ -2350,7 +2367,7 @@ function PlayDying(name DamageType, vector HitLoc)
          }
          if (doty > 0.2)  //Right leg
          {
-          SpawnbodyPart(Class 'SMGib3R', Location + (CollisionRadius* 0.2)*X + (CollisionHeight* -0.6)*Z +(CollisionRadius *0.5)*Y, Rotation + rot(16384,-32468,16384));
+          SpawnbodyPart(Class 'UMSSMGib3R', Location + (CollisionRadius* 0.2)*X + (CollisionHeight* -0.6)*Z +(CollisionRadius *0.5)*Y, Rotation + rot(16384,-32468,16384));
           if(dotx < 0)
            PlayAnim('Dead10c', 0.7, 0.1);
           else
@@ -2424,7 +2441,7 @@ function PlayHeadDeath(name DamageType)
 	PlayAnim('Dead4', 0.7, 0.1);
 	if ( Level.NetMode != NM_Client )
 	{
-	    carc = Spawn(class 'smgib2',,,  Location + CollisionHeight * vect(0,0,0.8), Rotation + rot(3000,0,16384) );
+	    carc = Spawn(class 'UMSsmgib2',,,  Location + CollisionHeight * vect(0,0,0.8), Rotation + rot(3000,0,16384) );
 		if (carc != None)
 		{
 			carc.Initfor(self);
@@ -2691,122 +2708,28 @@ function WhatToDoNext(name LikelyState, name LikelyLabel)
 
 function PlayChallenge()
 {
-	//local float decision;
+	local float decision;
     //local name newAnim;
-	local int RandNum;
-    local sound voice;
-    local float vol;
-	local umsspacemarine Friend;
+
 	bFire = 0;
 	bAltFire = 0;
-	if (AttitudeToPlayer!=ATTITUDE_Hate)
-	{
-		LastTalkTime=level.TimeSeconds;
-		vol = 2.0;
-		LastTalker = self;
-		Talker( LastTalker );
-		bGetResponse=false;
-		bRespond=false;
 
-		if(!bIsFemale && bReadyToTalk && TBU != 3)
-		{
-			RandNum = Rand( 12 );
-
-			if (RandNum==0)
-					voice=sound'UMSMarinesII.MS101a';
-			else if (RandNum==1)
-					voice=sound'UMSMarinesII.MS101b';
-			else if (RandNum==2)
-					voice=sound'UMSMarinesII.MS102a';
-			else if (RandNum==3)
-					voice=sound'UMSMarinesII.MS102b';
-			else if (RandNum==4)
-					voice=sound'UMSMarinesII.MS201a';
-			else if (RandNum==5)
-					voice=sound'UMSMarinesII.MS201b';
-			else if (RandNum==6)
-					voice=sound'UMSMarinesII.MS202a';
-			else if (RandNum==7)
-					voice=sound'UMSMarinesII.MS202b';
-			else if (RandNum==8)
-					voice=sound'UMSMarinesII.MS103a';
-			else if (RandNum==9)
-					voice=sound'UMSMarinesII.MS103b';
-			else if (RandNum==10)
-					voice=sound'UMSMarinesII.MS203a';
-			else if (RandNum==11)
-					voice=sound'UMSMarinesII.MS203b';
-		}
-		else if ( bReadyToTalk && TBU != 3 )
-		{
-			RandNum = Rand( 6 );
-
-			if (RandNum==0)
-					voice=sound'UMSMarinesII.MS301a';
-			else if (RandNum==1)
-					voice=sound'UMSMarinesII.MS301b';
-			else if (RandNum==2)
-					voice=sound'UMSMarinesII.MS302a';
-			else if (RandNum==3)
-					voice=sound'UMSMarinesII.MS302b';
-			else if (RandNum==4)
-					voice=sound'UMSMarinesII.MS303a';
-			else if (RandNum==5)
-					voice=sound'UMSMarinesII.MS303b';
-
-		}
-		else if (!bIsFemale && bReadyToTalk &&  TBU == 3 )
-		{
-			RandNum = Rand( 3 );
-
-			if (RandNum==0)
-					voice=sound'UMSMarinesII.MS112';
-			else if (RandNum==1)
-					voice=sound'UMSMarinesII.MS212a';
-			else if (RandNum==2)
-					voice=sound'UMSMarinesII.MS212b';
-		}
-		else if (bReadyToTalk &&  TBU == 3 )
-		{
-			RandNum = Rand( 2 );
-
-			if (RandNum==0)
-					voice=sound'UMSMarinesII.MS312a';
-			if (RandNum==1)
-					voice=sound'UMSMarinesII.MS312b';
-
-		}
-		if(voice!=none)
-		{
-			bReadyToTalk=False;
-			PlaySound( voice, SLOT_Talk,vol*0.9 );
-			PlaySound( voice, SLOT_None,vol*0.9 );
-			if (Frand() < 0.5)
-			PlayAnim('Wave');
-			else
-			PlayAnim('CockGun');
-			if(TBU != 3)
-			SetTimer(3,false);
-			else{
-			AttitudeToPlayer=ATTITUDE_Hate;
-			foreach RadiusActors( class'UMSSpacemarine', Friend, CommandRadius )
-			{
-				if (Friend != self)
-				Friend.AttitudeToPlayer=ATTITUDE_Hate;
-				Friend.GotoState('Attacking');
-				Friend.AcquirePhrase();
-			}
-			GotoState('Attacking');}
-		}
-	}
-}
-
-Function Timer()
-{
-	if(!bReadyToTalk){
-	TBU++;
-	log(TBU);
-	bReadyToTalk=True;}
+	decision = FRand();
+    if (Region.Zone.bWaterZone )
+       TweenToWaiting(0.1);
+    else  if (  Weapon == none )
+       PlayAnim('Talk');
+    else if ( decision < 0.4 && Weapon != none && Weapon.bInstantHit )
+    {
+        if (Weapon.Mass < 20)
+          PlayAnim('RELOADSM');
+        else
+          PlayAnim('RELOADLG');
+    }
+    else if ( decision < 0.8 )
+	    PlayAnim('CockGun');
+	else
+        PlayAnim('Talk');
 }
 
 function PlayPatrolStop()
@@ -7170,12 +7093,11 @@ ignores PeerNotification;
 
 	function BeginState()
 	{
-
 		if( bBeamingIn )
 		{
 			Style = STY_Translucent;
 			bMeshEnviroMap = True;
-			Texture = Texture'UMSMarinesII.marinsuit.mcloak';
+			Texture = Texture'UMSMarinesII.FX.mcloak';
 			ScaleGlow = 0.01;
 			Fatness = 250;
 		}
@@ -7198,6 +7120,14 @@ ignores PeerNotification;
 		myArmor = Spawn(HeavyArmorClass);
 	   if ( myWeapon != None )
        {
+		if(bBeamingIn)
+		{
+			myWeapon.PickupSound = None;
+			myWeapon.SelectSound = None;
+			myWeapon.Misc1Sound = None;
+			myWeapon.Misc2Sound = None;
+			myWeapon.Misc3Sound = None;
+		}
  	    myWeapon.ReSpawnTime = 0.0;
 		myArmor.ReSpawnTime = 0.0;
        }
@@ -7249,7 +7179,8 @@ Begin:
 		Land = none;
 		LandGrunt = none;
 		Octagon = Spawn( class'UMSBeamOctagon',,, Location );
-		Sleep( 2.0 );
+		Octagon.SetFade( BeamWaitTime, 0.5, BeamTime );
+		Sleep( BeamWaitTime );
 		GotoState( 'BeamingIn' );
 	}
 
@@ -7295,6 +7226,7 @@ function Died(pawn Killer, name damageType, vector HitLocation)
 	local pawn OtherPawn;
 	local inventory inv;
 	local RLPlayer P;
+	local actor A;
 
   for(inv=inventory; inv!=none; inv=inv.inventory)
   {inv.dropfrom(location); inv.velocity=VRand()*vect(200,200,0); inv.velocity.Z+=210;}
@@ -7331,6 +7263,9 @@ function Died(pawn Killer, name damageType, vector HitLocation)
     if ( killer != none )
        level.game.Killed(Killer, self, damageType);
 	//log(class$" dying");
+	if( Event != '' )
+		foreach AllActors( class 'Actor', A, Event )
+			A.Trigger( Self, Killer );
 	Level.Game.DiscardInventory(self);
 	Velocity.Z *= 1.3;
 	if ( Gibbed(damageType) )
@@ -7350,7 +7285,7 @@ function Died(pawn Killer, name damageType, vector HitLocation)
 
 	ForEach AllActors(class'RLPlayer',P)
 	P.AddExp(130);
-	super.Died(Killer, damageType, HitLocation);
+	//super.Died(Killer, damageType, HitLocation);
 }
 
 state Exploding
@@ -7518,7 +7453,8 @@ Begin:
 
 state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 {
-	ignores SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Trigger, Bump, HitWall, Falling, WarnTarget, Died, LongFall, PlayLanded, TakeDamage;
+	ignores EnemyAcquired, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
+	//ignores SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Trigger, Bump, HitWall, Falling, WarnTarget, Died, LongFall, PlayLanded, TakeDamage, PeerNotification;
 	
 	function BeginState()
 	{
@@ -7547,6 +7483,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 			MyWeapon.bMeshEnviroMap = true;
 			MyWeapon.Texture = Texture'UMSMarinesII.beamtexture';
 			MyWeapon.ScaleGlow = 0.01;
+			MyWeapon.bUnlit=True;
 		}
 
 		SetMovementPhysics(); 
@@ -7564,15 +7501,20 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		SetCollision(True,True,True);
 		if(BeamEffect!=None)
 		BeamEffect.Destroy();
-		Octagon.Destroy();
+		//Octagon.Destroy();
 		bHidden = False;
 		SightRadius=227327;
+		myWeapon.PickupSound = myWeapon.Default.PickupSound;
+		myWeapon.SelectSound = myWeapon.Default.SelectSound;
+		myWeapon.Misc1Sound = myWeapon.Default.Misc1Sound;
+		myWeapon.Misc2Sound = myWeapon.Default.Misc2Sound;
+		myWeapon.Misc3Sound = myWeapon.Default.Misc3Sound;
 		GoToState('Hunting');
 	}
 
 	simulated function Tick( float DeltaTime )
 	{
-		if( ScaleGlow < 1.5 )
+		if ( ScaleGlow < 1.5 )
 			ScaleGlow += 0.03;
 		else
 		{
@@ -7582,33 +7524,42 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 				ScaleGlow -= 0.03;
 		}
 
-		if( Fatness < 128)
+		if ( Fatness < 128)
 		{
 			Fatness++;
 		}
 
-		if( BeamEffect.Fatness < 165)
+		if ( BeamEffect.Fatness < 165)
 		{
 			BeamEffect.Fatness++;
 		}
 
-		if( MyWeapon != none && MyWeapon.ScaleGlow < 1.5 )
+		if ( MyWeapon != none && MyWeapon.ScaleGlow < 1.5 )
 		{
-			MyWeapon.ScaleGlow += 0.03;
+			MyWeapon.ScaleGlow += 0.01;
+		}
+		else
+		{
+			MyWeapon.Style = STY_Normal;
+			MyWeapon.bMeshEnviroMap = false;
+			MyWeapon.ScaleGlow = Weapon.Default.ScaleGlow;
+			MyWeapon.Texture = Weapon.Default.Texture;
+			MyWeapon.Fatness = Weapon.Default.Fatness;
+			MyWeapon.bUnlit=Weapon.Default.bUnlit;
 		}
 
-		if( bHidden )
+		if ( bHidden )
 		{
 			bHidden = false;
-			Weapon.bHidden = false;
+			MyWeapon.bHidden = false;
 		}
 		
 		else
 		
-		if( FRand() < 0.2 && !bHidden )
+		if ( FRand() < 0.2 && !bHidden )
 		{
 			bHidden = true;
-			Weapon.bHidden = true;
+			MyWeapon.bHidden = true;
 		}
 	}
 
@@ -7620,15 +7571,13 @@ Begin:
 	}
 	Texture = None;
 	bMeshEnviroMap = False;
-	if (Level.Game.Difficulty >= 3)
-	sleep( 2.5 );
-	else 
-	sleep( 5.0 );
+	Sleep( BeamTime );
 	Style = Default.Style;
 	MyWeapon.Texture = MyWeapon.Default.Texture;
 	MyWeapon.ScaleGlow = MyWeapon.Default.ScaleGlow;
 	MyWeapon.bMeshEnviroMap = false;
 	MyWeapon.Style=STY_Normal;
+	MyWeapon.bUnlit=Weapon.Default.bUnlit;
 	Mass = Default.Mass;
 	GotoState( 'Hunting' );
 }
@@ -7696,6 +7645,7 @@ Begin:
 
 defaultproperties
 {
+	Event='None'
 	Accuracy=0.0
 	drown=Sound'UnrealShare.Male.MDrown1'
 	breathagain=Sound'UnrealShare.Male.MGasp1'
@@ -7736,8 +7686,6 @@ defaultproperties
 	bCanStrafe=True
 	bAutoActivate=True
 	TransientSoundVolume=1.0
-	CollisionRadius=20.5
-	CollisionHeight=41.0
 	Buoyancy=200.0
 	Skin=Texture'UnrealShare.Skins.Kurgan'
 	Mesh=LodMesh'UMSMarinesII.UMSMarine'
@@ -7791,4 +7739,10 @@ defaultproperties
 	MultiSkins(1)=Texture'UMSMarinesII.Skins.JMarine7'
 	MultiSkins(2)=Texture'UMSMarinesII.Skins.JMarine8'
 	HeavyArmorClass=class'RLCoopE.rHeavyArmor'
+	DrawScale=1.05
+	CollisionRadius=21.0
+	CollisionHeight=43.0
+	Fatness=130
+	BeamWaitTime=2.0
+	BeamTime=5
 }

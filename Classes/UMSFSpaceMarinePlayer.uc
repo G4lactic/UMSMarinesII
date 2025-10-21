@@ -1,5 +1,5 @@
 //=============================================================================
-// UMSFSpaceMarinePlayer  -- GFour
+// UMSFSpaceMarinePlayer - GFour
 // Huge thanks to AlCapowned for getting the skins working!
 //=============================================================================
 

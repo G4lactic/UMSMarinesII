@@ -1,10 +1,5 @@
 //=============================================================================
 // UMSJungleMarine - Asgard
-//   Source code rights:
-//   Copyright 2005 Asgard. All right reserved.
-//   asgard@iprimus.com.au
-//   http://www.angelfire.com/empire/napali/
-//
 //=============================================================================
 class UMSJungleMarine extends UMSSpaceMarine;
 

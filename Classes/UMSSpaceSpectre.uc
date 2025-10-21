@@ -5,7 +5,7 @@ class UMSSpaceSpectre extends UMSSpecialForces;
 
 #exec texture IMPORT NAME=SMarine1 FILE=MODELS\UMSBlackOpMarine.PCX GROUP=Skins LODSET=2
 #exec texture IMPORT NAME=SMarine2 FILE=MODELS\UMSBlackOpMarine2.PCX GROUP=Skins LODSET=2
-#exec texture IMPORT NAME=MarineBlackOpsGlow FILE=MODELS\UMSBlackOpMarineNV.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=MarineBlackOpsGlow FILE=MODELS\UMSBlackOpMarineNV.PCX GROUP=FX LODSET=2
 
 var sound CloakAmbient;
 var sound cloakon;
@@ -189,11 +189,11 @@ defaultproperties
 	CloakDuration=4
 	CooldownDuration=8
 	WeaponType=class'UnrealShare.Flakcannon'
-	CloakAmbient=Sound'UMSMarinesII.Marinsuit.MCloakL'
-	CloakOn=Sound'UMSMarinesII.Marinsuit.PowerON'
-	CloakOff=Sound'UMSMarinesII.Marinsuit.PowerOFF'
+	CloakAmbient=Sound'UMSMarinesII.MCloakL'
+	CloakOn=Sound'UMSMarinesII.PowerON'
+	CloakOff=Sound'UMSMarinesII.PowerOFF'
 	bExpanding=False
-	CloakTexture=Texture'UMSMarinesII.Marinsuit.MCloak'
+	CloakTexture=Texture'UMSMarinesII.MCloak'
 	HumanKillMessage=" was assassinated by a UMS Spectre Marine"
 	DispPowerLevel=4
 	CombatStyle=0.3

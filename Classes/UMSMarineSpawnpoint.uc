@@ -1,39 +1,35 @@
 //=============================================================================
-//  UMSMarineSpawnpoint -- GFour.
-//  Useful for ambushes or spawning new marines in the level.
-//  NOTE: Not used for making waves of marines to beam in use the UMSMarineWaveTool
+//  UMSMarineSpawnpoint - GFour.
 //=============================================================================
-class UMSMarineSpawnpoint extends UMSTools;
+class UMSMarineSpawnPoint extends UMSTools;
 
-//=============================================================================
-// Structs
-
-struct ExtraVars
+//Structs
+Struct ExtraSetup
 {
-	Var() Name nMarineTag;
-	Var() Name nMarineDeathEvent;
-	Var() name nOrders;
-	Var() name nOrderTag;
+	var() int DispPowerLevel;
+	var() bool bTeleportWhenHurt;
+	var() bool bExplodeWhenHurt;
 };
 
-//=============================================================================
-// Variables
+Struct ExtraVars
+{
+	var() name Orders;
+	var() name OrderTag;
+	var() name MarineDeathEvent;
+};
 
-Var() Class <umsspacemarine> cMarine;
-Var() Class <Weapon> cWeaponType;
-//Var() bool bRappeling; // Not Finished!!!
-Var() bool bBeamingIn;
-Var() bool bTeleportWhenHurt;
-Var() bool bExplodeWhenHurt;
-Var() bool bAutoHatePlayer;
-Var() int DispPowerLevel; // For dispersion pistol level.
-Var() ExtraVars Extra;
-Var bool HasSpawned; // For some reason i cant use the destroy function so this will have to do :/
-Var umsspacemarine NewMarine;
+// Setup Vars
+var(UMSMarineSpawnPoint) class <umsspacemarine> cMarineType;
+var(UMSMarineSpawnPoint) class <Weapon> cMarineWeaponType;
+var(UMSMarineSpawnPoint) bool bBeamingIn;
+var(UMSMarineSpawnPoint) bool bAutoHatePlayer;
+var(UMSMarineSpawnPoint) ExtraSetup MarineExtras;
+var(UMSMarineSpawnPoint) ExtraVars Other; // Dont bother if bAutoHatePlayer is True;
 
-//=============================================================================
-// Functions
+// Global Vars
+var bool bIS; // to make sure the marine is not spawned.
 
+//Functions
 Event Trigger(Actor Other,Pawn EventInstigator)
 {
     SpawnMarine();
@@ -41,32 +37,31 @@ Event Trigger(Actor Other,Pawn EventInstigator)
 
 Function SpawnMarine()
 {
-	//local actor A;
+	local umsspacemarine MySelf;
 
-	if(!HasSpawned){
-    NewMarine = Spawn(cMarine,,,Self.Location,Self.Rotation);
-    NewMarine.WeaponType = cWeaponType;
-    NewMarine.bTeleportWhenHurt = bTeleportWhenHurt;
-    NewMarine.bExplodeWhenHurt = bExplodeWhenHurt;
-	NewMarine.Orders = Extra.nOrders;
-	NewMarine.OrderTag = Extra.nOrderTag;
-	NewMarine.DispPowerLevel = DispPowerLevel;
-   // NewMarine.bRappeling = bRappeling;
-    NewMarine.Tag = Extra.nMarineTag;
-    NewMarine.Event = Extra.nMarineDeathEvent;
-	NewMarine.bBeamingIn = bBeamingIn;
-
-	if(bAutoHatePlayer)
+	if(!bIS)
 	{
-		NewMarine.Enemy = GetPlayerPawn();
-		NewMarine.Target = GetPlayerPawn();
-		NewMarine.Orders = 'Hunting';
+		MySelf=Spawn(cMarineType,,,Self.Location,Self.Rotation);
+		MySelf.WeaponType=cMarineWeaponType;
+		MySelf.bBeamingIn=bBeamingIn;
+		MySelf.DispPowerLevel=MarineExtras.DispPowerLevel;
+		MySelf.bTeleportWhenHurt=MarineExtras.bTeleportWhenHurt;
+		MySelf.bExplodeWhenHurt=MarineExtras.bExplodeWhenHurt;
+		if(!bAutoHatePlayer)
+		{
+			MySelf.Orders=Other.Orders;
+			MySelf.OrderTag=other.OrderTag;
+		}
+		else
+		{
+			MySelf.Enemy = HuntPlayer();
+			MySelf.Target = HuntPlayer();
+			MySelf.Orders = 'Hunting';
+		}
 	}
-
-	HasSpawned=True;}
 }
 
-Function Pawn GetPlayerPawn()
+Function Pawn HuntPlayer()
 {
 	local Pawn P,EList[32];
 	local byte c;
@@ -84,11 +79,8 @@ Function Pawn GetPlayerPawn()
 	Return EList[Rand(c)];
 }
 
-//=============================================================================
-
 defaultproperties
 {
 	bDirectional=1
-	DispPowerLevel=1
 	Texture=Texture'UnrealShare.S_SpawnP'
 }

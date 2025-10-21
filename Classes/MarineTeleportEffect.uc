@@ -1,5 +1,5 @@
 //=============================================================================
-// MarineTeleportEffect.
+// MarineTeleportEffect - Asgard.
 //=============================================================================
 class MarineTeleportEffect extends Effects;
 

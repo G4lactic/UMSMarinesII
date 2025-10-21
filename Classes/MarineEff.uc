@@ -1,7 +1,5 @@
 //=============================================================================
-// MarineEff  - Asgard
-//   asgard12000@iprimus.com.au
-//   http://www.angelfire.com/empire/napali/
+// MarineEff - Asgard
 //=============================================================================
 class MarineEff extends Effects;
 

@@ -181,9 +181,29 @@ ignores SeePlayer, HearNoise;
 
 	       }
 		   else if ( Dir Dot Y > 0 )
-			   LoopAnim('WalkStrafeL',-7/GroundSpeed,, 0.5);
+			{
+		      if (Weapon == None)
+				LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
+		      else
+		      {
+		         if (Weapon.Mass < 20)
+				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
+			     else
+				    LoopAnim('walkstrafel',-7/GroundSpeed,, 0.5);
+		      }
+			}
 		   else
-		       LoopAnim('WalkStrafeR',-7/GroundSpeed,, 0.5);
+			{
+		      if (Weapon == None)
+				LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
+		      else
+		      {
+		         if (Weapon.Mass < 20)
+				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
+			     else
+				    LoopAnim('walkstrafer',-7/GroundSpeed,, 0.5);
+		      }
+			}
 	   }
        else if(Weapon == None)
 	   {
@@ -329,9 +349,29 @@ function PlayWalking()
 
 		}
 		else if ( Dir Dot Y > 0 )
-			LoopAnim('WalkStrafeL');
+		{
+			if (Weapon == None)
+				LoopAnim('BackStep');
+			else
+			{
+			 if (Weapon.Mass < 20)
+				LoopAnim('BackStepSMFR');
+			 else
+				LoopAnim('walkstrafel');
+			}
+		}
 		else
-			LoopAnim('WalkStrafeR');
+		{
+			if (Weapon == None)
+				LoopAnim('BackStep');
+			else
+			{
+			 if (Weapon.Mass < 20)
+				LoopAnim('BackStepSMFR');
+			 else
+				LoopAnim('walkstrafer');
+			}
+		}
 	}
 	else if (Weapon == None)
 	{
