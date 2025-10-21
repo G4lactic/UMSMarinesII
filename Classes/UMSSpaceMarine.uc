@@ -544,7 +544,8 @@ var(Sounds) sound static10;
 var(Sounds) sound ExplodeSound;
 var(Sounds) sound ActiveExlo;
 var(SpaceMarineExtras) sound Reloadsound;
-
+var(SpaceMarineExtras) sound ChallengeTauntMale[4];
+var(SpaceMarineExtras) sound ChallengeTauntFemale[4];
 var(SpaceMarineExtras) byte	PunchDamage;
 var(SpaceMarineExtras) byte	SlamDamage;
 var(SpaceMarineExtras) bool	bTeleportWhenHurt;
@@ -2707,6 +2708,32 @@ function PlayChallenge()
 {
 	local float decision;
     //local name newAnim;
+	local float R;
+
+	R = FRand();
+
+	if(!bIsFemale)
+	{
+		if(R < 0.2)
+		PlaySound(ChallengeTauntMale[0]);
+		else if(R < 0.4)
+		PlaySound(ChallengeTauntMale[1]);
+		else if(R < 0.8)
+		PlaySound(ChallengeTauntMale[2]);
+		else if(R < 1)
+		PlaySound(ChallengeTauntMale[3]);
+	}
+	else
+	{
+		if(R < 0.2)
+		PlaySound(ChallengeTauntFemale[0]);
+		else if(R < 0.4)
+		PlaySound(ChallengeTauntFemale[1]);
+		else if(R < 0.8)
+		PlaySound(ChallengeTauntFemale[2]);
+		else if(R < 1)
+		PlaySound(ChallengeTauntFemale[3]);
+	}
 
 	bFire = 0;
 	bAltFire = 0;
@@ -7116,6 +7143,11 @@ ignores PeerNotification;
 	   myWeapon = Spawn(WeaponType);
 	   if ( myWeapon != None )
        {
+		if(myWeapon.IsA('CARifle'))
+		{
+			myWeapon.AltRefireRate=1;
+			myWeapon.RefireRate= 0.3;
+		}
 		if(bBeamingIn)
 		{
 			myWeapon.PickupSound = None;
@@ -7727,4 +7759,12 @@ defaultproperties
 	Fatness=130
 	BeamWaitTime=2.0
 	BeamTime=5
+	ChallengeTauntMale[0]=Sound'UMSMarinesII.Voice.takeemm'
+	ChallengeTauntMale[1]=Sound'UMSMarinesII.Voice.thathurtm'
+	ChallengeTauntMale[2]=Sound'UMSMarinesII.Voice.tooeasym2'
+	ChallengeTauntMale[3]=Sound'UMSMarinesII.Voice.tooeasym'
+	ChallengeTauntFemale[0]=Sound'UMSMarinesII.Voice.takeemf'
+	ChallengeTauntFemale[1]=Sound'UMSMarinesII.Voice.marksmanf'
+	ChallengeTauntFemale[2]=Sound'UMSMarinesII.Voice.seeyaf'
+	ChallengeTauntFemale[3]=Sound'UMSMarinesII.Voice.welldonef'
 }
