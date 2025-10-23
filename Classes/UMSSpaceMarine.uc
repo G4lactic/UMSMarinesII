@@ -507,18 +507,18 @@ var(Sounds) sound LandGrunt;
 var(Sounds) sound	JumpSound;
 
 var UMSBeamShieldEffect BeamEffect;
-var(SpaceMarine) class<weapon> WeaponType;
+var(UMSSpaceMarine) class<weapon> WeaponType;
 var	  Weapon myWeapon;
 
-var(SpaceMarine) string HumanKillMessage;
-Var(SpaceMarine) int DispPowerLevel;
-var(SpaceMarine) bool bCadet; // You can now just set marines to be cadets from here. to avoid having un-needed classes.
+var(ExtraVariables) string HumanKillMessage;
+Var(UMSSpaceMarineExtras) int DispPowerLevel;
+var(UMSSpaceMarineExtras) bool bCadet; // You can now just set marines to be cadets from here. to avoid having un-needed classes.
 var bool bWimp;
 
 var bool strafedodge;
 var bool bBeamingIn;
-var(SpaceMarineExtras) float BeamWaitTime;
-var(SpaceMarineExtras) float BeamTime;
+var(ExtraVariables) float BeamWaitTime;
+var(ExtraVariables) float BeamTime;
 //var UMSMarineWaveTool MarineBeamController;
 var UMSBeamOctagon Octagon;
 
@@ -527,8 +527,9 @@ var Pawn SaluteTarget;
 var UMSSpaceMarine LastTalker;
 var float LastTalkTime;
 var float MessageTime;
-var(SpaceMarineExtras) float  CommandRadius;
-var(SpaceMarineExtras) bool	bButtonPusher;
+var(ExtraVariables) float  CommandRadius;
+var(UMSSpaceMarineExtras) bool bButtonPusher;
+var(UMSSpaceMarineExtras) bool bLurePlayer;
 
 var(Sounds) sound slap;
 var(Sounds) sound static1;
@@ -543,17 +544,17 @@ var(Sounds) sound static9;
 var(Sounds) sound static10;
 var(Sounds) sound ExplodeSound;
 var(Sounds) sound ActiveExlo;
-var(SpaceMarineExtras) sound Reloadsound;
-var(SpaceMarineExtras) sound ChallengeTauntMale[4];
-var(SpaceMarineExtras) sound ChallengeTauntFemale[4];
-var(SpaceMarineExtras) byte	PunchDamage;
-var(SpaceMarineExtras) byte	SlamDamage;
-var(SpaceMarineExtras) bool	bTeleportWhenHurt;
-var(SpaceMarineExtras) bool bExplodeWhenHurt;
-var(SpaceMarineExtras) float ExploRange;
-var(SpaceMarineExtras) float ExploDamage;
-var(SpaceMarineExtras) float ExploMomentum;
-var(SpaceMarineExtras) GOverride GenderOverride;
+var(ExtraVariables) sound Reloadsound;
+var(ExtraVariables) sound ChallengeTauntMale[4];
+var(ExtraVariables) sound ChallengeTauntFemale[4];
+var(ExtraVariables) byte	PunchDamage;
+var(ExtraVariables) byte	SlamDamage;
+var(UMSSpaceMarineExtras) bool	bTeleportWhenHurt;
+var(UMSSpaceMarineExtras) bool bExplodeWhenHurt;
+var(ExtraVariables) float ExploRange;
+var(ExtraVariables) float ExploDamage;
+var(ExtraVariables) float ExploMomentum;
+var(UMSSpaceMarineExtras) GOverride GenderOverride;
 
 var SilentBallExplosion sbc;
 var BlackSmoke bsm;
@@ -6004,7 +6005,7 @@ RecoverEnemy:
 	GotoState('Attacking');
 }
 
-state Hunting
+/*state Hunting
 {
 ignores EnemyNotVisible;
 
@@ -6184,6 +6185,351 @@ SpecialNavig:
 	}
 	if ( (Orders == 'Guarding') && !LineOfSightTo(OrderObject) )
 		GotoState('Guarding');
+	Goto('Follow');
+}*/
+
+state Hunting // Hunt code from UPAK marines to make them not forget the player.
+{
+ignores EnemyNotVisible; 
+
+	/* MayFall() called by engine physics if walking and bCanJump, and
+		is about to go off a ledge.  Pawn has opportunity (by setting 
+		bCanJump to false) to avoid fall
+	*/
+	function MayFall()
+	{
+		bCanJump = ( (MoveTarget != None) || PointReachable(Destination) );
+	}
+
+	function Bump(actor Other)
+	{
+		if (Pawn(Other) != None)
+		{
+			if (Enemy == Other)
+				bReadyToAttack = True; //can melee right away
+			SetEnemy(Pawn(Other));
+			LastSeenPos = Enemy.Location;
+		}
+		setTimer(2.0, false);
+		Disable('Bump');
+	}
+	
+    function FearThisSpot(Actor aSpot)
+	{
+		Destination = Location + 120 * Normal(Location - aSpot.Location); 
+		GotoState('Wandering', 'Moving');
+	}
+
+	function TakeDamage( int Damage, Pawn instigatedBy, Vector hitlocation, 
+							Vector momentum, name damageType)
+	{
+		Global.TakeDamage(Damage, instigatedBy, hitlocation, momentum, damageType);
+		if ( health <= 0 )
+			return;
+		bFrustrated = true;
+		if (NextState == 'TakeHit')
+		{
+			if (AttitudeTo(Enemy) == ATTITUDE_Fear)
+			{
+				NextState = 'Retreating';
+				NextLabel = 'Begin';
+			}
+			else
+			{
+				NextState = 'Hunting';
+				NextLabel = 'AfterFall';
+			}
+			GotoState('TakeHit'); 
+		}
+	}
+
+	function HearNoise(float Loudness, Actor NoiseMaker)
+	{
+		if ( SetEnemy(NoiseMaker.instigator) )
+			LastSeenPos = Enemy.Location; 
+	}
+
+	function SetFall()
+	{
+		NextState = 'Hunting'; 
+		NextLabel = 'AfterFall';
+		NextAnim = AnimSequence;
+		GotoState('FallingState'); 
+	}
+
+	function bool SetEnemy(Pawn NewEnemy)
+	{
+		local float rnd;
+
+		if (Global.SetEnemy(NewEnemy))
+		{
+			rnd = FRand();
+			bReadyToAttack = true;
+			DesiredRotation = Rotator(Enemy.Location - Location);
+			if ( CombatStyle > FRand() )
+				GotoState('Charging'); 
+			else
+				GotoState('Attacking');
+			return true;
+		}
+		return false;
+	} 
+
+	function AnimEnd()
+	{
+		PlayRunning();
+		bFire = 0;
+		bAltFire = 0;
+		bReadyToAttack = true;
+		Disable('AnimEnd');
+	}
+	
+	function Timer()
+	{
+		bReadyToAttack = true;
+		Enable('Bump');
+		SetTimer(1.0, false);
+	}
+
+	function HitWall(vector HitNormal, actor Wall)
+	{
+		if (Physics == PHYS_Falling)
+			return;
+		if ( Wall.IsA('Mover') && Mover(Wall).HandleDoor(self) )
+		{
+			if ( SpecialPause > 0 )
+				Acceleration = vect(0,0,0);
+			GotoState('Hunting', 'SpecialNavig');
+			return;
+		}
+		Focus = Destination;
+		if (PickWallAdjust())
+			GotoState('Hunting', 'AdjustFromWall');
+		else
+			MoveTimer = -1.0;
+	}
+
+	function PickDestination()
+	{
+		local actor HitActor;
+		local vector HitNormal, HitLocation, nextSpot, ViewSpot;
+		local float posZ, elapsed;
+		local bool bCanSeeLastSeen;
+	
+		// If no enemy, or I should see him but don't, then give up		
+		if ( (Enemy == None) || (Enemy.Health <= 0) )
+		{
+			WhatToDoNext('','');
+			return;
+		}
+	
+		bAvoidLedges = false;
+		elapsed = Level.TimeSeconds - HuntStartTime;
+		if ( elapsed > 30 )
+		{
+				WhatToDoNext('','');
+				return;
+		}
+
+		if ( JumpZ > 0 )
+			bCanJump = true;
+		
+		if ( ActorReachable(Enemy) )
+		{
+			if ( (numHuntPaths < 8 + Skill) || (elapsed < 15)
+				|| ((Normal(Enemy.Location - Location) Dot vector(Rotation)) > -0.5) )
+			{
+				Destination = Enemy.Location;
+				MoveTarget = None;
+				numHuntPaths++;
+			}
+			else
+				WhatToDoNext('','');
+			return;
+		}
+		numHuntPaths++;
+
+		ViewSpot = Location + EyeHeight * vect(0,0,1);
+		bCanSeeLastSeen = false;
+		HitActor = Trace(HitLocation, HitNormal, LastSeenPos, ViewSpot, false);
+		bCanSeeLastSeen = (HitActor == None);
+		if ( bCanSeeLastSeen )
+		{
+			HitActor = Trace(HitLocation, HitNormal, LastSeenPos, Enemy.Location, false);
+			bHunting = (HitActor != None);
+		}
+		else
+			bHunting = true;
+
+		if ( FindBestPathToward(Enemy) )
+			return;
+		MoveTarget = None;
+		if ( bFromWall )
+		{
+			bFromWall = false;
+			if ( !PickWallAdjust() )
+			{
+				if ( CanStakeOut() )
+					GotoState('StakeOut');
+				else
+					WhatToDoNext('', '');
+			}
+			return;
+		}
+		
+		if ( NumHuntPaths > 60 )
+		{
+			WhatToDoNext('', '');
+			return;
+		}
+
+		if ( LastSeeingPos != vect(1000000,0,0) )
+		{
+			Destination = LastSeeingPos;
+			LastSeeingPos = vect(1000000,0,0);		
+			HitActor = Trace(HitLocation, HitNormal, Enemy.Location, ViewSpot, false);
+			if ( HitActor == None )
+			{
+				If (VSize(Location - Destination) < 20)
+				{
+					HitActor = Trace(HitLocation, HitNormal, Enemy.Location, ViewSpot, false);
+					if (HitActor == None)
+					{
+						SetEnemy(Enemy);
+						return;
+					}
+				}
+				return;
+			}
+		}
+
+		bAvoidLedges = (CollisionRadius > 42);
+		posZ = LastSeenPos.Z + CollisionHeight - Enemy.CollisionHeight;
+		nextSpot = LastSeenPos - Normal(Enemy.Location - Enemy.OldLocation) * CollisionRadius;
+		nextSpot.Z = posZ;
+		HitActor = Trace(HitLocation, HitNormal, nextSpot , ViewSpot, false);
+		if ( HitActor == None )
+			Destination = nextSpot;
+		else if ( bCanSeeLastSeen )
+			Destination = LastSeenPos;
+		else
+		{
+			Destination = LastSeenPos;
+			HitActor = Trace(HitLocation, HitNormal, LastSeenPos , ViewSpot, false);
+			if ( HitActor != None )
+			{
+				// check if could adjust and see it
+				if ( PickWallAdjust() || FindViewSpot() )
+					GotoState('Hunting', 'AdjustFromWall');
+				else if ( VSize(Enemy.Location - Location) < 1200 )
+					GotoState('StakeOut');
+				else
+				{
+					WhatToDoNext('Waiting', 'TurnFromWall');
+					return;
+				}
+			}
+		}
+		LastSeenPos = Enemy.Location;				
+	}	
+
+	function bool FindViewSpot()
+	{
+		local vector X,Y,Z, HitLocation, HitNormal;
+		local actor HitActor;
+		local bool bAlwaysTry;
+		GetAxes(Rotation,X,Y,Z);
+
+		// try left and right
+		// if frustrated, always move if possible
+		bAlwaysTry = bFrustrated;
+		bFrustrated = false;
+		
+		HitActor = Trace(HitLocation, HitNormal, Enemy.Location, Location + 2 * Y * CollisionRadius, false);
+		if ( HitActor == None )
+		{
+			Destination = Location + 2.5 * Y * CollisionRadius;
+			return true;
+		}
+
+		HitActor = Trace(HitLocation, HitNormal, Enemy.Location, Location - 2 * Y * CollisionRadius, false);
+		if ( HitActor == None )
+		{
+			Destination = Location - 2.5 * Y * CollisionRadius;
+			return true;
+		}
+		if ( bAlwaysTry )
+		{
+			if ( FRand() < 0.5 )
+				Destination = Location - 2.5 * Y * CollisionRadius;
+			else
+				Destination = Location - 2.5 * Y * CollisionRadius;
+			return true;
+		}
+
+		return false;
+	}
+
+	function BeginState()
+	{
+  		NotifyPeers( 'Hunting', Enemy );
+		if ( health <= 0 )
+			log(self$" hunting while dead");
+		SpecialGoal = None;
+		SpecialPause = 0.0;
+		bFromWall = false;
+		SetAlertness(0.5);
+		// Changed
+//		if( !bHuntingTransmitted )
+//		{
+//			GotoState( 'TransmitHuntingMessage' );
+//		}
+	}
+
+	function EndState()
+	{
+		bAvoidLedges = false;
+		bHunting = false;
+		if ( JumpZ > 0 )
+			bCanJump = true;
+	}
+
+AdjustFromWall:
+	StrafeTo(Destination, Focus); 
+	Destination = Focus; 
+	if ( MoveTarget != None )
+		Goto('SpecialNavig');
+	else
+		Goto('Follow');
+
+Begin:
+	numHuntPaths = 0;
+	HuntStartTime = Level.TimeSeconds;
+AfterFall:
+	TweenToRunning(0.15);
+	bFromWall = false;
+
+Follow:
+	WaitForLanding();
+	if ( CanSee(Enemy) )
+		SetEnemy(Enemy);
+	PickDestination();
+SpecialNavig:
+	if ( SpecialPause > 0.0 )
+	{
+		Disable('AnimEnd');
+		Acceleration = vect(0,0,0);
+		PlayChallenge();
+		Sleep(SpecialPause);
+		SpecialPause = 0.0;
+		Enable('AnimEnd');
+		Goto('AfterFall');
+	}
+	if (MoveTarget == None)
+		MoveTo(Destination);
+	else
+		MoveToward(MoveTarget); 
+
 	Goto('Follow');
 }
 
