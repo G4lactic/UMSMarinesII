@@ -1,6 +1,6 @@
 [public]
-Object=(Name=UMSMarinesII.UMSSpaceMarinePlayer,Class=Class,MetaClass=UnrealShare.UnrealiPlayer,Description="UMS Space Marine(Male)")
-Object=(Name=UMSMarinesII.UMSFSpaceMarinePlayer,Class=Class,MetaClass=UnrealShare.UnrealiPlayer,Description="UMS Space Marine(Female)")
+Object=(Name=UMSMarinesII.UMSSMPlayer,Class=Class,MetaClass=UnrealShare.UnrealiPlayer,Description="UMSSpaceMarine(Male)")
+Object=(Name=UMSMarinesII.UMSFSMPlayer,Class=Class,MetaClass=UnrealShare.UnrealiPlayer,Description="UMSSpaceMarine(Female)")
 Object=(Name=UMSMarineSkins_Fake.arct,Class=Texture,Description="Arctic Marine")
 Object=(Name=UMSMarineSkins_Fake.jung,Class=Texture,Description="Jungle Marine")
 Object=(Name=UMSMarineSkins_Fake.dsrt,Class=Texture,Description="Desert Marine")
@@ -8,4 +8,3 @@ Object=(Name=UMSMarineSkins_Fake.spce,Class=Texture,Description="Space Marine")
 Object=(Name=UMSMarineSkins_Fake.gibb,Class=Texture,Description="Zombie Marine")
 Object=(Name=UMSMarineSkins_Fake.blop,Class=Texture,Description="Spectre Marine")
 Object=(Name=UMSMarineSkins_Fake.EliteM,Class=Texture,Description="Elite Marine")
-Object=(Name=UMSMarineSkins_Fake.ATM,Class=Texture,Description="Field Specialist ")
