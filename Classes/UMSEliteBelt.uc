@@ -16,7 +16,7 @@ defaultproperties
 	Charge=150
 	ArmorAbsorption=100
 	AbsorptionPriority=10
-	RespawnTime=60.0
+	RespawnTime=0.0
 	MaxDesireability=2.0
 	PickupViewMesh=LodMesh'UnrealShare.ShieldBeltMesh'
 	PickupSound=Sound'UnrealShare.Pickups.BeltSnd'
