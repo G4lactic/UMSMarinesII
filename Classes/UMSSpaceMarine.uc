@@ -6473,6 +6473,7 @@ ignores EnemyNotVisible;
 	function BeginState()
 	{
   		NotifyPeers( 'Hunting', Enemy );
+		PickDestination();
 		if ( health <= 0 )
 			log(self$" hunting while dead");
 		SpecialGoal = None;
