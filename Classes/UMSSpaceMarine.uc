@@ -6313,7 +6313,7 @@ ignores EnemyNotVisible;
 	{
 		local actor HitActor;
 		local vector HitNormal, HitLocation, nextSpot, ViewSpot;
-		local float posZ, elapsed;
+		local float posZ;
 		local bool bCanSeeLastSeen;
 	
 		// If no enemy, or I should see him but don't, then give up		
@@ -6324,19 +6324,13 @@ ignores EnemyNotVisible;
 		}
 	
 		bAvoidLedges = false;
-		elapsed = Level.TimeSeconds - HuntStartTime;
-		if ( elapsed > 30 )
-		{
-				WhatToDoNext('','');
-				return;
-		}
 
 		if ( JumpZ > 0 )
 			bCanJump = true;
 		
 		if ( ActorReachable(Enemy) )
 		{
-			if ( (numHuntPaths < 8 + Skill) || (elapsed < 15)
+			if ((numHuntPaths < 8 + Skill)
 				|| ((Normal(Enemy.Location - Location) Dot vector(Rotation)) > -0.5) )
 			{
 				Destination = Enemy.Location;
