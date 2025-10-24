@@ -88,6 +88,8 @@ Function RandomBeamMarineIn()
         	NewMarine.Event = MarineDeathEvent;
         	NewMarine.Enemy = GetPlayerPawn();
            	NewMarine.Target = GetPlayerPawn();
+			NewMarine.Orders = 'Hunting';
+			NewMarine.OrderTag = 'Enemy';
 			M++;
 			if(bLogStuff)
 			{
@@ -130,6 +132,8 @@ Function BeamMarineIn()
 				NewMarine.Event = MarineDeathEvent;
 				NewMarine.Enemy = GetPlayerPawn();
 				NewMarine.Target = GetPlayerPawn();
+				NewMarine.Orders = 'Hunting';
+				NewMarine.OrderTag = 'Enemy';
 				if(bLogStuff)
 				{
 					Log(" ");
