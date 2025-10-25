@@ -7450,6 +7450,7 @@ Threaten:
 				{
 					if (BetrayBuddy != self)
 					BetrayBuddy.AttitudeToPlayer=ATTITUDE_Hate;
+					BetrayBuddy.AcquirePhrase();
 					BetrayBuddy.GotoState('Attacking');
 				}
 			}
@@ -7684,4 +7685,5 @@ defaultproperties
 	ChallengeTauntFemale(1)=Sound'UMSMarinesII.Voice.marksmanf'
 	ChallengeTauntFemale(2)=Sound'UMSMarinesII.Voice.seeyaf'
 	ChallengeTauntFemale(3)=Sound'UMSMarinesII.Voice.welldonef'
+	Skill=1
 }
