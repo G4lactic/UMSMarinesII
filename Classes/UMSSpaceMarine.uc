@@ -3318,7 +3318,7 @@ Function BetrayAnims()
 	else if(RandNum == 3)
 		AnimSeq='SALUTE';
 
-	if(AnimSeq!=None)
+	if(AnimSeq != 'None')
 	{
 		PlayAnim(AnimSeq);
 	}
@@ -7311,18 +7311,18 @@ state Betraying
 	ignores NotifyPeers, PeerNotification, Bump, falling, landed; //fixme
 
 //ignores SeePlayer if enemy is a player //but not hear noise
-	function TakeDamage( int Damage, Pawn instigatedBy, Vector hitlocation,
-						 Vector momentum, name damageType)
+	function TakeDamage( int Damage, Pawn instigatedBy, Vector hitlocation, 
+							Vector momentum, name damageType)
 	{
 		Global.TakeDamage(Damage, instigatedBy, hitlocation, momentum, damageType);
-		if ( health <= 0 || bDeleteme)
+		if ( health <= 0 )
 			return;
 		if (NextState == 'TakeHit')
 		{
 			bReadyToAttack = true;
-			NextState = 'Attacking';
+			NextState = 'Attacking'; 
 			NextLabel = 'Begin';
-			GotoState('TakeHit');
+			GotoState('TakeHit'); 
 		}
 		else
 		{
@@ -7333,7 +7333,7 @@ state Betraying
 
 	function Trigger( actor Other, pawn EventInstigator )
 	{
-		if (EventInstigator != none && EventInstigator.bIsPlayer)
+		if (EventInstigator.bIsPlayer)
 		{
 			Enemy = EventInstigator;
 			AttitudeToPlayer = ATTITUDE_Hate;
@@ -7344,30 +7344,24 @@ state Betraying
 	function EnemyNotVisible()
 	{
 		////log("enemy not visible");
-		GotoState('Ambushing');
+		GotoState('Ambushing'); 
 	}
-
-	/*function EnemyAcquired()
+	
+	function EnemyAcquired()
 	{
 		if (AttitudeTo(Enemy) < ATTITUDE_Threaten)
 			GotoState('Attacking');
-	}*/
-
+	}
+	
 	function PickGuardDestination()
 	{
 		local vector desiredDest;
 		local Actor path;
+		
+		desiredDest = OrderObject.Location + 
+				(OrderObject.CollisionRadius + 2.5 * CollisionRadius) * Normal(Enemy.Location - OrderObject.Location);
 
-		if (OrderObject == none)
-		{
-			Destination = Location;
-			return;
-		}
-
-		desiredDest = OrderObject.Location +
-					  (OrderObject.CollisionRadius + 2.5 * CollisionRadius) * Normal(Enemy.Location - OrderObject.Location);
-
-		if ( VSizeSq(desiredDest - Location) < {60.0*60.0} )
+		if ( VSize(desiredDest - Location) < 60 )
 		{
 			Destination = Location;
 			return;
@@ -7387,15 +7381,15 @@ state Betraying
 				Destination = Location;
 		}
 	}
-
+	
 	function PickThreatenDestination()
 	{
 		local vector desiredDest;
 		local Actor path;
 
-		desiredDest = Location +
-					  0.4 * (VSize(Enemy.Location - Location) - CollisionRadius - Enemy.CollisionRadius - MeleeRange)
-					  * Normal(Enemy.Location - Location);
+		desiredDest = Location + 
+				0.4 * (VSize(Enemy.Location - Location) - CollisionRadius - Enemy.CollisionRadius - MeleeRange)
+				* Normal(Enemy.Location - Location);
 
 		if (pointReachable(desiredDest))
 			Destination = desiredDest;
@@ -7416,7 +7410,7 @@ state Betraying
 	{
 		bCanJump = false;
 	}
-
+	
 	function EndState()
 	{
 		if (JumpZ > 0)
@@ -7438,11 +7432,9 @@ Begin:
 	NextAnim = '';
 
 FaceEnemy:
-	if (!HasAliveEnemy())
-		GotoState('Attacking');
 	Acceleration = vect(0,0,0);
 	if (NeedToTurn(enemy.Location))
-	{
+	{	
 		PlayTurning();
 		TurnToward(Enemy);
 		TweenToPatrolStop(0.2);
@@ -7507,19 +7499,19 @@ Threaten:
 		}
 	}
 
-	if (!HasAliveEnemy() || AttitudeTo(Enemy) < ATTITUDE_Threaten)
+	if (AttitudeTo(Enemy) < ATTITUDE_Threaten)
 		GotoState('Attacking');
 
 	PlayThreatening();
 	FinishAnim();
 
-	if (!HasAliveEnemy() || AttitudeTo(Enemy) < ATTITUDE_Threaten)
+	if (AttitudeTo(Enemy) < ATTITUDE_Threaten)
 		GotoState('Attacking');
-
+		
 	if (Orders == 'Guarding')
 	{ //stay between enemy and guard object
-		if (Enemy.bIsPlayer && OrderObject != none &&
-			(VSizeSq(Enemy.Location - OrderObject.Location) < Square(OrderObject.CollisionRadius + 2 * CollisionRadius + MeleeRange)))
+		If (Enemy.bIsPlayer &&
+			(VSize(Enemy.Location - OrderObject.Location) < OrderObject.CollisionRadius + 2 * CollisionRadius + MeleeRange))
 		{
 			AttitudeToPlayer = ATTITUDE_Hate;
 			GotoState('Attacking');
@@ -7527,18 +7519,15 @@ Threaten:
 	}
 	else if (FRand() < 0.9 - Aggressiveness) //mostly just turn
 		Goto('FaceEnemy');
-	else if (VSizeSq(Enemy.Location - Location) < Square(2.5 * (CollisionRadius + Enemy.CollisionRadius + MeleeRange)))
+	else if (VSize(Enemy.Location - Location) < 2.5 * (CollisionRadius + Enemy.CollisionRadius + MeleeRange))
 		Goto('FaceEnemy');
 
 	WaitForLanding();
-	if (!HasAliveEnemy() || AttitudeTo(Enemy) < ATTITUDE_Threaten)
-		GotoState('Attacking');
-
 	if (Orders == 'Guarding') //stay between enemy and guard object
 		PickGuardDestination();
 	else
 		PickThreatenDestination();
-
+		
 	if (Destination != Location)
 	{
 		TweenToWalking(0.2);
@@ -7550,7 +7539,7 @@ Threaten:
 		FinishAnim();
 		NextAnim = '';
 	}
-
+		
 	Goto('FaceEnemy');
 }
 
