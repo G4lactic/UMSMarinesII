@@ -336,7 +336,7 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec mesh SEQUENCE MESH=UMSMarine SEQ=Dead9B    STARTFRAME=136 NUMFRAMES=16 RATE=15
 #exec mesh SEQUENCE MESH=UMSMarine SEQ=Dead11    STARTFRAME=136 NUMFRAMES=16 RATE=15
 #exec mesh SEQUENCE MESH=UMSMarine SEQ=BackRun   STARTFRAME=833 NUMFRAMES=15 RATE=15 Group=MovingFire
-
+/*
 //skaarjplayer
 #exec mesh SEQUENCE MESH=UMSMarine SEQ=BREATH    STARTFRAME=74 NUMFRAMES=7  RATE=6  Group=Waiting
 #exec mesh SEQUENCE MESH=UMSMarine SEQ=DEATH     STARTFRAME=136 NUMFRAMES=16
@@ -357,7 +357,7 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec mesh SEQUENCE MESH=UMSMarine SEQ=LeftDodge   STARTFRAME=193 NUMFRAMES=15 RATE=15	Group=Dodge
 #exec mesh SEQUENCE MESH=UMSMarine SEQ=TURN      STARTFRAME=612 NUMFRAMES=2
 #exec mesh SEQUENCE MESH=UMSMarine SEQ=WalkFire  STARTFRAME=773 NUMFRAMES=15 Group=MovingAttack
-
+*/
 //=============================================================================
 //NOTIFIES
 //=============================================================================
@@ -445,6 +445,7 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec MESH NOTIFY MESH=UMSMarine SEQ=Dead9B TIME=0.8 FUNCTION=LandThump
 #exec mesh NOTIFY MESH=UMSMarine SEQ=Dead11 TIME=0.57 FUNCTION=LandThump
 //skaarjplayer notifies
+/*
 #exec MESH NOTIFY MESH=UMSMarine SEQ=Death  TIME=0.41 FUNCTION=LandThump
 #exec mesh NOTIFY MESH=UMSMarine SEQ=Death2 TIME=0.61 FUNCTION=LandThump
 #exec MESH NOTIFY MESH=UMSMarine SEQ=Death3 TIME=0.73 FUNCTION=LandThump
@@ -457,6 +458,7 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec MESH NOTIFY MESH=UMSMarine SEQ=Walk TIME=0.75 FUNCTION=WalkStep
 #exec MESH NOTIFY MESH=UMSMarine SEQ=WalkFire TIME=0.25 FUNCTION=WalkStep
 #exec MESH NOTIFY MESH=UMSMarine SEQ=WalkFire TIME=0.75 FUNCTION=WalkStep
+*/
 //=============================================================================
 
 //Spacemarine Textures
