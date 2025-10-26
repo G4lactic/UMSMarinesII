@@ -569,6 +569,7 @@ var bool bReadyToTalk;
 var bool bGetResponse;
 var bool bRespond;
 var bool bLuring;
+var bool bActFriendly;
 
 // UMSSM
 simulated event Destroyed()
@@ -1270,6 +1271,9 @@ function bool SetEnemy( Pawn NewEnemy )
 
 function PostBeginPlay()
 {
+	if(bLurePlayer)
+	bActFriendly=True;
+
 	if(bTeleportWhenHurt)
 		bExplodeWhenHurt=false;
 
@@ -3298,6 +3302,28 @@ ignores SeePlayer, HearNoise, Bump, HitWall;
 	}
 }
 
+Function BetrayAnims()
+{
+	local int RandNum;
+	local name AnimSeq;
+
+	RandNum = Rand( 4 );
+
+	if(RandNum == 0)
+		AnimSeq='Wave';
+	else if(RandNum == 1)
+		AnimSeq='WaveL';
+	else if(RandNum == 2)
+		AnimSeq='Look';
+	else if(RandNum == 3)
+		AnimSeq='SALUTE';
+
+	if(AnimSeq!=None)
+	{
+		PlayAnim(AnimSeq);
+	}
+}
+
 function BetrayPhrase()
 {
 	local int RandNum;
@@ -4079,41 +4105,51 @@ function AcquirePhrase()
     Talker( LastTalker );
     bRespond=false;
 
-	if( !bIsFemale )
+	if(bActFriendly)
 	{
-  	    RandNum = Rand( 7 );
-
-    	if (RandNum==0)
-				voice=sound'UMSMarinesII.MS106'; //target acquired
-		else if (RandNum==1)
-				voice=sound'UMSMarinesII.MS206a'; //target acquired
-		else if (RandNum==2)
-				voice=sound'UMSMarinesII.MS206b'; //target acquired
-        else if (RandNum==3)
-				voice=sound'incomingm'; //incoming
-        else if (RandNum==4)
-				voice=sound'lockm'; //lock amd load
-        else if (RandNum==5)
-				voice=sound'lookoutm'; //look out
-        else if (RandNum==6)
-				voice=sound'companym'; //we got company
+		if(!bIsFemale)
+		voice=sound'UMSMarinesII.Him2'; // Hi!
+		else
+		voice=sound'UMSMarinesII.Hif2'; // Hi!
 	}
 	else
 	{
-		RandNum = Rand( 6 );
+		if( !bIsFemale )
+		{
+			RandNum = Rand( 7 );
 
-		if (RandNum==0)
-				voice=sound'UMSMarinesII.MS306a'; //target acquired
-		else if (RandNum==1)
-				voice=sound'UMSMarinesII.MS306b';  //target acquired
-        else if (RandNum==2)
-				voice=sound'incomingf'; //incoming
-        else if (RandNum==3)
-				voice=sound'lookoutf'; //look out
-        else if (RandNum==4)
-				voice=sound'heref'; //here we go
-        else if (RandNum==5)
-				voice=sound'companyf'; //we got company
+			if (RandNum==0)
+					voice=sound'UMSMarinesII.MS106'; //target acquired
+			else if (RandNum==1)
+					voice=sound'UMSMarinesII.MS206a'; //target acquired
+			else if (RandNum==2)
+					voice=sound'UMSMarinesII.MS206b'; //target acquired
+			else if (RandNum==3)
+					voice=sound'incomingm'; //incoming
+			else if (RandNum==4)
+					voice=sound'lockm'; //lock amd load
+			else if (RandNum==5)
+					voice=sound'lookoutm'; //look out
+			else if (RandNum==6)
+					voice=sound'companym'; //we got company
+		}
+		else
+		{
+			RandNum = Rand( 6 );
+
+			if (RandNum==0)
+					voice=sound'UMSMarinesII.MS306a'; //target acquired
+			else if (RandNum==1)
+					voice=sound'UMSMarinesII.MS306b';  //target acquired
+			else if (RandNum==2)
+					voice=sound'incomingf'; //incoming
+			else if (RandNum==3)
+					voice=sound'lookoutf'; //look out
+			else if (RandNum==4)
+					voice=sound'heref'; //here we go
+			else if (RandNum==5)
+					voice=sound'companyf'; //we got company
+		}
 	}
     if(voice!=none)
     {
@@ -7426,7 +7462,7 @@ Threaten:
 				TBU++;
 				BetrayPhrase();
 				if(  Weapon != none )
-				PlayAnim('Talk');
+				BetrayAnims();
 				bLuring=False;
 				sleep(0.5);
 				SetTimer(2.5,False);
@@ -7444,6 +7480,7 @@ Threaten:
 			}
 			else
 			{
+				bActFriendly=False;
 				AcquirePhrase();
 				AttitudeToPlayer=ATTITUDE_Hate;
 				GotoState('Attacking');
