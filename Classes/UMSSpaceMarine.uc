@@ -6976,7 +6976,7 @@ function Died(pawn Killer, name damageType, vector HitLocation)
 
 state Exploding
 {
-ignores PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
+ignores Fireweapon, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
 
      function destroyed()
      {
@@ -7519,7 +7519,7 @@ Threaten:
 
 State Teleporting
 {
-ignores PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
+ignores Fireweapon, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
 
 	function Tick(float DeltaTime)
 	{
