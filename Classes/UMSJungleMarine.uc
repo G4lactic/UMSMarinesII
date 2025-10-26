@@ -1,5 +1,5 @@
 //=============================================================================
-// UMSJungleMarine - Asgard
+// UMSJungleMarine
 //=============================================================================
 class UMSJungleMarine extends UMSSpaceMarine;
 

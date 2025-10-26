@@ -1,5 +1,5 @@
 //=============================================================================
-// UMSArcticMarine - Asgard
+// UMSArcticMarine
 //=============================================================================
 class UMSArcticMarine extends UMSSpaceMarine;
 

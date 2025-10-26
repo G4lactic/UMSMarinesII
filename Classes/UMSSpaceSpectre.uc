@@ -1,5 +1,5 @@
 //=============================================================================
-// UMSSpaceSpectre - GFour
+// UMSSpaceSpectre
 //=============================================================================
 class UMSSpaceSpectre extends UMSSpecialForces;
 

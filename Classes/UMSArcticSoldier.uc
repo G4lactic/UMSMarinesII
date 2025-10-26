@@ -1,5 +1,5 @@
 //=============================================================================
-// UMSArcticSoldier - Asgard
+// UMSArcticSoldier
 //=============================================================================
 class UMSArcticSoldier extends UMSSpaceSoldier;
 
