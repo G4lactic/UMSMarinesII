@@ -3,8 +3,8 @@
 //=============================================================================
 class UMSArcticMarine extends UMSSpaceMarine;
 
-#exec texture IMPORT NAME=Jmarine1 FILE=MODELS\Jmarine1.PCX GROUP=Skins LODSET=2
-#exec texture IMPORT NAME=Jmarine2 FILE=MODELS\jmarine2.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=Jmarine1 FILE=Textures\Skins\Jmarine1.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=Jmarine2 FILE=Textures\Skins\jmarine2.PCX GROUP=Skins LODSET=2
 
 defaultproperties
 {

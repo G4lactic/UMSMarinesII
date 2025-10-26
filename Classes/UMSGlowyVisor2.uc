@@ -3,7 +3,7 @@
 //=============================================================================
 class UMSGlowyVisor2 extends UMSGlowyVisor;
 
-#exec texture IMPORT NAME=MarineVisorGlowBasic FILE=MODELS\MarineVisorGlowBasic.PCX GROUP=FX LODSET=2
+#exec texture IMPORT NAME=MarineVisorGlowBasic FILE=Textures\FX\MarineVisorGlowBasic.PCX GROUP=FX LODSET=2
 
 defaultproperties
 {

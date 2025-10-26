@@ -3,9 +3,9 @@
 //=============================================================================
 class UMSSpaceSpectre extends UMSSpecialForces;
 
-#exec texture IMPORT NAME=SMarine1 FILE=MODELS\UMSBlackOpMarine.PCX GROUP=Skins LODSET=2
-#exec texture IMPORT NAME=SMarine2 FILE=MODELS\UMSBlackOpMarine2.PCX GROUP=Skins LODSET=2
-#exec texture IMPORT NAME=MarineBlackOpsGlow FILE=MODELS\UMSBlackOpMarineNV.PCX GROUP=FX LODSET=2
+#exec texture IMPORT NAME=SMarine1 FILE=Textures\Skins\UMSBlackOpMarine.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=SMarine2 FILE=Textures\Skins\UMSBlackOpMarine2.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=MarineBlackOpsGlow FILE=Textures\FX\UMSBlackOpMarineNV.PCX GROUP=FX LODSET=2
 
 var sound CloakAmbient;
 var sound cloakon;

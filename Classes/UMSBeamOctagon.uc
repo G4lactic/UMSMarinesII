@@ -4,20 +4,20 @@
 //=============================================================================
 class UMSBeamOctagon expands Effects;
 
-#exec MESH IMPORT MESH=UMSOctagon ANIVFILE=MODELS\Octagon_a.3d DATAFILE=MODELS\Octagon_d.3d X=0 Y=0 Z=0
+#exec MESH IMPORT MESH=UMSOctagon ANIVFILE=MODELS\FX\Octagon_a.3d DATAFILE=MODELS\FX\Octagon_d.3d X=0 Y=0 Z=0
 #exec MESH ORIGIN MESH=UMSOctagon X=0 Y=0 Z=0
 
 #exec MESH SEQUENCE MESH=UMSOctagon SEQ=All     STARTFRAME=0 NUMFRAMES=1
 #exec MESH SEQUENCE MESH=UMSOctagon SEQ=OCTAGON STARTFRAME=0 NUMFRAMES=1
 
-#exec TEXTURE IMPORT NAME=JOctagon0 FILE=MODELS\JOctagon0.PCX GROUP=FX FLAGS=2 // SKIN
+#exec TEXTURE IMPORT NAME=JOctagon0 FILE=Textures\FX\JOctagon0.PCX GROUP=FX FLAGS=2 // SKIN
 
 #exec MESHMAP NEW   MESHMAP=UMSOctagon MESH=UMSOctagon
 #exec MESHMAP SCALE MESHMAP=UMSOctagon X=0.1 Y=0.1 Z=125.2
 
 #exec MESHMAP SETTEXTURE MESHMAP=UMSOctagon NUM=0 TEXTURE=JOctagon0
 
-#exec AUDIO IMPORT FILE="SOUNDS\BeamIn.WAV" NAME="BeamIn" GROUP="SFX"
+#exec AUDIO IMPORT FILE="SOUNDS\SFX\BeamIn.WAV" NAME="BeamIn" GROUP="SFX"
 
 var() float FadeInTime;
 var() float FadeOutTime;

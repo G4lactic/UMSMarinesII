@@ -3,7 +3,7 @@
 //=============================================================================
 class UMSSMGib1R extends UMSMarineChunks;
 
-#exec mesh IMPORT MESH=UMSsmgib1R ANIVFILE=MODELS\UMSsmgib1_a.3d DATAFILE=MODELS\UMSsmgib1_d.3d X=0 Y=0 Z=0 UNMIRROR=0
+#exec mesh IMPORT MESH=UMSsmgib1R ANIVFILE=MODELS\UMSMarine\UMSsmgib1_a.3d DATAFILE=MODELS\UMSMarine\UMSsmgib1_d.3d X=0 Y=0 Z=0 UNMIRROR=0
 #exec mesh ORIGIN MESH=UMSsmgib1R X=0 Y=0 Z=0 YAW=128
 
 #exec mesh SEQUENCE MESH=UMSsmgib1R SEQ=All  STARTFRAME=0 NUMFRAMES=1

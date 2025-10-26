@@ -4,8 +4,8 @@
 
 class UMSEliteMarine extends UMSSpecialForces;
 
-#exec texture IMPORT NAME=EMarine1 FILE=MODELS\banditmarine1.PCX GROUP=Skins LODSET=2
-#exec texture IMPORT NAME=EMarine2 FILE=MODELS\banditmarine2.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=EMarine1 FILE=Textures\Skins\banditmarine1.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=EMarine2 FILE=Textures\Skins\banditmarine2.PCX GROUP=Skins LODSET=2
 
 //var() bool bShieldBeltOn; //--OBSOLETE--DELETE ME
 

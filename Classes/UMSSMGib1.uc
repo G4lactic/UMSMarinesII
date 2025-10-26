@@ -4,14 +4,14 @@
 class UMSSMGib1 extends UMSMarineChunks;
 
 
-#exec mesh IMPORT MESH=UMSsmgib1 ANIVFILE=MODELS\UMSsmgib1_a.3d DATAFILE=MODELS\UMSsmgib1_d.3d X=0 Y=0 Z=0 UNMIRROR=1
+#exec mesh IMPORT MESH=UMSsmgib1 ANIVFILE=MODELS\UMSMarine\UMSsmgib1_a.3d DATAFILE=MODELS\UMSMarine\UMSsmgib1_d.3d X=0 Y=0 Z=0 UNMIRROR=1
 #exec mesh ORIGIN MESH=UMSsmgib1 X=0 Y=0 Z=0 YAW=128
 
 #exec mesh SEQUENCE MESH=UMSsmgib1 SEQ=All  STARTFRAME=0 NUMFRAMES=1
 #exec mesh SEQUENCE MESH=UMSsmgib1 SEQ=fish STARTFRAME=0 NUMFRAMES=1
 
-#exec TEXTURE IMPORT NAME=Jsmgib1 FILE=MODELS\Jsmgib1.PCX GROUP=Skins FLAGS=2 // SMblood4
-#exec texture IMPORT NAME=Jsmgib2 FILE=MODELS\Jsmgib2.PCX GROUP=Skins PALETTE=Jsmgib1 // SMbloodx4
+#exec TEXTURE IMPORT NAME=Jsmgib1 FILE=Textures\Skins\Jsmgib1.PCX GROUP=Skins FLAGS=2 // SMblood4
+#exec texture IMPORT NAME=Jsmgib2 FILE=Textures\Skins\Jsmgib2.PCX GROUP=Skins PALETTE=Jsmgib1 // SMbloodx4
 
 #exec MESHMAP new   MESHMAP=UMSsmgib1 MESH=UMSsmgib1
 #exec MESHMAP scale MESHMAP=UMSsmgib1 X=0.2 Y=0.2 Z=0.7
