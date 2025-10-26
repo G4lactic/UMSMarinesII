@@ -259,7 +259,7 @@ ignores SeePlayer, HearNoise;
 		         if (Weapon.Mass < 20)
 				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
 			     else
-				    LoopAnim('BackStepLGFR',-7/GroundSpeed,, 0.5);
+				    LoopAnim('walkstrafel',-7/GroundSpeed,, 0.5);
 		      }
 			}
 		   else
@@ -271,7 +271,7 @@ ignores SeePlayer, HearNoise;
 		         if (Weapon.Mass < 20)
 				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
 			     else
-				    LoopAnim('BackStepLGFR',-7/GroundSpeed,, 0.5);
+				    LoopAnim('walkstrafer',-7/GroundSpeed,, 0.5);
 		      }
 			}
 	   }
@@ -418,30 +418,30 @@ function PlayWalking()
 			}
 
 		}
-		   else if ( Dir Dot Y > 0 )
+		else if ( Dir Dot Y > 0 )
+		{
+			if (Weapon == None)
+				LoopAnim('BackStep');
+			else
 			{
-		      if (Weapon == None)
-				LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
-		      else
-		      {
-		         if (Weapon.Mass < 20)
-				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
-			     else
-				    LoopAnim('BackStepLGFR',-7/GroundSpeed,, 0.5);
-		      }
+			 if (Weapon.Mass < 20)
+				LoopAnim('BackStepSMFR');
+			 else
+				LoopAnim('walkstrafel');
 			}
-		   else
+		}
+		else
+		{
+			if (Weapon == None)
+				LoopAnim('BackStep');
+			else
 			{
-		      if (Weapon == None)
-				LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
-		      else
-		      {
-		         if (Weapon.Mass < 20)
-				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
-			     else
-				    LoopAnim('BackStepLGFR',-7/GroundSpeed,, 0.5);
-		      }
+			 if (Weapon.Mass < 20)
+				LoopAnim('BackStepSMFR');
+			 else
+				LoopAnim('walkstrafer');
 			}
+		}
 	}
 	else if (Weapon == None)
 	{
@@ -796,7 +796,6 @@ ignores SeePlayer, HearNoise, Bump;
   		  bCanDuck = true;
 	}
 }
-
 
 defaultproperties
 {
