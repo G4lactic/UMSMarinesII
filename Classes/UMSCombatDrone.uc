@@ -74,8 +74,8 @@ class UMSCombatDrone extends UMSSpecialForces;
 #exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead9B    STARTFRAME=721 NUMFRAMES=9 RATE=15		
 #exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead11    STARTFRAME=730 NUMFRAMES=24 RATE=15
 #exec MESH SEQUENCE MESH=UMSDrone SEQ=BackRun   STARTFRAME=754 NUMFRAMES=10 RATE=17		Group=MovingFire
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=StrafeL   STARTFRAME=765 NUMFRAMES=10 RATE=17		Group=MovingFire
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=StrafeR   STARTFRAME=776 NUMFRAMES=10 RATE=17		Group=MovingFire
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=StrafeR   STARTFRAME=765 NUMFRAMES=10 RATE=17		Group=MovingFire
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=StrafeL   STARTFRAME=776 NUMFRAMES=10 RATE=17		Group=MovingFire
 #exec MESH SEQUENCE MESH=UMSDrone SEQ=BackRun2  STARTFRAME=787 NUMFRAMES=10 RATE=17		Group=MovingFire
 #exec MESH SEQUENCE MESH=UMSDrone SEQ=StrafeL2  STARTFRAME=798 NUMFRAMES=10 RATE=17		Group=MovingFire
 #exec MESH SEQUENCE MESH=UMSDrone SEQ=StrafeR2  STARTFRAME=809 NUMFRAMES=10 RATE=17		Group=MovingFire
@@ -140,15 +140,486 @@ class UMSCombatDrone extends UMSSpecialForces;
 #exec TEXTURE IMPORT NAME=GlowRed FILE=Textures\FX\GlowRed.bmp GROUP=Skins FLAGS=2
 #exec MESHMAP SETTEXTURE MESHMAP=UMSDrone NUM=1 TEXTURE=GlowRed
 
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDM101a.WAV" NAME="CDM101a" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDM101b.WAV" NAME="CDM101b" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDM103a.WAV" NAME="CDM103a" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDM104.WAV" NAME="CDM104" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDM105.WAV" NAME="CDM105" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDM106.WAV" NAME="CDM106" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDM107.WAV" NAME="CDM107" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDM108.WAV" NAME="CDM108" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDM109.WAV" NAME="CDM109" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDM110.WAV" NAME="CDM110" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDM111.WAV" NAME="CDM111" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDM112.WAV" NAME="CDM112" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDM113.WAV" NAME="CDM113" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDM114.WAV" NAME="CDM114" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDM115.WAV" NAME="CDM115" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDM116.WAV" NAME="CDM116" GROUP="Voice"
+
+#exec AUDIO IMPORT FILE="Sounds\Footsteps\MedArmorStep1.WAV" NAME="DroneStep1" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\Footsteps\MedArmorStep2.WAV" NAME="DroneStep2" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\Footsteps\MedArmorStep3.WAV" NAME="DroneStep3" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\Footsteps\MedArmorStep4.WAV" NAME="DroneStep4" GROUP="Footsteps"
+
+var effects Glowy;
+var bool bSploded;
+
+Function PostBeginPlay()
+{
+    Glowy=Spawn(Class'UMSDroneGlow',Self,,Location,Rotation);
+	bIsFemale=False;
+}
+
+Function FireWeapon()
+{	
+    if(bDoSpecial && Health < 0.45 * Default.Health)
+	GotoState('BombingRun');
+	else if (bAutoDoSpecial)
+	GotoState('BombingRun');
+	else	
+	Super.FireWeapon();
+}
+
+function KillPhrase()
+{
+	local int RandNum;
+    local float vol;
+    local sound voice;
+
+    LastTalkTime=level.TimeSeconds;
+	vol = 2.0;
+    LastTalker = self;
+    Talker( LastTalker );
+    bGetResponse=false;
+    bRespond=false;
+
+	if( !bIsFemale )
+	{
+		RandNum = Rand( 3 );
+
+		if (RandNum==0)
+				voice=sound'UMSMarinesII.CDM110';  //target eliminated
+		else if (RandNum==1)
+				voice=sound'UMSMarinesII.CDM115';  //enemy's dead
+		else if (RandNum==2)
+				voice=sound'UMSMarinesII.CDM116';  //target eliminated
+	}
+    if(voice!=none)
+    {
+     PlaySound( voice, SLOT_Talk,vol*0.9 );
+     PlaySound( voice, SLOT_None,vol*0.9 );
+    }
+}
+
+function HelpPhrase()
+{
+	local int RandNum;
+    local float vol;
+    local sound voice;
+
+    LastTalkTime=level.TimeSeconds;
+	vol = 2.0;
+	LastTalker = self;
+    Talker( LastTalker );
+    bGetResponse=true;
+    bRespond=false;
+	if( !bIsFemale )
+    {
+         RandNum = Rand( 3 );
+         if (RandNum==0)
+		    	voice=sound'UMSMarinesII.CDM114';  //I need some help here
+	     else if (RandNum==1)
+				voice=sound'UMSMarinesII.CDM109';  //I need some help here
+         else if (RandNum==2)
+				voice=sound'UMSMarinesII.CDM104';  //Im in trouble
+	}
+    if(voice!=none)
+    {
+     PlaySound( voice, SLOT_Talk,vol*0.9 );
+     PlaySound( voice, SLOT_None,vol*0.9 );
+    }
+}
+
+function AcquirePhrase()
+{
+	local int RandNum;
+    local float vol;
+    local sound voice;
+
+    LastTalkTime=level.TimeSeconds;
+	vol = 2.0;
+    LastTalker = self;
+    Talker( LastTalker );
+    bRespond=false;
+
+	if(bActFriendly)
+	{
+		if(!bIsFemale)
+		voice=sound'UMSMarinesII.Him2'; // Hi!
+		else
+		voice=sound'UMSMarinesII.Hif2'; // Hi!
+	}
+	else
+	{
+		if( !bIsFemale )
+		{
+			RandNum = Rand( 3 );
+
+			if (RandNum==0)
+					voice=sound'UMSMarinesII.CDM106'; //target acquired
+			else if (RandNum==1)
+					voice=sound'UMSMarinesII.CDM106'; //target acquired
+			else if (RandNum==2)
+					voice=sound'UMSMarinesII.CDM106'; //target acquired
+		}
+	}
+    if(voice!=none)
+    {
+     PlaySound( voice, SLOT_Talk,vol*0.9 );
+     PlaySound( voice, SLOT_None,vol*0.9 );
+    }
+}
+
+function ChargePhrase()
+{
+	local int RandNum;
+    local float vol;
+    local sound voice;
+
+	vol = 2.0;
+	LastTalkTime=level.TimeSeconds;
+    LastTalker = self;
+    Talker( LastTalker );
+    bGetResponse=false;
+    bRespond=false;
+	if( !bIsFemale )
+	{
+       	RandNum = Rand( 3 );
+
+		if (RandNum==0)
+				voice=sound'UMSMarinesII.CDM111';  //fire
+		else if (RandNum==1)
+				voice=sound'UMSMarinesII.CDM112'; //fire
+		else if (RandNum==2)
+				voice=sound'UMSMarinesII.CDM113';  //fire
+
+        if((RandNum==0 || RandNum==1 || RandNum==2 || RandNum==3 || RandNum==4
+           || RandNum==5 || RandNum==6 || RandNum==7 || RandNum==8
+           || RandNum==13)&& FRand()<0.5)
+
+           bGetResponse=true;
+	}
+    if(voice!=none)
+    {
+     PlaySound( voice, SLOT_Talk,vol*0.9 );
+     PlaySound( voice, SLOT_None,vol*0.9 );
+    }
+}
+
+function RespondPhrase()
+{
+	local int RandNum;
+    local float vol;
+    local sound voice;
+
+    bRespond=false;
+    NotifyPeers( 'responded');
+    if( Level.TimeSeconds - LastTalkTime > 2.0 )
+     return;
+	vol = 2.0;
+	LastTalkTime=level.TimeSeconds;
+    LastTalker = self;
+    Talker( LastTalker );
+
+	if( !bIsFemale )
+	{
+       	RandNum = Rand( 7 );
+      if (RandNum==0)
+         voice=sound'onmywaym';
+      else if (RandNum==1)
+         voice=sound'imonitm';
+      else if (RandNum==2)
+         voice=sound'rogerm';
+      else if (RandNum==3)
+         voice=sound'affirmativem';
+      else if (RandNum==4)
+         voice=sound'willdom';
+      else if (RandNum==5)
+         voice=sound'yougotitm';
+      else if (RandNum==6)
+         voice=sound'ten4m';
+    }
+    else
+    {
+     RandNum = Rand( 7 );
+
+       if (RandNum==0)
+         voice=sound'onmywayf';
+       else if (RandNum==1)
+         voice=sound'imonitf';
+       else if (RandNum==2)
+         voice=sound'rogerf';
+      else if (RandNum==3)
+         voice=sound'affirmativef';
+      else if (RandNum==4)
+         voice=sound'aquiref';
+      else if (RandNum==5)
+         voice=sound'okf';
+      else if (RandNum==6)
+         voice=sound'ten4f';
+    }
+    if(voice!=none)
+    {
+     PlaySound( voice, SLOT_Talk,vol );
+     PlaySound( voice, SLOT_None,vol );
+    }
+}
+
+
+function PlayRunning()
+{
+    local float strafeMag;
+	local vector Focus2D, Loc2D, Dest2D;
+	local vector lookDir, moveDir, Y;
+
+    strafedodge=false;
+	if (Region.Zone.bWaterZone )
+	{
+		PlaySwimming();
+        return;
+	}
+    DesiredSpeed = MaxDesiredSpeed;
+	BaseEyeHeight = Default.BaseEyeHeight;
+    EyeHeight = BaseEyeHeight;
+	if (Weapon == None)
+	{
+		LoopAnim('Run',,, 0.5);
+		return;
+	}
+	if (Focus == Destination)
+	{
+        if ( Weapon.bPointing )
+		{
+			if (Weapon.Mass < 20)
+				LoopAnim('RUNSMFR',-2.0/GroundSpeed,, 0.5);
+			else
+				LoopAnim('RUNLGFR',-2.0/GroundSpeed,, 0.5);
+		}
+		else
+		{
+			if (Weapon.Mass < 20)
+				LoopAnim('RUNSM',-2.0/GroundSpeed,, 0.5);
+			else
+				LoopAnim('RUNLG',-2.0/GroundSpeed,, 0.5);
+		}
+    }
+	Focus2D = Focus;
+	Focus2D.Z = 0;
+	Loc2D = Location;
+	Loc2D.Z = 0;
+	Dest2D = Destination;
+	Dest2D.Z = 0;
+	lookDir = Normal(Focus2D - Loc2D);
+	moveDir = Normal(Dest2D - Loc2D);
+	strafeMag = lookDir dot moveDir;
+	if (strafeMag > 0.8)
+	{
+		if ( Weapon.bPointing )
+		{
+			if (Weapon.Mass < 20)
+				LoopAnim('RUNSMFR',-1.2/GroundSpeed,, 0.5);
+			else
+				LoopAnim('RUNSMFR',-1.2/GroundSpeed,, 0.5);
+		}
+		else
+		{
+			if (Weapon.Mass < 20)
+				LoopAnim('RUNSM',-1.2/GroundSpeed,, 0.5);
+			else
+				LoopAnim('RUNSM',-1.2/GroundSpeed,, 0.5);
+		}
+	}
+	else if (strafeMag < -0.8)
+	{
+
+              DesiredSpeed = (2*WalkingSpeed) * MaxDesiredSpeed;
+		      if (Weapon == None)
+				LoopAnim('Backrun2',(-16*WalkingSpeed)/GroundSpeed,, 0.5);
+		      else
+		      {
+		         if (Weapon.Mass < 20)
+				    LoopAnim('Backrun',(-16*WalkingSpeed)/GroundSpeed,, 0.5);
+			     else
+				    LoopAnim('Backrun',(-16*WalkingSpeed)/GroundSpeed,, 0.5);
+		      }
+	}
+	else
+	{
+
+     BaseEyeHeight = 0.7 * Default.BaseEyeHeight;
+     EyeHeight = BaseEyeHeight;
+
+		Y = (lookDir cross vect(0,0,1));
+		if ((Y Dot (Dest2D - Loc2D)) > 0)
+		{
+			if (AnimSequence == 'strafer')
+			{
+					LoopAnim('strafer',-1.2/GroundSpeed,, 1.0);
+			}
+			else if (AnimSequence == 'strafer')
+			{
+					LoopAnim('strafer',-1.2/GroundSpeed,, 1.0);
+			}
+			else
+			{
+				if (Weapon.Mass < 20)
+					LoopAnim('strafer',-1.2/GroundSpeed,0.1, 1.0);
+				else
+					LoopAnim('strafer',-1.2/GroundSpeed,0.1, 1.0);
+			}
+		}
+		else
+		{
+			if (AnimSequence == 'strafel')
+			{
+					LoopAnim('strafel',-1.2/GroundSpeed,, 1.0);
+			}
+			else if (AnimSequence == 'strafel')
+			{
+					LoopAnim('strafel',-1.2/GroundSpeed,, 1.0);
+			}
+			else
+			{
+				if (Weapon.Mass < 20)
+					LoopAnim('strafel',-1.2/GroundSpeed,0.1, 1.0);
+				else
+					LoopAnim('strafel',-1.2/GroundSpeed,0.1, 1.0);
+			}
+		}
+	}
+}
+
+
+function PlayWalking()
+{
+	if (Region.Zone.bWaterZone )
+	{
+		PlaySwimming();
+		return;
+	}
+    BaseEyeHeight = Default.BaseEyeHeight;
+    EyeHeight = BaseEyeHeight;
+	if (Weapon == None)
+		LoopAnim('Walk');
+	else if ( Weapon.bPointing )
+	{
+		if (Weapon.Mass < 20)
+			LoopAnim('WalkSMFR');
+		else
+			LoopAnim('WalkSMFR');
+	}
+	else
+	{
+		if (Weapon.Mass < 20)
+			LoopAnim('WalkSM');
+		else
+			LoopAnim('WalkSM');
+	}
+}
+
+function PlayMeleeAttack()
+{
+	if ((Region.Zone.bWaterZone || Physics == PHYS_Flying) && weapon!=none)
+	{
+		PlayRangedAttack();
+		return;
+	}
+	if (FRand()<0.5)
+		PlayAnim('Wave');
+	else
+		PlayAnim('Wave');
+}
+
+State BombingRun
+{
+	ignores Fireweapon, PeerNotification, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget;
+
+     function destroyed()
+     {
+      MakeNoise(1.0);
+      if ( bSploded )
+      {
+			SpawnGibbedCarcass();
+            PlaySound(ExplodeSound, SLOT_None,10.0);
+            PlaySound(ExplodeSound, SLOT_Misc,10.0);
+            PlaySound(ExplodeSound, SLOT_Talk,10.0);
+            sbc=Spawn(Class 'SilentBallExplosion',,, Location);
+            if (sbc != none)
+            {
+		      sbc.drawscale=5*FRand()+5;
+              sbc.NetPriority=5.0;
+            }
+            bsm = Spawn(class'BlackSmoke');
+            bsm.DrawScale = 10;
+            HurtRadius(ExploDamage, ExploRange, 'Marineexplo', ExploMomentum, Location);
+      }
+      super.destroyed();
+    }
+
+    function Notifydeath()
+    {
+       local Actor A;
+	   if ( event != '' )
+		ForEach AllActors( class'Actor', A, event )
+	 	if (enemy!=none)
+		 A.Trigger( Self, Enemy );
+		else
+		 A.Trigger( Self, Self );
+    }
+
+	Function BeginState()
+	{
+
+	}
+
+Begin:
+	Goto('Run');
+
+Run:
+	While(VSize(Enemy.Location - Location) > 128 && !bSploded)
+	{
+		TurnToward(Enemy);
+		TweenToRunning(0.2);
+		FinishAnim();
+		PlayRunning();
+		GroundSpeed=560;
+		MoveToward(Enemy,GroundSpeed);
+	}
+	if(VSize(Enemy.Location - Location) < 192)
+	{
+		Acceleration = Vect(0,0,0);
+		PlayAnim('Thrust');
+		AmbientSound=Sound'TWAlarm';
+		SoundRadius=128;
+		Sleep(1);
+ 		Playsound(ActiveExlo);
+ 		Notifydeath();
+		bSploded=True;
+ 		Destroy();
+	}
+
+}
+
 defaultproperties
 {
 	Event='None'
 	Accuracy=0.0
 	drown=Sound'UnrealShare.Male.MDrown1'
 	breathagain=Sound'UnrealShare.Male.MGasp1'
-	Footstep1=Sound'UMSMarinesII.Footsteps.MStep1'
-	Footstep2=Sound'UMSMarinesII.Footsteps.MStep2'
-	Footstep3=Sound'UMSMarinesII.Footsteps.MStep3'
+	Footstep1=Sound'UMSMarinesII.Footsteps.DroneStep1'
+	Footstep2=Sound'UMSMarinesII.Footsteps.DroneStep2'
+	Footstep3=Sound'UMSMarinesII.Footsteps.DroneStep3'
 	HitSound3=Sound'UnrealShare.Male.MInjur3'
 	HitSound4=Sound'UnrealShare.Male.MInjur4'
 	Die2=None
@@ -159,7 +630,7 @@ defaultproperties
 	UWHit2=Sound'UnrealShare.Male.MUWHit2'
 	LandGrunt=Sound'UnrealShare.Male.lland01'
 	JumpSound=Sound'UnrealShare.Male.MJump1'
-	WeaponType=Class'UnrealShare.Automag'
+	WeaponType=Class'UnrealShare.Minigun'
 	myWeapon=None
 	HumanKillMessage=" was blown away by a UMS Combat Drone"
 	DispPowerLevel=1
@@ -167,7 +638,7 @@ defaultproperties
 	Aggressiveness=0.9
 	RefireRate=0.3
 	CarcassType=Class'UMSMarinesII.UMSSpaceMarineCarcass'
-	Health=500
+	Health=400
 	MeleeRange=50.0
 	GroundSpeed=280.0
 	AirSpeed=400.0
@@ -175,7 +646,7 @@ defaultproperties
 	AirControl=0.35
 	SightRadius=4000.0
 	UnderWaterTime=-1.0
-	CombatStyle=0.2
+	CombatStyle=0.75
 	HitSound1=Sound'UnrealShare.Male.MInjur1'
 	HitSound2=Sound'UnrealShare.Male.MInjur2'
 	Die=Sound'UnrealShare.Male.MDeath1'
@@ -232,7 +703,7 @@ defaultproperties
 	BaseEyeHeight=39.0
 	EyeHeight=39.0
 	MenuName="UMS Space Marine"
-	Mass=200.0
+	Mass=400.0
 	DrawScale=1.25
 	CollisionRadius=21.0
 	CollisionHeight=53.500000
