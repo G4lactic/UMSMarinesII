@@ -8,86 +8,92 @@ class UMSCombatDrone extends UMSSpecialForces;
 #exec MESH LODPARAMS MESH=UMSDrone STRENGTH=0.0
 #exec MESH ORIGIN MESH=UMSDrone X=0 Y=0 Z=-40 YAW=0 PITCH=0 ROLL=0
 
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=ALL       STARTFRAME=0 NUMFRAMES=868 RATE=16
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=RefPose   STARTFRAME=0 NUMFRAMES=1 RATE=16
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Still     STARTFRAME=3 NUMFRAMES=1 RATE=16
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=GutHit    STARTFRAME=4   NUMFRAMES=1				Group=TakeHit
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=AimDnLg   STARTFRAME=5   NUMFRAMES=1				Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=AimDnSm   STARTFRAME=6   NUMFRAMES=1				Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=AimUpLg   STARTFRAME=7   NUMFRAMES=1				Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=AimUpSm   STARTFRAME=8   NUMFRAMES=1				Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Taunt1    STARTFRAME=9   NUMFRAMES=24 RATE=15		Group=Gesture
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Breath1   STARTFRAME=33  NUMFRAMES=7  RATE=6		Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Breath2   STARTFRAME=40  NUMFRAMES=11 RATE=7		Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=CockGun   STARTFRAME=51  NUMFRAMES=8  RATE=6		Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=DuckWlkL  STARTFRAME=59  NUMFRAMES=14 RATE=15		Group=Ducking
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=DuckWlkS  STARTFRAME=74  NUMFRAMES=14 RATE=15		Group=Ducking
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=HeadHit   STARTFRAME=89  NUMFRAMES=1				Group=TakeHit
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=JumpLgFr  STARTFRAME=90  NUMFRAMES=1				Group=Jumping
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=JumpSmFr  STARTFRAME=91  NUMFRAMES=1				Group=Jumping
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=LandLgFr  STARTFRAME=92  NUMFRAMES=1				Group=Landing
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=LandSmFr  STARTFRAME=93  NUMFRAMES=1				Group=Landing
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=LeftHit   STARTFRAME=94  NUMFRAMES=1				Group=TakeHit
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Look      STARTFRAME=95  NUMFRAMES=40 RATE=15     	Group=Waiting 
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=RightHit  STARTFRAME=136 NUMFRAMES=1				Group=TakeHit
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=RunLg     STARTFRAME=137 NUMFRAMES=10 RATE=17
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=RunLgFr   STARTFRAME=148 NUMFRAMES=10 RATE=17    	Group=MovingFire
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=RunSm     STARTFRAME=159 NUMFRAMES=10 RATE=17
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=RunSmFr   STARTFRAME=170 NUMFRAMES=10 RATE=17		Group=MovingFire
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=StillFrRp STARTFRAME=181 NUMFRAMES=10 RATE=24		Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=StillLgFr STARTFRAME=192 NUMFRAMES=10 RATE=15		Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=StillSmFr STARTFRAME=202 NUMFRAMES=10  RATE=15		Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=SwimLg    STARTFRAME=212 NUMFRAMES=15 RATE=15
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=SwimSm    STARTFRAME=228 NUMFRAMES=15 RATE=15
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=TreadLg   STARTFRAME=244 NUMFRAMES=15 RATE=15		Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=TreadSm   STARTFRAME=260 NUMFRAMES=15 RATE=15		Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Victory1  STARTFRAME=276 NUMFRAMES=45 RATE=15  		Group=Gesture
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=WalkLg    STARTFRAME=321 NUMFRAMES=16 RATE=18
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=WalkLgFr  STARTFRAME=338 NUMFRAMES=16 RATE=18		Group=MovingFire
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=WalkSm    STARTFRAME=355 NUMFRAMES=16 RATE=18
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=WalkSmFr  STARTFRAME=372 NUMFRAMES=16 RATE=18		Group=MovingFire
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Wave      STARTFRAME=389 NUMFRAMES=15 RATE=15		Group=Gesture
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Walk      STARTFRAME=404 NUMFRAMES=16 RATE=18
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=TurnLg    STARTFRAME=421 NUMFRAMES=2  RATE=15					// 2 frames of walklgfr
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=TurnSm    STARTFRAME=423 NUMFRAMES=2  RATE=15					// 2 frames of walksmfr
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Breath1L  STARTFRAME=425 NUMFRAMES=7  RATE=6		Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Breath2L  STARTFRAME=432 NUMFRAMES=11 RATE=7		Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=CockGunL  STARTFRAME=443 NUMFRAMES=8  RATE=6		Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=LookL     STARTFRAME=451 NUMFRAMES=40 RATE=15     	Group=Waiting 
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=WaveL     STARTFRAME=492 NUMFRAMES=15 RATE=15		Group=Gesture
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Chat1     STARTFRAME=507 NUMFRAMES=10 RATE=16		Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Chat2     STARTFRAME=517 NUMFRAMES=10 RATE=16		Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Thrust    STARTFRAME=527 NUMFRAMES=44 RATE=24		Group=Gesture
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=DodgeB    STARTFRAME=571 NUMFRAMES=1				Group=Jumping
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=DodgeF    STARTFRAME=572 NUMFRAMES=1				Group=Jumping
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=DodgeR    STARTFRAME=573 NUMFRAMES=1				Group=Jumping
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=DodgeL    STARTFRAME=574 NUMFRAMES=1				Group=Jumping
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Fighter   STARTFRAME=575 NUMFRAMES=1								// first frame of stilllgfr
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Flip      STARTFRAME=576 NUMFRAMES=21				Group=Jumping
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead1     STARTFRAME=597 NUMFRAMES=18 RATE=12		Group=TakeHit
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead2     STARTFRAME=615 NUMFRAMES=17 RATE=12		
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead3     STARTFRAME=632 NUMFRAMES=11 RATE=12
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead4     STARTFRAME=643 NUMFRAMES=23 RATE=12
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead7     STARTFRAME=666 NUMFRAMES=21 RATE=15		Group=TakeHit
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead8     STARTFRAME=687 NUMFRAMES=28 RATE=15		Group=TakeHit
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead9     STARTFRAME=715 NUMFRAMES=5 RATE=5			Group=TakeHit
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead9B    STARTFRAME=721 NUMFRAMES=9 RATE=15		
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead11    STARTFRAME=730 NUMFRAMES=24 RATE=15
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=BackRun   STARTFRAME=754 NUMFRAMES=10 RATE=17		Group=MovingFire
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=StrafeR   STARTFRAME=765 NUMFRAMES=10 RATE=17		Group=MovingFire
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=StrafeL   STARTFRAME=776 NUMFRAMES=10 RATE=17		Group=MovingFire
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=BackRun2  STARTFRAME=787 NUMFRAMES=10 RATE=17		Group=MovingFire
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=StrafeL2  STARTFRAME=798 NUMFRAMES=10 RATE=17		Group=MovingFire
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=StrafeR2  STARTFRAME=809 NUMFRAMES=10 RATE=17		Group=MovingFire
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=LookDown  STARTFRAME=820 NUMFRAMES=1				Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=LookUp    STARTFRAME=821 NUMFRAMES=1				Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=DeathEnd3 STARTFRAME=714 NUMFRAMES=1
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=DeathEnd  STARTFRAME=631 NUMFRAMES=1
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=DeathEnd2 STARTFRAME=642 NUMFRAMES=1
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=DeathEnd3 STARTFRAME=714 NUMFRAMES=1
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=DuckWlk   STARTFRAME=822 NUMFRAMES=14 RATE=15		Group=Ducking
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Tread     STARTFRAME=837 NUMFRAMES=15 RATE=15		Group=Waiting
-#exec MESH SEQUENCE MESH=UMSDrone SEQ=Swim	  STARTFRAME=853 NUMFRAMES=15 RATE=15
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=ALL        STARTFRAME=0 NUMFRAMES=868 RATE=16
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=RefPose    STARTFRAME=0 NUMFRAMES=1 RATE=16
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Still      STARTFRAME=3 NUMFRAMES=1 RATE=16
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=GutHit     STARTFRAME=4   NUMFRAMES=1				Group=TakeHit
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=AimDnLg    STARTFRAME=5   NUMFRAMES=1				Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=AimDnSm    STARTFRAME=6   NUMFRAMES=1				Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=AimUpLg    STARTFRAME=7   NUMFRAMES=1				Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=AimUpSm    STARTFRAME=8   NUMFRAMES=1				Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Taunt1     STARTFRAME=9   NUMFRAMES=24 RATE=15		Group=Gesture
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Breath1    STARTFRAME=33  NUMFRAMES=7  RATE=6		Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Breath2    STARTFRAME=40  NUMFRAMES=11 RATE=7		Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=CockGun    STARTFRAME=51  NUMFRAMES=8  RATE=6		Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=DuckWlkL   STARTFRAME=59  NUMFRAMES=14 RATE=15		Group=Ducking
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=DuckWlkS   STARTFRAME=74  NUMFRAMES=14 RATE=15		Group=Ducking
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=HeadHit    STARTFRAME=89  NUMFRAMES=1				Group=TakeHit
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=JumpLgFr   STARTFRAME=90  NUMFRAMES=1				Group=Jumping
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=JumpSmFr   STARTFRAME=91  NUMFRAMES=1				Group=Jumping
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=LandLgFr   STARTFRAME=92  NUMFRAMES=1				Group=Landing
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=LandSmFr   STARTFRAME=93  NUMFRAMES=1				Group=Landing
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=LeftHit    STARTFRAME=94  NUMFRAMES=1				Group=TakeHit
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Look       STARTFRAME=95  NUMFRAMES=40 RATE=15     	Group=Waiting 
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=RightHit   STARTFRAME=136 NUMFRAMES=1				Group=TakeHit
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=RunLg      STARTFRAME=137 NUMFRAMES=10 RATE=17
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=RunLgFr    STARTFRAME=148 NUMFRAMES=10 RATE=17    	Group=MovingFire
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=RunSm      STARTFRAME=159 NUMFRAMES=10 RATE=17
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=RunSmFr    STARTFRAME=170 NUMFRAMES=10 RATE=17		Group=MovingFire
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=StillFrRp  STARTFRAME=181 NUMFRAMES=10 RATE=24		Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=StillLgFr  STARTFRAME=192 NUMFRAMES=10 RATE=15		Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=StillSmFr  STARTFRAME=202 NUMFRAMES=10  RATE=15		Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=SwimLg     STARTFRAME=212 NUMFRAMES=15 RATE=15
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=SwimSm     STARTFRAME=228 NUMFRAMES=15 RATE=15
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=TreadLg    STARTFRAME=244 NUMFRAMES=15 RATE=15		Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=TreadSm    STARTFRAME=260 NUMFRAMES=15 RATE=15		Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Victory1   STARTFRAME=276 NUMFRAMES=45 RATE=15  	Group=Gesture
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=WalkLg     STARTFRAME=321 NUMFRAMES=16 RATE=18
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=WalkLgFr   STARTFRAME=338 NUMFRAMES=16 RATE=18		Group=MovingFire
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=WalkSm     STARTFRAME=355 NUMFRAMES=16 RATE=18
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=WalkSmFr   STARTFRAME=372 NUMFRAMES=16 RATE=18		Group=MovingFire
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Wave       STARTFRAME=389 NUMFRAMES=15 RATE=15		Group=Gesture
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Walk       STARTFRAME=404 NUMFRAMES=16 RATE=18
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=TurnLg     STARTFRAME=421 NUMFRAMES=2  RATE=15					// 2 frames of walklgfr
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=TurnSm     STARTFRAME=423 NUMFRAMES=2  RATE=15					// 2 frames of walksmfr
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Breath1L   STARTFRAME=425 NUMFRAMES=7  RATE=6		Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Breath2L   STARTFRAME=432 NUMFRAMES=11 RATE=7		Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=CockGunL   STARTFRAME=443 NUMFRAMES=8  RATE=6		Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=LookL      STARTFRAME=451 NUMFRAMES=40 RATE=15     	Group=Waiting 
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=WaveL      STARTFRAME=492 NUMFRAMES=15 RATE=15		Group=Gesture
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Chat1      STARTFRAME=507 NUMFRAMES=10 RATE=16		Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Chat2      STARTFRAME=517 NUMFRAMES=10 RATE=16		Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Thrust     STARTFRAME=527 NUMFRAMES=44 RATE=24		Group=Gesture
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=DodgeB     STARTFRAME=571 NUMFRAMES=1				Group=Jumping
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=DodgeF     STARTFRAME=572 NUMFRAMES=1				Group=Jumping
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=DodgeR     STARTFRAME=573 NUMFRAMES=1				Group=Jumping
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=DodgeL     STARTFRAME=574 NUMFRAMES=1				Group=Jumping
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Fighter    STARTFRAME=575 NUMFRAMES=1								// first frame of stilllgfr
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Flip       STARTFRAME=576 NUMFRAMES=21				Group=Jumping
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead1      STARTFRAME=597 NUMFRAMES=18 RATE=12		Group=TakeHit
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead2      STARTFRAME=615 NUMFRAMES=17 RATE=12		
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead3      STARTFRAME=632 NUMFRAMES=11 RATE=12
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead4      STARTFRAME=643 NUMFRAMES=23 RATE=12
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead7      STARTFRAME=666 NUMFRAMES=21 RATE=15		Group=TakeHit
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead8      STARTFRAME=687 NUMFRAMES=28 RATE=15		Group=TakeHit
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead9      STARTFRAME=715 NUMFRAMES=5 RATE=5		Group=TakeHit
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead9B     STARTFRAME=721 NUMFRAMES=9 RATE=15		
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Dead11     STARTFRAME=730 NUMFRAMES=24 RATE=15
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=BackRun    STARTFRAME=754 NUMFRAMES=10 RATE=17		Group=MovingFire
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=StrafeL    STARTFRAME=765 NUMFRAMES=10 RATE=17		Group=MovingFire
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=StrafeR    STARTFRAME=776 NUMFRAMES=10 RATE=17		Group=MovingFire
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=BackRun2   STARTFRAME=787 NUMFRAMES=10 RATE=17		Group=MovingFire
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=StrafeL2   STARTFRAME=798 NUMFRAMES=10 RATE=17		Group=MovingFire
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=StrafeR2   STARTFRAME=809 NUMFRAMES=10 RATE=17		Group=MovingFire
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=LookDown   STARTFRAME=820 NUMFRAMES=1				Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=LookUp     STARTFRAME=821 NUMFRAMES=1				Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=DeathEnd3  STARTFRAME=714 NUMFRAMES=1
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=DeathEnd   STARTFRAME=631 NUMFRAMES=1
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=DeathEnd2  STARTFRAME=642 NUMFRAMES=1
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=DeathEnd3  STARTFRAME=714 NUMFRAMES=1
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=DuckWlk    STARTFRAME=822 NUMFRAMES=14 RATE=15		Group=Ducking
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Tread      STARTFRAME=837 NUMFRAMES=15 RATE=15		Group=Waiting
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=Swim	   STARTFRAME=853 NUMFRAMES=15 RATE=15
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=MeleeR     STARTFRAME=869 NUMFRAMES=11 RATE=16		Group=Attack
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=MeleeL     STARTFRAME=880 NUMFRAMES=11 RATE=16		Group=Attack
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=MeleeWR    STARTFRAME=891 NUMFRAMES=11 RATE=16		Group=Attack
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=MeleeWL    STARTFRAME=902 NUMFRAMES=11 RATE=16		Group=Attack
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=MeleeLight STARTFRAME=913 NUMFRAMES=11 RATE=16		Group=Attack
+#exec MESH SEQUENCE MESH=UMSDrone SEQ=MeleeHeavy STARTFRAME=924 NUMFRAMES=11 RATE=16		Group=Attack
 
 #exec MESH NOTIFY MESH=UMSDrone SEQ=StrafeL  TIME=0.25 FUNCTION=PlayFootStep
 #exec MESH NOTIFY MESH=UMSDrone SEQ=StrafeL  TIME=0.75 FUNCTION=PlayFootStep
@@ -173,9 +179,46 @@ Function PostBeginPlay()
 	bIsFemale=False;
 }
 
+function PlayMovingAttack()
+{
+	PlayRunning();
+	FireWeapon();
+}
+
+function PlayCombatMove()
+{
+	PlayRunning();
+	if ( skill >= 2 )
+		bReadyToAttack = true;
+	if ( Enemy == None )
+		return;
+	if ( Weapon == None )
+	{
+		bAltFire = 0;
+		bFire = 0;
+		return;
+	}
+	if ( bReadyToAttack && bCanFire )
+	{
+		if ( NeedToTurn(Enemy.Location) )
+		{
+			bAltFire = 0;
+			bFire = 0;
+		}
+		else
+			FireWeapon();
+	}
+	else
+	{
+		bFire = 0;
+		bAltFire = 0;
+	}
+}
+
+
 Function FireWeapon()
 {	
-    if(bDoSpecial && Health < 0.45 * Default.Health)
+    if(bDoSpecial && Health < 0.35 * Default.Health)
 	GotoState('BombingRun');
 	else if (bAutoDoSpecial)
 	GotoState('BombingRun');
@@ -396,7 +439,7 @@ function PlayRunning()
     EyeHeight = BaseEyeHeight;
 	if (Weapon == None)
 	{
-		LoopAnim('Run',,, 0.5);
+		LoopAnim('Run',0.85,, 0.5);
 		return;
 	}
 	if (Focus == Destination)
@@ -404,16 +447,16 @@ function PlayRunning()
         if ( Weapon.bPointing )
 		{
 			if (Weapon.Mass < 20)
-				LoopAnim('RUNSMFR',-2.0/GroundSpeed,, 0.5);
+				LoopAnim('RUNSMFR',0.85,, 0.5);
 			else
-				LoopAnim('RUNLGFR',-2.0/GroundSpeed,, 0.5);
+				LoopAnim('RUNLGFR',0.85,, 0.5);
 		}
 		else
 		{
 			if (Weapon.Mass < 20)
-				LoopAnim('RUNSM',-2.0/GroundSpeed,, 0.5);
+				LoopAnim('RUNSM',0.85,, 0.5);
 			else
-				LoopAnim('RUNLG',-2.0/GroundSpeed,, 0.5);
+				LoopAnim('RUNLG',0.85,, 0.5);
 		}
     }
 	Focus2D = Focus;
@@ -425,24 +468,24 @@ function PlayRunning()
 	lookDir = Normal(Focus2D - Loc2D);
 	moveDir = Normal(Dest2D - Loc2D);
 	strafeMag = lookDir dot moveDir;
-	if (strafeMag > 0.8)
+	if (strafeMag > 0.85)
 	{
 		if ( Weapon.bPointing )
 		{
 			if (Weapon.Mass < 20)
-				LoopAnim('RUNSMFR',-1.2/GroundSpeed,, 0.5);
+				LoopAnim('RUNSMFR',0.85,, 0.5);
 			else
-				LoopAnim('RUNSMFR',-1.2/GroundSpeed,, 0.5);
+				LoopAnim('RUNSMFR',0.85,, 0.5);
 		}
 		else
 		{
 			if (Weapon.Mass < 20)
-				LoopAnim('RUNSM',-1.2/GroundSpeed,, 0.5);
+				LoopAnim('RUNSM',0.85,, 0.5);
 			else
-				LoopAnim('RUNSM',-1.2/GroundSpeed,, 0.5);
+				LoopAnim('RUNSM',0.85,, 0.5);
 		}
 	}
-	else if (strafeMag < -0.8)
+	else if (strafeMag < -0.85)
 	{
 
               DesiredSpeed = (2*WalkingSpeed) * MaxDesiredSpeed;
@@ -467,36 +510,36 @@ function PlayRunning()
 		{
 			if (AnimSequence == 'strafer')
 			{
-					LoopAnim('strafer',-1.2/GroundSpeed,, 1.0);
+					LoopAnim('strafer',0.85,, 1.0);
 			}
 			else if (AnimSequence == 'strafer')
 			{
-					LoopAnim('strafer',-1.2/GroundSpeed,, 1.0);
+					LoopAnim('strafer',0.85,, 1.0);
 			}
 			else
 			{
 				if (Weapon.Mass < 20)
-					LoopAnim('strafer',-1.2/GroundSpeed,0.1, 1.0);
+					LoopAnim('strafer',0.85,0.1, 1.0);
 				else
-					LoopAnim('strafer',-1.2/GroundSpeed,0.1, 1.0);
+					LoopAnim('strafer',0.85,0.1, 1.0);
 			}
 		}
 		else
 		{
 			if (AnimSequence == 'strafel')
 			{
-					LoopAnim('strafel',-1.2/GroundSpeed,, 1.0);
+					LoopAnim('strafel',0.85,, 1.0);
 			}
 			else if (AnimSequence == 'strafel')
 			{
-					LoopAnim('strafel',-1.2/GroundSpeed,, 1.0);
+					LoopAnim('strafel',0.85,, 1.0);
 			}
 			else
 			{
 				if (Weapon.Mass < 20)
-					LoopAnim('strafel',-1.2/GroundSpeed,0.1, 1.0);
+					LoopAnim('strafel',0.85,0.1, 1.0);
 				else
-					LoopAnim('strafel',-1.2/GroundSpeed,0.1, 1.0);
+					LoopAnim('strafel',0.85,0.1, 1.0);
 			}
 		}
 	}
@@ -538,9 +581,9 @@ function PlayMeleeAttack()
 		return;
 	}
 	if (FRand()<0.5)
-		PlayAnim('Wave');
+		PlayAnim('MeleeWL',2);
 	else
-		PlayAnim('Wave');
+		PlayAnim('MeleeWL',1.5);
 }
 
 Function Timer()
@@ -717,7 +760,7 @@ defaultproperties
 	UWHit2=Sound'UnrealShare.Male.MUWHit2'
 	LandGrunt=Sound'UnrealShare.Male.lland01'
 	JumpSound=Sound'UnrealShare.Male.MJump1'
-	WeaponType=Class'UnrealShare.Minigun'
+	WeaponType=Class'UnrealShare.Eightball'
 	myWeapon=None
 	HumanKillMessage=" was blown away by a UMS Combat Drone"
 	DispPowerLevel=1
@@ -776,9 +819,6 @@ defaultproperties
 	SlamDamage=9
 	bTeleportWhenHurt=False
 	bExplodeWhenHurt=False
-	ExploRange=650.0
-	ExploDamage=501.0
-	ExploMomentum=70000.0
 	sbc=None
 	bsm=None
 	bInitz=False

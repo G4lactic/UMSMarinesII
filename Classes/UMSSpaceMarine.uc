@@ -7682,7 +7682,7 @@ defaultproperties
 	SlamDamage=9
 	bTeleportWhenHurt=False
 	bExplodeWhenHurt=False
-	ExploRange=650.0
+	ExploRange=384
 	ExploDamage=501.0
 	ExploMomentum=70000.0
 	sbc=None
