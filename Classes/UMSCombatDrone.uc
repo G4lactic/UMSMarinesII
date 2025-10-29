@@ -162,6 +162,8 @@ class UMSCombatDrone extends UMSSpecialForces;
 #exec AUDIO IMPORT FILE="Sounds\Footsteps\MedArmorStep3.WAV" NAME="DroneStep3" GROUP="Footsteps"
 #exec AUDIO IMPORT FILE="Sounds\Footsteps\MedArmorStep4.WAV" NAME="DroneStep4" GROUP="Footsteps"
 
+#exec AUDIO IMPORT FILE="Sounds\SFX\AutoTurretAlert.WAV" NAME="AlertSplode" GROUP="SFX"
+
 var effects Glowy;
 var bool bSploded;
 
@@ -541,6 +543,11 @@ function PlayMeleeAttack()
 		PlayAnim('Wave');
 }
 
+Function Timer()
+{
+	PlaySound(sound'AlertSplode',SLOT_None);
+}
+
 State BombingRun
 {
 	ignores Fireweapon, PeerNotification, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget;
@@ -584,31 +591,111 @@ State BombingRun
 	}
 
 Begin:
+	Acceleration = Vect(0,0,0);
+	PlayAnim('Dead9',2);
+	PlaySound(sound'AlertSplode',SLOT_None);
+	FinishAnim();
 	Goto('Run');
 
 Run:
 	While(VSize(Enemy.Location - Location) > 128 && !bSploded)
 	{
+		SetTimer(1,False);
 		TurnToward(Enemy);
 		TweenToRunning(0.2);
 		FinishAnim();
 		PlayRunning();
-		GroundSpeed=560;
+		GroundSpeed=560 - 128;
 		MoveToward(Enemy,GroundSpeed);
 	}
 	if(VSize(Enemy.Location - Location) < 192)
 	{
 		Acceleration = Vect(0,0,0);
-		PlayAnim('Thrust');
+		PlayAnim('Thrust',1.5);
 		AmbientSound=Sound'TWAlarm';
 		SoundRadius=128;
-		Sleep(1);
+		Sleep(0.8);
  		Playsound(ActiveExlo);
  		Notifydeath();
 		bSploded=True;
  		Destroy();
 	}
 
+}
+
+function PlayHit(float Damage, vector HitLocation, name damageType, float MomentumZ)
+{
+    local float rnd;
+    local Bubble1 bub;
+    local bool bServerGuessWeapon;
+    local vector BloodOffset;
+    local int iDam;
+
+    if ( (Damage <= 0) && (ReducedDamageType != 'All') )
+        return;
+
+    //DamageClass = class(damageType);
+    if ( ReducedDamageType != 'All' ) //spawn some blood
+    {
+        if (damageType == 'Drowned')
+        {
+            bub = spawn(class 'Bubble1',,, Location 
+                + 0.7 * CollisionRadius * vector(ViewRotation) + 0.3 * EyeHeight * vect(0,0,1));
+            if (bub != None)
+                bub.DrawScale = FRand()*0.06+0.04; 
+        }
+        else if ( (damageType != 'Burned') && (damageType != 'Corroded') 
+                    && (damageType != 'Fell') )
+        {
+            BloodOffset = 0.2 * CollisionRadius * Normal(HitLocation - Location);
+            BloodOffset.Z = BloodOffset.Z * 0.5;
+            spawn(class 'LiandriBotHitEffect',self,,hitLocation + BloodOffset);
+        }
+    }    
+
+    rnd = FClamp(Damage, 20, 60);
+
+    PlayTakeHitSound(Damage, damageType, 1);
+    bServerGuessWeapon = ( ((Weapon != None) && Weapon.bPointing) || (GetAnimGroup(AnimSequence) == 'Dodge') );
+    iDam = Clamp(Damage,0,200);
+    if ( !bServerGuessWeapon 
+        && ((Level.NetMode == NM_DedicatedServer) || (Level.NetMode == NM_ListenServer)) )
+    {
+        Enable('AnimEnd');
+        BaseEyeHeight = Default.BaseEyeHeight;
+        PlayTakeHit(0.1, hitLocation, Damage);
+    }
+}
+
+function PlayDeathHit(float Damage, vector HitLocation, name damageType)
+{
+    local Bubble1 bub;
+    local actor A;
+
+    if ( Region.Zone.bDestructive && (Region.Zone.ExitActor != None) )
+        Spawn(Region.Zone.ExitActor);
+    if (HeadRegion.Zone.bWaterZone)
+    {
+        bub = spawn(class 'Bubble1',,, Location 
+            + 0.3 * CollisionRadius * vector(Rotation) + 0.8 * EyeHeight * vect(0,0,1));
+        if (bub != None)
+            bub.DrawScale = FRand()*0.08+0.03; 
+        bub = spawn(class 'Bubble1',,, Location 
+            + 0.2 * CollisionRadius * VRand() + 0.7 * EyeHeight * vect(0,0,1));
+        if (bub != None)
+            bub.DrawScale = FRand()*0.08+0.03; 
+        bub = spawn(class 'Bubble1',,, Location 
+            + 0.3 * CollisionRadius * VRand() + 0.6 * EyeHeight * vect(0,0,1));
+        if (bub != None)
+            bub.DrawScale = FRand()*0.08+0.03; 
+    }
+
+    if ( (damageType != 'Drowned') && (damageType != 'Corroded') )
+    {
+        spawn(class 'LiandriBotHitEffect',self,'', hitLocation);
+        A = Spawn(class'SpriteSmokePuff',,,HitLocation + vect(0,0,8));    
+        A.RemoteRole=ROLE_None;
+    }
 }
 
 defaultproperties
@@ -637,8 +724,8 @@ defaultproperties
 	strafedodge=False
 	Aggressiveness=0.9
 	RefireRate=0.3
-	CarcassType=Class'UMSMarinesII.UMSSpaceMarineCarcass'
-	Health=400
+	CarcassType=Class'UMSMarinesII.LiandriBotCarcass'
+	Health=500
 	MeleeRange=50.0
 	GroundSpeed=280.0
 	AirSpeed=400.0
