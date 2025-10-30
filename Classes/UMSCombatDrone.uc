@@ -695,13 +695,13 @@ State BombingRun
 
 	Function Timer()
 	{
-		PlaySound(sound'TWAlarm',SLOT_None);
+		PlaySound(sound'AlertSplode',SLOT_None);
 	}
 
 Begin:
 	Acceleration = Vect(0,0,0);
 	PlayAnim('Dead9',2);
-	PlaySound(sound'TWAlarm',SLOT_None);
+	PlaySound(sound'AlertSplode',SLOT_None);
 	FinishAnim();
 	Goto('Run');
 
