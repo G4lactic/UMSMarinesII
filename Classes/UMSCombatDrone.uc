@@ -146,7 +146,7 @@ class UMSCombatDrone extends UMSSpecialForces;
 
 #exec TEXTURE IMPORT NAME=GlowRed FILE=Textures\FX\GlowRed.bmp GROUP=Skins FLAGS=2
 #exec MESHMAP SETTEXTURE MESHMAP=UMSDrone NUM=1 TEXTURE=GlowRed
-/*
+
 #exec AUDIO IMPORT FILE="Sounds\Voice\CDM101a.WAV" NAME="CDM101a" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\CDM101b.WAV" NAME="CDM101b" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\CDM103a.WAV" NAME="CDM103a" GROUP="Voice"
@@ -175,7 +175,7 @@ class UMSCombatDrone extends UMSSpecialForces;
 #exec AUDIO IMPORT FILE="Sounds\Voice\CDMDeath2.WAV" NAME="CDM117B" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\CDMDeath3.WAV" NAME="CDM117C" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\CDMDeath4.WAV" NAME="CDM117D" GROUP="Voice"
-*/
+
 
 var effects Glowy;
 var bool bSploded;
@@ -184,9 +184,9 @@ Function PostBeginPlay()
 {
     Glowy=Spawn(Class'UMSDroneGlow',Self,,Location,Rotation);
 	bIsFemale=False;
-	//RandomDeathSound();
+	RandomDeathSound();
 }
-/*
+
 Function RandomDeathSound()
 {
 	local int RandNum;
@@ -219,7 +219,7 @@ Function RandomDeathSound()
 		Die4=Death;
     }
 }
-*/
+
 function PlayMovingAttack()
 {
 	PlayRunning();
@@ -266,7 +266,7 @@ Function FireWeapon()
 	else	
 	Super.FireWeapon();
 }
-/*
+
 simulated function PlayFootStep()
 {
 	local sound step;
@@ -486,7 +486,6 @@ function RespondPhrase()
      PlaySound( voice, SLOT_None,vol );
     }
 }
-*/
 
 function PlayRunning()
 {
@@ -758,7 +757,7 @@ function PlayHit(float Damage, vector HitLocation, name damageType, float Moment
         {
             BloodOffset = 0.2 * CollisionRadius * Normal(HitLocation - Location);
             BloodOffset.Z = BloodOffset.Z * 0.5;
-            spawn(class 'LiandriBotHitEffect',self,,hitLocation + BloodOffset);
+            spawn(class 'UMSDroneHitEffect',self,,hitLocation + BloodOffset);
         }
     }    
 
@@ -801,7 +800,7 @@ function PlayDeathHit(float Damage, vector HitLocation, name damageType)
 
     if ( (damageType != 'Drowned') && (damageType != 'Corroded') )
     {
-        spawn(class 'LiandriBotHitEffect',self,'', hitLocation);
+        spawn(class 'UMSDroneHitEffect',self,'', hitLocation);
         A = Spawn(class'SpriteSmokePuff',,,HitLocation + vect(0,0,8));    
         A.RemoteRole=ROLE_None;
     }
@@ -833,7 +832,7 @@ defaultproperties
 	strafedodge=False
 	Aggressiveness=0.9
 	RefireRate=0.3
-	CarcassType=Class'UMSMarinesII.LiandriBotCarcass'
+	CarcassType=Class'UMSMarinesII.UMSDroneCarcass'
 	Health=500
 	MeleeRange=50.0
 	GroundSpeed=280.0

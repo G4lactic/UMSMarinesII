@@ -1,10 +1,10 @@
 //=============================================================================
-// LiandriBotTorso.
+// UMSDroneLeftLeg.
 //=============================================================================
-class LiandriBotTorso expands LiandriBotChunks;
+class UMSDroneLeftLeg expands UMSDroneChunks;
 
 
 defaultproperties
 {
-	Mesh=Mesh'UMSMarinesII.DroneTorso'
+	Mesh=Mesh'UMSMarinesII.DroneLeftLeg'
 }

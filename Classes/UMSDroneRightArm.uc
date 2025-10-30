@@ -1,7 +1,7 @@
 //=============================================================================
-// LiandriBotRightArm.
+// UMSDroneRightArm.
 //=============================================================================
-class LiandriBotRightArm expands LiandriBotChunks;
+class UMSDroneRightArm expands UMSDroneChunks;
 
 
 defaultproperties

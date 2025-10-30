@@ -1,7 +1,7 @@
 //=============================================================================
-// LiandriBotChunks.
+// UMSDroneChunks.
 //=============================================================================
-class LiandriBotChunks expands PlayerChunks abstract;
+class UMSDroneChunks expands PlayerChunks abstract;
 
 var sound HitSounds[4];
 
@@ -9,7 +9,7 @@ function ChunkUp(int Damage)
 {
 	if (bHidden)
 		return;
-	Spawn(class 'LiandriBotHitEffect',,,,rot(16384,0,0));
+	Spawn(class 'UMSDroneHitEffect',,,,rot(16384,0,0));
 
 	if (bPlayerCarcass)
 	{
@@ -40,7 +40,7 @@ simulated function Landed(vector HitNormal)
 	finalRot.Pitch = 0;
 	setRotation(finalRot);
 	
-	Spawn(class 'LiandriBotHitEffect',,,,rotator(HitNormal));
+	Spawn(class 'UMSDroneHitEffect',,,,rotator(HitNormal));
 	SetPhysics(PHYS_None);
 	SetCollision(true, false, false);
 }
@@ -77,7 +77,7 @@ simulated function HitWall(vector HitNormal, actor Wall)
 	}
 	
 	
-	Spawn(class 'LiandriBotHitEffect',,,,rotator(HitNormal));
+	Spawn(class 'UMSDroneHitEffect',,,,rotator(HitNormal));
 }
 
 

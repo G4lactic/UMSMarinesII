@@ -1,7 +1,7 @@
 //=============================================================================
-// LiandriBotMasterChunk.
+// UMSDroneMasterChunk.
 //=============================================================================
-class LiandriBotMasterChunk expands MasterCreatureChunk;
+class UMSDroneMasterChunk expands MasterCreatureChunk;
 
 var sound HitSounds[4];
 
@@ -9,7 +9,7 @@ function SpawnHead()
 {
 	local carcass carc;
 	
-	carc = Spawn(class'LiandriBotHead');
+	carc = Spawn(class'UMSDroneHead');
 	if ( carc != None )
 		carc.Initfor(self);
 }
@@ -18,7 +18,7 @@ function ChunkUp(int Damage)
 {
 	if (bHidden)
 		return;
-	Spawn(class 'LiandriBotHitEffect',,,,rot(16384,0,0));
+	Spawn(class 'UMSDroneHitEffect',,,,rot(16384,0,0));
 	Destroy();
 }
 
@@ -31,7 +31,7 @@ simulated function Landed(vector HitNormal)
 	finalRot.Pitch = 0;
 	setRotation(finalRot);
 	
-	Spawn(class 'LiandriBotHitEffect',,,,rotator(HitNormal));
+	Spawn(class 'UMSDroneHitEffect',,,,rotator(HitNormal));
 	SetPhysics(PHYS_None);
 	SetCollision(true, false, false);
 }
@@ -59,7 +59,7 @@ simulated function HitWall(vector HitNormal, actor Wall)
 	}
 	
 	
-	Spawn(class 'LiandriBotHitEffect',,,,rotator(HitNormal));
+	Spawn(class 'UMSDroneHitEffect',,,,rotator(HitNormal));
 }
 
 
@@ -75,33 +75,33 @@ simulated function ClientExtraChunks(bool bSpawnChunks)
 		return;
 	}
 
-	Spawn(class 'LiandriBotHitEffect',,,,rot(16384,0,0));
+	Spawn(class 'UMSDroneHitEffect',,,,rot(16384,0,0));
 
 
 	if ( Owner.AnimSequence != 'Dead4')
 	{
-		carc = Spawn(class'LiandriBotHead');
+		carc = Spawn(class'UMSDroneHead');
 		if ( carc != None )
 			carc.Initfor(self);
 	}
 
-	carc = Spawn(class 'LiandriBotTorso');
+	carc = Spawn(class 'UMSDroneTorso');
 	if (carc != None)
 		carc.Initfor(self);
 		
-	carc = Spawn(class 'LiandriBotLeftArm');
+	carc = Spawn(class 'UMSDroneLeftArm');
 	if (carc != None)
 		carc.Initfor(self);
 
-	carc = Spawn(class 'LiandriBotRightArm');
+	carc = Spawn(class 'UMSDroneRightArm');
 	if (carc != None)
 		carc.Initfor(self);
 
-	carc = Spawn(class 'LiandriBotLeftLeg');
+	carc = Spawn(class 'UMSDroneLeftLeg');
 	if (carc != None)
 		carc.Initfor(self);
 
-	carc = Spawn(class 'LiandriBotRightLeg');
+	carc = Spawn(class 'UMSDroneRightLeg');
 	if (carc != None)
 		carc.Initfor(self);
 }

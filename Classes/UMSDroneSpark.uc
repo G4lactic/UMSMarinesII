@@ -1,7 +1,7 @@
 //=============================================================================
-// LiandriBotSpark.
+// UMSDroneSpark.
 //=============================================================================
-class LiandriBotSpark extends Effects;
+class UMSDroneSpark extends Effects;
 
 function PostBeginPlay()
 {

@@ -1,7 +1,7 @@
 //=============================================================================
-// LiandriBotHitEffect.
+// UMSDroneHitEffect.
 //=============================================================================
-class LiandriBotHitEffect extends HeavyWallHitEffect;
+class UMSDroneHitEffect extends HeavyWallHitEffect;
 
 
 
@@ -34,7 +34,7 @@ simulated function SpawnEffects()
 		return;
 		
 		for (j=0; j<8; j++) 
-			spawn(class'LiandriBotSpark',,,Location + 8 * Vector(Rotation));
+			spawn(class'UMSDroneSpark',,,Location + 8 * Vector(Rotation));
 }
 
 defaultproperties

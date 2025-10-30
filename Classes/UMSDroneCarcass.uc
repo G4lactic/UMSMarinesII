@@ -1,7 +1,7 @@
 //=============================================================================
-// LiandriBot.
+// UMSDroneCarcass.
 //=============================================================================
-class LiandriBotCarcass expands HumanCarcass;
+class UMSDroneCarcass expands HumanCarcass;
 
 #exec TEXTURE IMPORT NAME=JDgib1 FILE=Textures\Skins\slxangib.PCX GROUP=Skins FLAGS=2
 
@@ -101,7 +101,7 @@ function TakeDamage( int Damage, Pawn InstigatedBy, Vector Hitlocation,
 			bJerking = false;
 	}
 	
-	Spawn(class'LiandriBotHitEffect',,,HitLocation, rotator(Momentum));
+	Spawn(class'UMSDroneHitEffect',,,HitLocation, rotator(Momentum));
 
 	if ( !bPermanent )
 	{
@@ -186,10 +186,10 @@ function CreateReplacement()
 	if (bHidden)
 		return;
 
-	Spawn(class'LiandriBotHitEffect',,,Location, rot(-16384,0,0));
+	Spawn(class'UMSDroneHitEffect',,,Location, rot(-16384,0,0));
 	
 
-	carc = Spawn(Class'LiandriBotMasterChunk',Self,, Location + CollisionHeight * vect(0,0,0.5)); 
+	carc = Spawn(Class'UMSDroneMasterChunk',Self,, Location + CollisionHeight * vect(0,0,0.5)); 
 	if (carc != None)
 	{
 		carc.Initfor(self);
@@ -328,5 +328,5 @@ defaultproperties
 	bBlockActors=True
 	bBlockPlayers=True
 	Mass=100.000000
-	MasterReplacement=Class'LiandriBot.LiandriBotMasterChunk'
+	MasterReplacement=Class'LiandriBot.UMSDroneMasterChunk'
 }
