@@ -30,7 +30,7 @@ simulated function SpawnEffects()
 		
 	//A = Spawn(class'SpriteSmokePuff',,,Location + 8 * Vector(Rotation));
 	//A.RemoteRole = ROLE_None;
-	if ( Region.Zone.bWaterZone || Level.bDropDetail )
+	if ( Region.Zone.bWaterZone )
 		return;
 		
 		for (j=0; j<8; j++) 

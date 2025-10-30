@@ -146,7 +146,7 @@ class UMSCombatDrone extends UMSSpecialForces;
 
 #exec TEXTURE IMPORT NAME=GlowRed FILE=Textures\FX\GlowRed.bmp GROUP=Skins FLAGS=2
 #exec MESHMAP SETTEXTURE MESHMAP=UMSDrone NUM=1 TEXTURE=GlowRed
-
+/*
 #exec AUDIO IMPORT FILE="Sounds\Voice\CDM101a.WAV" NAME="CDM101a" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\CDM101b.WAV" NAME="CDM101b" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\CDM103a.WAV" NAME="CDM103a" GROUP="Voice"
@@ -175,7 +175,7 @@ class UMSCombatDrone extends UMSSpecialForces;
 #exec AUDIO IMPORT FILE="Sounds\Voice\CDMDeath2.WAV" NAME="CDM117B" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\CDMDeath3.WAV" NAME="CDM117C" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\CDMDeath4.WAV" NAME="CDM117D" GROUP="Voice"
-
+*/
 
 var effects Glowy;
 var bool bSploded;
@@ -184,9 +184,9 @@ Function PostBeginPlay()
 {
     Glowy=Spawn(Class'UMSDroneGlow',Self,,Location,Rotation);
 	bIsFemale=False;
-	RandomDeathSound();
+	//RandomDeathSound();
 }
-
+/*
 Function RandomDeathSound()
 {
 	local int RandNum;
@@ -219,7 +219,7 @@ Function RandomDeathSound()
 		Die4=Death;
     }
 }
-
+*/
 function PlayMovingAttack()
 {
 	PlayRunning();
@@ -266,7 +266,7 @@ Function FireWeapon()
 	else	
 	Super.FireWeapon();
 }
-
+/*
 simulated function PlayFootStep()
 {
 	local sound step;
@@ -486,7 +486,7 @@ function RespondPhrase()
      PlaySound( voice, SLOT_None,vol );
     }
 }
-
+*/
 
 function PlayRunning()
 {
@@ -652,11 +652,6 @@ function PlayMeleeAttack()
 		PlayAnim('MeleeWL',1.5);
 }
 
-Function Timer()
-{
-	PlaySound(sound'AlertSplode',SLOT_None);
-}
-
 State BombingRun
 {
 	ignores Fireweapon, PeerNotification, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget;
@@ -699,10 +694,15 @@ State BombingRun
 
 	}
 
+	Function Timer()
+	{
+		PlaySound(sound'TWAlarm',SLOT_None);
+	}
+
 Begin:
 	Acceleration = Vect(0,0,0);
 	PlayAnim('Dead9',2);
-	PlaySound(sound'AlertSplode',SLOT_None);
+	PlaySound(sound'TWAlarm',SLOT_None);
 	FinishAnim();
 	Goto('Run');
 

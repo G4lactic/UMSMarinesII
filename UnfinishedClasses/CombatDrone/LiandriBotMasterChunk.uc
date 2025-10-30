@@ -53,7 +53,7 @@ simulated function HitWall(vector HitNormal, actor Wall)
 	{
 		if ( speed > 700 )
 			velocity *= 0.8;
-		if (  (Level.NetMode != NM_DedicatedServer) && Level.bHighDetailMode && !Level.bDropDetail
+		if (  (Level.NetMode != NM_DedicatedServer) && Level.bHighDetailMode
 			&& (LifeSpan < 19.3) )
 			PlaySound(HitSounds[Rand(4)],,12);
 	}
