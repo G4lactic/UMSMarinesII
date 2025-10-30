@@ -117,6 +117,7 @@ class UMSCombatDrone extends UMSSpecialForces;
 #exec MESH NOTIFY MESH=UMSDrone SEQ=WalkSM 	TIME=0.75 FUNCTION=PlayFootStep
 #exec MESH NOTIFY MESH=UMSDrone SEQ=WalkSMFR TIME=0.25 FUNCTION=PlayFootStep
 #exec MESH NOTIFY MESH=UMSDrone SEQ=WalkSMFR TIME=0.75 FUNCTION=PlayFootStep
+#exec MESH NOTIFY MESH=UMSDrone SEQ=MeleeWL TIME=0.34 FUNCTION=PunchDamageTarget
 
 #exec MESH NOTIFY MESH=UMSDrone SEQ=RunLG TIME=0.25 FUNCTION=PlayFootStep
 #exec MESH NOTIFY MESH=UMSDrone SEQ=RunLG TIME=0.75 FUNCTION=PlayFootStep
@@ -170,6 +171,12 @@ class UMSCombatDrone extends UMSSpecialForces;
 
 #exec AUDIO IMPORT FILE="Sounds\SFX\AutoTurretAlert.WAV" NAME="AlertSplode" GROUP="SFX"
 
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDMDeath.WAV" NAME="CDM117A" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDMDeath2.WAV" NAME="CDM117B" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDMDeath3.WAV" NAME="CDM117C" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\CDMDeath4.WAV" NAME="CDM117D" GROUP="Voice"
+
+
 var effects Glowy;
 var bool bSploded;
 
@@ -177,6 +184,40 @@ Function PostBeginPlay()
 {
     Glowy=Spawn(Class'UMSDroneGlow',Self,,Location,Rotation);
 	bIsFemale=False;
+	RandomDeathSound();
+}
+
+Function RandomDeathSound()
+{
+	local int RandNum;
+    local float vol;
+    local sound Death;
+
+    LastTalkTime=level.TimeSeconds;
+	vol = 2.0;
+    LastTalker = self;
+    Talker( LastTalker );
+    bGetResponse=false;
+    bRespond=false;
+
+		RandNum = Rand( 4 );
+
+		if (RandNum==0)
+				Death=sound'UMSMarinesII.CDM117A';  
+		else if (RandNum==1)
+				Death=sound'UMSMarinesII.CDM117B';  
+		else if (RandNum==2)
+				Death=sound'UMSMarinesII.CDM117C';  
+		else if (RandNum==3)
+				Death=sound'UMSMarinesII.CDM117D';
+
+    if(Death!=none)
+    {
+		Die=Death;
+		Die2=Death;
+		Die3=Death;
+		Die4=Death;
+    }
 }
 
 function PlayMovingAttack()
@@ -224,6 +265,31 @@ Function FireWeapon()
 	GotoState('BombingRun');
 	else	
 	Super.FireWeapon();
+}
+
+simulated function PlayFootStep()
+{
+	local sound step;
+	local float decision;
+
+	if ( FootRegion.Zone.bWaterZone )
+	{
+		PlaySound(sound 'LSplash', SLOT_Interact, 1, false, 1500.0, 1.0);
+		return;
+	}
+
+	decision = FRand();
+	if ( decision < 0.34 )
+		step = Footstep1;
+	else if (decision < 0.67 )
+		step = Footstep2;
+	else
+		step = Footstep3;
+
+	if ( DesiredSpeed <= 0.5 )
+		PlaySound(step, SLOT_Interact, 4, false, 400.0, 1.0);
+	else
+		PlaySound(step, SLOT_Interact, 4, false, 1200.0, 1.0);
 }
 
 function KillPhrase()
@@ -753,14 +819,14 @@ defaultproperties
 	HitSound3=Sound'UnrealShare.Male.MInjur3'
 	HitSound4=Sound'UnrealShare.Male.MInjur4'
 	Die2=None
-	Die3=Sound'UnrealShare.Male.MDeath3'
-	Die4=Sound'UnrealShare.Male.MDeath4'
+	Die3=None
+	Die4=None
 	GaspSound=Sound'UnrealShare.Male.MGasp2'
 	UWHit1=Sound'UnrealShare.Male.MUWHit1'
 	UWHit2=Sound'UnrealShare.Male.MUWHit2'
 	LandGrunt=Sound'UnrealShare.Male.lland01'
 	JumpSound=Sound'UnrealShare.Male.MJump1'
-	WeaponType=Class'UnrealShare.Eightball'
+	WeaponType=Class'UnrealShare.Stinger'
 	myWeapon=None
 	HumanKillMessage=" was blown away by a UMS Combat Drone"
 	DispPowerLevel=1
@@ -776,10 +842,10 @@ defaultproperties
 	AirControl=0.35
 	SightRadius=4000.0
 	UnderWaterTime=-1.0
-	CombatStyle=0.75
-	HitSound1=Sound'UnrealShare.Male.MInjur1'
-	HitSound2=Sound'UnrealShare.Male.MInjur2'
-	Die=Sound'UnrealShare.Male.MDeath1'
+	CombatStyle=0.85
+	HitSound1=None
+	HitSound2=None
+	Die=None
 	Intelligence=BRAINS_HUMAN
 	bCanStrafe=True
 	bAutoActivate=True
@@ -829,7 +895,7 @@ defaultproperties
 	JumpZ=425.0
 	BaseEyeHeight=39.0
 	EyeHeight=39.0
-	MenuName="UMS Space Marine"
+	MenuName="UMS Combat Drone"
 	Mass=400.0
 	DrawScale=1.25
 	CollisionRadius=21.0

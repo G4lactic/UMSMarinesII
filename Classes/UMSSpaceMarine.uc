@@ -7186,10 +7186,12 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		ScaleGlow = -3;
 		BeamEffect=Spawn(Class'UMSBeamShieldEffect',Self,,Location,Rotation);
 		PlaySound( sound'BeamedIn' );
-		if(MyWeapon.Mass <= 20)		
+		if(Mesh == Default.Mesh && MyWeapon.Mass <= 20)		
 		LoopAnim( 'BREATHSM', 0.4 );
-		else if (MyWeapon.Mass > 20)
+		else if (Mesh == Default.Mesh && MyWeapon.Mass > 20)
 		LoopAnim( 'BREATHLG', 0.4 );
+		else if (Mesh != Default.Mesh)
+		LoopAnim('Breath1');
 		Spawn(Class'SMTeleport');
 		//if(Skill >= 3)
 		//{
