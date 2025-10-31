@@ -3964,7 +3964,6 @@ function Killed( pawn killer, pawn Other, name damageType )
 
 function KillPhrase()
 {
-	local int RandNum;
     local float vol;
     local sound voice;
 
@@ -3974,73 +3973,6 @@ function KillPhrase()
     Talker( LastTalker );
     bGetResponse=false;
     bRespond=false;
-/*
-	if( !bIsFemale )
-	{
-		RandNum = Rand( 15 );
-
-		if (RandNum==0)
-				voice=sound'UMSMarinesII.MS110';  //target eliminated
-		else if (RandNum==1)
-				voice=sound'UMSMarinesII.MS115';  //enemy's dead
-		else if (RandNum==2)
-				voice=sound'UMSMarinesII.MS116';  //target eliminated
-		else if (RandNum==3)
-				voice=sound'UMSMarinesII.MS210a';  //target eliminated
-		else if (RandNum==4)
-				voice=sound'UMSMarinesII.MS210b';  //target eliminated
-        else if (RandNum==5)
-				voice=sound'UMSMarinesII.MS216a';  //target eliminated
-        else if (RandNum==6)
-				voice=sound'UMSMarinesII.MS215a';  //enemy's dead
-        else if (RandNum==7)
-				voice=sound'UMSMarinesII.MS215b';  //enemy's dead
-        else if (RandNum==8)
-				voice=sound'gotemm';  //ha gotem
-        else if (RandNum==9)
-				voice=sound'nextonem';  // where the next one
-        else if (RandNum==10)
-				voice=sound'tooeasym'; //too easy
-        else if (RandNum==11)
-				voice=sound'sdownm'; //and stay down
-        else if (RandNum==12)
-				voice=sound'scratchm';  //  scratch one more
-        else if (RandNum==13)
-				voice=sound'messm';  // Ooo Messy Way to go
-        else if (RandNum==14)
-				voice=sound'ashesm';  // Ashes to ashes baby
-
-	}
-	else
-	{
-		RandNum = Rand( 12 );
-
-
-        if (RandNum==0)
-				voice=sound'UMSMarinesII.MS315a'; //enemies dead
-        else if (RandNum==1)
-				voice=sound'UMSMarinesII.MS315b';  //enemies dead
-		else if (RandNum==2)
-				voice=sound'UMSMarinesII.MS310b';  //target elim
-		else if (RandNum==3)
-				voice=sound'UMSMarinesII.MS316a';  //target elim
-		else if (RandNum==4)
-				voice=sound'UMSMarinesII.MS316b';  //target elim
-        else if (RandNum==5)
-				voice=sound'gotemf';  //got em
-        else if (RandNum==6)
-				voice=sound'takethatf'; // take that
-        else if (RandNum==7)
-				voice=sound'woof';  //  wooaahh
-        else if (RandNum==8)
-				voice=sound'adownf';  //  another one down
-        else if (RandNum==9)
-				voice=sound'nastyf';  //  nasty
-        else if (RandNum==10)
-				voice=sound'scratchf';  //  scratch one more
-        else if (RandNum==11)
-				voice=sound'messf';  // what a mess
-	}*/
 
 	if(!bIsFemale)
 	{
@@ -4062,7 +3994,6 @@ function KillPhrase()
 
 function HelpPhrase()
 {
-	local int RandNum;
     local float vol;
     local sound voice;
 
@@ -4072,40 +4003,6 @@ function HelpPhrase()
     Talker( LastTalker );
     bGetResponse=true;
     bRespond=false;
-/*
-	if( !bIsFemale )
-    {
-         RandNum = Rand( 6 );
-         if (RandNum==0)
-		    	voice=sound'UMSMarinesII.MS214a';  //I need some help here
-	     else if (RandNum==1)
-				voice=sound'UMSMarinesII.MS214b';  //I need some help here
-         else if (RandNum==2)
-				voice=sound'UMSMarinesII.MS209a';  //Im in trouble
-         else if (RandNum==3)
-				voice=sound'UMSMarinesII.MS209b';  //Im in trouble
-         else if (RandNum==4)
-				voice=sound'UMSMarinesII.MS204a';  //I'm Hit
-         else if (RandNum==5)
-				voice=sound'backupm';  // need backup
-
-	}
-	else
-	{
-		RandNum = Rand( 6 );
-        if (RandNum==0)
-				voice=sound'UMSMarinesII.MS314a'; //I need some help here
-		else if (RandNum==1)
-				voice=sound'UMSMarinesII.MS314b'; //I need some help here
-        else if (RandNum==2)
-				voice=sound'UMSMarinesII.MS309a';  //Im in trouble
-        else if (RandNum==3)
-				voice=sound'UMSMarinesII.MS309b';  //Im in trouble
-        else if (RandNum==4)
-				voice=sound'UMSMarinesII.MS304a';  //I'm Hit
-        else if (RandNum==5)
-				voice=sound'backupf';  // I need backup
-	}*/
 
 	if(!bIsFemale)
 	{
@@ -4127,9 +4024,6 @@ function HelpPhrase()
 
 function AcquirePhrase()
 {
-
-
-	//local int RandNum;
     local float vol;
     local sound voice;
 
@@ -4140,53 +4034,6 @@ function AcquirePhrase()
     LastTalker = self;
     Talker( LastTalker );
     bRespond=false;
-/*
-	if(bActFriendly)
-	{
-		if(!bIsFemale)
-		voice=sound'UMSMarinesII.Him2'; // Hi!
-		else
-		voice=sound'UMSMarinesII.Hif2'; // Hi!
-	}
-	else
-	{
-		if( !bIsFemale )
-		{
-			RandNum = Rand( 7 );
-
-			if (RandNum==0)
-					voice=sound'UMSMarinesII.MS106'; //target acquired
-			else if (RandNum==1)
-					voice=sound'UMSMarinesII.MS206a'; //target acquired
-			else if (RandNum==2)
-					voice=sound'UMSMarinesII.MS206b'; //target acquired
-			else if (RandNum==3)
-					voice=sound'incomingm'; //incoming
-			else if (RandNum==4)
-					voice=sound'lockm'; //lock amd load
-			else if (RandNum==5)
-					voice=sound'lookoutm'; //look out
-			else if (RandNum==6)
-					voice=sound'companym'; //we got company
-		}
-		else
-		{
-			RandNum = Rand( 6 );
-
-			if (RandNum==0)
-					voice=sound'UMSMarinesII.MS306a'; //target acquired
-			else if (RandNum==1)
-					voice=sound'UMSMarinesII.MS306b';  //target acquired
-			else if (RandNum==2)
-					voice=sound'incomingf'; //incoming
-			else if (RandNum==3)
-					voice=sound'lookoutf'; //look out
-			else if (RandNum==4)
-					voice=sound'heref'; //here we go
-			else if (RandNum==5)
-					voice=sound'companyf'; //we got company
-		}
-	}*/
 
 	if(!bIsFemale)
 	{
@@ -4208,7 +4055,6 @@ function AcquirePhrase()
 
 function ChargePhrase()
 {
-	local int RandNum;
     local float vol;
     local sound voice;
 
@@ -4218,85 +4064,6 @@ function ChargePhrase()
     Talker( LastTalker );
     bGetResponse=false;
     bRespond=false;
-/*
-	if( !bIsFemale )
-	{
-       	RandNum = Rand( 17 );
-
-		if (RandNum==0)
-				voice=sound'UMSMarinesII.MS111';  //fire
-		else if (RandNum==1)
-				voice=sound'UMSMarinesII.MS211a'; //fire
-		else if (RandNum==2)
-				voice=sound'UMSMarinesII.MS211b';  //fire
-        else if (RandNum==3)
-				voice=sound'UMSMarinesII.MS212a'; //open fire
-		else if (RandNum==4)
-				voice=sound'UMSMarinesII.MS212b'; //open fire
-		else if (RandNum==5)
-				voice=sound'UMSMarinesII.MS213a'; //attack my target
-		else if (RandNum==6)
-				voice=sound'UMSMarinesII.MS213b'; //attack my target
-		else if (RandNum==7)
-				voice=sound'UMSMarinesII.MS112';  //open fire
-		else if (RandNum==8)
-				voice=sound'UMSMarinesII.MS113';  //attack my target
-        else if (RandNum==9)
-				voice=sound'UMSMarinesII.MS205a'; //im closing in
-		else if (RandNum==10)
-				voice=sound'UMSMarinesII.MS205b'; //im closing in
-        else if (RandNum==11)
-				voice=sound'UMSMarinesII.MS207a'; //go
-		else if (RandNum==12)
-				voice=sound'UMSMarinesII.MS207b'; //go
-		else if (RandNum==13)
-				voice=sound'covermem';  //cover me
-		else if (RandNum==14)
-				voice=sound'gogom';  //go go go
-		else if (RandNum==15)
-				voice=sound'moveitm';  //move it
-		else if (RandNum==16)
-				voice=sound'movem';  //move move move
-
-        if((RandNum==0 || RandNum==1 || RandNum==2 || RandNum==3 || RandNum==4
-           || RandNum==5 || RandNum==6 || RandNum==7 || RandNum==8
-           || RandNum==13)&& FRand()<0.5)
-
-           bGetResponse=true;
-	}
-	else
-	{
-		RandNum = Rand( 12 );
-
-		if (RandNum==0)
-				voice=sound'UMSMarinesII.MS305a';  //im closing in
-        else if (RandNum==1)
-				voice=sound'UMSMarinesII.MS305b';  //im closing in
-		else if (RandNum==2)
-				voice=sound'UMSMarinesII.MS311a';  //fire
-		else if (RandNum==3)
-				voice= sound'UMSMarinesII.MS311b';  //fire
-		else if (RandNum==4)
-				voice= sound'UMSMarinesII.MS312a';  //open fire
-		else if (RandNum==5)
-				voice=sound'UMSMarinesII.MS312b';  //open fire
-		else if (RandNum==6)
-				voice=sound'UMSMarinesII.MS313a';  //attack my target
-		else if (RandNum==7)
-				voice=sound'UMSMarinesII.MS313b';  //attack my target
-        else if (RandNum==8)
-				voice=sound'UMSMarinesII.MS307a';  //go
-		else if (RandNum==9)
-				voice=sound'UMSMarinesII.MS307b';  //go
-		else if (RandNum==10)
-				voice=sound'covermef';  //cover me
-		else if (RandNum==11)
-				voice=sound'gogof';  //go go
-
-        if(( RandNum==2 || RandNum==3 || RandNum==4 || RandNum==5 || RandNum==6
-           || RandNum==7 )&& FRand()<0.5)
-         bGetResponse=true;
-	}*/
 
 	if(!bIsFemale)
 	{
@@ -4317,7 +4084,6 @@ function ChargePhrase()
 
 function RespondPhrase()
 {
-	local int RandNum;
     local float vol;
     local sound voice;
 
@@ -4329,44 +4095,6 @@ function RespondPhrase()
 	LastTalkTime=level.TimeSeconds;
     LastTalker = self;
     Talker( LastTalker );
-/*
-	if( !bIsFemale )
-	{
-       	RandNum = Rand( 7 );
-      if (RandNum==0)
-         voice=sound'onmywaym';
-      else if (RandNum==1)
-         voice=sound'imonitm';
-      else if (RandNum==2)
-         voice=sound'rogerm';
-      else if (RandNum==3)
-         voice=sound'affirmativem';
-      else if (RandNum==4)
-         voice=sound'willdom';
-      else if (RandNum==5)
-         voice=sound'yougotitm';
-      else if (RandNum==6)
-         voice=sound'ten4m';
-    }
-    else
-    {
-     RandNum = Rand( 7 );
-
-       if (RandNum==0)
-         voice=sound'onmywayf';
-       else if (RandNum==1)
-         voice=sound'imonitf';
-       else if (RandNum==2)
-         voice=sound'rogerf';
-      else if (RandNum==3)
-         voice=sound'affirmativef';
-      else if (RandNum==4)
-         voice=sound'aquiref';
-      else if (RandNum==5)
-         voice=sound'okf';
-      else if (RandNum==6)
-         voice=sound'ten4f';
-    }*/
 
 	if(!bIsFemale)
 	{
