@@ -558,6 +558,8 @@ var(ExtraVariables) float ExploRange;
 var(ExtraVariables) float ExploDamage;
 var(ExtraVariables) float ExploMomentum;
 var(UMSSpaceMarineExtras) GOverride GenderOverride;
+var(ExtraVariables) Class <UMSMarineVoice> MarineVoice; // looking for UMSMarineVoice or any classes extending from it.
+var UMSMarineVoice MyVoice;
 
 var SilentBallExplosion sbc;
 var BlackSmoke bsm;
@@ -1271,6 +1273,11 @@ function bool SetEnemy( Pawn NewEnemy )
 
 function PostBeginPlay()
 {
+	ForEach AllActors(Class'UMSMarineVoice',MyVoice)
+		Break;
+	if( MyVoice==None )
+		Myvoice = Spawn(MarineVoice);
+
 	if(bLurePlayer)
 	bActFriendly=True;
 
@@ -3967,7 +3974,7 @@ function KillPhrase()
     Talker( LastTalker );
     bGetResponse=false;
     bRespond=false;
-
+/*
 	if( !bIsFemale )
 	{
 		RandNum = Rand( 15 );
@@ -4033,7 +4040,19 @@ function KillPhrase()
 				voice=sound'scratchf';  //  scratch one more
         else if (RandNum==11)
 				voice=sound'messf';  // what a mess
+	}*/
+
+	if(!bIsFemale)
+	{
+		MyVoice.GetPhraseKillMale();
+		Voice=MyVoice.Phrase;
 	}
+	else
+	{
+		MyVoice.GetPhraseKillFemale();
+		Voice=MyVoice.Phrase;
+	}
+
     if(voice!=none)
     {
      PlaySound( voice, SLOT_Talk,vol*0.9 );
@@ -4053,6 +4072,7 @@ function HelpPhrase()
     Talker( LastTalker );
     bGetResponse=true;
     bRespond=false;
+/*
 	if( !bIsFemale )
     {
          RandNum = Rand( 6 );
@@ -4085,7 +4105,19 @@ function HelpPhrase()
 				voice=sound'UMSMarinesII.MS304a';  //I'm Hit
         else if (RandNum==5)
 				voice=sound'backupf';  // I need backup
+	}*/
+
+	if(!bIsFemale)
+	{
+		MyVoice.GetPhraseHelpMale();
+		Voice=MyVoice.Phrase;
 	}
+	else
+	{
+		MyVoice.GetPhraseHelpFemale();
+		Voice=MyVoice.Phrase;
+	}
+
     if(voice!=none)
     {
      PlaySound( voice, SLOT_Talk,vol*0.9 );
@@ -4095,16 +4127,20 @@ function HelpPhrase()
 
 function AcquirePhrase()
 {
-	local int RandNum;
+
+
+	//local int RandNum;
     local float vol;
     local sound voice;
 
+	Log("Here");
+	
     LastTalkTime=level.TimeSeconds;
 	vol = 2.0;
     LastTalker = self;
     Talker( LastTalker );
     bRespond=false;
-
+/*
 	if(bActFriendly)
 	{
 		if(!bIsFemale)
@@ -4150,7 +4186,19 @@ function AcquirePhrase()
 			else if (RandNum==5)
 					voice=sound'companyf'; //we got company
 		}
+	}*/
+
+	if(!bIsFemale)
+	{
+		MyVoice.GetPhraseAcquiredMale();
+		Voice=MyVoice.Phrase;
 	}
+	else
+	{
+		MyVoice.GetPhraseAcquiredFemale();
+		Voice=MyVoice.Phrase;
+	}
+
     if(voice!=none)
     {
      PlaySound( voice, SLOT_Talk,vol*0.9 );
@@ -4170,6 +4218,7 @@ function ChargePhrase()
     Talker( LastTalker );
     bGetResponse=false;
     bRespond=false;
+/*
 	if( !bIsFemale )
 	{
        	RandNum = Rand( 17 );
@@ -4247,6 +4296,17 @@ function ChargePhrase()
         if(( RandNum==2 || RandNum==3 || RandNum==4 || RandNum==5 || RandNum==6
            || RandNum==7 )&& FRand()<0.5)
          bGetResponse=true;
+	}*/
+
+	if(!bIsFemale)
+	{
+		MyVoice.GetPhraseChargeMale();
+		Voice=MyVoice.Phrase;
+	}
+	else
+	{
+		MyVoice.GetPhraseChargeFemale();
+		Voice=MyVoice.Phrase;
 	}
     if(voice!=none)
     {
@@ -4269,7 +4329,7 @@ function RespondPhrase()
 	LastTalkTime=level.TimeSeconds;
     LastTalker = self;
     Talker( LastTalker );
-
+/*
 	if( !bIsFemale )
 	{
        	RandNum = Rand( 7 );
@@ -4306,7 +4366,19 @@ function RespondPhrase()
          voice=sound'okf';
       else if (RandNum==6)
          voice=sound'ten4f';
-    }
+    }*/
+
+	if(!bIsFemale)
+	{
+		MyVoice.GetPhraseRespondMale();
+		Voice=MyVoice.Phrase;
+	}
+	else
+	{
+		MyVoice.GetPhraseRespondFemale();
+		Voice=MyVoice.Phrase;
+	}
+
     if(voice!=none)
     {
      PlaySound( voice, SLOT_Talk,vol );
@@ -7716,4 +7788,5 @@ defaultproperties
 	ChallengeTauntFemale(2)=Sound'UMSMarinesII.Voice.seeyaf'
 	ChallengeTauntFemale(3)=Sound'UMSMarinesII.Voice.welldonef'
 	Skill=1
+	MarineVoice=class'UMSMarineVoice'
 }
