@@ -3333,7 +3333,6 @@ Function BetrayAnims()
 
 function BetrayPhrase()
 {
-	local int RandNum;
     local float vol;
     local sound voice;
 
@@ -3344,53 +3343,17 @@ function BetrayPhrase()
     bGetResponse=false;
     bRespond=false;
 
-	if( !bIsFemale )
+	if(!bIsFemale)
 	{
-		RandNum = Rand( 12 );
-
-		if (RandNum==0)
-				voice=sound'UMSMarinesII.MS101a';  
-		else if (RandNum==1)
-				voice=sound'UMSMarinesII.MS101b';  
-		else if (RandNum==2)
-				voice=sound'UMSMarinesII.MS102a';  
-		else if (RandNum==3)
-				voice=sound'UMSMarinesII.MS102b';
-		else if (RandNum==4)
-				voice=sound'UMSMarinesII.MS103a';  
-        else if (RandNum==5)
-				voice=sound'UMSMarinesII.MS103b';  
-        else if (RandNum==6)
-				voice=sound'UMSMarinesII.MS201a';  
-        else if (RandNum==7)
-				voice=sound'UMSMarinesII.MS201b';  
-        else if (RandNum==8)
-				voice=sound'UMSMarinesII.MS202a';  
-        else if (RandNum==9)
-				voice=sound'UMSMarinesII.MS202b'; 
-        else if (RandNum==10)
-				voice=sound'UMSMarinesII.MS203a'; 
-        else if (RandNum==11)
-				voice=sound'UMSMarinesII.MS203b'; 
-
+		MyVoice.GetPhraseBetrayMale();
+		Voice=MyVoice.Phrase;
 	}
 	else
 	{
-		RandNum = Rand( 6 );
-
-        if (RandNum==0)
-				voice=sound'UMSMarinesII.MS301a'; 
-        else if (RandNum==1)
-				voice=sound'UMSMarinesII.MS301b';  
-		else if (RandNum==2)
-				voice=sound'UMSMarinesII.MS302a';  
-		else if (RandNum==3)
-				voice=sound'UMSMarinesII.MS302b';  
-		else if (RandNum==4)
-				voice=sound'UMSMarinesII.MS303a';  
-        else if (RandNum==5)
-				voice=sound'UMSMarinesII.MS303b';  
+		MyVoice.GetPhraseBetrayFemale();
+		Voice=MyVoice.Phrase;
 	}
+
     if(voice!=none)
     {
      PlaySound( voice, SLOT_Talk,vol*0.9 );
