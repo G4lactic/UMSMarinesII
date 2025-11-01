@@ -554,15 +554,15 @@ var UMSBeamShieldEffect BeamEffect;
 var(UMSSpaceMarine) class<weapon> WeaponType;
 var	  Weapon myWeapon;
 
-var(ExtraVariables) string HumanKillMessage;
+var(UMSMarineExtraVars) string HumanKillMessage;
 Var(UMSSpaceMarineExtras) int DispPowerLevel;
 var(UMSSpaceMarineExtras) bool bCadet; // You can now just set marines to be cadets from here. to avoid having un-needed classes.
 var bool bWimp;
 
 var bool strafedodge;
 var bool bBeamingIn;
-var(ExtraVariables) float BeamWaitTime;
-var(ExtraVariables) float BeamTime;
+var(UMSMarineExtraVars) float BeamWaitTime;
+var(UMSMarineExtraVars) float BeamTime;
 //var UMSMarineWaveTool MarineBeamController;
 var UMSBeamOctagon Octagon;
 
@@ -572,7 +572,7 @@ var UMSSpaceMarine LastTalker;
 var UMSSpaceMarine BetrayBuddy;
 var float LastTalkTime;
 var float MessageTime;
-var(ExtraVariables) float  CommandRadius;
+var(UMSMarineExtraVars) float  CommandRadius;
 var(UMSSpaceMarineExtras) bool bButtonPusher;
 var(UMSSpaceMarineExtras) bool bLurePlayer;
 
@@ -589,25 +589,25 @@ var(Sounds) sound static9;
 var(Sounds) sound static10;
 var(Sounds) sound ExplodeSound;
 var(Sounds) sound ActiveExlo;
-var(ExtraVariables) sound Reloadsound;
-var(ExtraVariables) byte	PunchDamage;
-var(ExtraVariables) byte	SlamDamage;
+var(UMSMarineExtraVars) sound Reloadsound;
+var(UMSMarineExtraVars) byte	PunchDamage;
+var(UMSMarineExtraVars) byte	SlamDamage;
 var(UMSSpaceMarineExtras) bool	bTeleportWhenHurt;
 var(UMSSpaceMarineExtras) bool bExplodeWhenHurt;
-var(ExtraVariables) float ExploRange;
-var(ExtraVariables) float ExploDamage;
-var(ExtraVariables) float ExploMomentum;
+var(UMSMarineExtraVars) float ExploRange;
+var(UMSMarineExtraVars) float ExploDamage;
+var(UMSMarineExtraVars) float ExploMomentum;
 var(UMSSpaceMarineExtras) GOverride GenderOverride;
-//var(ExtraVariables) Class <UMSMarineVoice> MarineVoice; // looking for UMSMarineVoice or any classes extending from it.
+//var(UMSMarineExtraVars) Class <UMSMarineVoice> MarineVoice; // looking for UMSMarineVoice or any classes extending from it.
 //var UMSMarineVoice MyVoice;
 
-var(Phrases) ListAcquirePhrase AcquirePhrases;
-var(Phrases) ListHelpPhrase HelpPhrases;
-var(Phrases) ListChargePhrase ChargePhrases;
-var(Phrases) ListKillPhrase KillPhrases;
-var(Phrases) ListRespondPhrase RespondPhrases;
-var(Phrases) ListBetrayPhrase BetrayPhrases;
-var(Phrases) ListTauntPhrase TauntPhrases;
+var(UMSMarinePhrases) ListAcquirePhrase AcquirePhrases;
+var(UMSMarinePhrases) ListHelpPhrase HelpPhrases;
+var(UMSMarinePhrases) ListChargePhrase ChargePhrases;
+var(UMSMarinePhrases) ListKillPhrase KillPhrases;
+var(UMSMarinePhrases) ListRespondPhrase RespondPhrases;
+var(UMSMarinePhrases) ListBetrayPhrase BetrayPhrases;
+var(UMSMarinePhrases) ListTauntPhrase TauntPhrases;
 
 var SilentBallExplosion sbc;
 var BlackSmoke bsm;
