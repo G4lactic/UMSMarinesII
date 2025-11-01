@@ -1276,7 +1276,9 @@ function PostBeginPlay()
 	ForEach AllActors(Class'UMSMarineVoice',MyVoice)
 		Break;
 	if( MyVoice==None )
-		Myvoice = Spawn(MarineVoice);
+	{
+		MyVoice = Spawn(MarineVoice);
+	}
 
 	if(bLurePlayer)
 	bActFriendly=True;
