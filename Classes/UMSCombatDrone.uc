@@ -902,14 +902,6 @@ defaultproperties
 	Fatness=130
 	BeamWaitTime=2.0
 	BeamTime=5
-	ChallengeTauntMale(0)=Sound'UMSMarinesII.Voice.takeemm'
-	ChallengeTauntMale(1)=Sound'UMSMarinesII.Voice.thathurtm'
-	ChallengeTauntMale(2)=Sound'UMSMarinesII.Voice.tooeasym2'
-	ChallengeTauntMale(3)=Sound'UMSMarinesII.Voice.tooeasym'
-	ChallengeTauntFemale(0)=Sound'UMSMarinesII.Voice.takeemf'
-	ChallengeTauntFemale(1)=Sound'UMSMarinesII.Voice.marksmanf'
-	ChallengeTauntFemale(2)=Sound'UMSMarinesII.Voice.seeyaf'
-	ChallengeTauntFemale(3)=Sound'UMSMarinesII.Voice.welldonef'
 	Skill=2
 	MultiSkins(0)=Texture'UMSMarinesII.Skins.UMS0'
 	MultiSkins(1)=Texture'UMSMarinesII.FX.GlowRed'
