@@ -585,8 +585,6 @@ var(Sounds) sound static10;
 var(Sounds) sound ExplodeSound;
 var(Sounds) sound ActiveExlo;
 var(ExtraVariables) sound Reloadsound;
-var(ExtraVariables) sound ChallengeTauntMale[4];
-var(ExtraVariables) sound ChallengeTauntFemale[4];
 var(ExtraVariables) byte	PunchDamage;
 var(ExtraVariables) byte	SlamDamage;
 var(UMSSpaceMarineExtras) bool	bTeleportWhenHurt;
@@ -604,6 +602,8 @@ var(Phrases) ListChargePhrase ChargePhrases;
 var(Phrases) ListKillPhrase KillPhrases;
 var(Phrases) ListRespondPhrase RespondPhrases;
 var(Phrases) ListBetrayPhrase BetrayPhrases;
+var(Phrases) sound ChallengeTauntMale[4];
+var(Phrases) sound ChallengeTauntFemale[4];
 
 
 var SilentBallExplosion sbc;
@@ -2771,31 +2771,14 @@ function PlayChallenge()
 {
 	local float decision;
     //local name newAnim;
-	local float R;
-
-	R = FRand();
 
 	if(!bIsFemale)
 	{
-		if(R < 0.2)
-		PlaySound(ChallengeTauntMale[0]);
-		else if(R < 0.4)
-		PlaySound(ChallengeTauntMale[1]);
-		else if(R < 0.8)
-		PlaySound(ChallengeTauntMale[2]);
-		else if(R < 1)
-		PlaySound(ChallengeTauntMale[3]);
+		PlaySound(ChallengeTauntMale[Rand(4)]);
 	}
 	else
 	{
-		if(R < 0.2)
-		PlaySound(ChallengeTauntFemale[0]);
-		else if(R < 0.4)
-		PlaySound(ChallengeTauntFemale[1]);
-		else if(R < 0.8)
-		PlaySound(ChallengeTauntFemale[2]);
-		else if(R < 1)
-		PlaySound(ChallengeTauntFemale[3]);
+		PlaySound(ChallengeTauntFemale[Rand(4)]);
 	}
 
 	bFire = 0;
