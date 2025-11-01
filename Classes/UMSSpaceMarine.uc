@@ -4017,8 +4017,6 @@ function AcquirePhrase()
     local float vol;
     local sound voice;
 
-	Log("Here");
-	
     LastTalkTime=level.TimeSeconds;
 	vol = 2.0;
     LastTalker = self;
