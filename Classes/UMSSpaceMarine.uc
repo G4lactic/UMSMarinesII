@@ -489,6 +489,43 @@ Struct GOverride
 	var() bool bAlwaysFemale;
 };
 
+Struct ListAcquirePhrase
+{
+	var() sound Male[12];
+	var() sound Female[12];
+};
+
+Struct ListHelpPhrase
+{
+	var() sound Male[12];
+	var() sound Female[12];
+};
+
+Struct ListChargePhrase
+{
+	var() sound Male[12];
+	var() sound Female[12];
+};
+
+Struct ListKillPhrase
+{
+	var() sound Male[12];
+	var() sound Female[12];
+};
+
+Struct ListRespondPhrase
+{
+	var() sound Male[12];
+	var() sound Female[12];
+};
+
+Struct ListBetrayPhrase
+{
+	var() sound Male[12];
+	var() sound Female[12];
+};
+
+
 // UMSSpaceMarine
 var float Accuracy;
 
@@ -560,6 +597,14 @@ var(ExtraVariables) float ExploMomentum;
 var(UMSSpaceMarineExtras) GOverride GenderOverride;
 var(ExtraVariables) Class <UMSMarineVoice> MarineVoice; // looking for UMSMarineVoice or any classes extending from it.
 var UMSMarineVoice MyVoice;
+
+var(Phrases) ListAcquirePhrase AcquirePhrases;
+var(Phrases) ListHelpPhrase HelpPhrases;
+var(Phrases) ListChargePhrase ChargePhrases;
+var(Phrases) ListKillPhrase KillPhrases;
+var(Phrases) ListRespondPhrase RespondPhrases;
+var(Phrases) ListBetrayPhrase BetrayPhrases;
+
 
 var SilentBallExplosion sbc;
 var BlackSmoke bsm;
@@ -3347,13 +3392,11 @@ function BetrayPhrase()
 
 	if(!bIsFemale)
 	{
-		MyVoice.GetPhraseBetrayMale();
-		Voice=MyVoice.Phrase;
+		Voice=BetrayPhrases.Male[Rand(12)];
 	}
 	else
 	{
-		MyVoice.GetPhraseBetrayFemale();
-		Voice=MyVoice.Phrase;
+		Voice=BetrayPhrases.Female[Rand(12)];
 	}
 
     if(voice!=none)
@@ -3941,13 +3984,11 @@ function KillPhrase()
 
 	if(!bIsFemale)
 	{
-		MyVoice.GetPhraseKillMale();
-		Voice=MyVoice.Phrase;
+		Voice=KillPhrases.Male[Rand(12)];
 	}
 	else
 	{
-		MyVoice.GetPhraseKillFemale();
-		Voice=MyVoice.Phrase;
+		Voice=KillPhrases.Female[Rand(12)];
 	}
 
     if(voice!=none)
@@ -3971,13 +4012,11 @@ function HelpPhrase()
 
 	if(!bIsFemale)
 	{
-		MyVoice.GetPhraseHelpMale();
-		Voice=MyVoice.Phrase;
+		Voice=HelpPhrases.Male[Rand(12)];
 	}
 	else
 	{
-		MyVoice.GetPhraseHelpFemale();
-		Voice=MyVoice.Phrase;
+		Voice=HelpPhrases.Female[Rand(12)];
 	}
 
     if(voice!=none)
@@ -4002,13 +4041,11 @@ function AcquirePhrase()
 
 	if(!bIsFemale)
 	{
-		MyVoice.GetPhraseAcquiredMale();
-		Voice=MyVoice.Phrase;
+		Voice=AcquirePhrases.Male[Rand(12)];
 	}
 	else
 	{
-		MyVoice.GetPhraseAcquiredFemale();
-		Voice=MyVoice.Phrase;
+		Voice=AcquirePhrases.Female[Rand(12)];
 	}
 
     if(voice!=none)
@@ -4032,14 +4069,13 @@ function ChargePhrase()
 
 	if(!bIsFemale)
 	{
-		MyVoice.GetPhraseChargeMale();
-		Voice=MyVoice.Phrase;
+		Voice=ChargePhrases.Male[Rand(12)];
 	}
 	else
 	{
-		MyVoice.GetPhraseChargeFemale();
-		Voice=MyVoice.Phrase;
+		Voice=ChargePhrases.Female[Rand(12)];
 	}
+
     if(voice!=none)
     {
      PlaySound( voice, SLOT_Talk,vol*0.9 );
@@ -4063,13 +4099,11 @@ function RespondPhrase()
 
 	if(!bIsFemale)
 	{
-		MyVoice.GetPhraseRespondMale();
-		Voice=MyVoice.Phrase;
+		Voice=RespondPhrases.Male[Rand(12)];
 	}
 	else
 	{
-		MyVoice.GetPhraseRespondFemale();
-		Voice=MyVoice.Phrase;
+		Voice=RespondPhrases.Female[Rand(12)];
 	}
 
     if(voice!=none)
@@ -6775,6 +6809,73 @@ function Died(pawn Killer, name damageType, vector HitLocation)
 	//super.Died(Killer, damageType, HitLocation);
 }
 
+state TacticalMove
+{
+ignores SeePlayer, HearNoise;
+
+	function SetFall()
+	{
+		Acceleration = vect(0,0,0);
+		Destination = Location;
+		NextState = 'Attacking';
+		NextLabel = 'Begin';
+		NextAnim = AnimSequence;
+		GotoState('FallingState');
+	}
+
+	function BeginState()
+	{
+      bGetResponse=false;
+      if ( Level.TimeSeconds - LastTalkTime > 2.0 && LastTalker!=self )
+       {
+	    ChargePhrase();
+        if (bGetResponse)
+        {
+          NotifyPeers( 'respond', Enemy );
+          bRespond=false;
+        }
+       }
+	  super.BeginState();
+	}
+
+	function Timer()
+	{
+		bReadyToAttack = True;
+   	    if ( Health <=0 || bDeleteme )
+	      return;
+	    Enable('Bump');
+	    if ( Enemy == none || Enemy.health <= 0 || Enemy.bdeleteme || Enemy == self )
+	    {
+        	GotoState('Attacking');
+        	return;
+        }
+		Target = Enemy;
+		if (VSize(Enemy.Location - Location)
+				<= (MeleeRange + Enemy.CollisionRadius + CollisionRadius))
+			GotoState('MeleeAttack');
+		else if ( FRand() > 0.5 + 0.17 * skill || skill>1)// stand still occasionally
+			GotoState('RangedAttack');
+	}
+
+	function PainTimer()
+	{
+	    if ( Health <=0 || bDeleteme )
+	      return;
+		if ( (FootRegion.Zone.bPainZone) && (FootRegion.Zone.DamagePerSec > 0)
+			&& (FootRegion.Zone.DamageType != ReducedDamageType)
+            && (FootRegion.Zone.DamageType != 'spacewalk') )
+			GotoState('Retreating');
+		Super.PainTimer();
+	}
+
+    function AnimEnd()
+    {
+     super.AnimEnd();
+     if(bRespond && Level.TimeSeconds - LastTalkTime > 1.0 )
+     RespondPhrase();
+    }
+}
+
 state Exploding
 {
 ignores Fireweapon, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
@@ -7481,5 +7582,11 @@ defaultproperties
 	ChallengeTauntFemale(2)=Sound'UMSMarinesII.Voice.seeyaf'
 	ChallengeTauntFemale(3)=Sound'UMSMarinesII.Voice.welldonef'
 	Skill=1
-	MarineVoice=class'UMSMarineVoice'
+	MarineVoice=None
+	AcquirePhrases=(Male[0]=Sound'UMSMarinesII.Voice.Ms106',Male[1]=Sound'UMSMarinesII.Voice.Ms206a',Male[2]=Sound'UMSMarinesII.Voice.Ms206b',Male[3]=Sound'UMSMarinesII.Voice.incomingm',Male[4]=Sound'UMSMarinesII.Voice.lockm',Male[5]=Sound'UMSMarinesII.Voice.lookoutm',Male[6]=Sound'UMSMarinesII.Voice.companym',Male[7]=Sound'UMSMarinesII.Voice.Ms106',Male[8]=Sound'UMSMarinesII.Voice.Ms206a',Male[9]=Sound'UMSMarinesII.Voice.Ms206b',Male[10]=Sound'UMSMarinesII.Voice.incomingm',Male[11]=Sound'UMSMarinesII.Voice.lookoutm',Female[0]=Sound'UMSMarinesII.Voice.Ms306a',Female[1]=Sound'UMSMarinesII.Voice.Ms306b',Female[2]=Sound'UMSMarinesII.Voice.incomingf',Female[3]=Sound'UMSMarinesII.Voice.lookoutf',Female[4]=Sound'UMSMarinesII.Voice.heref',Female[5]=Sound'UMSMarinesII.Voice.companyf',Female[6]=Sound'UMSMarinesII.Voice.Ms306b',Female[7]=Sound'UMSMarinesII.Voice.Ms306a',Female[8]=Sound'UMSMarinesII.Voice.incomingf',Female[9]=Sound'UMSMarinesII.Voice.lookoutf',Female[10]=Sound'UMSMarinesII.Voice.heref',Female[11]=Sound'UMSMarinesII.Voice.companyf')
+	HelpPhrases=(Male[0]=Sound'UMSMarinesII.Voice.Ms114',Male[1]=Sound'UMSMarinesII.Voice.Ms214a',Male[2]=Sound'UMSMarinesII.Voice.Ms214b',Male[3]=Sound'UMSMarinesII.Voice.Ms209a',Male[4]=Sound'UMSMarinesII.Voice.Ms209b',Male[5]=Sound'UMSMarinesII.Voice.Ms109',Male[6]=Sound'UMSMarinesII.Voice.Ms104',Male[7]=Sound'UMSMarinesII.Voice.Ms204a',Male[8]=Sound'UMSMarinesII.Voice.Ms204b',Male[9]=Sound'UMSMarinesII.Voice.backupm',Male[10]=Sound'UMSMarinesII.Voice.Ms104',Male[11]=Sound'UMSMarinesII.Voice.Ms204b',Female[0]=Sound'UMSMarinesII.Voice.Ms304a',Female[1]=Sound'UMSMarinesII.Voice.Ms304b',Female[2]=Sound'UMSMarinesII.Voice.Ms309a',Female[3]=Sound'UMSMarinesII.Voice.Ms309b',Female[4]=Sound'UMSMarinesII.Voice.Ms314a',Female[5]=Sound'UMSMarinesII.Voice.Ms314b',Female[6]=Sound'UMSMarinesII.Voice.backupf',Female[7]=Sound'UMSMarinesII.Voice.Ms304a',Female[8]=Sound'UMSMarinesII.Voice.Ms309a',Female[9]=Sound'UMSMarinesII.Voice.Ms314a',Female[10]=Sound'UMSMarinesII.Voice.backupf',Female[11]=Sound'UMSMarinesII.Voice.Ms304a')
+	ChargePhrases=(Male[0]=Sound'UMSMarinesII.Voice.Ms111',Male[1]=Sound'UMSMarinesII.Voice.Ms211a',Male[2]=Sound'UMSMarinesII.Voice.Ms211b',Male[3]=Sound'UMSMarinesII.Voice.Ms212a',Male[4]=Sound'UMSMarinesII.Voice.Ms212b',Male[5]=Sound'UMSMarinesII.Voice.Ms213a',Male[6]=Sound'UMSMarinesII.Voice.Ms213b',Male[7]=Sound'UMSMarinesII.Voice.Ms113',Male[8]=Sound'UMSMarinesII.Voice.Ms205a',Male[9]=Sound'UMSMarinesII.Voice.Ms205b',Male[10]=Sound'UMSMarinesII.Voice.Ms105',Male[11]=Sound'UMSMarinesII.Voice.Ms112',Female[0]=Sound'UMSMarinesII.Voice.Ms305a',Female[1]=Sound'UMSMarinesII.Voice.Ms305b',Female[2]=Sound'UMSMarinesII.Voice.Ms311a',Female[3]=Sound'UMSMarinesII.Voice.Ms311b',Female[4]=Sound'UMSMarinesII.Voice.Ms312a',Female[5]=Sound'UMSMarinesII.Voice.Ms312b',Female[6]=Sound'UMSMarinesII.Voice.Ms307a',Female[7]=Sound'UMSMarinesII.Voice.Ms307b',Female[8]=Sound'UMSMarinesII.Voice.covermef',Female[9]=Sound'UMSMarinesII.Voice.gogof',Female[10]=Sound'UMSMarinesII.Voice.Ms313a',Female[11]=Sound'UMSMarinesII.Voice.Ms312b')
+	KillPhrases=(Male[0]=Sound'UMSMarinesII.Voice.Ms110',Male[1]=Sound'UMSMarinesII.Voice.Ms115',Male[2]=Sound'UMSMarinesII.Voice.Ms116',Male[3]=Sound'UMSMarinesII.Voice.Ms210a',Male[4]=Sound'UMSMarinesII.Voice.Ms210b',Male[5]=Sound'UMSMarinesII.Voice.Ms215a',Male[6]=Sound'UMSMarinesII.Voice.Ms215b',Male[7]=Sound'UMSMarinesII.Voice.Ms216a',Male[8]=Sound'UMSMarinesII.Voice.sdownm',Male[9]=Sound'UMSMarinesII.Voice.nextonem',Male[10]=Sound'UMSMarinesII.Voice.scratchm',Male[11]=Sound'UMSMarinesII.Voice.thathurtm',Female[0]=Sound'UMSMarinesII.Voice.Ms310a',Female[1]=Sound'UMSMarinesII.Voice.Ms310b',Female[2]=Sound'UMSMarinesII.Voice.Ms315a',Female[3]=Sound'UMSMarinesII.Voice.Ms315b',Female[4]=Sound'UMSMarinesII.Voice.Ms316a',Female[5]=Sound'UMSMarinesII.Voice.Ms316b',Female[6]=Sound'UMSMarinesII.Voice.takethatf',Female[7]=Sound'UMSMarinesII.Voice.nastyf',Female[8]=Sound'UMSMarinesII.Voice.scratchf',Female[9]=Sound'UMSMarinesII.Voice.messf',Female[10]=Sound'UMSMarinesII.Voice.Ms316b',Female[11]=Sound'UMSMarinesII.Voice.Ms310b')
+	RespondPhrases=(Male[0]=Sound'UMSMarinesII.Voice.onmywaym',Male[1]=Sound'UMSMarinesII.Voice.imonitm',Male[2]=Sound'UMSMarinesII.Voice.rogerm',Male[3]=Sound'UMSMarinesII.Voice.affirmativem',Male[4]=Sound'UMSMarinesII.Voice.willdom',Male[5]=Sound'UMSMarinesII.Voice.Ms108',Male[6]=Sound'UMSMarinesII.Voice.Ms208a',Male[7]=Sound'UMSMarinesII.Voice.Ms208b',Male[8]=Sound'UMSMarinesII.Voice.yougotitm',Male[9]=Sound'UMSMarinesII.Voice.Ms108',Male[10]=Sound'UMSMarinesII.Voice.Ms208a',Male[11]=Sound'UMSMarinesII.Voice.Ms208b',Female[0]=Sound'UMSMarinesII.Voice.Ms308a',Female[1]=Sound'UMSMarinesII.Voice.Ms308b',Female[2]=Sound'UMSMarinesII.Voice.onmywayf',Female[3]=Sound'UMSMarinesII.Voice.imonitf',Female[4]=Sound'UMSMarinesII.Voice.rogerf',Female[5]=Sound'UMSMarinesII.Voice.ten4f',Female[6]=Sound'UMSMarinesII.Voice.aquiref',Female[7]=Sound'UMSMarinesII.Voice.okf',Female[8]=Sound'UMSMarinesII.Voice.Ms308a',Female[9]=Sound'UMSMarinesII.Voice.Ms308b',Female[10]=Sound'UMSMarinesII.Voice.rogerf',Female[11]=Sound'UMSMarinesII.Voice.imonitf')
+	BetrayPhrases=(Male[0]=Sound'UMSMarinesII.Voice.Ms101a',Male[1]=Sound'UMSMarinesII.Voice.Ms101b',Male[2]=Sound'UMSMarinesII.Voice.Ms102a',Male[3]=Sound'UMSMarinesII.Voice.Ms102b',Male[4]=Sound'UMSMarinesII.Voice.Ms103a',Male[5]=Sound'UMSMarinesII.Voice.Ms103b',Male[6]=Sound'UMSMarinesII.Voice.Ms201a',Male[7]=Sound'UMSMarinesII.Voice.Ms201b',Male[8]=Sound'UMSMarinesII.Voice.Ms202a',Male[9]=Sound'UMSMarinesII.Voice.Ms202b',Male[10]=Sound'UMSMarinesII.Voice.Ms203a',Male[11]=Sound'UMSMarinesII.Voice.Ms203b',Female[0]=Sound'UMSMarinesII.Voice.Ms301a',Female[1]=Sound'UMSMarinesII.Voice.Ms301b',Female[2]=Sound'UMSMarinesII.Voice.Ms302a',Female[3]=Sound'UMSMarinesII.Voice.Ms302b',Female[4]=Sound'UMSMarinesII.Voice.Ms303a',Female[5]=Sound'UMSMarinesII.Voice.Ms303b',Female[6]=Sound'UMSMarinesII.Voice.Ms301a',Female[7]=Sound'UMSMarinesII.Voice.Ms301b',Female[8]=Sound'UMSMarinesII.Voice.Ms303a',Female[9]=Sound'UMSMarinesII.Voice.Ms302b',Female[10]=Sound'UMSMarinesII.Voice.hellof',Female[11]=Sound'UMSMarinesII.Voice.hif2')
 }
