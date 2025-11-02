@@ -614,7 +614,7 @@ var BlackSmoke bsm;
 var bool bInitz;
 var int Randsir;
 
-var int TBU;
+//var int TBU;
 var bool bReadyToTalk;
 var bool bGetResponse;
 var bool bRespond;
