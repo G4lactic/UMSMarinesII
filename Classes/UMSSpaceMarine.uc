@@ -554,15 +554,15 @@ var UMSBeamShieldEffect BeamEffect;
 var(UMSSpaceMarine) class<weapon> WeaponType;
 var	  Weapon myWeapon;
 
-var(UMSMarineExtraVars) string HumanKillMessage;
-Var(UMSSpaceMarineExtras) int DispPowerLevel;
-var(UMSSpaceMarineExtras) bool bCadet; // You can now just set marines to be cadets from here. to avoid having un-needed classes.
+var(Misc) string HumanKillMessage;
+Var(UMSSpaceMarine) int DispPowerLevel;
+var(UMSSpaceMarine) bool bCadet; // You can now just set marines to be cadets from here. to avoid having un-needed classes.
 var bool bWimp;
 
 var bool strafedodge;
 var bool bBeamingIn;
-var(UMSMarineExtraVars) float BeamWaitTime;
-var(UMSMarineExtraVars) float BeamTime;
+var(Misc) float BeamWaitTime;
+var(Misc) float BeamTime;
 //var UMSMarineWaveTool MarineBeamController;
 var UMSBeamOctagon Octagon;
 
@@ -572,9 +572,9 @@ var UMSSpaceMarine LastTalker;
 var UMSSpaceMarine BetrayBuddy;
 var float LastTalkTime;
 var float MessageTime;
-var(UMSMarineExtraVars) float  CommandRadius;
-var(UMSSpaceMarineExtras) bool bButtonPusher;
-var(UMSSpaceMarineExtras) bool bLurePlayer;
+var(Misc) float  CommandRadius;
+var(UMSSpaceMarine) bool bButtonPusher;
+var(UMSSpaceMarine) bool bLurePlayer;
 
 var(Sounds) sound slap;
 var(Sounds) sound static1;
@@ -589,25 +589,25 @@ var(Sounds) sound static9;
 var(Sounds) sound static10;
 var(Sounds) sound ExplodeSound;
 var(Sounds) sound ActiveExlo;
-var(UMSMarineExtraVars) sound Reloadsound;
-var(UMSMarineExtraVars) byte	PunchDamage;
-var(UMSMarineExtraVars) byte	SlamDamage;
-var(UMSSpaceMarineExtras) bool	bTeleportWhenHurt;
-var(UMSSpaceMarineExtras) bool bExplodeWhenHurt;
-var(UMSMarineExtraVars) float ExploRange;
-var(UMSMarineExtraVars) float ExploDamage;
-var(UMSMarineExtraVars) float ExploMomentum;
-var(UMSSpaceMarineExtras) GOverride GenderOverride;
-//var(UMSMarineExtraVars) Class <UMSMarineVoice> MarineVoice; // looking for UMSMarineVoice or any classes extending from it.
+var(Misc) sound Reloadsound;
+var(Misc) byte	PunchDamage;
+var(Misc) byte	SlamDamage;
+var(UMSSpaceMarine) bool	bTeleportWhenHurt;
+var(UMSSpaceMarine) bool bExplodeWhenHurt;
+var(Misc) float ExploRange;
+var(Misc) float ExploDamage;
+var(Misc) float ExploMomentum;
+var(Misc) GOverride GenderOverride;
+//var(Misc) Class <UMSMarineVoice> MarineVoice; // looking for UMSMarineVoice or any classes extending from it.
 //var UMSMarineVoice MyVoice;
 
-var(UMSMarinePhrases) ListAcquirePhrase AcquirePhrases;
-var(UMSMarinePhrases) ListHelpPhrase HelpPhrases;
-var(UMSMarinePhrases) ListChargePhrase ChargePhrases;
-var(UMSMarinePhrases) ListKillPhrase KillPhrases;
-var(UMSMarinePhrases) ListRespondPhrase RespondPhrases;
-var(UMSMarinePhrases) ListBetrayPhrase BetrayPhrases;
-var(UMSMarinePhrases) ListTauntPhrase TauntPhrases;
+var(Phrases) ListAcquirePhrase AcquirePhrases;
+var(Phrases) ListHelpPhrase HelpPhrases;
+var(Phrases) ListChargePhrase ChargePhrases;
+var(Phrases) ListKillPhrase KillPhrases;
+var(Phrases) ListRespondPhrase RespondPhrases;
+var(Phrases) ListBetrayPhrase BetrayPhrases;
+var(Phrases) ListTauntPhrase TauntPhrases;
 
 var SilentBallExplosion sbc;
 var BlackSmoke bsm;
