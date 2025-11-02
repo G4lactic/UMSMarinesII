@@ -574,7 +574,7 @@ var float LastTalkTime;
 var float MessageTime;
 var(Misc) float  CommandRadius;
 var(UMSSpaceMarine) bool bButtonPusher;
-var(UMSSpaceMarine) bool bLurePlayer;
+//var(UMSSpaceMarine) bool bLurePlayer; // Cut for now!
 
 var(Sounds) sound slap;
 var(Sounds) sound static1;
@@ -618,8 +618,8 @@ var int TBU;
 var bool bReadyToTalk;
 var bool bGetResponse;
 var bool bRespond;
-var bool bLuring;
-var bool bActFriendly;
+//var bool bLuring;
+//var bool bActFriendly;
 
 // UMSSM
 simulated event Destroyed()
@@ -1328,8 +1328,8 @@ function PostBeginPlay()
 		MyVoice = Spawn(MarineVoice);
 	}*/
 
-	if(bLurePlayer)
-	bActFriendly=True;
+	//if(bLurePlayer)
+	//bActFriendly=True;
 
 	if(bTeleportWhenHurt)
 		bExplodeWhenHurt=false;
@@ -3265,9 +3265,9 @@ ignores SeePlayer, HearNoise, Bump, HitWall;
 
 		else if (AttitudeToEnemy == ATTITUDE_Threaten)
 		{
-			if(bLurePlayer)
-			GotoState('Betraying');
-			else
+			//if(bLurePlayer)
+			//GotoState('Betraying');
+			//else
 			GotoState('Threatening');
 			return;
 		}
@@ -7157,7 +7157,7 @@ Begin:
 }
 
 
-
+/*
 state Betraying
 {
 	ignores NotifyPeers, PeerNotification, Bump, falling, landed; //fixme
@@ -7394,7 +7394,7 @@ Threaten:
 		
 	Goto('FaceEnemy');
 }
-
+*/
 State Teleporting
 {
 ignores Fireweapon, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
