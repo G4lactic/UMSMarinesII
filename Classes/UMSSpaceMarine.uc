@@ -7036,12 +7036,10 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		ScaleGlow = -3;
 		BeamEffect=Spawn(Class'UMSBeamShieldEffect',Self,,Location,Rotation);
 		PlaySound( sound'BeamedIn' );
-		if(Mesh == Default.Mesh && MyWeapon.Mass <= 20)		
+		if(MyWeapon.Mass <= 20)		
 		LoopAnim( 'BREATHSM', 0.4 );
-		else if (Mesh == Default.Mesh && MyWeapon.Mass > 20)
+		else if (MyWeapon.Mass > 20)
 		LoopAnim( 'BREATHLG', 0.4 );
-		else if (Mesh != Default.Mesh)
-		LoopAnim('Breath1');
 		Spawn(Class'SMTeleport');
 		//if(Skill >= 3)
 		//{
@@ -7105,14 +7103,14 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 				ScaleGlow -= 0.03;
 		}
 
-		if ( Fatness < 128)
-		{
-			Fatness++;
-		}
-
 		if ( BeamEffect.Fatness < 192)
 		{
 			BeamEffect.Fatness++;
+		}
+
+		if ( Fatness < 128)
+		{
+			Fatness++;
 		}
 
 		if( MyWeapon.Fatness < 128 )
@@ -7120,7 +7118,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 			MyWeapon.Fatness++;
 		}
 
-		if ( MyWeapon != none && MyWeapon.ScaleGlow < 3 )
+		if ( MyWeapon != none && MyWeapon.ScaleGlow < 2.5 )
 		{
 			MyWeapon.ScaleGlow += 0.01;
 		}
