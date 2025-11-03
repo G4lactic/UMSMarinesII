@@ -196,8 +196,9 @@ defaultproperties
 	CloakTexture=Texture'UMSMarinesII.MCloak'
 	HumanKillMessage=" was assassinated by a UMS Spectre Marine"
 	DispPowerLevel=4
-	CombatStyle=0.3
+	CombatStyle=0.8
 	MenuName="UMS Spectre Marine"
 	MultiSkins(1)=Texture'UMSMarinesII.Skins.SMarine1'
 	MultiSkins(2)=Texture'UMSMarinesII.Skins.SMarine2'
+	Skill=3
 }
