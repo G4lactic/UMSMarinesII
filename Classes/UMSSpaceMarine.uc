@@ -621,6 +621,10 @@ var bool bRespond;
 //var bool bLuring;
 //var bool bActFriendly;
 
+//Beam Related Things
+var float SETimer;
+var(Misc) float FXFadeTime; // Should always be 1.5 higher then BeamWaitTime.
+
 // UMSSM
 simulated event Destroyed()
 {
@@ -7022,7 +7026,7 @@ Begin:
     else
 		gotoState('Attacking');
 }
-
+//TODO: Make alot of this use delta time instead of being framerate dependant.
 state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 {
 	ignores EnemyAcquired, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
@@ -7034,6 +7038,8 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		Mass = 20000;
 		Style = STY_Translucent;
 		ScaleGlow = -3;
+		//AmbientGlow=45;
+		bUnlit=True;
 		BeamEffect=Spawn(Class'UMSBeamShieldEffect',Self,,Location,Rotation);
 		PlaySound( sound'BeamedIn' );
 		if(MyWeapon.Mass <= 20)		
@@ -7046,9 +7052,9 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 			//Texture = None;
 			//bMeshEnviroMap = False;
 		//}
-		BeamEffect.Fatness=80;
+		BeamEffect.Fatness=128;
 		MyWeapon.Fatness=60;
-		Fatness=60;
+		Fatness=100;
 
 		if( MyWeapon != none )
 		{
@@ -7092,49 +7098,55 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 
 	simulated function Tick( float DeltaTime )
 	{
+		SETimer += DeltaTime;
 
 		if ( ScaleGlow < 1.5 )
-			ScaleGlow += 0.03;
+			ScaleGlow = 0.03 + (SETimer / Default.BeamWaitTime);
 		else
 		{
 			Style = Default.Style;
+			MyWeapon.Texture = Weapon.Default.Texture;
+			MyWeapon.Style = STY_Normal;
+			MyWeapon.bMeshEnviroMap = false;
+			MyWeapon.ScaleGlow = Weapon.Default.ScaleGlow;
+			MyWeapon.Fatness = Weapon.Default.Fatness;
+			MyWeapon.bUnlit=Weapon.Default.bUnlit;
 
-			if( ScaleGlow > 0.15 )
-				ScaleGlow -= 0.03;
+			//if( ScaleGlow > 0.15 )
+				//ScaleGlow -= 0.03;
 		}
 
 		if ( BeamEffect.Fatness < 192)
 		{
-			BeamEffect.Fatness++;
+	        BeamEffect.Fatness = 200 * ( SETimer + 1);
 		}
+		else
+		{
+			BeamEffect.GotoState('OwnerFadeIn');
+		}
+
+		if( BeamEffect.IsInState('OwnerFadeIn') )
+		BeamEffect.Scaleglow = 1.0 - (SETimer / Default.FXFadeTime );
 
 		if ( Fatness < 128)
 		{
-			Fatness++;
+	        Fatness = 200 * ( SETimer / Default.BeamWaitTime);
 		}
 
 		if( MyWeapon.Fatness < 128 )
 		{
-			MyWeapon.Fatness++;
+	        MyWeapon.Fatness = 200 * ( SETimer / Default.BeamWaitTime);
 		}
 
 		if ( MyWeapon != none && MyWeapon.ScaleGlow < 2.5 )
 		{
-			MyWeapon.ScaleGlow += 0.01;
-		}
-		else
-		{
-			MyWeapon.Style = STY_Normal;
-			MyWeapon.bMeshEnviroMap = false;
-			MyWeapon.ScaleGlow = Weapon.Default.ScaleGlow;
-			MyWeapon.Texture = Weapon.Default.Texture;
-			MyWeapon.Fatness = Weapon.Default.Fatness;
-			MyWeapon.bUnlit=Weapon.Default.bUnlit;
+			MyWeapon.ScaleGlow = 0.01 + (SETimer / Default.BeamWaitTime);
 		}
 
 		if ( bHidden )
 		{
 			bHidden = false;
+			bUnlit=False;
 			MyWeapon.bHidden = false;
 		}
 		
@@ -7143,6 +7155,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		if ( FRand() < 0.2 && !bHidden )
 		{
 			bHidden = true;
+			bUnlit=True;
 			MyWeapon.bHidden = true;
 		}
 	}
@@ -7156,8 +7169,9 @@ Begin:
 	Texture = None;
 	bMeshEnviroMap = False;
 	Sleep( BeamTime );
-	Style = Default.Style;
+	//Style = Default.Style;
 	Mass = Default.Mass;
+	AmbientGlow=Default.AmbientGlow;
 	GotoState( 'Hunting' );
 }
 
@@ -7562,6 +7576,7 @@ defaultproperties
 	Fatness=130
 	BeamWaitTime=2.0
 	BeamTime=5
+	FXFadeTime=3.65
 	Skill=1
 	//MarineVoice=UMSMarineVoice
 	AcquirePhrases=(Male[0]=Sound'UMSMarinesII.Voice.Ms106',Male[1]=Sound'UMSMarinesII.Voice.Ms206a',Male[2]=Sound'UMSMarinesII.Voice.Ms206b',Male[3]=Sound'UMSMarinesII.Voice.incomingm',Male[4]=Sound'UMSMarinesII.Voice.lockm',Male[5]=Sound'UMSMarinesII.Voice.lookoutm',Male[6]=Sound'UMSMarinesII.Voice.companym',Male[7]=Sound'UMSMarinesII.Voice.Ms106',Male[8]=Sound'UMSMarinesII.Voice.Ms206a',Male[9]=Sound'UMSMarinesII.Voice.Ms206b',Male[10]=Sound'UMSMarinesII.Voice.incomingm',Male[11]=Sound'UMSMarinesII.Voice.lookoutm',Female[0]=Sound'UMSMarinesII.Voice.Ms306a',Female[1]=Sound'UMSMarinesII.Voice.Ms306b',Female[2]=Sound'UMSMarinesII.Voice.incomingf',Female[3]=Sound'UMSMarinesII.Voice.lookoutf',Female[4]=Sound'UMSMarinesII.Voice.heref',Female[5]=Sound'UMSMarinesII.Voice.companyf',Female[6]=Sound'UMSMarinesII.Voice.Ms306b',Female[7]=Sound'UMSMarinesII.Voice.Ms306a',Female[8]=Sound'UMSMarinesII.Voice.incomingf',Female[9]=Sound'UMSMarinesII.Voice.lookoutf',Female[10]=Sound'UMSMarinesII.Voice.heref',Female[11]=Sound'UMSMarinesII.Voice.companyf')

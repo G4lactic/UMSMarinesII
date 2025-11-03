@@ -25,7 +25,7 @@ simulated function Tick( float DeltaTime )
 		if( ScaleGlow > 0.15 )
 			ScaleGlow -= 0.01;
 	}	
-	if( Fatness > 129 )
+	if( Fatness > 192 )
 		Fatness -= 0.75;
 }
 
@@ -50,10 +50,10 @@ function PostBeginPlay()
 
 state OwnerFadeIn
 {
-	function BeginState()
+	/*function BeginState()
 	{
 		Fatness = 129;
-	}
+	}*/
 	
 	function Tick( float DeltaTime )
 	{
