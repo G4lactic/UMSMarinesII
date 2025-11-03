@@ -7102,8 +7102,8 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 
 		if ( ScaleGlow < 2.5 )
 		{
-			ScaleGlow = 1.2 * (SETimer - 0.15 );
-			MyWeapon.ScaleGlow = 1.2 * (SETimer - 0.15 );
+			ScaleGlow = 1.2 * (SETimer - 0.85 );
+			MyWeapon.ScaleGlow = 1.2 * (SETimer - 0.85 );
 		}
 
 		else
@@ -7134,12 +7134,12 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 
 		if ( Fatness < 128)
 		{
-	        Fatness = 128 * ( SETimer / 1.5);
+	        Fatness = 128 * ( SETimer / 2);
 		}
 
 		if( MyWeapon.Fatness < 128 )
 		{
-	        MyWeapon.Fatness = 128 * ( SETimer / 1.5);
+	        MyWeapon.Fatness = 128 * ( SETimer / 2);
 		}
 
 		if ( MyWeapon != none && MyWeapon.ScaleGlow < 2.5 )
