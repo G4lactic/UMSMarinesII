@@ -7049,6 +7049,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 			//bMeshEnviroMap = False;
 		//}
 		BeamEffect.Fatness=80;
+		MyWeapon.Fatness=60;
 		Fatness=60;
 
 		if( MyWeapon != none )
@@ -7083,11 +7084,18 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		myWeapon.Misc1Sound = myWeapon.Default.Misc1Sound;
 		myWeapon.Misc2Sound = myWeapon.Default.Misc2Sound;
 		myWeapon.Misc3Sound = myWeapon.Default.Misc3Sound;
+		MyWeapon.Texture = MyWeapon.Default.Texture;
+		MyWeapon.ScaleGlow = MyWeapon.Default.ScaleGlow;
+		MyWeapon.bMeshEnviroMap = false;
+		MyWeapon.Style=STY_Normal;
+		MyWeapon.bUnlit=Weapon.Default.bUnlit;
 		GoToState('Hunting');
 	}
 
 	simulated function Tick( float DeltaTime )
 	{
+		local bool bStopThat;
+
 		if ( ScaleGlow < 1.5 )
 			ScaleGlow += 0.03;
 		else
@@ -7103,12 +7111,17 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 			Fatness++;
 		}
 
-		if ( BeamEffect.Fatness < 192)
+		if ( BeamEffect.Fatness < 192 && !bStopThat)
 		{
 			BeamEffect.Fatness++;
 		}
 
-		if ( MyWeapon != none && MyWeapon.ScaleGlow < 1.5 )
+		if( MyWeapon.Fatness < 128 )
+		{
+			MyWeapon.Fatness++;
+		}
+
+		if ( MyWeapon != none && MyWeapon.ScaleGlow < 3 )
 		{
 			MyWeapon.ScaleGlow += 0.01;
 		}
@@ -7147,11 +7160,6 @@ Begin:
 	bMeshEnviroMap = False;
 	Sleep( BeamTime );
 	Style = Default.Style;
-	MyWeapon.Texture = MyWeapon.Default.Texture;
-	MyWeapon.ScaleGlow = MyWeapon.Default.ScaleGlow;
-	MyWeapon.bMeshEnviroMap = false;
-	MyWeapon.Style=STY_Normal;
-	MyWeapon.bUnlit=Weapon.Default.bUnlit;
 	Mass = Default.Mass;
 	GotoState( 'Hunting' );
 }
