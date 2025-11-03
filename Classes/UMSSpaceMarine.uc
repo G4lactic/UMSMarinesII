@@ -7030,7 +7030,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 	
 	function BeginState()
 	{
-		SetCollision(False);
+		SetCollision(False,False,False);
 		Mass = 20000;
 		Style = STY_Translucent;
 		ScaleGlow = -3;
