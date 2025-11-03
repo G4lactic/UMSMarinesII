@@ -13,7 +13,7 @@ simulated function Tick( float DeltaTime )
 		bHidden = true;
 	if( Owner==None || Owner.bDeleteMe || (Owner.bIsPawn && Pawn( Owner ).Health<=0) )
 		Destroy();
-	if( Owner.ScaleGlow < 1.5 )
+	if( Owner.ScaleGlow < 2.5 )
 		Owner.ScaleGlow += 0.01;
 	else
 	{
@@ -25,7 +25,7 @@ simulated function Tick( float DeltaTime )
 		if( ScaleGlow > 0.15 )
 			ScaleGlow -= 0.01;
 	}	
-	if( Fatness > 192 )
+	if( Fatness > 176 )
 		Fatness -= 0.75;
 }
 
@@ -75,7 +75,7 @@ defaultproperties
 	LifeSpan=999
 	bUnlit=True
 	LastDrawScale=0.0
-	ScaleGlow=1.25
+	ScaleGlow=4
 	Texture=FireTexture'UMSMarinesII.FX.BeamTexture'
-	Fatness=240
+	Fatness=0
 }

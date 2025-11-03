@@ -7039,8 +7039,8 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		Style = STY_Translucent;
 		ScaleGlow = -3;
 		//AmbientGlow=45;
-		bUnlit=True;
 		BeamEffect=Spawn(Class'UMSBeamShieldEffect',Self,,Location,Rotation);
+		BeamEffect.ScaleGlow = -3;
 		PlaySound( sound'BeamedIn' );
 		if(MyWeapon.Mass <= 20)		
 		LoopAnim( 'BREATHSM', 0.4 );
@@ -7052,7 +7052,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 			//Texture = None;
 			//bMeshEnviroMap = False;
 		//}
-		BeamEffect.Fatness=128;
+		BeamEffect.Fatness=192;
 		MyWeapon.Fatness=60;
 		Fatness=100;
 
@@ -7100,8 +7100,12 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 	{
 		SETimer += DeltaTime;
 
-		if ( ScaleGlow < 1.5 )
-			ScaleGlow = 0.03 + (SETimer / Default.BeamWaitTime);
+		if ( ScaleGlow < 2.5 )
+		{
+			ScaleGlow = 1.2 * (SETimer - Default.BeamWaitTime);
+			MyWeapon.ScaleGlow = 1.2 * (SETimer - Default.BeamWaitTime);
+		}
+
 		else
 		{
 			Style = Default.Style;
@@ -7116,9 +7120,9 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 				//ScaleGlow -= 0.03;
 		}
 
-		if ( BeamEffect.Fatness < 192)
+		if ( BeamEffect.Fatness < 176)
 		{
-	        BeamEffect.Fatness = 200 * ( SETimer + 1);
+	        BeamEffect.Fatness = 0 * ( SETimer / 4);
 		}
 		else
 		{
@@ -7130,12 +7134,12 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 
 		if ( Fatness < 128)
 		{
-	        Fatness = 200 * ( SETimer / Default.BeamWaitTime);
+	        Fatness = 128 * ( SETimer / 4);
 		}
 
 		if( MyWeapon.Fatness < 128 )
 		{
-	        MyWeapon.Fatness = 200 * ( SETimer / Default.BeamWaitTime);
+	        MyWeapon.Fatness = 128 * ( SETimer / 4);
 		}
 
 		if ( MyWeapon != none && MyWeapon.ScaleGlow < 2.5 )
@@ -7146,7 +7150,6 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		if ( bHidden )
 		{
 			bHidden = false;
-			bUnlit=False;
 			MyWeapon.bHidden = false;
 		}
 		
@@ -7155,7 +7158,6 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		if ( FRand() < 0.2 && !bHidden )
 		{
 			bHidden = true;
-			bUnlit=True;
 			MyWeapon.bHidden = true;
 		}
 	}
