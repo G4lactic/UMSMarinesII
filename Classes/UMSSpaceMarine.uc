@@ -6687,7 +6687,7 @@ Begin:
 	if(bBeamingIn)
 	{
 		bHidden = true;
-		SetCollision(False);
+		SetCollision(False,False,False);
 		Land = none;
 		LandGrunt = none;
 		Octagon = Spawn( class'UMSBeamOctagon',,, Location );
