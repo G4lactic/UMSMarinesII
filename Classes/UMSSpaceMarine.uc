@@ -7094,7 +7094,6 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 
 	simulated function Tick( float DeltaTime )
 	{
-		local bool bStopThat;
 
 		if ( ScaleGlow < 1.5 )
 			ScaleGlow += 0.03;
@@ -7111,7 +7110,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 			Fatness++;
 		}
 
-		if ( BeamEffect.Fatness < 192 && !bStopThat)
+		if ( BeamEffect.Fatness < 192)
 		{
 			BeamEffect.Fatness++;
 		}
