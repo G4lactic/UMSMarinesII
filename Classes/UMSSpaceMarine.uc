@@ -7172,6 +7172,7 @@ Begin:
 	//Style = Default.Style;
 	Mass = Default.Mass;
 	AmbientGlow=Default.AmbientGlow;
+	Fatness=Default.Fatness;
 	GotoState( 'Hunting' );
 }
 
