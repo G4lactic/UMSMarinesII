@@ -7103,7 +7103,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 			Fatness++;
 		}
 
-		if ( BeamEffect.Fatness < 165)
+		if ( BeamEffect.Fatness < 192)
 		{
 			BeamEffect.Fatness++;
 		}
