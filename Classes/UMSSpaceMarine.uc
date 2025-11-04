@@ -518,13 +518,13 @@ Struct ListRespondPhrase
 	var() sound Male[12];
 	var() sound Female[12];
 };
-
+/*
 Struct ListBetrayPhrase
 {
 	var() sound Male[12];
 	var() sound Female[12];
 };
-
+*/
 Struct ListTauntPhrase
 {
 	var() sound Male[4];
@@ -606,7 +606,7 @@ var(Phrases) ListHelpPhrase HelpPhrases;
 var(Phrases) ListChargePhrase ChargePhrases;
 var(Phrases) ListKillPhrase KillPhrases;
 var(Phrases) ListRespondPhrase RespondPhrases;
-var(Phrases) ListBetrayPhrase BetrayPhrases;
+//var(Phrases) ListBetrayPhrase BetrayPhrases;
 var(Phrases) ListTauntPhrase TauntPhrases;
 
 var SilentBallExplosion sbc;
@@ -3346,7 +3346,7 @@ ignores SeePlayer, HearNoise, Bump, HitWall;
 		//log("Next state is "$state);
 	}
 }
-
+/*
 Function BetrayAnims()
 {
 	local int RandNum;
@@ -3396,7 +3396,7 @@ function BetrayPhrase()
      PlaySound( voice, SLOT_None,vol*0.9 );
     }
 }
-
+*/
 state Acquisition
 {
  ignores falling, landed;
@@ -7592,6 +7592,6 @@ defaultproperties
 	ChargePhrases=(Male[0]=Sound'UMSMarinesII.Voice.Ms111',Male[1]=Sound'UMSMarinesII.Voice.Ms211a',Male[2]=Sound'UMSMarinesII.Voice.Ms211b',Male[3]=Sound'UMSMarinesII.Voice.Ms212a',Male[4]=Sound'UMSMarinesII.Voice.Ms212b',Male[5]=Sound'UMSMarinesII.Voice.Ms213a',Male[6]=Sound'UMSMarinesII.Voice.Ms213b',Male[7]=Sound'UMSMarinesII.Voice.Ms113',Male[8]=Sound'UMSMarinesII.Voice.Ms205a',Male[9]=Sound'UMSMarinesII.Voice.Ms205b',Male[10]=Sound'UMSMarinesII.Voice.Ms105',Male[11]=Sound'UMSMarinesII.Voice.Ms112',Female[0]=Sound'UMSMarinesII.Voice.Ms305a',Female[1]=Sound'UMSMarinesII.Voice.Ms305b',Female[2]=Sound'UMSMarinesII.Voice.Ms311a',Female[3]=Sound'UMSMarinesII.Voice.Ms311b',Female[4]=Sound'UMSMarinesII.Voice.Ms312a',Female[5]=Sound'UMSMarinesII.Voice.Ms312b',Female[6]=Sound'UMSMarinesII.Voice.Ms307a',Female[7]=Sound'UMSMarinesII.Voice.Ms307b',Female[8]=Sound'UMSMarinesII.Voice.covermef',Female[9]=Sound'UMSMarinesII.Voice.gogof',Female[10]=Sound'UMSMarinesII.Voice.Ms313a',Female[11]=Sound'UMSMarinesII.Voice.Ms312b')
 	KillPhrases=(Male[0]=Sound'UMSMarinesII.Voice.Ms110',Male[1]=Sound'UMSMarinesII.Voice.Ms115',Male[2]=Sound'UMSMarinesII.Voice.Ms116',Male[3]=Sound'UMSMarinesII.Voice.Ms210a',Male[4]=Sound'UMSMarinesII.Voice.Ms210b',Male[5]=Sound'UMSMarinesII.Voice.Ms215a',Male[6]=Sound'UMSMarinesII.Voice.Ms215b',Male[7]=Sound'UMSMarinesII.Voice.Ms216a',Male[8]=Sound'UMSMarinesII.Voice.sdownm',Male[9]=Sound'UMSMarinesII.Voice.nextonem',Male[10]=Sound'UMSMarinesII.Voice.scratchm',Male[11]=Sound'UMSMarinesII.Voice.thathurtm',Female[0]=Sound'UMSMarinesII.Voice.Ms310a',Female[1]=Sound'UMSMarinesII.Voice.Ms310b',Female[2]=Sound'UMSMarinesII.Voice.Ms315a',Female[3]=Sound'UMSMarinesII.Voice.Ms315b',Female[4]=Sound'UMSMarinesII.Voice.Ms316a',Female[5]=Sound'UMSMarinesII.Voice.Ms316b',Female[6]=Sound'UMSMarinesII.Voice.takethatf',Female[7]=Sound'UMSMarinesII.Voice.nastyf',Female[8]=Sound'UMSMarinesII.Voice.scratchf',Female[9]=Sound'UMSMarinesII.Voice.messf',Female[10]=Sound'UMSMarinesII.Voice.Ms316b',Female[11]=Sound'UMSMarinesII.Voice.Ms310b')
 	RespondPhrases=(Male[0]=Sound'UMSMarinesII.Voice.onmywaym',Male[1]=Sound'UMSMarinesII.Voice.imonitm',Male[2]=Sound'UMSMarinesII.Voice.rogerm',Male[3]=Sound'UMSMarinesII.Voice.affirmativem',Male[4]=Sound'UMSMarinesII.Voice.willdom',Male[5]=Sound'UMSMarinesII.Voice.Ms108',Male[6]=Sound'UMSMarinesII.Voice.Ms208a',Male[7]=Sound'UMSMarinesII.Voice.Ms208b',Male[8]=Sound'UMSMarinesII.Voice.yougotitm',Male[9]=Sound'UMSMarinesII.Voice.Ms108',Male[10]=Sound'UMSMarinesII.Voice.Ms208a',Male[11]=Sound'UMSMarinesII.Voice.Ms208b',Female[0]=Sound'UMSMarinesII.Voice.Ms308a',Female[1]=Sound'UMSMarinesII.Voice.Ms308b',Female[2]=Sound'UMSMarinesII.Voice.onmywayf',Female[3]=Sound'UMSMarinesII.Voice.imonitf',Female[4]=Sound'UMSMarinesII.Voice.rogerf',Female[5]=Sound'UMSMarinesII.Voice.ten4f',Female[6]=Sound'UMSMarinesII.Voice.aquiref',Female[7]=Sound'UMSMarinesII.Voice.okf',Female[8]=Sound'UMSMarinesII.Voice.Ms308a',Female[9]=Sound'UMSMarinesII.Voice.Ms308b',Female[10]=Sound'UMSMarinesII.Voice.rogerf',Female[11]=Sound'UMSMarinesII.Voice.imonitf')
-	BetrayPhrases=(Male[0]=Sound'UMSMarinesII.Voice.Ms101a',Male[1]=Sound'UMSMarinesII.Voice.Ms101b',Male[2]=Sound'UMSMarinesII.Voice.Ms102a',Male[3]=Sound'UMSMarinesII.Voice.Ms102b',Male[4]=Sound'UMSMarinesII.Voice.Ms103a',Male[5]=Sound'UMSMarinesII.Voice.Ms103b',Male[6]=Sound'UMSMarinesII.Voice.Ms201a',Male[7]=Sound'UMSMarinesII.Voice.Ms201b',Male[8]=Sound'UMSMarinesII.Voice.Ms202a',Male[9]=Sound'UMSMarinesII.Voice.Ms202b',Male[10]=Sound'UMSMarinesII.Voice.Ms203a',Male[11]=Sound'UMSMarinesII.Voice.Ms203b',Female[0]=Sound'UMSMarinesII.Voice.Ms301a',Female[1]=Sound'UMSMarinesII.Voice.Ms301b',Female[2]=Sound'UMSMarinesII.Voice.Ms302a',Female[3]=Sound'UMSMarinesII.Voice.Ms302b',Female[4]=Sound'UMSMarinesII.Voice.Ms303a',Female[5]=Sound'UMSMarinesII.Voice.Ms303b',Female[6]=Sound'UMSMarinesII.Voice.Ms301a',Female[7]=Sound'UMSMarinesII.Voice.Ms301b',Female[8]=Sound'UMSMarinesII.Voice.Ms303a',Female[9]=Sound'UMSMarinesII.Voice.Ms302b',Female[10]=Sound'UMSMarinesII.Voice.hellof',Female[11]=Sound'UMSMarinesII.Voice.hif2')
+	//BetrayPhrases=(Male[0]=Sound'UMSMarinesII.Voice.Ms101a',Male[1]=Sound'UMSMarinesII.Voice.Ms101b',Male[2]=Sound'UMSMarinesII.Voice.Ms102a',Male[3]=Sound'UMSMarinesII.Voice.Ms102b',Male[4]=Sound'UMSMarinesII.Voice.Ms103a',Male[5]=Sound'UMSMarinesII.Voice.Ms103b',Male[6]=Sound'UMSMarinesII.Voice.Ms201a',Male[7]=Sound'UMSMarinesII.Voice.Ms201b',Male[8]=Sound'UMSMarinesII.Voice.Ms202a',Male[9]=Sound'UMSMarinesII.Voice.Ms202b',Male[10]=Sound'UMSMarinesII.Voice.Ms203a',Male[11]=Sound'UMSMarinesII.Voice.Ms203b',Female[0]=Sound'UMSMarinesII.Voice.Ms301a',Female[1]=Sound'UMSMarinesII.Voice.Ms301b',Female[2]=Sound'UMSMarinesII.Voice.Ms302a',Female[3]=Sound'UMSMarinesII.Voice.Ms302b',Female[4]=Sound'UMSMarinesII.Voice.Ms303a',Female[5]=Sound'UMSMarinesII.Voice.Ms303b',Female[6]=Sound'UMSMarinesII.Voice.Ms301a',Female[7]=Sound'UMSMarinesII.Voice.Ms301b',Female[8]=Sound'UMSMarinesII.Voice.Ms303a',Female[9]=Sound'UMSMarinesII.Voice.Ms302b',Female[10]=Sound'UMSMarinesII.Voice.hellof',Female[11]=Sound'UMSMarinesII.Voice.hif2')
 	TauntPhrases=(Male[0]=Sound'UMSMarinesII.Voice.getm',Male[1]=Sound'UMSMarinesII.Voice.UhOhm',Male[2]=Sound'UMSMarinesII.Voice.thathurtm',Male[3]=Sound'UMSMarinesII.Voice.dammgoodm',Female[0]=Sound'UMSMarinesII.Voice.rockf',Female[1]=Sound'UMSMarinesII.Voice.marksmanf',Female[2]=Sound'UMSMarinesII.Voice.wasclosef',Female[3]=Sound'UMSMarinesII.Voice.hellf')
 }
