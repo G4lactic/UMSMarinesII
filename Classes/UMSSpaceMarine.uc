@@ -170,7 +170,7 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec texture IMPORT NAME=MCloak FILE=Textures\FX\MCloak.PCX GROUP="FX"
 #exec AUDIO IMPORT FILE="Sounds\SFX\MCloakL.WAV" NAME="MCloakL" GROUP="SFX"
 
-#exec OBJ LOAD FILE=..\Sounds\Marine.uax PACKAGE=UMSMarinesII.Voice
+#exec OBJ LOAD FILE=Sounds\Voice\Marine.uax PACKAGE=UMSMarinesII.Voice
 #exec OBJ LOAD FILE=..\Sounds\Activates.uax
 
 #exec AUDIO IMPORT FILE="Sounds\SFX\UMSStatic.WAV" NAME="UMSStatic" GROUP="SFX"
