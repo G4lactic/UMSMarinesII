@@ -489,34 +489,80 @@ Struct GOverride
 	var() bool bAlwaysFemale;
 };
 
+
 Struct ListAcquirePhrase
 {
-	var() sound Male[12];
-	var() sound Female[12];
+	Struct AMaleS
+	{
+		var() sound Male;
+	};
+	Struct AFMaleS
+	{
+		var() sound Female;
+	};
+
+	var() array <AMaleS> MaleSounds;
+	var() array <AFMaleS> FemaleSounds;
 };
 
 Struct ListHelpPhrase
 {
-	var() sound Male[12];
-	var() sound Female[12];
+	Struct HMaleS
+	{
+		var() sound Male;
+	};
+	Struct HFMaleS
+	{
+		var() sound Female;
+	};
+
+	var() array <HMaleS> MaleSounds;
+	var() array <HFMaleS> FemaleSounds;
 };
 
 Struct ListChargePhrase
 {
-	var() sound Male[12];
-	var() sound Female[12];
+	Struct CMaleS
+	{
+		var() sound Male;
+	};
+	Struct CFMaleS
+	{
+		var() sound Female;
+	};
+
+	var() array <CMaleS> MaleSounds;
+	var() array <CFMaleS> FemaleSounds;
 };
 
 Struct ListKillPhrase
 {
-	var() sound Male[12];
-	var() sound Female[12];
+	Struct KMaleS
+	{
+		var() sound Male;
+	};
+	Struct KFMaleS
+	{
+		var() sound Female;
+	};
+
+	var() array <KMaleS> MaleSounds;
+	var() array <KFMaleS> FemaleSounds;
 };
 
 Struct ListRespondPhrase
 {
-	var() sound Male[12];
-	var() sound Female[12];
+	Struct RMaleS
+	{
+		var() sound Male;
+	};
+	Struct RFMaleS
+	{
+		var() sound Female;
+	};
+
+	var() array <RMaleS> MaleSounds;
+	var() array <RFMaleS> FemaleSounds;
 };
 /*
 Struct ListBetrayPhrase
@@ -527,8 +573,17 @@ Struct ListBetrayPhrase
 */
 Struct ListTauntPhrase
 {
-	var() sound Male[4];
-	var() sound Female[4];
+	Struct TMaleS
+	{
+		var() sound Male;
+	};
+	Struct TFMaleS
+	{
+		var() sound Female;
+	};
+
+	var() array <TMaleS> MaleSounds;
+	var() array <TFMaleS> FemaleSounds;
 };
 
 // UMSSpaceMarine
@@ -4030,11 +4085,11 @@ function AcquirePhrase()
 
 	if(!bIsFemale)
 	{
-		Voice=AcquirePhrases.Male[Rand(12)];
+		//Voice=AcquirePhrases.Male[Rand(12)];
 	}
 	else
 	{
-		Voice=AcquirePhrases.Female[Rand(12)];
+		//Voice=AcquirePhrases.Female[Rand(12)];
 	}
 
     if(voice!=none)
@@ -4088,7 +4143,7 @@ function RespondPhrase()
 
 	if(!bIsFemale)
 	{
-		Voice=RespondPhrases.Male[Rand(12)];
+		Voice=RespondPhrases.MaleSounds[Rand(Array_Size(Male))];
 	}
 	else
 	{
