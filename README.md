@@ -1,8 +1,7 @@
 # UMSMarinesII
-Source code for UMSMarinesII which is an edit of Asgards umsspacemarine mod for Unreal1998 and Unreal Tournament 1999
+Source code for UMSMarinesII which is an edit of Asgards umsspacemarine mod for Unreal
+NOTICE: This mod is now on V227 of Unreal, 226 was giving me a ton of hiccups and wasnt panning out, so from here on out the mod is 227 only unless a UT version is highly requested.
 
-TO DEVELOPERS: if you are trying to cut down on file dependancies feel free to merge this with your mod. UMSMarinesII does not rely on anything but itself. Not even UPak. just remember to credit the mod somewhere!
-
-NOTE: UMSMarinesII works for Version 226 of Unreal and Version 436 of Unreal Tournament. so if your project is on UT you can build this for that!
+This mod is a Work In Progress and still has ways to go before its finished. however you can download and build the mod in UCC right now if you want! just know not everything is 100% working.
 
 Credits: Asgard, Turboman, Xaleros, Wulfrayne, AlCapowned, GFour
