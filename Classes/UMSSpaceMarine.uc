@@ -679,6 +679,7 @@ var bool bRespond;
 var float SETimer;
 var(Misc) float FXFadeTime; // Should always be 1.5 higher then BeamWaitTime.
 var float FadeTimer;
+var DynamicCorona BeamGlow;
 
 // UMSSM
 simulated event Destroyed()
@@ -7096,6 +7097,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		ScaleGlow = -3;
 		//AmbientGlow=45;
 		BeamEffect=Spawn(Class'UMSBeamShieldEffect',Self,,Location,Rotation);
+		BeamGlow=Spawn(Class'UMSBeamCorona',Self,,Location,Rotation);
 		BeamEffect.ScaleGlow = -3;
 		PlaySound( sound'BeamedIn' );
 		if(MyWeapon.Mass <= 20)		
@@ -7136,6 +7138,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		SetCollision(True,True,True);
 		if(BeamEffect!=None)
 		BeamEffect.Destroy();
+		BeamGlow.Destroy();
 		//Octagon.Destroy();
 		bHidden = False;
 		SightRadius=227327;
@@ -7190,6 +7193,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 
 		if( BeamEffect.IsInState('OwnerFadeIn') )
 		BeamEffect.Scaleglow = 1.0 - (SETimer / Default.FXFadeTime );
+		BeamGlow.Scaleglow = 1.0 - (SETimer / Default.FXFadeTime );
 
 		if ( Fatness < 128)
 		{
