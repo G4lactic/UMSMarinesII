@@ -7091,7 +7091,8 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 	{
 		SetCollision(False,False,False);
 		Mass = 20000;
-		Style = STY_Translucent;
+		Style = STY_AlphaBlend;
+		AmbientGlow=25;
 		ScaleGlow = -3;
 		//AmbientGlow=45;
 		BeamEffect=Spawn(Class'UMSBeamShieldEffect',Self,,Location,Rotation);
@@ -7158,10 +7159,10 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 
 		if(FadeTimer <= 0.5)
 		{
-			if ( ScaleGlow < 2.5 )
+			if ( ScaleGlow < 1.5 )
 			{
-				ScaleGlow = 1.2 * (SETimer - 0.15 );
-				MyWeapon.ScaleGlow = 1.2 * (SETimer - 0.15 );
+				ScaleGlow = 0.5 * (SETimer - 0.85 );
+				MyWeapon.ScaleGlow = 0.5 * (SETimer - 0.85 );
 			}
 			else
 			{
