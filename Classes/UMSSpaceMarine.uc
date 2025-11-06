@@ -524,10 +524,12 @@ Struct ListChargePhrase
 	Struct CMaleS
 	{
 		var() sound Male;
+		var() bool bAllowResponse;
 	};
 	Struct CFMaleS
 	{
 		var() sound Female;
+		var() bool bAllowResponse;
 	};
 
 	var() array <CMaleS> MaleSounds;
@@ -4103,6 +4105,7 @@ function ChargePhrase()
 {
     local float vol;
     local sound voice;
+	Local int StoredArray;
 
 	vol = 2.0;
 	LastTalkTime=level.TimeSeconds;
@@ -4113,11 +4116,15 @@ function ChargePhrase()
 
 	if(!bIsFemale)
 	{
-		Voice=ChargePhrases.MaleSounds[Rand(Array_Size(ChargePhrases.MaleSounds))].Male;
+		StoredArray=Rand(Array_Size(ChargePhrases.MaleSounds));
+		Voice=ChargePhrases.MaleSounds[StoredArray].Male;
+		bGetResponse=ChargePhrases.MaleSounds[StoredArray].bAllowResponse;
 	}
 	else
 	{
-		Voice=ChargePhrases.FemaleSounds[Rand(Array_Size(ChargePhrases.FemaleSounds))].Female;
+		StoredArray=Rand(Array_Size(ChargePhrases.FemaleSounds));
+		Voice=ChargePhrases.FemaleSounds[StoredArray].Female;
+		bGetResponse=ChargePhrases.FemaleSounds[StoredArray].bAllowResponse;
 	}
 
     if(voice!=none)
@@ -7648,8 +7655,7 @@ defaultproperties
 	//MarineVoice=UMSMarineVoice
 	AcquirePhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms106'),(Male=Sound'UMSMarinesII.Voice.Ms206a'),(Male=Sound'UMSMarinesII.Voice.Ms206b'),(Male=Sound'UMSMarinesII.Voice.incomingm'),(Male=Sound'UMSMarinesII.Voice.lockm'),(Male=Sound'UMSMarinesII.Voice.lookoutm'),(Male=Sound'UMSMarinesII.Voice.companym')),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms306a'),(Female=Sound'UMSMarinesII.Voice.Ms306b'),(Female=Sound'UMSMarinesII.Voice.incomingf'),(Female=Sound'UMSMarinesII.Voice.lookoutf'),(Female=Sound'UMSMarinesII.Voice.heref'),(Female=Sound'UMSMarinesII.Voice.companyf')))
 	HelpPhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms114'),(Male=Sound'UMSMarinesII.Voice.Ms109'),(Male=Sound'UMSMarinesII.Voice.Ms104'),(Male=Sound'UMSMarinesII.Voice.Ms204a'),(Male=Sound'UMSMarinesII.Voice.Ms204b'),(Male=Sound'UMSMarinesII.Voice.Ms209a'),(Male=Sound'UMSMarinesII.Voice.Ms209b'),(Male=Sound'UMSMarinesII.Voice.Ms214a'),(Male=Sound'UMSMarinesII.Voice.Ms214b'),(Male=Sound'UMSMarinesII.Voice.backupm')),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms304a'),(Female=Sound'UMSMarinesII.Voice.Ms304b'),(Female=Sound'UMSMarinesII.Voice.Ms309a'),(Female=Sound'UMSMarinesII.Voice.Ms309b'),(Female=Sound'UMSMarinesII.Voice.Ms314a'),(Female=Sound'UMSMarinesII.Voice.Ms314b'),(Female=Sound'UMSMarinesII.Voice.backupf')))
-	ChargePhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms111'),(Male=Sound'UMSMarinesII.Voice.Ms112'),(Male=Sound'UMSMarinesII.Voice.Ms211a'),(Male=Sound'UMSMarinesII.Voice.Ms211b'),(Male=Sound'UMSMarinesII.Voice.Ms212a'),(Male=Sound'UMSMarinesII.Voice.Ms212b'),(Male=Sound'UMSMarinesII.Voice.Ms113'),(Male=Sound'UMSMarinesII.Voice.Ms213a'),(Male=Sound'UMSMarinesII.Voice.Ms213b'),(Male=Sound'UMSMarinesII.Voice.Ms105'),(Male=Sound'UMSMarinesII.Voice.Ms205a'),(Male=Sound'UMSMarinesII.Voice.Ms205b'),(Male=Sound'UMSMarinesII.Voice.Ms107'),(Male=Sound'UMSMarinesII.Voice.Ms207a'),(Male=Sound'UMSMarinesII.Voice.Ms207b'),(Male=Sound'UMSMarinesII.Voice.covermem'),(Male=Sound'UMSMarinesII.Voice.gogom'),(Male=Sound'UMSMarinesII.Voice.moveitm'),(Male=Sound'UMSMarinesII.Voice.movem'),(Male=Sound'UMSMarinesII.Voice.takeemm')),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms305a'),(Female=Sound'UMSMarinesII.Voice.Ms305b'),(Female=Sound'UMSMarinesII.Voice.Ms311a'),(Female=Sound'UMSMarinesII.Voice.Ms311b'),(Female=Sound'UMSMarinesII.Voice.Ms312a'),(Female=Sound'UMSMarinesII.Voice.Ms312b'),(Female=Sound'UMSMarinesII.Voice.Ms313a'),(Female=Sound'UMSMarinesII.Voice.Ms313b'),(Female=Sound'UMSMarinesII.Voice.Ms307a'),(Female=Sound'UMSMarinesII.Voice.Ms307b'),(Female=Sound'UMSMarinesII.Voice.covermef'),(Female=Sound'UMSMarinesII.Voice.gogof'),(Female=Sound'UMSMarinesII.Voice.takeemf')))
-	KillPhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms110'),(Male=Sound'UMSMarinesII.Voice.Ms115'),(Male=Sound'UMSMarinesII.Voice.Ms116'),(Male=Sound'UMSMarinesII.Voice.Ms210a'),(Male=Sound'UMSMarinesII.Voice.Ms210b'),(Male=Sound'UMSMarinesII.Voice.Ms215a'),(Male=Sound'UMSMarinesII.Voice.Ms215b'),(Male=Sound'UMSMarinesII.Voice.Ms216a'),(Male=Sound'UMSMarinesII.Voice.gotemm'),(Male=Sound'UMSMarinesII.Voice.nextonem'),(Male=Sound'UMSMarinesII.Voice.tooeasym'),(Male=Sound'UMSMarinesII.Voice.sdownm'),(Male=Sound'UMSMarinesII.Voice.scratchm'),(Male=Sound'UMSMarinesII.Voice.messm'),(Male=Sound'UMSMarinesII.Voice.ashesm')),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms315a'),(Female=Sound'UMSMarinesII.Voice.Ms315b'),(Female=Sound'UMSMarinesII.Voice.Ms310b'),(Female=Sound'UMSMarinesII.Voice.Ms316a'),(Female=Sound'UMSMarinesII.Voice.Ms316b'),(Female=Sound'UMSMarinesII.Voice.gotemf'),(Female=Sound'UMSMarinesII.Voice.takethatf'),(Female=Sound'UMSMarinesII.Voice.woof'),(Female=Sound'UMSMarinesII.Voice.adownf'),(Female=Sound'UMSMarinesII.Voice.nastyf'),(Female=Sound'UMSMarinesII.Voice.scratchf'),(Female=Sound'UMSMarinesII.Voice.messf')))
-	RespondPhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.onmywaym'),(Male=Sound'UMSMarinesII.Voice.imonitm'),(Male=Sound'UMSMarinesII.Voice.rogerm'),(Male=Sound'UMSMarinesII.Voice.affirmativem'),(Male=Sound'UMSMarinesII.Voice.willdom'),(Male=Sound'UMSMarinesII.Voice.yougotitm'),(Male=Sound'UMSMarinesII.Voice.ten4m')),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.onmywayf'),(Female=Sound'UMSMarinesII.Voice.imonitf'),(Female=Sound'UMSMarinesII.Voice.rogerf'),(Female=Sound'UMSMarinesII.Voice.affirmativef'),(Female=Sound'UMSMarinesII.Voice.aquiref'),(Female=Sound'UMSMarinesII.Voice.okf'),(Female=Sound'UMSMarinesII.Voice.ten4f')))
-	TauntPhrases=(MaleSounds=(),FemaleSounds=())
+	ChargePhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms111',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms112',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms211a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms211b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms212a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms212b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms113',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms213a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms213b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms105',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.Ms205a',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.Ms205b',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.Ms107',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms207a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms207b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.covermem',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.gogom',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.moveitm',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.movem',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.takeemm',bAllowResponse=True)),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms305a',bAllowResponse=False),(Female=Sound'UMSMarinesII.Voice.Ms305b',bAllowResponse=False),(Female=Sound'UMSMarinesII.Voice.Ms311a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms311b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms312a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms312b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms313a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms313b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms307a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms307b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.covermef',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.gogof',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.takeemf',bAllowResponse=True)))
+	KillPhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms110'),(Male=Sound'UMSMarinesII.Voice.Ms115'),(Male=Sound'UMSMarinesII.Voice.Ms116'),(Male=Sound'UMSMarinesII.Voice.Ms210a'),(Male=Sound'UMSMarinesII.Voice.Ms210b'),(Male=Sound'UMSMarinesII.Voice.Ms215a'),(Male=Sound'UMSMarinesII.Voice.Ms215b'),(Male=Sound'UMSMarinesII.Voice.Ms216a'),(Male=Sound'UMSMarinesII.Voice.gotemm'),(Male=Sound'UMSMarinesII.Voice.nextonem'),(Male=Sound'UMSMarinesII.Voice.tooeasym'),(Male=Sound'UMSMarinesII.Voice.sdownm'),(Male=Sound'UMSMarinesII.Voice.scratchm'),(Male=Sound'UMSMarinesII.Voice.messm'),(Male=Sound'UMSMarinesII.Voice.ashesm'),(Male=Sound'UMSMarinesII.Voice.coastm')),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms315a'),(Female=Sound'UMSMarinesII.Voice.Ms315b'),(Female=Sound'UMSMarinesII.Voice.Ms310b'),(Female=Sound'UMSMarinesII.Voice.Ms316a'),(Female=Sound'UMSMarinesII.Voice.Ms316b'),(Female=Sound'UMSMarinesII.Voice.gotemf'),(Female=Sound'UMSMarinesII.Voice.takethatf'),(Female=Sound'UMSMarinesII.Voice.woof'),(Female=Sound'UMSMarinesII.Voice.adownf'),(Female=Sound'UMSMarinesII.Voice.nastyf'),(Female=Sound'UMSMarinesII.Voice.scratchf'),(Female=Sound'UMSMarinesII.Voice.messf'),(Female=Sound'UMSMarinesII.Voice.coastf')))
+	RespondPhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.cockym'),(Male=Sound'UMSMarinesII.Voice.imonitm'),(Male=Sound'UMSMarinesII.Voice.rogerm'),(Male=Sound'UMSMarinesII.Voice.affirmativem'),(Male=Sound'UMSMarinesII.Voice.Ms108'),(Male=Sound'UMSMarinesII.Voice.Ms208a'),(Male=Sound'UMSMarinesII.Voice.Ms208b')),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.onmywayf'),(Female=Sound'UMSMarinesII.Voice.imonitf'),(Female=Sound'UMSMarinesII.Voice.rogerf'),(Female=Sound'UMSMarinesII.Voice.affirmativef'),(Female=Sound'UMSMarinesII.Voice.Ms308b'),(Female=Sound'UMSMarinesII.Voice.Ms308a'),(Female=Sound'UMSMarinesII.Voice.ten4f')))
 }
