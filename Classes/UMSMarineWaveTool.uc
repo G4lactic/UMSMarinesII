@@ -43,25 +43,21 @@ event Trigger(Actor Other,Pawn EventInstigator)
 	else
 	{
     	if(RandomSpawning.bUseRandomPoints)
-    	RandomSpawnMarine();
-    	else if (Beaming.bBeamingIn)
-		BeamMarineIn();
-    	else if (Beaming.bBeamingIn && RandomSpawning.bUseRandomPoints)
-		RandomBeamMarineIn();
+    	RandomSpawnMarines();
 		else
-    	SpawnMarine();
+    	SpawnMarines();
 	}
 }
 
 Function Timer()
 {
-	if (Beaming.bBeamingIn && RandomSpawning.bUseRandomPoints)
-    RandomBeamMarineIn();
-    else if (Beaming.bBeamingIn)
-    BeamMarineIn();
+    if(RandomSpawning.bUseRandomPoints)
+    RandomSpawnMarines();
+	else
+    SpawnMarines();
 }
 
-Function BeamMarineIn()
+Function SpawnMarines()
 {
 	local int i,M,W;//Rand;
 	local umsspacemarine NewMarine;
@@ -76,7 +72,7 @@ Function BeamMarineIn()
 			if(NewMarine!=None)
 			{
 				NewMarine.WeaponType = cMarineWeapons[W++];
-				NewMarine.bBeamingIn = True;
+        		NewMarine.bBeamingIn = Beaming.bBeamingIn;
 				NewMarine.Event = MarineDeathEvent;
 				NewMarine.Enemy = GetPlayerPawn();
 				NewMarine.Target = GetPlayerPawn();
@@ -104,7 +100,7 @@ Function BeamMarineIn()
 	}
 }
 
-Function RandomBeamMarineIn()
+Function RandomSpawnMarines()
 {
     local int i,M,W,/*Rand,*/MarineCount;
     local umsspacemarine NewMarine;
@@ -138,111 +134,7 @@ Function RandomBeamMarineIn()
         {
            	MarineCount++;
         	NewMarine.WeaponType = cMarineWeapons[W++];
-        	NewMarine.bBeamingIn = True;
-        	NewMarine.Event = MarineDeathEvent;
-        	NewMarine.Enemy = GetPlayerPawn();
-           	NewMarine.Target = GetPlayerPawn();
-			NewMarine.Orders = 'Hunting';
-			NewMarine.OrderTag = 'Enemy';
-			M++;
-			if(bLogStuff)
-			{
-				Log(" ");
-				Log("[========-Starting-========]");
-				log("Attempting to spawn marine:"@NewMarine);
-				Log("My Weapon is:"@NewMarine.WeaponType);
-				Log("My Health is:"@NewMarine.Health);
-				Log("This is Marine:"@M);
-				Log("This Marine is at:"@NewMarine.Location);
-				Log("interger (i) is at:"@i++);
-				if(!NewMarine.bIsFemale)
-				Log("Gender is: Male");
-				else
-				Log("Gender is: Female");
-				Log("[========-Finished-========]");
-				Log(" ");
-			}
-        }
-      }
-	}
-}
-
-Function SpawnMarine()
-{
-	local int i,M,W;//Rand;
-	local umsspacemarine NewMarine;
-	local UMSMarineWavepoint MSP;
-
-	foreach allactors (class'UMSMarineWavepoint',MSP)
-	{
-		if (MSP.Tag != WavepointTag) continue;
-		else
-		{
-			NewMarine = Spawn(cMarineList[M++],,,MSP.Location,MSP.Rotation);
-			if(NewMarine!=None)
-			{
-				NewMarine.WeaponType = cMarineWeapons[W++];
-				NewMarine.Event = MarineDeathEvent;
-				NewMarine.Enemy = GetPlayerPawn();
-				NewMarine.Target = GetPlayerPawn();
-				NewMarine.Orders = 'Hunting';
-				NewMarine.OrderTag = 'Enemy';
-				if(bLogStuff)
-				{
-					Log(" ");
-					Log("[========-Starting-========]");
-					log("Attempting to spawn marine:"@NewMarine);
-					Log("My Weapon is:"@NewMarine.WeaponType);
-					Log("My Health is:"@NewMarine.Health);
-					Log("This is Marine:"@M);
-					Log("This Marine is at:"@NewMarine.Location);
-					Log("interger (i) is at:"@i++);
-					if(!NewMarine.bIsFemale)
-					Log("Gender is: Male");
-					else
-					Log("Gender is: Female");
-					Log("[========-Finished-========]");
-					Log(" ");
-				}
-			}
-		}
-	}
-}
-
-Function RandomSpawnMarine()
-{
-    local int i,M,W,/*Rand,*/MarineCount;
-    local umsspacemarine NewMarine;
-    local UMSMarineWavepoint MSP;
-    local UMSMarineWavepoint UMSBP[16];
-
-    foreach allactors (class'UMSMarineWavepoint',MSP)
-    {
-        if (MSP.Tag != WavepointTag) continue;
-        else
-		{
-			if(bLogStuff)
-			log("Attempting to pick point:"@MSP);
-        	UMSBP[i++]=MSP;
-		}
-    }
-
-    i=0;
-    while(MarineCount<RandomSpawning.MaxRandomMarines && i<1000)
-    {
-      i++;
-      MSP=None;
-      While(MSP==None && i<1000)
-      {MSP=UMSBP[RandRange(0,16)]; i++;}
-      if(MSP!=None)
-      {
-        if(cMarineList[M]==None)
-        M=0;
-        NewMarine = Spawn(cMarineList[M],,,MSP.Location,MSP.Rotation);
-        if(NewMarine!=None)
-        {
-           	MarineCount++;
-        	NewMarine.WeaponType = cMarineWeapons[W++];
+        	NewMarine.bBeamingIn = Beaming.bBeamingIn;
         	NewMarine.Event = MarineDeathEvent;
         	NewMarine.Enemy = GetPlayerPawn();
            	NewMarine.Target = GetPlayerPawn();
