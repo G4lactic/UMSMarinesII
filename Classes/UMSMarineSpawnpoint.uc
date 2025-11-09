@@ -54,7 +54,7 @@ Function SpawnMarine()
 		}
 		else
 		{
-			MySelf.Enemy = HuntPlayer();
+			MySelf.SetEnemy(HuntPlayer());
 			MySelf.Target = HuntPlayer();
 			MySelf.Orders = 'Hunting';
 		}

@@ -5,6 +5,7 @@
 class UMSMarineFactory extends CreatureFactory;
 
 var UMSMarinePoint spawnspots[16]; //possible start locations
+var(CreatureFactory) bool bAutoHatePlayer; 
 
 function PostBeginPlay()
 {

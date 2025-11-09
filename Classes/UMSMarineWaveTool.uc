@@ -86,7 +86,7 @@ Function RandomBeamMarineIn()
         	NewMarine.WeaponType = cMarineWeapons[W++];
         	NewMarine.bBeamingIn = True;
         	NewMarine.Event = MarineDeathEvent;
-        	NewMarine.Enemy = GetPlayerPawn();
+        	NewMarine.SetEnemy(GetPlayerPawn());
            	NewMarine.Target = GetPlayerPawn();
 			NewMarine.Orders = 'Hunting';
 			NewMarine.OrderTag = 'Enemy';

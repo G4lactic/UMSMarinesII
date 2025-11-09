@@ -47,6 +47,13 @@ function bool Create()
 
    if (newcreature.IsA('umsspacemarine')&& umsspacemarine(newcreature)!=none)
     {
+		if(pawnFactory.bAutoHatePlayer)
+		{
+			umsspacemarine(newcreature).SetEnemy(HuntPlayer());
+			umsspacemarine(newcreature).Target=HuntPlayer();
+			umsspacemarine(newcreature).Orders='Hunting';
+			umsspacemarine(newcreature).OrderTag = 'Enemy';
+		}
      if( bTeleportWhenHurt)
        bExplodeWhenHurt=false;
      umsspacemarine(newcreature).bTeleportWhenHurt=bTeleportWhenHurt;
@@ -54,22 +61,42 @@ function bool Create()
      if (MarineWeapon!=none)
       umsspacemarine(newcreature).weapontype = MarineWeapon;
     }
-
-   if (ScriptedPawn(newcreature) != None)
- 	{
-		ScriptedPawn(newcreature).Orders = pawnFactory.Orders;
-		ScriptedPawn(newcreature).OrderTag = pawnFactory.OrderTag;
-		ScriptedPawn(newcreature).SetEnemy(pawnFactory.enemy);
-		ScriptedPawn(newcreature).Alarmtag = pawnFactory.AlarmTag;
+	if(!pawnFactory.bAutoHatePlayer)
+	{
+		if (ScriptedPawn(newcreature) != None)
+			{
+				ScriptedPawn(newcreature).Orders = pawnFactory.Orders;
+				ScriptedPawn(newcreature).OrderTag = pawnFactory.OrderTag;
+				ScriptedPawn(newcreature).SetEnemy(pawnFactory.enemy);
+				ScriptedPawn(newcreature).Alarmtag = pawnFactory.AlarmTag;
+			}
+		else
+			newcreature.enemy = pawnFactory.enemy;
 	}
-	else
-		newcreature.enemy = pawnFactory.enemy;
 	if (newcreature.enemy != None)
 		newcreature.lastseenpos = newcreature.enemy.location;
 	newcreature.SetMovementPhysics();
 	if ( newcreature.Physics == PHYS_Walking)
 		newcreature.SetPhysics(PHYS_Falling);
 	return true;
+}
+
+Function Pawn HuntPlayer()
+{
+	local Pawn P,EList[32];
+	local byte c;
+
+	For( P=Level.PawnList; P!=None; P=P.NextPawn )
+	{
+		if( P!=none && P.bIsPlayer )
+		{
+			EList[c] = P;
+			c++;
+			if( c==32 )
+				Break;
+		}
+	}
+	Return EList[Rand(c)];
 }
 
 defaultproperties
