@@ -273,11 +273,9 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec MESH SEQUENCE MESH=UMSMarine SEQ=SLAM        STARTFRAME=401 NUMFRAMES=10 Group=Attack
 #exec MESH SEQUENCE MESH=UMSMarine SEQ=STILL       STARTFRAME=411 NUMFRAMES=1
 
-
 #exec MESH SEQUENCE MESH=UMSMarine SEQ=STILLFRRP  STARTFRAME=413 NUMFRAMES=1  Group=Waiting
 #exec mesh SEQUENCE MESH=UMSMarine SEQ=STILLLGFR   STARTFRAME=414 NUMFRAMES=10 RATE=15 Group=Attack
 #exec mesh SEQUENCE MESH=UMSMarine SEQ=STILLSMFR  STARTFRAME=432 NUMFRAMES=8 Group=Attack
-
 
 #exec MESH SEQUENCE MESH=UMSMarine SEQ=SWIMLG      STARTFRAME=520 NUMFRAMES=15 RATE=15
 #exec MESH SEQUENCE MESH=UMSMarine SEQ=SWIMSM      STARTFRAME=535 NUMFRAMES=15 RATE=15
@@ -424,13 +422,10 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec MESH NOTIFY MESH=UMSMarine SEQ=Dead9B TIME=0.8 FUNCTION=LandThump
 #exec mesh NOTIFY MESH=UMSMarine SEQ=Dead11 TIME=0.57 FUNCTION=LandThump
 
-//=============================================================================
-
 //Spacemarine Textures
 //=============================================================================
 #exec texture IMPORT NAME=Jmarine7 FILE=Textures\Skins\Jmarine7.PCX GROUP=Skins LODSET=2
 #exec texture IMPORT NAME=Jmarine8 FILE=Textures\Skins\jmarine8.PCX GROUP=Skins LODSET=2
-
 
 //Mesh scaling
 //=============================================================================
@@ -441,7 +436,6 @@ class UMSSpaceMarine extends ScriptedPawn;
 //=============================================================================
 #exec MESHMAP SETTEXTURE MESHMAP=UMSMarine NUM=1 TEXTURE=Jmarine7
 #exec MESHMAP SETTEXTURE MESHMAP=UMSMarine NUM=2 TEXTURE=Jmarine8
-
 
 #exec mesh NOTIFY MESH=UMSMarine SEQ=COCKGUN TIME=0.45 FUNCTION=Reload
 #exec mesh NOTIFY MESH=UMSMarine SEQ=COCKGUNL TIME=0.45 FUNCTION=Reload
@@ -531,8 +525,6 @@ Struct ListRespondPhrase
 	var() array <RMaleS> MaleSounds;
 	var() array <RFMaleS> FemaleSounds;
 };
-
-
 
 // UMSSpaceMarine
 var(UMSSpaceMarine) class<weapon> WeaponType;

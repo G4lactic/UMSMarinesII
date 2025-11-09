@@ -5,7 +5,7 @@
 // Note to Mappers: I heavily reccomend keeping the ammount of Marines spawned at around 3-4.
 //=============================================================================
 class UMSMarineWaveTool extends UMSTools;
-//=============================================================================
+
 // Variables
 var( MarineWaveSetup ) class <umsspacemarine> cMarineList[8];
 var( MarineWaveSetup ) class <Weapon> cMarineWeapons[8];
@@ -18,7 +18,6 @@ var int MarinesLeft;
 var int CurrentMarine;
 var bool bActive;
 
-//=============================================================================
 // Functions
 event Trigger(Actor Other,Pawn EventInstigator)
 {
@@ -139,8 +138,6 @@ function Pawn GetPlayerPawn() // Stolen from the MarineWaveInfo, just lets marin
 	}
 	Return EList[Rand(c)];
 }
-
-//=============================================================================
 
 defaultproperties
 {
