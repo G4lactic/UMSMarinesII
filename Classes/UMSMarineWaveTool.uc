@@ -31,11 +31,15 @@ event Trigger(Actor Other,Pawn EventInstigator)
     	if(bUseRandomPoints)
 		{
 			TotalMarines = CountMarines();
+			if(bLogStuff)
+			log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
 			RandomBeamMarineIn();
 		}
     	else
 		{
 			TotalMarines = CountMarines();
+			if(bLogStuff)
+			log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
 			BeamMarineIn();
 		}
 	}
@@ -46,11 +50,15 @@ Function Timer()
     if(bUseRandomPoints)
 	{
 		TotalMarines = CountMarines();
+		if(bLogStuff)
+		log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
 		RandomBeamMarineIn();
 	}
     else
 	{
 		TotalMarines = CountMarines();
+		if(bLogStuff)
+		log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
 		BeamMarineIn();
 	}
 }
@@ -96,23 +104,6 @@ Function RandomBeamMarineIn()
 			NewMarine.Orders = 'Hunting';
 			NewMarine.OrderTag = 'Enemy';
 			M++;
-			if(bLogStuff)
-			{
-				Log(" ");
-				Log("[========-Starting-========]");
-				log("Attempting to spawn marine:"@NewMarine);
-				Log("My Weapon is:"@NewMarine.WeaponType);
-				Log("My Health is:"@NewMarine.Health);
-				Log("This is Marine:"@M);
-				Log("This Marine is at:"@NewMarine.Location);
-				Log("interger (i) is at:"@i++);
-				if(!NewMarine.bIsFemale)
-				Log("Gender is: Male");
-				else
-				Log("Gender is: Female");
-				Log("[========-Finished-========]");
-				Log(" ");
-			}
         }
       }
 	}
@@ -120,7 +111,7 @@ Function RandomBeamMarineIn()
 
 Function BeamMarineIn()
 {
-	local int i,M,W;//Rand;
+	local int M,W;//Rand;
 	local umsspacemarine NewMarine;
 	local UMSMarineBeampoint MSP;
 
@@ -139,23 +130,6 @@ Function BeamMarineIn()
 				NewMarine.Target = GetPlayerPawn();
 				NewMarine.Orders = 'Hunting';
 				NewMarine.OrderTag = 'Enemy';
-				if(bLogStuff)
-				{
-					Log(" ");
-					Log("[========-Starting-========]");
-					log("Attempting to spawn marine:"@NewMarine);
-					Log("My Weapon is:"@NewMarine.WeaponType);
-					Log("My Health is:"@NewMarine.Health);
-					Log("This is Marine:"@M);
-					Log("This Marine is at:"@NewMarine.Location);
-					Log("interger (i) is at:"@i++);
-					if(!NewMarine.bIsFemale)
-					Log("Gender is: Male");
-					else
-					Log("Gender is: Female");
-					Log("[========-Finished-========]");
-					Log(" ");
-				}
 			}
 		}
 	}
