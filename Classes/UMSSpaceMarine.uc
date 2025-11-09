@@ -6704,6 +6704,7 @@ ignores PeerNotification;
 	   myWeapon = Spawn(WeaponType);
 	   if ( myWeapon != None )
        {
+		MyWeapon.SetCollision(False,False,False);
 		if(myWeapon.IsA('CARifle'))
 		{
 			myWeapon.AltRefireRate=1;
