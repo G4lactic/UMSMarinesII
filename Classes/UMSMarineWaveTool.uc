@@ -151,4 +151,5 @@ defaultproperties
 {
 	Texture=Texture'Engine.S_Flag'
 	DrawScale=2.5
+	ActorRenderColor=(R=255,G=128,B=64)
 }

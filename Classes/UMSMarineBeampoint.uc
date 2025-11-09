@@ -8,4 +8,6 @@ class UMSMarineBeampoint extends NavigationPoint;
 defaultproperties
 {
     Texture=Texture'Engine.S_Pawn'
+	DrawScale=2.0
+	ActorRenderColor=(R=255)
 }
