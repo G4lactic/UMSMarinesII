@@ -682,6 +682,68 @@ var float SETimer;
 var(Misc) float FXFadeTime; // Should always be 1.5 higher then BeamWaitTime.
 var float FadeTimer;
 var DynamicCorona BeamGlow;
+var UMSMarineWaveTool MarineBeamController;
+
+function PostBeginPlay()
+{
+	/*ForEach AllActors(Class'UMSMarineVoice',MyVoice)
+		Break;
+	if( MyVoice==None )
+	{
+		MyVoice = Spawn(MarineVoice);
+	}*/
+
+	//if(bLurePlayer)
+	//bActFriendly=True;
+
+	if( UMSMarineWaveTool( Owner ) != none )
+	MarineBeamController = UMSMarineWaveTool( Owner );		
+
+	if(bTeleportWhenHurt)
+		bExplodeWhenHurt=false;
+
+	bCanSpeak = true;
+	bIsFemale = false;
+	LastTalkTime=0;
+	MessageTime=0;
+	bRespond=false;
+
+	if(GenderOverride.bAlwaysMale && !GenderOverride.bAlwaysFemale)
+	return;
+	else if (GenderOverride.bAlwaysFemale && !GenderOverride.bAlwaysMale)
+	SetFemaleGender();
+	else if (GenderOverride.bAlwaysMale && GenderOverride.bAlwaysFemale)
+	{
+		Log("Jokes on you that just cancels it out!");
+		if( FRand() < 0.5 )
+		SetFemaleGender();
+		else
+		return;
+	}
+	else if( FRand() < 0.5 )
+	SetFemaleGender();
+}
+
+function SetFemaleGender()
+{
+	drown=Sound'UnrealShare.Female.mdrown2fem';
+	breathagain=Sound'UnrealShare.Female.hgasp3fem';
+	HitSound3=Sound'UnrealShare.Female.linjur3fem';
+	HitSound4=Sound'UnrealShare.Female.hinjur4fem';
+	Die2=Sound'UnrealShare.Female.death3cfem';
+	Die3=Sound'UnrealShare.Female.death2afem';
+	Die4=Sound'UnrealShare.Female.death4cfem';
+	GaspSound=Sound'UnrealShare.Female.lgasp1fem';
+	UWHit1=Sound'UnrealShare.Female.FUWHit1';
+	UWHit2=Sound'UnrealShare.Female.FUWHit1';
+	LandGrunt=Sound'UnrealShare.Female.lland1fem';
+	JumpSound=Sound'UnrealShare.Female.jump1fem';
+	HitSound1=Sound'UnrealShare.Female.linjur1fem';
+	HitSound2=Sound'UnrealShare.Female.linjur2fem';
+	Die=Sound'UnrealShare.Female.death1dfem';
+	//bFemale = true;
+	bIsFemale = true;
+}
 
 // UMSSM
 simulated event Destroyed()
@@ -1380,64 +1442,6 @@ function bool SetEnemy( Pawn NewEnemy )
 
 
 // UMSSpaceMarine
-
-function PostBeginPlay()
-{
-	/*ForEach AllActors(Class'UMSMarineVoice',MyVoice)
-		Break;
-	if( MyVoice==None )
-	{
-		MyVoice = Spawn(MarineVoice);
-	}*/
-
-	//if(bLurePlayer)
-	//bActFriendly=True;
-
-	if(bTeleportWhenHurt)
-		bExplodeWhenHurt=false;
-
-	bCanSpeak = true;
-	bIsFemale = false;
-	LastTalkTime=0;
-	MessageTime=0;
-	bRespond=false;
-
-	if(GenderOverride.bAlwaysMale && !GenderOverride.bAlwaysFemale)
-	return;
-	else if (GenderOverride.bAlwaysFemale && !GenderOverride.bAlwaysMale)
-	SetFemaleGender();
-	else if (GenderOverride.bAlwaysMale && GenderOverride.bAlwaysFemale)
-	{
-		Log("Jokes on you that just cancels it out!");
-		if( FRand() < 0.5 )
-		SetFemaleGender();
-		else
-		return;
-	}
-	else if( FRand() < 0.5 )
-	SetFemaleGender();
-}
-
-function SetFemaleGender()
-{
-	drown=Sound'UnrealShare.Female.mdrown2fem';
-	breathagain=Sound'UnrealShare.Female.hgasp3fem';
-	HitSound3=Sound'UnrealShare.Female.linjur3fem';
-	HitSound4=Sound'UnrealShare.Female.hinjur4fem';
-	Die2=Sound'UnrealShare.Female.death3cfem';
-	Die3=Sound'UnrealShare.Female.death2afem';
-	Die4=Sound'UnrealShare.Female.death4cfem';
-	GaspSound=Sound'UnrealShare.Female.lgasp1fem';
-	UWHit1=Sound'UnrealShare.Female.FUWHit1';
-	UWHit2=Sound'UnrealShare.Female.FUWHit1';
-	LandGrunt=Sound'UnrealShare.Female.lland1fem';
-	JumpSound=Sound'UnrealShare.Female.jump1fem';
-	HitSound1=Sound'UnrealShare.Female.linjur1fem';
-	HitSound2=Sound'UnrealShare.Female.linjur2fem';
-	Die=Sound'UnrealShare.Female.death1dfem';
-	//bFemale = true;
-	bIsFemale = true;
-}
 
 function HaltFiring()
 {
@@ -6810,6 +6814,11 @@ function Died(pawn Killer, name damageType, vector HitLocation)
 
 	bIsPlayer = false;
 
+	if( MarineBeamController != None )
+	{
+		MarineBeamController.SubtractMarine( Self );
+		MarineBeamController=None;
+	}
 	if ( bTeleportWhenHurt )
 	{
         bExplodeWhenHurt=false;

@@ -5,49 +5,54 @@
 // Note to Mappers: I heavily reccomend keeping the ammount of Marines spawned at around 3-4.
 //=============================================================================
 class UMSMarineWaveTool extends UMSTools;
-
-//Structs
-Struct RandomVars
-{
-	var() int MaxRandomMarines;
-	var() bool bUseRandomPoints;
-};
-
 //=============================================================================
 // Variables
-
 var( MarineWaveSetup ) class <umsspacemarine> cMarineList[8];
 var( MarineWaveSetup ) class <Weapon> cMarineWeapons[8];
-var( MarineWaveSetup ) name MarineDeathEvent; // Main use is for counters to start the next wave.
+var( MarineWaveSetup ) name WaveEndTag; // Once all marines are dead this tag gets triggered
 var( MarineWaveSetup ) name BeampointTag;
-var( MarineWaveSetup ) RandomVars RandomBeaming;
-//var( MarineWaveSetup ) bool bUseRandomPoints; // Picks random beam points with the same tags as nBeampointTag.
-//var( MarineWaveSetup ) int iMaxRandomMarines;
 var( MarineWaveSetup ) float BeamDelay;
-//var(DEBUGGING) bool bLogStuff;
+var( MarineWaveSetup ) bool bUseRandomPoints;
+
+var int TotalMarines;
+var int MarinesLeft;
+var int CurrentMarine;
+var bool bActive;
 
 //=============================================================================
 // Functions
-
 event Trigger(Actor Other,Pawn EventInstigator)
 {
+	bActive=True;
 	if(BeamDelay > 0)
 	SetTimer( BeamDelay, False );
 	else
 	{
-    	if(RandomBeaming.bUseRandomPoints)
-    	RandomBeamMarineIn();
+    	if(bUseRandomPoints)
+		{
+			TotalMarines = CountMarines();
+			RandomBeamMarineIn();
+		}
     	else
-    	BeamMarineIn();
+		{
+			TotalMarines = CountMarines();
+			BeamMarineIn();
+		}
 	}
 }
 
 Function Timer()
 {
-    if(RandomBeaming.bUseRandomPoints)
-    RandomBeamMarineIn();
+    if(bUseRandomPoints)
+	{
+		TotalMarines = CountMarines();
+		RandomBeamMarineIn();
+	}
     else
-    BeamMarineIn();
+	{
+		TotalMarines = CountMarines();
+		BeamMarineIn();
+	}
 }
 
 Function RandomBeamMarineIn()
@@ -69,7 +74,7 @@ Function RandomBeamMarineIn()
     }
 
     i=0;
-    while(MarineCount<RandomBeaming.MaxRandomMarines && i<1000)
+    while(MarineCount<TotalMarines && i<1000)
     {
       i++;
       MSP=None;
@@ -79,13 +84,13 @@ Function RandomBeamMarineIn()
       {
         if(cMarineList[M]==None)
         M=0;
-        NewMarine = Spawn(cMarineList[M],,,MSP.Location,MSP.Rotation);
+        NewMarine = Spawn(cMarineList[M],self,,MSP.Location,MSP.Rotation);
         if(NewMarine!=None)
         {
            	MarineCount++;
         	NewMarine.WeaponType = cMarineWeapons[W++];
         	NewMarine.bBeamingIn = True;
-        	NewMarine.Event = MarineDeathEvent;
+        	//NewMarine.Event = MarineDeathEvent;
         	NewMarine.SetEnemy(GetPlayerPawn());
            	NewMarine.Target = GetPlayerPawn();
 			NewMarine.Orders = 'Hunting';
@@ -124,12 +129,12 @@ Function BeamMarineIn()
 		if (MSP.Tag != BeampointTag) continue;
 		else
 		{
-			NewMarine = Spawn(cMarineList[M++],,,MSP.Location,MSP.Rotation);
+			NewMarine = Spawn(cMarineList[M++],Self,,MSP.Location,MSP.Rotation);
 			if(NewMarine!=None)
 			{
 				NewMarine.WeaponType = cMarineWeapons[W++];
 				NewMarine.bBeamingIn = True;
-				NewMarine.Event = MarineDeathEvent;
+				//NewMarine.Event = MarineDeathEvent;
 				NewMarine.Enemy = GetPlayerPawn();
 				NewMarine.Target = GetPlayerPawn();
 				NewMarine.Orders = 'Hunting';
@@ -156,7 +161,39 @@ Function BeamMarineIn()
 	}
 }
 
+Function int CountMarines()
+{
+	local int i;
+	
+	MarinesLeft = 0;
+	
+	for( i = 0; i <= 8; i++ )
+	{
+		if( cMarineList[ i ] != none )
+			MarinesLeft++;
+		else 
+		return MarinesLeft;
+	}
+	
+	return MarinesLeft;
+}
 
+function SubtractMarine(UMSSpaceMarine DeadMarine)
+{
+	if(bActive)
+	{
+		TotalMarines--;
+		if(bLogStuff)
+		Log("Marines Left: "@TotalMarines);
+		if( TotalMarines <= 0 )
+		{
+			if(bLogStuff)
+			log( "Less than or = to 0 marines remaining." );		
+			TriggerEvent(WaveEndTag);
+			Destroy();
+		}
+	}
+}
 
 function Pawn GetPlayerPawn() // Stolen from the MarineWaveInfo, just lets marines auto hate the player.
 {
