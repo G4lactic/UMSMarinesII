@@ -336,28 +336,7 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec mesh SEQUENCE MESH=UMSMarine SEQ=Dead9B    STARTFRAME=136 NUMFRAMES=16 RATE=15
 #exec mesh SEQUENCE MESH=UMSMarine SEQ=Dead11    STARTFRAME=136 NUMFRAMES=16 RATE=15
 #exec mesh SEQUENCE MESH=UMSMarine SEQ=BackRun   STARTFRAME=833 NUMFRAMES=15 RATE=15 Group=MovingFire
-/*
-//skaarjplayer
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=BREATH    STARTFRAME=74 NUMFRAMES=7  RATE=6  Group=Waiting
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=DEATH     STARTFRAME=136 NUMFRAMES=16
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=DEATH2    STARTFRAME=136 NUMFRAMES=16
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=DEATH3    STARTFRAME=152 NUMFRAMES=13
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=DEATH4    STARTFRAME=165 NUMFRAMES=13
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=DUCK      STARTFRAME=193 NUMFRAMES=15 RATE=15 Group=Ducking
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=DUCKWALK  STARTFRAME=193 NUMFRAMES=15 RATE=15 Group=Ducking
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=FIRING    STARTFRAME=432 NUMFRAMES=8  RATE=15 Group=Waiting
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=Getup     STARTFRAME=343 NUMFRAMES=7
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=INAIR     STARTFRAME=143 NUMFRAMES=1 Group=Jumping
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=Jog       STARTFRAME=1298 NUMFRAMES=10 RATE=44
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=JogFire   STARTFRAME=1318 NUMFRAMES=10 RATE=44 Group=MovingAttack
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=LAND      STARTFRAME=213 NUMFRAMES=1  	Group=Landing
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=Lunge     STARTFRAME=193 NUMFRAMES=15 RATE=15	Group=Dodge
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=SWIM      STARTFRAME=535 NUMFRAMES=15 RATE=15 Group=Waiting
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=RightDodge  STARTFRAME=193 NUMFRAMES=15 RATE=15	Group=Dodge
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=LeftDodge   STARTFRAME=193 NUMFRAMES=15 RATE=15	Group=Dodge
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=TURN      STARTFRAME=612 NUMFRAMES=2
-#exec mesh SEQUENCE MESH=UMSMarine SEQ=WalkFire  STARTFRAME=773 NUMFRAMES=15 Group=MovingAttack
-*/
+
 //=============================================================================
 //NOTIFIES
 //=============================================================================
@@ -393,7 +372,7 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec MESH NOTIFY MESH=UMSMarine SEQ=walkstrafel   TIME=0.75 FUNCTION=PlayFootStep
 #exec MESH NOTIFY MESH=UMSMarine SEQ=walkstrafer   TIME=0.25 FUNCTION=PlayFootStep
 #exec MESH NOTIFY MESH=UMSMarine SEQ=walkstrafer   TIME=0.75 FUNCTION=PlayFootStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=strafer   TIME=0.25 FUNCTION=PlayFootStep //Here
+#exec MESH NOTIFY MESH=UMSMarine SEQ=strafer   TIME=0.25 FUNCTION=PlayFootStep
 #exec MESH NOTIFY MESH=UMSMarine SEQ=strafer   TIME=0.75 FUNCTION=PlayFootStep
 #exec MESH NOTIFY MESH=UMSMarine SEQ=strafel   TIME=0.25 FUNCTION=PlayFootStep
 #exec MESH NOTIFY MESH=UMSMarine SEQ=strafel   TIME=0.75 FUNCTION=PlayFootStep
@@ -404,7 +383,7 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec MESH NOTIFY MESH=UMSMarine SEQ=straferSM TIME=0.25 FUNCTION=PlayFootStep
 #exec MESH NOTIFY MESH=UMSMarine SEQ=straferSM TIME=0.75 FUNCTION=PlayFootStep
 #exec MESH NOTIFY MESH=UMSMarine SEQ=strafelSM TIME=0.25 FUNCTION=PlayFootStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=strafelSM TIME=0.75 FUNCTION=PlayFootStep // Here
+#exec MESH NOTIFY MESH=UMSMarine SEQ=strafelSM TIME=0.75 FUNCTION=PlayFootStep
 #exec mesh NOTIFY MESH=UMSMarine SEQ=Backstep TIME=0.25 FUNCTION=PlayFootStep
 #exec mesh NOTIFY MESH=UMSMarine SEQ=Backstep TIME=0.75 FUNCTION=PlayFootStep
 #exec mesh NOTIFY MESH=UMSMarine SEQ=BackstepLgFr TIME=0.25 FUNCTION=PlayFootStep
@@ -444,21 +423,7 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec mesh NOTIFY MESH=UMSMarine SEQ=Dead8 TIME=0.7 FUNCTION=LandThump
 #exec MESH NOTIFY MESH=UMSMarine SEQ=Dead9B TIME=0.8 FUNCTION=LandThump
 #exec mesh NOTIFY MESH=UMSMarine SEQ=Dead11 TIME=0.57 FUNCTION=LandThump
-//skaarjplayer notifies
-/*
-#exec MESH NOTIFY MESH=UMSMarine SEQ=Death  TIME=0.41 FUNCTION=LandThump
-#exec mesh NOTIFY MESH=UMSMarine SEQ=Death2 TIME=0.61 FUNCTION=LandThump
-#exec MESH NOTIFY MESH=UMSMarine SEQ=Death3 TIME=0.73 FUNCTION=LandThump
-#exec mesh NOTIFY MESH=UMSMarine SEQ=Death4 TIME=0.62 FUNCTION=LandThump
-#exec mesh NOTIFY MESH=UMSMarine SEQ=Jog TIME=0.25 FUNCTION=RunStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=Jog TIME=0.75 FUNCTION=RunStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=JogFire TIME=0.25 FUNCTION=RunStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=JogFire TIME=0.75 FUNCTION=RunStep
-#exec mesh NOTIFY MESH=UMSMarine SEQ=Walk TIME=0.25 FUNCTION=WalkStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=Walk TIME=0.75 FUNCTION=WalkStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=WalkFire TIME=0.25 FUNCTION=WalkStep
-#exec MESH NOTIFY MESH=UMSMarine SEQ=WalkFire TIME=0.75 FUNCTION=WalkStep
-*/
+
 //=============================================================================
 
 //Spacemarine Textures
@@ -482,7 +447,8 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec mesh NOTIFY MESH=UMSMarine SEQ=COCKGUNL TIME=0.45 FUNCTION=Reload
 #exec mesh NOTIFY MESH=UMSMarine SEQ=RELOADSM TIME=0.45 FUNCTION=Reload
 #exec mesh NOTIFY MESH=UMSMarine SEQ=RELOADLG TIME=0.45 FUNCTION=Reload
-//Struct
+
+//Structs
 Struct GOverride
 {
 	var() bool bAlwaysMale;
@@ -565,31 +531,51 @@ Struct ListRespondPhrase
 	var() array <RMaleS> MaleSounds;
 	var() array <RFMaleS> FemaleSounds;
 };
-/*
-Struct ListBetrayPhrase
-{
-	var() sound Male[12];
-	var() sound Female[12];
-};
-*/
-Struct ListTauntPhrase
-{
-	Struct TMaleS
-	{
-		var() sound Male;
-	};
-	Struct TFMaleS
-	{
-		var() sound Female;
-	};
 
-	var() array <TMaleS> MaleSounds;
-	var() array <TFMaleS> FemaleSounds;
-};
+
 
 // UMSSpaceMarine
-var float Accuracy;
+var(UMSSpaceMarine) class<weapon> WeaponType;
+var(UMSSpaceMarine) bool bButtonPusher;
+var(UMSSpaceMarine) bool bTeleportWhenHurt;
+var(UMSSpaceMarine) bool bExplodeWhenHurt;
+Var(UMSSpaceMarine) int DispPowerLevel;
+var(UMSSpaceMarine) bool bCadet; // You can now just set marines to be cadets from here. to avoid having un-needed classes.
 
+// Misc
+var(Misc) sound Reloadsound;
+var(Misc) byte PunchDamage;
+var(Misc) byte SlamDamage;
+var(Misc) float ExploRange;
+var(Misc) float ExploDamage;
+var(Misc) float ExploMomentum;
+var(Misc) GOverride GenderOverride;
+var(Misc) float BeamWaitTime;
+var(Misc) float BeamTime;
+var(Misc) float CommandRadius;
+var(Misc) string HumanKillMessage;
+
+// Phrases
+var(Phrases) ListAcquirePhrase AcquirePhrases;
+var(Phrases) ListHelpPhrase HelpPhrases;
+var(Phrases) ListChargePhrase ChargePhrases;
+var(Phrases) ListKillPhrase KillPhrases;
+var(Phrases) ListRespondPhrase RespondPhrases;
+
+// Sounds
+var(Sounds) sound slap;
+var(Sounds) sound static1;
+var(Sounds) sound static2;
+var(Sounds) sound static3;
+var(Sounds) sound static4;
+var(Sounds) sound static5;
+var(Sounds) sound static6;
+var(Sounds) sound static7;
+var(Sounds) sound static8;
+var(Sounds) sound static9;
+var(Sounds) sound static10;
+var(Sounds) sound ExplodeSound;
+var(Sounds) sound ActiveExlo;
 var(Sounds) sound drown;
 var(Sounds) sound	breathagain;
 var(Sounds) sound	Footstep1;
@@ -606,96 +592,34 @@ var(Sounds) sound	UWHit2;
 var(Sounds) sound LandGrunt;
 var(Sounds) sound	JumpSound;
 
-var UMSBeamShieldEffect BeamEffect;
-var(UMSSpaceMarine) class<weapon> WeaponType;
-var	  Weapon myWeapon;
-
-var(Misc) string HumanKillMessage;
-Var(UMSSpaceMarine) int DispPowerLevel;
-var(UMSSpaceMarine) bool bCadet; // You can now just set marines to be cadets from here. to avoid having un-needed classes.
+// Global Vars
+var bool bInitz;
 var bool bWimp;
-
 var bool strafedodge;
 var bool bBeamingIn;
-var(Misc) float BeamWaitTime;
-var(Misc) float BeamTime;
-//var UMSMarineWaveTool MarineBeamController;
-var UMSBeamOctagon Octagon;
-
-// UMSSpaceMarine
-var Pawn SaluteTarget;
-var UMSSpaceMarine LastTalker;
-var UMSSpaceMarine BetrayBuddy;
-var float LastTalkTime;
-var float MessageTime;
-var(Misc) float  CommandRadius;
-var(UMSSpaceMarine) bool bButtonPusher;
-//var(UMSSpaceMarine) bool bLurePlayer; // Cut for now!
-
-var(Sounds) sound slap;
-var(Sounds) sound static1;
-var(Sounds) sound static2;
-var(Sounds) sound static3;
-var(Sounds) sound static4;
-var(Sounds) sound static5;
-var(Sounds) sound static6;
-var(Sounds) sound static7;
-var(Sounds) sound static8;
-var(Sounds) sound static9;
-var(Sounds) sound static10;
-var(Sounds) sound ExplodeSound;
-var(Sounds) sound ActiveExlo;
-var(Misc) sound Reloadsound;
-var(Misc) byte	PunchDamage;
-var(Misc) byte	SlamDamage;
-var(UMSSpaceMarine) bool	bTeleportWhenHurt;
-var(UMSSpaceMarine) bool bExplodeWhenHurt;
-var(Misc) float ExploRange;
-var(Misc) float ExploDamage;
-var(Misc) float ExploMomentum;
-var(Misc) GOverride GenderOverride;
-//var(Misc) Class <UMSMarineVoice> MarineVoice; // looking for UMSMarineVoice or any classes extending from it.
-//var UMSMarineVoice MyVoice;
-
-var(Phrases) ListAcquirePhrase AcquirePhrases;
-var(Phrases) ListHelpPhrase HelpPhrases;
-var(Phrases) ListChargePhrase ChargePhrases;
-var(Phrases) ListKillPhrase KillPhrases;
-var(Phrases) ListRespondPhrase RespondPhrases;
-//var(Phrases) ListBetrayPhrase BetrayPhrases;
-var(Phrases) ListTauntPhrase TauntPhrases;
-
-var SilentBallExplosion sbc;
-var BlackSmoke bsm;
-var bool bInitz;
-var int Randsir;
-
-//var int TBU;
 var bool bReadyToTalk;
 var bool bGetResponse;
 var bool bRespond;
-//var bool bLuring;
-//var bool bActFriendly;
-
-//Beam Related Things
+var int Randsir;
 var float SETimer;
-var(Misc) float FXFadeTime; // Should always be 1.5 higher then BeamWaitTime.
+var float FXFadeTime; // Should always be 1.5 higher then BeamWaitTime.
 var float FadeTimer;
+var float LastTalkTime;
+var float MessageTime;
+var float Accuracy;
+var Pawn SaluteTarget;
+var UMSSpaceMarine LastTalker;
+var UMSSpaceMarine BetrayBuddy;
+var	Weapon myWeapon;
+var UMSBeamOctagon Octagon;
+var UMSBeamShieldEffect BeamEffect;
 var DynamicCorona BeamGlow;
 var UMSMarineWaveTool MarineBeamController;
+var SilentBallExplosion sbc;
+var BlackSmoke bsm;
 
 function PostBeginPlay()
 {
-	/*ForEach AllActors(Class'UMSMarineVoice',MyVoice)
-		Break;
-	if( MyVoice==None )
-	{
-		MyVoice = Spawn(MarineVoice);
-	}*/
-
-	//if(bLurePlayer)
-	//bActFriendly=True;
-
 	if( UMSMarineWaveTool( Owner ) != none )
 	MarineBeamController = UMSMarineWaveTool( Owner );		
 
@@ -741,7 +665,6 @@ function SetFemaleGender()
 	HitSound1=Sound'UnrealShare.Female.linjur1fem';
 	HitSound2=Sound'UnrealShare.Female.linjur2fem';
 	Die=Sound'UnrealShare.Female.death1dfem';
-	//bFemale = true;
 	bIsFemale = true;
 }
 
@@ -776,8 +699,6 @@ singular function Falling()
 		SetPhysics(PHYS_Flying);
 		return;
 	}
-	//log(class$" Falling");
-	// SetPhysics(PHYS_Falling); //note - done by default in physics
  	if (health > 0 && !bDeleteme)
 		SetFall();
 }
@@ -834,8 +755,6 @@ function Bump(actor Other)
 				return;
 			}
 		}
-		//if ( TimerRate <= 0 )
-			//setTimer(1.0, false);
 		if ( bCanSpeak && (ScriptedPawn(Other) != None) && ((TeamLeader == None) || !TeamLeader.bTeamSpeaking) )
 			SpeakTo(ScriptedPawn(Other));
 	}
@@ -1141,7 +1060,7 @@ function rotator AdjustAim(float projSpeed, vector projStart, int aimerror, bool
 	}
 	if( HitActor != None )
 	{
-		////try head
+		//try head
  		FireSpot.Z = Target.Location.Z + 0.9 * Target.CollisionHeight;
  		HitActor = Trace(HitLocation, HitNormal, FireSpot, ProjStart, false);
 	}
@@ -1650,7 +1569,6 @@ PlaySound(Sound'UMSMarinesII.Voice.Backupm', SLOT_Interact);
 else
 PlaySound(Sound'UMSMarinesII.Voice.Backupf', SLOT_Interact);
 CombatStyle=-0.4;
-//GotoState('Retreating');
 }
 
 // check for line of sight to target deltatime from now.
@@ -1907,7 +1825,6 @@ function PlayRangedAttack()
 {
     FireWeapon();
     PlayWaiting();
-//	TweenToWaiting(0.3);
 }
 
 function PlayMovingAttack()
@@ -2003,7 +1920,7 @@ ignores SeePlayer, HearNoise, Bump;
 
 	function EnemyNotVisible()
 	{
-		////log("enemy not visible");
+		//log("enemy not visible");
 		bReadyToAttack = false;
 	}
 
@@ -2373,9 +2290,8 @@ function PlayOutOfWater()
 
 function PlayDying(name DamageType, vector HitLoc)
 {
-	local vector X,Y,Z, HitVec, /*HitVec2D*/loc2d,Hitloc2D;
+	local vector X,Y,Z, HitVec,loc2d,Hitloc2D;
 	local float dotx, doty, Ran;
-	//local carcass carc;
 
 	BaseEyeHeight = Default.BaseEyeHeight;
 	PlayDyingSound();
@@ -2839,16 +2755,6 @@ function WhatToDoNext(name LikelyState, name LikelyLabel)
 function PlayChallenge()
 {
 	local float decision;
-    //local name newAnim;
-
-	if(!bIsFemale)
-	{
-		//PlaySound(TauntPhrases.Male[Rand(4)]);
-	}
-	else
-	{
-		//PlaySound(TauntPhrases.Female[Rand(4)]);
-	}
 
 	bFire = 0;
 	bAltFire = 0;
@@ -3331,9 +3237,6 @@ ignores SeePlayer, HearNoise, Bump, HitWall;
 
 		else if (AttitudeToEnemy == ATTITUDE_Threaten)
 		{
-			//if(bLurePlayer)
-			//GotoState('Betraying');
-			//else
 			GotoState('Threatening');
 			return;
 		}
@@ -3380,7 +3283,7 @@ ignores SeePlayer, HearNoise, Bump, HitWall;
 
 		if (bReadyToAttack )
 		{
-			////log("Attack!");
+			//log("Attack!");
 			Target = Enemy;
 			If (VSize(Enemy.Location - Location) <= (MeleeRange + Enemy.CollisionRadius + CollisionRadius))
 			{
@@ -3407,57 +3310,7 @@ ignores SeePlayer, HearNoise, Bump, HitWall;
 		//log("Next state is "$state);
 	}
 }
-/*
-Function BetrayAnims()
-{
-	local int RandNum;
-	local name AnimSeq;
 
-	RandNum = Rand( 4 );
-
-	if(RandNum == 0)
-		AnimSeq='Wave';
-	else if(RandNum == 1)
-		AnimSeq='WaveL';
-	else if(RandNum == 2)
-		AnimSeq='Look';
-	else if(RandNum == 3)
-		AnimSeq='SALUTE';
-
-	if(AnimSeq != 'None')
-	{
-		PlayAnim(AnimSeq);
-	}
-}
-
-function BetrayPhrase()
-{
-    local float vol;
-    local sound voice;
-
-    LastTalkTime=level.TimeSeconds;
-	vol = 2.0;
-    LastTalker = self;
-    Talker( LastTalker );
-    bGetResponse=false;
-    bRespond=false;
-
-	if(!bIsFemale)
-	{
-		Voice=BetrayPhrases.Male[Rand(12)];
-	}
-	else
-	{
-		Voice=BetrayPhrases.Female[Rand(12)];
-	}
-
-    if(voice!=none)
-    {
-     PlaySound( voice, SLOT_Talk,vol*0.9 );
-     PlaySound( voice, SLOT_None,vol*0.9 );
-    }
-}
-*/
 state Acquisition
 {
  ignores falling, landed;
@@ -3831,8 +3684,6 @@ function TakeDamage( int Damage, Pawn instigatedBy, Vector hitlocation,
 	{
 		if (ReducedDamageType == 'All') //God mode
 			actualDamage = 0;
-		//else if (Inventory != None) //then check if carrying armor
-			//actualDamage = Inventory.ReduceDamage(actualDamage, DamageType, HitLocation);
 		else
 			actualDamage = Damage;
 	}
@@ -5214,7 +5065,7 @@ Patrol: //FIXME -add stasis mode? - also set random start point in roam area
 	Disable('AnimEnd');
 	if (PatrolPoint(OrderObject) != None)
 	{
-		////log("Move to next patrol point");
+		//log("Move to next patrol point");
 		if ( !bQuiet && (FRand() < 0.4) )
 			PlayRoamingSound();
 		TweenToWalking(0.3);
@@ -5253,12 +5104,12 @@ SpecialNavig:
 		}
 
 ReachedPatrol:
-		////log("Got to patrol point "$OrderTag);
+		//log("Got to patrol point "$OrderTag);
 		OrderTag = Patrolpoint(OrderObject).Nextpatrol;
-		////log("Next patrol point "$OrderTag);
+		//log("Next patrol point "$OrderTag);
 		if ( Patrolpoint(OrderObject).pausetime > 0.0 )
 		{
-			////log("Pause patrol");
+			//log("Pause patrol");
 			Acceleration = vect(0,0,0);
 			TweenToFighter(0.2);
 			FinishAnim();
@@ -5285,7 +5136,7 @@ ReachedPatrol:
 				Enable('AnimEnd');
 				NextAnim = '';
 				PlayPatrolStop();
-				////log("stop here for "$(Patrolpoint(OrderObject)).pausetime);
+				//log("stop here for "$(Patrolpoint(OrderObject)).pausetime);
 				Sleep((Patrolpoint(OrderObject)).pausetime);
 				Disable('AnimEnd');
 				FinishAnim();
@@ -5412,10 +5263,6 @@ state Hunting // Hunt code from UPAK marines to make them not forget the player.
 {
 ignores EnemyNotVisible; 
 
-	/* MayFall() called by engine physics if walking and bCanJump, and
-		is about to go off a ledge.  Pawn has opportunity (by setting 
-		bCanJump to false) to avoid fall
-	*/
 	function MayFall()
 	{
 		bCanJump = ( (MoveTarget != None) || PointReachable(Destination) );
@@ -5694,11 +5541,6 @@ ignores EnemyNotVisible;
 		SpecialPause = 0.0;
 		bFromWall = false;
 		SetAlertness(0.5);
-		// Changed
-//		if( !bHuntingTransmitted )
-//		{
-//			GotoState( 'TransmitHuntingMessage' );
-//		}
 	}
 
 	function EndState()
@@ -6242,7 +6084,6 @@ ignores seeplayer, hearnoise, bump, hitwall;
 	}
 
 Begin:
-	// Acceleration = Normal(Acceleration);
 	FinishAnim();
 	if ( skill < 2 )
 		Sleep(0.05);
@@ -6558,7 +6399,6 @@ ignores SeePlayer, HearNoise, Bump;
 		else
 		{
 		    FireWeapon();
-		//	PlayWaiting();
 			TweenToWaiting(0.3);
         }
     }
@@ -6697,7 +6537,6 @@ ignores PeerNotification;
      local NavigationPoint aNode;
 
      bIsPlayer = true;
-    // bIsPlayer =  WeaponType != none;
      if ( WeaponType != None )
      {
        bIsPlayer = true;
@@ -6866,8 +6705,6 @@ function Died(pawn Killer, name damageType, vector HitLocation)
 	if ( RemoteRole == ROLE_AutonomousProxy )
 		ClientDying(DamageType, HitLocation);
 	GotoState('Dying');
-
-	//super.Died(Killer, damageType, HitLocation);
 }
 
 state TacticalMove
@@ -7038,7 +6875,7 @@ ignores EnemyNotVisible;
 		HitActor = Trace(HitLocation, HitNormal, FireSpot, ProjStart, false);
 		if( HitActor != None )
 		{
-			////log("adjust aim up");
+			//log("adjust aim up");
 			if (Enemy!=none)
  			 FireSpot.Z += 0.9 * Enemy.CollisionHeight;
  			HitActor = Trace(HitLocation, HitNormal, FireSpot, ProjStart, false);
@@ -7103,8 +6940,7 @@ Begin:
 state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 {
 	ignores EnemyAcquired, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
-	//ignores SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Trigger, Bump, HitWall, Falling, WarnTarget, Died, LongFall, PlayLanded, TakeDamage, PeerNotification;
-	
+
 	function BeginState()
 	{
 		SetCollision(False,False,False);
@@ -7112,7 +6948,6 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		Style = STY_AlphaBlend;
 		AmbientGlow=25;
 		ScaleGlow = -3;
-		//AmbientGlow=45;
 		BeamEffect=Spawn(Class'UMSBeamShieldEffect',Self,,Location,Rotation);
 		BeamGlow=Spawn(Class'UMSBeamCorona',Self,,Location,Rotation);
 		BeamEffect.ScaleGlow = -3;
@@ -7122,11 +6957,6 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		else if (MyWeapon.Mass > 20)
 		LoopAnim( 'BREATHLG', 0.4 );
 		Spawn(Class'SMTeleport');
-		//if(Skill >= 3)
-		//{
-			//Texture = None;
-			//bMeshEnviroMap = False;
-		//}
 		BeamEffect.Fatness=192;
 		MyWeapon.Fatness=60;
 		Fatness=100;
@@ -7156,7 +6986,6 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		if(BeamEffect!=None)
 		BeamEffect.Destroy();
 		BeamGlow.Destroy();
-		//Octagon.Destroy();
 		bHidden = False;
 		SightRadius=227327;
 		myWeapon.PickupSound = myWeapon.Default.PickupSound;
@@ -7193,9 +7022,6 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 				MyWeapon.ScaleGlow = Weapon.Default.ScaleGlow;
 				MyWeapon.Fatness = Weapon.Default.Fatness;
 				MyWeapon.bUnlit=Weapon.Default.bUnlit;
-
-				//if( ScaleGlow > 0.15 )
-					//ScaleGlow -= 0.03;
 			}
 		}
 
@@ -7209,8 +7035,8 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		}
 
 		if( BeamEffect.IsInState('OwnerFadeIn') )
-		BeamEffect.Scaleglow = 1.0 - (SETimer / Default.FXFadeTime );
-		BeamGlow.Scaleglow = 1.0 - (SETimer / Default.FXFadeTime );
+		BeamEffect.Scaleglow = 1.0 - (SETimer / FXFadeTime );
+		BeamGlow.Scaleglow = 1.0 - (SETimer / FXFadeTime );
 
 		if ( Fatness < 128)
 		{
@@ -7251,252 +7077,12 @@ Begin:
 	Texture = None;
 	bMeshEnviroMap = False;
 	Sleep( BeamTime );
-	//Style = Default.Style;
 	Mass = Default.Mass;
 	AmbientGlow=Default.AmbientGlow;
 	Fatness=Default.Fatness;
 	GotoState( 'Hunting' );
 }
 
-
-/*
-state Betraying
-{
-	ignores NotifyPeers, PeerNotification, Bump, falling, landed; //fixme
-
-//ignores SeePlayer if enemy is a player //but not hear noise
-	function TakeDamage( int Damage, Pawn instigatedBy, Vector hitlocation, 
-							Vector momentum, name damageType)
-	{
-		Global.TakeDamage(Damage, instigatedBy, hitlocation, momentum, damageType);
-		if ( health <= 0 )
-			return;
-		if (NextState == 'TakeHit')
-		{
-			bReadyToAttack = true;
-			NextState = 'Attacking'; 
-			NextLabel = 'Begin';
-			GotoState('TakeHit'); 
-		}
-		else
-		{
-			bReadyToAttack = true;
-			GotoState('Attacking');
-		}
-	}
-
-	function Trigger( actor Other, pawn EventInstigator )
-	{
-		if (EventInstigator.bIsPlayer)
-		{
-			Enemy = EventInstigator;
-			AttitudeToPlayer = ATTITUDE_Hate;
-			GotoState('Attacking');
-		}
-	}
-
-	function EnemyNotVisible()
-	{
-		////log("enemy not visible");
-		GotoState('Ambushing'); 
-	}
-	
-	function EnemyAcquired()
-	{
-		if (AttitudeTo(Enemy) < ATTITUDE_Threaten)
-			GotoState('Attacking');
-	}
-	
-	function PickGuardDestination()
-	{
-		local vector desiredDest;
-		local Actor path;
-		
-		desiredDest = OrderObject.Location + 
-				(OrderObject.CollisionRadius + 2.5 * CollisionRadius) * Normal(Enemy.Location - OrderObject.Location);
-
-		if ( VSize(desiredDest - Location) < 60 )
-		{
-			Destination = Location;
-			return;
-		}
-
-		if (pointReachable(desiredDest))
-			Destination = desiredDest;
-		else
-		{
-			path = FindPathTo(desiredDest, true);
-			if (path != None)
-			{
-				MoveTarget = path;
-				Destination = path.Location;
-			}
-			else
-				Destination = Location;
-		}
-	}
-	
-	function PickThreatenDestination()
-	{
-		local vector desiredDest;
-		local Actor path;
-
-		desiredDest = Location + 
-				0.4 * (VSize(Enemy.Location - Location) - CollisionRadius - Enemy.CollisionRadius - MeleeRange)
-				* Normal(Enemy.Location - Location);
-
-		if (pointReachable(desiredDest))
-			Destination = desiredDest;
-		else
-		{
-			path = FindPathTo(desiredDest, true);
-			if (path != None)
-			{
-				MoveTarget = path;
-				Destination = path.Location;
-			}
-			else
-				Destination = Location;
-		}
-	}
-
-	function BeginState()
-	{
-		bCanJump = false;
-	}
-	
-	function EndState()
-	{
-		if (JumpZ > 0)
-			bCanJump = true;
-	}
-
-	Function Timer()
-	{
-		bLuring=True;
-	}
-
-Begin:
-	Acceleration = vect(0,0,0);
-	bReadyToAttack = true;
-	if (Enemy != none && Enemy.bIsPlayer)
-		Disable('SeePlayer'); //but not hear noise
-	TweenToPatrolStop(0.2);
-	FinishAnim();
-	NextAnim = '';
-
-FaceEnemy:
-	Acceleration = vect(0,0,0);
-	if (NeedToTurn(enemy.Location))
-	{	
-		PlayTurning();
-		TurnToward(Enemy);
-		TweenToPatrolStop(0.2);
-		FinishAnim();
-		NextAnim = '';
-	}
-
-Threaten:
-
-	if(bLurePlayer)
-	{
-		if(VSize(Enemy.Location - Location) < 512)
-		{
-			if(TBU !=3)
-			{
-				Acceleration = vect(0,0,0);
-				TBU++;
-				BetrayPhrase();
-				if(  Weapon != none )
-				BetrayAnims();
-				bLuring=False;
-				sleep(0.5);
-				SetTimer(2.5,False);
-				While(!bLuring){
-				TurnToward(Enemy);
-				TweenToWalking(0.2);
-				FinishAnim();
-				PlayWalking();
-				if(VSize(Enemy.Location - Location) > 128)
-				MoveToward(Enemy,WalkingSpeed);
-				else
-				PlayWaiting();}
-				if(bLuring)
-				Goto('Threaten');
-			}
-			else
-			{
-				bActFriendly=False;
-				AcquirePhrase();
-				AttitudeToPlayer=ATTITUDE_Hate;
-				GotoState('Attacking');
-				
-				foreach RadiusActors( class'UMSSpacemarine', BetrayBuddy, CommandRadius )
-				{
-					if (BetrayBuddy != self)
-					BetrayBuddy.AttitudeToPlayer=ATTITUDE_Hate;
-					BetrayBuddy.AcquirePhrase();
-					BetrayBuddy.GotoState('Attacking');
-				}
-			}
-		}
-		else
-		{
-			While(VSize(Enemy.Location - Location) > 512)
-			{
-				TurnToward(Enemy);
-				//TweenToRunning(0.2);
-				//FinishAnim();
-				PlayRunning();
-				MoveToward(Enemy,GroundSpeed);
-			}
-		}
-	}
-
-	if (AttitudeTo(Enemy) < ATTITUDE_Threaten)
-		GotoState('Attacking');
-
-	PlayThreatening();
-	FinishAnim();
-
-	if (AttitudeTo(Enemy) < ATTITUDE_Threaten)
-		GotoState('Attacking');
-		
-	if (Orders == 'Guarding')
-	{ //stay between enemy and guard object
-		If (Enemy.bIsPlayer &&
-			(VSize(Enemy.Location - OrderObject.Location) < OrderObject.CollisionRadius + 2 * CollisionRadius + MeleeRange))
-		{
-			AttitudeToPlayer = ATTITUDE_Hate;
-			GotoState('Attacking');
-		}
-	}
-	else if (FRand() < 0.9 - Aggressiveness) //mostly just turn
-		Goto('FaceEnemy');
-	else if (VSize(Enemy.Location - Location) < 2.5 * (CollisionRadius + Enemy.CollisionRadius + MeleeRange))
-		Goto('FaceEnemy');
-
-	WaitForLanding();
-	if (Orders == 'Guarding') //stay between enemy and guard object
-		PickGuardDestination();
-	else
-		PickThreatenDestination();
-		
-	if (Destination != Location)
-	{
-		TweenToWalking(0.2);
-		FinishAnim();
-		PlayWalking();
-		MoveTo(Destination, WalkingSpeed);
-		Acceleration = vect(0,0,0);
-		TweenToPatrolStop(0.2);
-		FinishAnim();
-		NextAnim = '';
-	}
-		
-	Goto('FaceEnemy');
-}
-*/
 State Teleporting
 {
 ignores Fireweapon, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
@@ -7662,7 +7248,6 @@ defaultproperties
 	FXFadeTime=3.65
 	Skill=1
 	FadeTimer=1
-	//MarineVoice=UMSMarineVoice
 	AcquirePhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms106'),(Male=Sound'UMSMarinesII.Voice.Ms206a'),(Male=Sound'UMSMarinesII.Voice.Ms206b'),(Male=Sound'UMSMarinesII.Voice.incomingm'),(Male=Sound'UMSMarinesII.Voice.lockm'),(Male=Sound'UMSMarinesII.Voice.lookoutm'),(Male=Sound'UMSMarinesII.Voice.companym')),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms306a'),(Female=Sound'UMSMarinesII.Voice.Ms306b'),(Female=Sound'UMSMarinesII.Voice.incomingf'),(Female=Sound'UMSMarinesII.Voice.lookoutf'),(Female=Sound'UMSMarinesII.Voice.heref'),(Female=Sound'UMSMarinesII.Voice.companyf')))
 	HelpPhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms114'),(Male=Sound'UMSMarinesII.Voice.Ms109'),(Male=Sound'UMSMarinesII.Voice.Ms104'),(Male=Sound'UMSMarinesII.Voice.Ms204a'),(Male=Sound'UMSMarinesII.Voice.Ms204b'),(Male=Sound'UMSMarinesII.Voice.Ms209a'),(Male=Sound'UMSMarinesII.Voice.Ms209b'),(Male=Sound'UMSMarinesII.Voice.Ms214a'),(Male=Sound'UMSMarinesII.Voice.Ms214b'),(Male=Sound'UMSMarinesII.Voice.backupm')),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms304a'),(Female=Sound'UMSMarinesII.Voice.Ms304b'),(Female=Sound'UMSMarinesII.Voice.Ms309a'),(Female=Sound'UMSMarinesII.Voice.Ms309b'),(Female=Sound'UMSMarinesII.Voice.Ms314a'),(Female=Sound'UMSMarinesII.Voice.Ms314b'),(Female=Sound'UMSMarinesII.Voice.backupf')))
 	ChargePhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms111',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms112',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms211a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms211b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms212a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms212b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms113',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms213a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms213b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms105',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.Ms205a',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.Ms205b',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.Ms107',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms207a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms207b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.covermem',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.gogom',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.moveitm',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.movem',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.takeemm',bAllowResponse=True)),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms305a',bAllowResponse=False),(Female=Sound'UMSMarinesII.Voice.Ms305b',bAllowResponse=False),(Female=Sound'UMSMarinesII.Voice.Ms311a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms311b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms312a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms312b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms313a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms313b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms307a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms307b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.covermef',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.gogof',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.takeemf',bAllowResponse=True)))

@@ -12,7 +12,6 @@ var( MarineWaveSetup ) class <Weapon> cMarineWeapons[8];
 var( MarineWaveSetup ) name WaveEndTag; // Once all marines are dead this tag gets triggered
 var( MarineWaveSetup ) name BeampointTag;
 var( MarineWaveSetup ) float BeamDelay;
-var( MarineWaveSetup ) bool bUseRandomPoints;
 
 var int TotalMarines;
 var int MarinesLeft;
@@ -28,42 +27,22 @@ event Trigger(Actor Other,Pawn EventInstigator)
 	SetTimer( BeamDelay, False );
 	else
 	{
-    	if(bUseRandomPoints)
-		{
-			TotalMarines = CountMarines();
-			if(bLogStuff)
-			log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
-			RandomBeamMarineIn();
-		}
-    	else
-		{
-			TotalMarines = CountMarines();
-			if(bLogStuff)
-			log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
-			BeamMarineIn();
-		}
+		TotalMarines = CountMarines();
+		if(bLogStuff)
+		log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
+		BeamMarine();
 	}
 }
 
 Function Timer()
 {
-    if(bUseRandomPoints)
-	{
-		TotalMarines = CountMarines();
-		if(bLogStuff)
-		log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
-		RandomBeamMarineIn();
-	}
-    else
-	{
-		TotalMarines = CountMarines();
-		if(bLogStuff)
-		log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
-		BeamMarineIn();
-	}
+	TotalMarines = CountMarines();
+	if(bLogStuff)
+	log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
+	BeamMarine();
 }
 
-Function RandomBeamMarineIn()
+Function BeamMarine()
 {
     local int i,M,W,/*Rand,*/MarineCount;
     local umsspacemarine NewMarine;
@@ -109,32 +88,6 @@ Function RandomBeamMarineIn()
 	}
 }
 
-Function BeamMarineIn()
-{
-	local int M,W;//Rand;
-	local umsspacemarine NewMarine;
-	local UMSMarineBeampoint MSP;
-
-	foreach allactors (class'UMSMarineBeampoint',MSP)
-	{
-		if (MSP.Tag != BeampointTag) continue;
-		else
-		{
-			NewMarine = Spawn(cMarineList[M++],Self,,MSP.Location,MSP.Rotation);
-			if(NewMarine!=None)
-			{
-				NewMarine.WeaponType = cMarineWeapons[W++];
-				NewMarine.bBeamingIn = True;
-				//NewMarine.Event = MarineDeathEvent;
-				NewMarine.Enemy = GetPlayerPawn();
-				NewMarine.Target = GetPlayerPawn();
-				NewMarine.Orders = 'Hunting';
-				NewMarine.OrderTag = 'Enemy';
-			}
-		}
-	}
-}
-
 Function int CountMarines()
 {
 	local int i;
@@ -176,7 +129,7 @@ function Pawn GetPlayerPawn() // Stolen from the MarineWaveInfo, just lets marin
 
 	For( P=Level.PawnList; P!=None; P=P.NextPawn )
 	{
-		if( P!=none && P.bIsPlayer )// && umsspacemarine(P)==None )
+		if( P!=none && P.bIsPlayer )
 		{
 			EList[c] = P;
 			c++;
