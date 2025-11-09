@@ -6949,7 +6949,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		else if (MyWeapon.Mass > 20)
 		LoopAnim( 'BREATHLG', 0.4 );
 		Spawn(Class'SMTeleport');
-		BeamEffect.Fatness=192;
+		BeamEffect.Fatness=160;
 		MyWeapon.Fatness=60;
 		Fatness=100;
 
@@ -7017,7 +7017,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 			}
 		}
 
-		if ( BeamEffect.Fatness < 176)
+		if ( BeamEffect.Fatness < 160)
 		{
 	        BeamEffect.Fatness = 0 * ( SETimer / 4);
 		}
@@ -7185,10 +7185,6 @@ defaultproperties
 	AnimSequence="Breath1L"
 	RotationRate=(Pitch=3072,Yaw=30000,Roll=2048)
 	DrawType=DT_Mesh
-	LightBrightness=70
-	LightHue=40
-	LightSaturation=128
-	LightRadius=6
 	bStasis=False
 	SaluteTarget=None
 	LastTalker=None
@@ -7231,9 +7227,9 @@ defaultproperties
 	Mass=200.0
 	MultiSkins(1)=Texture'UMSMarinesII.Skins.JMarine7'
 	MultiSkins(2)=Texture'UMSMarinesII.Skins.JMarine8'
-	DrawScale=1.05
-	CollisionRadius=21.0
-	CollisionHeight=43.0
+	DrawScale=1
+	CollisionRadius=20.5
+	CollisionHeight=41.0
 	Fatness=130
 	BeamWaitTime=2.0
 	BeamTime=5
