@@ -6,12 +6,20 @@
 //=============================================================================
 class UMSMarineWaveTool extends UMSTools;
 
+//Structs
+Struct MSetup
+{
+	var() class <umsspacemarine> MarineType;
+	var() class <Weapon> WeaponType;
+};
+
 // Variables
-var( MarineWaveSetup ) class <umsspacemarine> cMarineList[8];
-var( MarineWaveSetup ) class <Weapon> cMarineWeapons[8];
+var( MarineWaveSetup ) array <MSetup> MarineList;
 var( MarineWaveSetup ) name WaveEndTag; // Once all marines are dead this tag gets triggered
 var( MarineWaveSetup ) name BeampointTag;
 var( MarineWaveSetup ) float BeamDelay;
+//var( MarineWaveSetup ) class <umsspacemarine> cMarineList[8]; // Phased out but keeping here incase things break in the future
+//var( MarineWaveSetup ) class <Weapon> cMarineWeapons[8];
 
 var int TotalMarines;
 var int MarinesLeft;
@@ -43,7 +51,7 @@ Function Timer()
 
 Function BeamMarine()
 {
-    local int i,M,W,/*Rand,*/MarineCount;
+    local int i,M,MarineCount;
     local umsspacemarine NewMarine;
     local UMSMarineBeampoint MSP;
     local UMSMarineBeampoint UMSBP[16];
@@ -68,13 +76,13 @@ Function BeamMarine()
       {MSP=UMSBP[RandRange(0,16)]; i++;}
       if(MSP!=None)
       {
-        if(cMarineList[M]==None)
+        if(MarineList[M].MarineType==None)
         M=0;
-        NewMarine = Spawn(cMarineList[M],self,,MSP.Location,MSP.Rotation);
+        NewMarine = Spawn(MarineList[M].MarineType,self,,MSP.Location,MSP.Rotation);
         if(NewMarine!=None)
         {
            	MarineCount++;
-        	NewMarine.WeaponType = cMarineWeapons[W++];
+        	NewMarine.WeaponType = MarineList[M].WeaponType;
         	NewMarine.bBeamingIn = True;
         	//NewMarine.Event = MarineDeathEvent;
         	NewMarine.SetEnemy(GetPlayerPawn());
@@ -95,7 +103,7 @@ Function int CountMarines()
 	
 	for( i = 0; i <= 8; i++ )
 	{
-		if( cMarineList[ i ] != none )
+		if( MarineList[ i ].MarineType != none )
 			MarinesLeft++;
 		else 
 		return MarinesLeft;
