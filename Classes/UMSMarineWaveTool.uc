@@ -1,7 +1,7 @@
 //=============================================================================
 // UMSMarineWaveTool - GFour
 // Requires UMSMarineBeampoints to be placed.
-// Beams in SpaceMarines and allows you chain waves together by setting MarineDeathEvent and using a Counter.
+// Beams in SpaceMarines and allows you chain waves together or cast an event by setting WaveEndTag.
 // Note to Mappers: I heavily reccomend keeping the ammount of Marines spawned at around 3-4.
 //=============================================================================
 class UMSMarineWaveTool extends UMSTools;
