@@ -4,12 +4,10 @@
 class UMSSpaceMarine extends ScriptedPawn;
 
 #exec OBJ LOAD FILE=..\Sounds\Ambmodern.uax
-#exec AUDIO IMPORT FILE="Sounds\SFX\MAmb.WAV" NAME="MAmb" GROUP="SFX"
 #exec AUDIO IMPORT FILE="Sounds\SFX\PowerON.WAV" NAME="PowerON" GROUP="SFX"
 #exec AUDIO IMPORT FILE="Sounds\SFX\PowerOFF.WAV" NAME="PowerOFF" GROUP="SFX"
 #exec AUDIO IMPORT FILE="Sounds\Voice\sirmale.WAV" NAME="sirmale" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\sirfemale.WAV" NAME="sirfemale" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\SFX\clank.WAV" NAME="clank" GROUP="SFX"
 #exec AUDIO IMPORT FILE="Sounds\Voice\snore.WAV" NAME="snore" GROUP="Voice"
 
 #exec AUDIO IMPORT FILE="Sounds\Voice\stepm.WAV" NAME="stepm" GROUP="Voice"
@@ -189,9 +187,6 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowR2.WAV" NAME="MStep2" GROUP="Footsteps"
 #exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowL.WAV" NAME="MStep3" GROUP="Footsteps"
 #exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowL2.WAV" NAME="MStep4" GROUP="Footsteps"
-
-#exec AUDIO IMPORT FILE="Sounds\SFX\tripExplo.WAV" NAME="tripExplo" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\TWalarm.WAV" NAME="TWalarm" GROUP="SFX"
 
 #exec mesh IMPORT MESH=UMSMarine ANIVFILE=MODELS\UMSMarine\UMSMarine_a.3d DATAFILE=MODELS\UMSMarine\UMSMarine_d.3d X=0 Y=0 Z=0 UNMIRROR=0
 #exec mesh ORIGIN MESH=UMSMarine X=0 Y=0 Z=0
@@ -3536,7 +3531,7 @@ function Died(pawn Killer, name damageType, vector HitLocation)
 		GotoState('Exploding');
 		return;
 	}
-	else if ( Weapon != none )
+	if ( Weapon != none )
 	{
 		Weapon.AmmoType.AmmoAmount = Weapon.AmmoType.Default.AmmoAmount - Rand(3);
 	}
@@ -7180,7 +7175,7 @@ defaultproperties
 	static8=Sound'UMSMarinesII.UMSMarines.st8'
 	static9=Sound'UMSMarinesII.UMSMarines.st9'
 	static10=Sound'UMSMarinesII.UMSMarines.st10'
-	ExplodeSound=Sound'UMSMarinesII.tripwire.tripExplo'
+	ExplodeSound=Sound'UnrealShare.Flak.expl2'
 	ActiveExlo=Sound'Activates.Beeps.mactiv62'
 	Reloadsound=None
 	PunchDamage=5
