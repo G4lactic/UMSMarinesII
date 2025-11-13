@@ -11,6 +11,7 @@ Struct MSetup
 {
 	var() class <umsspacemarine> MarineType;
 	var() class <Weapon> WeaponType;
+	var() UMSSpaceMarine.MSkin MarineSkin;
 };
 
 // Variables
@@ -18,6 +19,7 @@ var( MarineWaveSetup ) array <MSetup> MarineList;
 var( MarineWaveSetup ) name WaveEndTag; // Once all marines are dead this tag gets triggered
 var( MarineWaveSetup ) name BeampointTag;
 var( MarineWaveSetup ) float BeamDelay;
+var( MarineWaveSetup ) UMSSpaceMarine.MSkin DefaultMarineSkin;
 //var( MarineWaveSetup ) class <umsspacemarine> cMarineList[8]; // Phased out but keeping here incase things break in the future
 //var( MarineWaveSetup ) class <Weapon> cMarineWeapons[8];
 
@@ -84,11 +86,15 @@ Function BeamMarine()
            	MarineCount++;
         	NewMarine.WeaponType = MarineList[M].WeaponType;
         	NewMarine.bBeamingIn = True;
+			NewMarine.MarineSkin = MarineList[M].MarineSkin;
+			if(NewMarine.MarineSkin == SKIN_Default)
+			NewMarine.MarineSkin = DefaultMarineSkin;
         	//NewMarine.Event = MarineDeathEvent;
         	NewMarine.SetEnemy(GetPlayerPawn());
            	NewMarine.Target = GetPlayerPawn();
 			NewMarine.Orders = 'Hunting';
 			NewMarine.OrderTag = 'Enemy';
+			NewMarine.SetMarineSkin();
 			M++;
         }
       }
@@ -152,4 +158,5 @@ defaultproperties
 	Texture=Texture'Engine.S_Flag'
 	DrawScale=2.5
 	ActorRenderColor=(R=255,G=128,B=64)
+	DefaultMarineSkin=SKIN_Random
 }

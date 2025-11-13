@@ -802,7 +802,6 @@ defaultproperties
     bShieldOn=False
 	WeaponType=Class'ASMD'
 	HumanKillMessage=" was blown away by a UMS Elite Soldier"
-	DispPowerLevel=5
 	bWarnTarget=False
 	Health=100
 	CombatStyle=0.3

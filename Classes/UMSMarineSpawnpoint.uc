@@ -6,7 +6,7 @@ class UMSMarineSpawnPoint extends UMSTools;
 //Structs
 Struct ExtraSetup
 {
-	var() int DispPowerLevel;
+	//var() int DispPowerLevel;
 	var() bool bTeleportWhenHurt;
 	var() bool bExplodeWhenHurt;
 };
@@ -44,7 +44,7 @@ Function SpawnMarine()
 		MySelf=Spawn(cMarineType,,,Self.Location,Self.Rotation);
 		MySelf.WeaponType=cMarineWeaponType;
 		MySelf.bBeamingIn=bBeamingIn;
-		MySelf.DispPowerLevel=MarineExtras.DispPowerLevel;
+		//MySelf.DispPowerLevel=MarineExtras.DispPowerLevel;
 		MySelf.bTeleportWhenHurt=MarineExtras.bTeleportWhenHurt;
 		MySelf.bExplodeWhenHurt=MarineExtras.bExplodeWhenHurt;
 		if(!bAutoHatePlayer)

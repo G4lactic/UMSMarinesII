@@ -10,4 +10,5 @@ defaultproperties
 {
     bDoSpecial=True;
     bAutoDoSpecial=False;
+	MarineSkin=SKIN_Default
 }

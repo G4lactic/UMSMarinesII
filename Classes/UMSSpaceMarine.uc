@@ -417,8 +417,18 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec MESH NOTIFY MESH=UMSMarine SEQ=Dead9B TIME=0.8 FUNCTION=LandThump
 #exec mesh NOTIFY MESH=UMSMarine SEQ=Dead11 TIME=0.57 FUNCTION=LandThump
 
-//Spacemarine Textures
+//Marine Textures
 //=============================================================================
+//===ArcticMarine
+#exec texture IMPORT NAME=Jmarine1 FILE=Textures\Skins\Jmarine1.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=Jmarine2 FILE=Textures\Skins\jmarine2.PCX GROUP=Skins LODSET=2
+//===JungleMarine
+#exec texture IMPORT NAME=Jmarine3 FILE=Textures\Skins\Jmarine3.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=Jmarine4 FILE=Textures\Skins\jmarine4.PCX GROUP=Skins LODSET=2
+//===DesertMarine
+#exec texture IMPORT NAME=Jmarine5 FILE=Textures\Skins\Jmarine5.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=Jmarine6 FILE=Textures\Skins\jmarine6.PCX GROUP=Skins LODSET=2
+//===SpaceMarine
 #exec texture IMPORT NAME=Jmarine7 FILE=Textures\Skins\Jmarine7.PCX GROUP=Skins LODSET=2
 #exec texture IMPORT NAME=Jmarine8 FILE=Textures\Skins\jmarine8.PCX GROUP=Skins LODSET=2
 
@@ -522,14 +532,24 @@ Struct ListRespondPhrase
 };
 
 // UMSSpaceMarine
-var(UMSSpaceMarine) class<weapon> WeaponType;
-var(UMSSpaceMarine) bool bButtonPusher;
-var(UMSSpaceMarine) bool bTeleportWhenHurt;
-var(UMSSpaceMarine) bool bExplodeWhenHurt;
-Var(UMSSpaceMarine) int DispPowerLevel;
-var(UMSSpaceMarine) bool bCadet; // You can now just set marines to be cadets from here. to avoid having un-needed classes.
+var() class<weapon> WeaponType;
+var() bool bButtonPusher;
+var() bool bCadet; // You can now just set marines to be cadets from here. to avoid having un-needed classes.
+var() enum MSkin
+{
+	SKIN_Default,
+	SKIN_Random,
+	SKIN_Space,
+	SKIN_Arctic,
+	SKIN_Desert,
+	SKIN_Jungle
+}
+MarineSkin;
+//var(UMSSpaceMarine) int DispPowerLevel;
 
 // Misc
+var(Misc) bool bTeleportWhenHurt;
+var(Misc) bool bExplodeWhenHurt;
 var(Misc) sound Reloadsound;
 var(Misc) byte PunchDamage;
 var(Misc) byte SlamDamage;
@@ -674,6 +694,7 @@ function PostBeginPlay()
 	}
 	else if( FRand() < 0.5 )
 	SetFemaleGender();
+	SetMarineSkin();
 }
 
 function PreSetMovement()
@@ -716,6 +737,59 @@ function SetFemaleGender()
 	HitSound2=Sound'UnrealShare.Female.linjur2fem';
 	Die=Sound'UnrealShare.Female.death1dfem';
 	bIsFemale = true;
+}
+
+Function SetMarineSkin()
+{
+	Local int RandNum;
+
+	RandNum = Rand(4);
+
+	if(MarineSkin == SKIN_Default)
+	Return;
+	else if(MarineSkin == SKIN_Random)
+	{
+		if(RandNum == 1)
+		{
+			MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine7';
+			MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine8';
+		}
+		else if(RandNum == 2)
+		{
+			MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine1';
+			MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine2';
+		}
+		else if(RandNum == 3)
+		{
+			MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine5';
+			MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine6';
+		}
+		else if(RandNum == 4)
+		{
+			MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine3';
+			MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine4';
+		}
+	}
+	else if(MarineSkin == SKIN_Space)
+	{
+		MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine7';
+		MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine8';
+	}
+	else if(MarineSkin == SKIN_Arctic)
+	{
+		MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine1';
+		MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine2';
+	}
+	else if(MarineSkin == SKIN_Desert)
+	{
+		MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine5';
+		MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine6';
+	}
+	else if(MarineSkin == SKIN_Jungle)
+	{
+		MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine3';
+		MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine4';
+	}
 }
 
 //Animation Functions
@@ -3480,14 +3554,14 @@ function ChangedWeapon()
 	    Weapon.PlayerViewOffset = Weapon.PlayerViewOffset * DrawScale;
 
         Weapon.SetHand(-0.5);
-       if (weapon.IsA('DispersionPistol'))
+       /*if (weapon.IsA('DispersionPistol'))
        {
            If(DispPowerLevel >4)
               DispPowerLevel=4;
            If(DispPowerLevel <0)
               DispPowerLevel=0;
 	       DispersionPistol(weapon).PowerLevel=DispPowerLevel;
-	    }
+	    }*/
     }
 }
 
@@ -7130,7 +7204,7 @@ defaultproperties
 	WeaponType=Class'UnrealShare.Automag'
 	myWeapon=None
 	HumanKillMessage=" was blown away by a UMS Space Marine"
-	DispPowerLevel=1
+	//DispPowerLevel=1
 	strafedodge=False
 	Aggressiveness=0.9
 	RefireRate=0.3
@@ -7208,6 +7282,7 @@ defaultproperties
 	FXFadeTime=3.65
 	Skill=1
 	FadeTimer=1
+	MarineSkin=SKIN_Random
 	AcquirePhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms106'),(Male=Sound'UMSMarinesII.Voice.Ms206a'),(Male=Sound'UMSMarinesII.Voice.Ms206b'),(Male=Sound'UMSMarinesII.Voice.incomingm'),(Male=Sound'UMSMarinesII.Voice.lockm'),(Male=Sound'UMSMarinesII.Voice.lookoutm'),(Male=Sound'UMSMarinesII.Voice.companym')),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms306a'),(Female=Sound'UMSMarinesII.Voice.Ms306b'),(Female=Sound'UMSMarinesII.Voice.incomingf'),(Female=Sound'UMSMarinesII.Voice.lookoutf'),(Female=Sound'UMSMarinesII.Voice.heref'),(Female=Sound'UMSMarinesII.Voice.companyf')))
 	HelpPhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms114'),(Male=Sound'UMSMarinesII.Voice.Ms109'),(Male=Sound'UMSMarinesII.Voice.Ms104'),(Male=Sound'UMSMarinesII.Voice.Ms204a'),(Male=Sound'UMSMarinesII.Voice.Ms204b'),(Male=Sound'UMSMarinesII.Voice.Ms209a'),(Male=Sound'UMSMarinesII.Voice.Ms209b'),(Male=Sound'UMSMarinesII.Voice.Ms214a'),(Male=Sound'UMSMarinesII.Voice.Ms214b'),(Male=Sound'UMSMarinesII.Voice.backupm')),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms304a'),(Female=Sound'UMSMarinesII.Voice.Ms304b'),(Female=Sound'UMSMarinesII.Voice.Ms309a'),(Female=Sound'UMSMarinesII.Voice.Ms309b'),(Female=Sound'UMSMarinesII.Voice.Ms314a'),(Female=Sound'UMSMarinesII.Voice.Ms314b'),(Female=Sound'UMSMarinesII.Voice.backupf')))
 	ChargePhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms111',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms112',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms211a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms211b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms212a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms212b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms113',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms213a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms213b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms105',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.Ms205a',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.Ms205b',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.Ms107',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms207a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms207b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.covermem',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.gogom',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.moveitm',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.movem',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.takeemm',bAllowResponse=True)),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms305a',bAllowResponse=False),(Female=Sound'UMSMarinesII.Voice.Ms305b',bAllowResponse=False),(Female=Sound'UMSMarinesII.Voice.Ms311a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms311b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms312a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms312b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms313a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms313b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms307a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms307b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.covermef',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.gogof',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.takeemf',bAllowResponse=True)))
