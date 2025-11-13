@@ -4,7 +4,7 @@
 // Beams in SpaceMarines and allows you chain waves together or cast an event by setting WaveEndTag.
 // Note to Mappers: I heavily reccomend keeping the ammount of Marines spawned at around 3-4.
 //=============================================================================
-class UMSMarineWaveTool extends UMSTools;
+class UMSMarineWaveTool extends Triggers;
 
 //Structs
 Struct MSetup
@@ -20,6 +20,7 @@ var( MarineWaveSetup ) name WaveEndTag; // Once all marines are dead this tag ge
 var( MarineWaveSetup ) name BeampointTag;
 var( MarineWaveSetup ) float BeamDelay;
 var( MarineWaveSetup ) UMSSpaceMarine.MSkin DefaultMarineSkin; // Set to random by default. Gets overidden when you set the marine skin in MarineList.
+var( Misc ) bool bLogStuff;
 
 var int TotalMarines;
 var int MarinesLeft;

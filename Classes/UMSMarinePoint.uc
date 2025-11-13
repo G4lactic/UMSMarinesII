@@ -4,9 +4,17 @@
 //=============================================================================
 class UMSMarinePoint extends SpawnPoint;
 
-var() class<weapon>  MarineWeapon;
-var() bool	bTeleportWhenHurt;
-var() bool bExplodeWhenHurt;
+var() class<weapon> MarineWeapon;
+var() enum MSkin
+{
+	SKIN_Default,
+	SKIN_Random,
+	SKIN_Space,
+	SKIN_Arctic,
+	SKIN_Desert,
+	SKIN_Jungle
+}
+MarineSkin;
 
 function bool Create()
 {
@@ -54,12 +62,21 @@ function bool Create()
 			umsspacemarine(newcreature).Orders='Hunting';
 			umsspacemarine(newcreature).OrderTag = 'Enemy';
 		}
-     if( bTeleportWhenHurt)
-       bExplodeWhenHurt=false;
-     umsspacemarine(newcreature).bTeleportWhenHurt=bTeleportWhenHurt;
-     umsspacemarine(newcreature).bExplodeWhenHurt=bExplodeWhenHurt;
      if (MarineWeapon!=none)
       umsspacemarine(newcreature).weapontype = MarineWeapon;
+	if(MarineSkin == SKIN_Default)
+	      umsspacemarine(newcreature).MarineSkin = SKIN_Default;
+	else if(MarineSkin == SKIN_Random)
+      umsspacemarine(newcreature).MarineSkin = SKIN_Random;
+	else if(MarineSkin == SKIN_Space)
+	      umsspacemarine(newcreature).MarineSkin = SKIN_Space;
+	else if(MarineSkin == SKIN_Arctic)
+      umsspacemarine(newcreature).MarineSkin = SKIN_Arctic;
+	else if(MarineSkin == SKIN_Desert)
+	      umsspacemarine(newcreature).MarineSkin = SKIN_Desert;
+	else if(MarineSkin == SKIN_Jungle)
+      umsspacemarine(newcreature).MarineSkin = SKIN_Jungle;
+      umsspacemarine(newcreature).SetMarineSkin();
     }
 	if(!pawnFactory.bAutoHatePlayer)
 	{
@@ -102,6 +119,5 @@ Function Pawn HuntPlayer()
 defaultproperties
 {
 	MarineWeapon=None
-	bTeleportWhenHurt=False
-	bExplodeWhenHurt=False
+	MarineSkin=SKIN_Random
 }
