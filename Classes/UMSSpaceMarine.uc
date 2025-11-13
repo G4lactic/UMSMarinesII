@@ -7282,7 +7282,7 @@ defaultproperties
 	JumpZ=425.0
 	BaseEyeHeight=39.0
 	EyeHeight=39.0
-	MenuName="UMS Space Marine"
+	MenuName="UMS Terran Marine"
 	Mass=200.0
 	MultiSkins(1)=Texture'UMSMarinesII.Skins.JMarine7'
 	MultiSkins(2)=Texture'UMSMarinesII.Skins.JMarine8'
