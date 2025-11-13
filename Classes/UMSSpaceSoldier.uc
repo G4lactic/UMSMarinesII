@@ -1,5 +1,7 @@
 //=============================================================================
-// UMSSpaceSoldier - Asgard
+// UMSSpaceSoldier - Asgard/GFour
+// Working on making these guys unique.
+// Added a custom visor to distinct Soldiers from basic Marines.
 //=============================================================================
 class UMSSpaceSoldier extends UMSSpaceMarine;
 
