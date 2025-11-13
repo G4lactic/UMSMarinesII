@@ -3,6 +3,14 @@
 //=============================================================================
 class UMSSpaceSoldier extends UMSSpaceMarine;
 
+var Effects Glowy;
+
+Function PostBeginPlay()
+{
+    Glowy=Spawn(Class'UMSGlowyVisor3',Self,,Location,Rotation);
+	Super.PostBeginPlay();
+}
+
 function PreSetMovement()
 {
 	if ( Skill >= 3 )
