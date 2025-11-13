@@ -7216,7 +7216,7 @@ defaultproperties
 	JumpSound=Sound'UnrealShare.Male.MJump1'
 	WeaponType=Class'UnrealShare.Automag'
 	myWeapon=None
-	HumanKillMessage=" was blown away by a UMS Space Marine"
+	HumanKillMessage=" was blown away by a UMS Terran Marine"
 	//DispPowerLevel=1
 	strafedodge=False
 	Aggressiveness=0.9

@@ -732,7 +732,7 @@ defaultproperties
 	PunchDamage=5
 	SlamDamage=9
 	WeaponType=Class'UnrealShare.Rifle'
-	HumanKillMessage=" was blown away by a UMS Space Soldier"
+	HumanKillMessage=" was blown away by a UMS Terran Soldier"
 	WalkingSpeed=0.27
 	Health=100
 	GroundSpeed=380.0
