@@ -441,7 +441,12 @@ class UMSSpaceMarine extends ScriptedPawn;
 //=============================================================================
 #exec MESHMAP SETTEXTURE MESHMAP=UMSMarine NUM=1 TEXTURE=Jmarine7
 #exec MESHMAP SETTEXTURE MESHMAP=UMSMarine NUM=2 TEXTURE=Jmarine8
-
+//Reduxed Marine
+/*
+#exec MESH MODELIMPORT STATICMESH MODELFILE="Models/UMSMarineV2/ReduxMarine3MC_3.obj" NAME=UMSMarineRedux
+#exec MESHMAP SETTEXTURE MESHMAP=UMSMarineRedux NUM=0 TEXTURE=Jmarine7
+#exec MESHMAP SETTEXTURE MESHMAP=UMSMarineRedux NUM=1 TEXTURE=Jmarine8
+*/
 #exec mesh NOTIFY MESH=UMSMarine SEQ=COCKGUN TIME=0.45 FUNCTION=Reload
 #exec mesh NOTIFY MESH=UMSMarine SEQ=COCKGUNL TIME=0.45 FUNCTION=Reload
 #exec mesh NOTIFY MESH=UMSMarine SEQ=RELOADSM TIME=0.45 FUNCTION=Reload
