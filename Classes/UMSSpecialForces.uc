@@ -8,7 +8,8 @@ var() bool bAutoDoSpecial; // Do you want this marine to start with their specia
 
 defaultproperties
 {
-    bDoSpecial=True;
-    bAutoDoSpecial=False;
+    bDoSpecial=True
+    bAutoDoSpecial=False
+	bSkinOverride=true
 	MarineSkin=SKIN_Default
 }
