@@ -624,6 +624,7 @@ var DynamicCorona BeamGlow;
 var UMSMarineWaveTool MarineBeamController;
 var SilentBallExplosion sbc;
 var BlackSmoke bsm;
+var name LogSkinName;
 
 //Start up stuff
 function PreBeginPlay()
@@ -749,46 +750,54 @@ Function SetMarineSkin()
 	Return;
 	else if(MarineSkin == SKIN_Random)
 	{
-		if(RandNum == 1)
+		if(RandNum == 0)
 		{
 			MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine7';
 			MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine8';
+			LogSkinName='Space';
 		}
-		else if(RandNum == 2)
+		else if(RandNum == 1)
 		{
 			MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine1';
 			MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine2';
+			LogSkinName='Arctic';
 		}
-		else if(RandNum == 3)
+		else if(RandNum == 2)
 		{
 			MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine5';
 			MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine6';
+			LogSkinName='Desert';
 		}
-		else if(RandNum == 4)
+		else if(RandNum == 3)
 		{
 			MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine3';
 			MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine4';
+			LogSkinName='Jungle';
 		}
 	}
 	else if(MarineSkin == SKIN_Space)
 	{
 		MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine7';
 		MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine8';
+		LogSkinName='Space';
 	}
 	else if(MarineSkin == SKIN_Arctic)
 	{
 		MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine1';
 		MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine2';
+		LogSkinName='Arctic';
 	}
 	else if(MarineSkin == SKIN_Desert)
 	{
 		MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine5';
 		MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine6';
+		LogSkinName='Desert';
 	}
 	else if(MarineSkin == SKIN_Jungle)
 	{
 		MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine3';
 		MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine4';
+		LogSkinName='Jungle';
 	}
 }
 

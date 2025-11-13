@@ -92,6 +92,8 @@ Function BeamMarine()
 			NewMarine.Orders = 'Hunting';
 			NewMarine.OrderTag = 'Enemy';
 			NewMarine.SetMarineSkin();
+			if(bLogStuff)
+			log("Skin:"@NewMarine.LogSkinName@"on marine"@M);
 			M++;
         }
       }
