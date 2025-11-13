@@ -737,6 +737,6 @@ defaultproperties
 	Health=100
 	GroundSpeed=380.0
 	JumpZ=325.0
-	CombatStyle=0.1
+	CombatStyle=0.3
 	MenuName="UMS Terran Soldier"
 }

@@ -7230,7 +7230,7 @@ defaultproperties
 	AirControl=0.35
 	SightRadius=4000.0
 	UnderWaterTime=-1.0
-	CombatStyle=0.2
+	CombatStyle=0.6
 	HitSound1=Sound'UnrealShare.Male.MInjur1'
 	HitSound2=Sound'UnrealShare.Male.MInjur2'
 	Die=Sound'UnrealShare.Male.MDeath1'
