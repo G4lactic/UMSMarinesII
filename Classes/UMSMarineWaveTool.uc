@@ -11,7 +11,7 @@ Struct MSetup
 {
 	var() class <umsspacemarine> MarineType;
 	var() class <Weapon> WeaponType;
-	var() UMSSpaceMarine.MSkin MarineSkin;
+	var() UMSSpaceMarine.MSkin MarineSkin; // Use this if you want a specific skin. otherwise set DefaultMarineSkin.
 };
 
 // Variables

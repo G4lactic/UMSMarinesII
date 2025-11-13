@@ -539,7 +539,7 @@ Struct ListRespondPhrase
 // UMSSpaceMarine
 var() class<weapon> WeaponType;
 var() bool bButtonPusher;
-var() bool bCadet; // You can now just set marines to be cadets from here. to avoid having un-needed classes.
+var() bool bCadet; // Simulates a less experienced Marine.
 var() enum MSkin
 {
 	SKIN_Default,
@@ -549,7 +549,8 @@ var() enum MSkin
 	SKIN_Desert,
 	SKIN_Jungle
 }
-MarineSkin;
+MarineSkin; // Replacement for needing classes for different marine skins. NOTE: SpecialForces overrides this.
+
 //var(UMSSpaceMarine) int DispPowerLevel;
 
 // Misc
