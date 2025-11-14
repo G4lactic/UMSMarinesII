@@ -411,6 +411,10 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec mesh NOTIFY MESH=UMSMarine SEQ=Talk TIME=0.1 FUNCTION=radio
 #exec mesh NOTIFY MESH=UMSMarine SEQ=Taunt1 TIME=0.1 FUNCTION=radio
 #exec mesh NOTIFY MESH=UMSMarine SEQ=Taunt1L TIME=0.1 FUNCTION=radio
+#exec mesh NOTIFY MESH=UMSMarine SEQ=COCKGUN TIME=0.45 FUNCTION=Reload
+#exec mesh NOTIFY MESH=UMSMarine SEQ=COCKGUNL TIME=0.45 FUNCTION=Reload
+#exec mesh NOTIFY MESH=UMSMarine SEQ=RELOADSM TIME=0.45 FUNCTION=Reload
+#exec mesh NOTIFY MESH=UMSMarine SEQ=RELOADLG TIME=0.45 FUNCTION=Reload
 //ut notifies
 #exec MESH NOTIFY MESH=UMSMarine SEQ=Dead7 TIME=0.7 FUNCTION=LandThump
 #exec mesh NOTIFY MESH=UMSMarine SEQ=Dead8 TIME=0.7 FUNCTION=LandThump
@@ -441,16 +445,14 @@ class UMSSpaceMarine extends ScriptedPawn;
 //=============================================================================
 #exec MESHMAP SETTEXTURE MESHMAP=UMSMarine NUM=1 TEXTURE=Jmarine7
 #exec MESHMAP SETTEXTURE MESHMAP=UMSMarine NUM=2 TEXTURE=Jmarine8
+
 //Reduxed Marine
-/*
+//=============================================================================
 #exec MESH MODELIMPORT STATICMESH MODELFILE="Models/UMSMarineV2/ReduxMarine3MC_3.obj" NAME=UMSMarineRedux
+#exec STATICMESH TRANSFORM NAME=UMSMarineRedux ORIGIN=(0.0,0.0,0.0) SIZE=(1.05,1.05,1.05) YAW=0 PITCH=0 ROLL=0
 #exec MESHMAP SETTEXTURE MESHMAP=UMSMarineRedux NUM=0 TEXTURE=Jmarine7
 #exec MESHMAP SETTEXTURE MESHMAP=UMSMarineRedux NUM=1 TEXTURE=Jmarine8
-*/
-#exec mesh NOTIFY MESH=UMSMarine SEQ=COCKGUN TIME=0.45 FUNCTION=Reload
-#exec mesh NOTIFY MESH=UMSMarine SEQ=COCKGUNL TIME=0.45 FUNCTION=Reload
-#exec mesh NOTIFY MESH=UMSMarine SEQ=RELOADSM TIME=0.45 FUNCTION=Reload
-#exec mesh NOTIFY MESH=UMSMarine SEQ=RELOADLG TIME=0.45 FUNCTION=Reload
+
 
 //Structs
 Struct GOverride
