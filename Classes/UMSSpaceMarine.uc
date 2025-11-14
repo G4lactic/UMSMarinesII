@@ -7230,7 +7230,7 @@ defaultproperties
 	CarcassType=Class'UMSMarinesII.UMSSpaceMarineCarcass'
 	Health=100
 	MeleeRange=50.0
-	GroundSpeed=380.0
+	GroundSpeed=340.0
 	AirSpeed=400.0
 	AccelRate=1248.0
 	AirControl=0.35
