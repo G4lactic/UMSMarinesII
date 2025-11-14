@@ -455,12 +455,6 @@ class UMSSpaceMarine extends ScriptedPawn;
 
 
 //Structs
-Struct GOverride
-{
-	var() bool bAlwaysMale;
-	var() bool bAlwaysFemale;
-};
-
 Struct ListAcquirePhrase
 {
 	Struct AMaleS
@@ -552,7 +546,13 @@ var() enum MSkin
 	SKIN_Jungle
 }
 MarineSkin; // Replacement for needing classes for different marine skins. NOTE: SpecialForces overrides this.
-
+var() enum GOverride
+{
+	GENDER_Random,
+	GENDER_Male,
+	GENDER_Female
+}
+Gender;
 //var(UMSSpaceMarine) int DispPowerLevel;
 
 // Misc
@@ -564,7 +564,6 @@ var(Misc) byte SlamDamage;
 var(Misc) float ExploRange;
 var(Misc) float ExploDamage;
 var(Misc) float ExploMomentum;
-var(Misc) GOverride GenderOverride;
 var(Misc) float BeamWaitTime;
 var(Misc) float BeamTime;
 var(Misc) float CommandRadius;
@@ -690,20 +689,10 @@ function PostBeginPlay()
 	MessageTime=0;
 	bRespond=false;
 
-	if(GenderOverride.bAlwaysMale && !GenderOverride.bAlwaysFemale)
-	return;
-	else if (GenderOverride.bAlwaysFemale && !GenderOverride.bAlwaysMale)
+	if(Gender == GENDER_Female || (Gender == GENDER_Random && FRand() < 0.5))
 	SetFemaleGender();
-	else if (GenderOverride.bAlwaysMale && GenderOverride.bAlwaysFemale)
-	{
-		Log("Jokes on you that just cancels it out!");
-		if( FRand() < 0.5 )
-		SetFemaleGender();
-		else
-		return;
-	}
-	else if( FRand() < 0.5 )
-	SetFemaleGender();
+	else if(Gender == GENDER_Male)
+	Return;
 	SetMarineSkin();
 }
 
