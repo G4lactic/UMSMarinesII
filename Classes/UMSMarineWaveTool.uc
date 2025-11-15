@@ -1,6 +1,7 @@
 //=============================================================================
 // UMSMarineWaveTool - GFour
 // Requires UMSMarineBeampoints to be placed.
+// When the wave starts the tag in Event is cast out.
 // Beams in SpaceMarines and allows you chain waves together or cast an event by setting WaveEndTag.
 // Note to Mappers: I heavily reccomend keeping the ammount of Marines spawned at around 3-4.
 //=============================================================================
@@ -39,6 +40,7 @@ event Trigger(Actor Other,Pawn EventInstigator)
 		if(bLogStuff)
 		log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
 		BeamMarine();
+		TriggerEvent(Event);
 	}
 }
 
@@ -48,6 +50,7 @@ Function Timer()
 	if(bLogStuff)
 	log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
 	BeamMarine();
+	TriggerEvent(Event);
 }
 
 Function BeamMarine()

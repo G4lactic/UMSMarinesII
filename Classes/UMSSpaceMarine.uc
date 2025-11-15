@@ -3549,7 +3549,6 @@ function TossWeapon()
 function Died(pawn Killer, name damageType, vector HitLocation)
 {
 	local pawn OtherPawn;
-	local actor A;
 
 	if ( bDeleteMe )
 		return;
@@ -3588,9 +3587,7 @@ function Died(pawn Killer, name damageType, vector HitLocation)
     if ( killer != none )
        level.game.Killed(Killer, self, damageType);
 	//log(class$" dying");
-	if( Event != '' )
-		foreach AllActors( class 'Actor', A, Event )
-			A.Trigger( Self, Killer );
+	TriggerEvent(Event,Self,Killer);
 	Level.Game.DiscardInventory(self);
 	Velocity.Z *= 1.3;
 	if ( Gibbed(damageType) )
@@ -6783,13 +6780,7 @@ ignores Fireweapon, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, He
 
     function Notifydeath()
     {
-       local Actor A;
-	   if ( event != '' )
-		ForEach AllActors( class'Actor', A, event )
-	 	if (enemy!=none)
-		 A.Trigger( Self, Enemy );
-		else
-		 A.Trigger( Self, Self );
+		TriggerEvent(Event,Self);
     }
 
 	function BeginState()
@@ -7072,7 +7063,6 @@ ignores Fireweapon, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, He
 	function Tick(float DeltaTime)
 	{
 		local int NewFatness;
-        local Actor A;
 
         if( bInitz )
            return;
@@ -7087,12 +7077,7 @@ ignores Fireweapon, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, He
 			ScaleGlow -= 3 * DeltaTime;
 	    	if ( ScaleGlow < 0.3 )
 	     	{
-		    	if ( event != '' )
-		    		ForEach AllActors( class'Actor', A, event )
-		    		if (enemy!=none)
-		    		 A.Trigger( Self, Enemy );
-		    		else
-		      		 A.Trigger( Self, self );
+				TriggerEvent(Event,Self);
 		        if(!bDeleteme)
 		        	Destroy();
 		    }
