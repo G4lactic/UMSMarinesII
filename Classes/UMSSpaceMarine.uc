@@ -546,13 +546,6 @@ var() enum MSkin
 	SKIN_Jungle
 }
 MarineSkin; // Replacement for needing classes for different marine skins. NOTE: SpecialForces overrides this.
-var() enum GOverride
-{
-	GENDER_Random,
-	GENDER_Male,
-	GENDER_Female
-}
-Gender;
 //var(UMSSpaceMarine) int DispPowerLevel;
 
 // Misc
@@ -568,6 +561,13 @@ var(Misc) float BeamWaitTime;
 var(Misc) float BeamTime;
 var(Misc) float CommandRadius;
 var(Misc) string HumanKillMessage;
+var(Misc) enum GOverride
+{
+	GENDER_Random,
+	GENDER_Male,
+	GENDER_Female
+}
+Gender;
 
 // Phrases
 var(Phrases) ListAcquirePhrase AcquirePhrases;
