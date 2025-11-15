@@ -770,6 +770,153 @@ Function SetMarineSkin()
 	}
 }
 
+// Phrase Functions
+function KillPhrase()
+{
+    local float vol;
+    local sound voice;
+
+    LastTalkTime=level.TimeSeconds;
+	vol = 2.0;
+    LastTalker = self;
+    Talker( LastTalker );
+    bGetResponse=false;
+    bRespond=false;
+
+	if(!bIsFemale)
+	{
+		Voice=KillPhrases.MaleSounds[Rand(Array_Size(KillPhrases.MaleSounds))].Male;
+	}
+	else
+	{
+		Voice=KillPhrases.FemaleSounds[Rand(Array_Size(KillPhrases.FemaleSounds))].Female;
+	}
+
+    if(voice!=none)
+    {
+     PlaySound( voice, SLOT_Talk,vol*0.9 );
+     PlaySound( voice, SLOT_None,vol*0.9 );
+    }
+}
+
+function HelpPhrase()
+{
+    local float vol;
+    local sound voice;
+
+    LastTalkTime=level.TimeSeconds;
+	vol = 2.0;
+	LastTalker = self;
+    Talker( LastTalker );
+    bGetResponse=true;
+    bRespond=false;
+
+	if(!bIsFemale)
+	{
+		Voice=HelpPhrases.MaleSounds[Rand(Array_Size(HelpPhrases.MaleSounds))].Male;
+	}
+	else
+	{
+		Voice=HelpPhrases.FemaleSounds[Rand(Array_Size(HelpPhrases.FemaleSounds))].Female;
+	}
+
+    if(voice!=none)
+    {
+     PlaySound( voice, SLOT_Talk,vol*0.9 );
+     PlaySound( voice, SLOT_None,vol*0.9 );
+    }
+}
+
+function AcquirePhrase()
+{
+    local float vol;
+    local sound voice;
+
+    LastTalkTime=level.TimeSeconds;
+	vol = 2.0;
+    LastTalker = self;
+    Talker( LastTalker );
+    bRespond=false;
+
+	if(!bIsFemale)
+	{
+		Voice=AcquirePhrases.MaleSounds[Rand(Array_Size(AcquirePhrases.MaleSounds))].Male;
+	}
+	else
+	{
+		Voice=AcquirePhrases.FemaleSounds[Rand(Array_Size(AcquirePhrases.FemaleSounds))].Female;
+	}
+
+    if(voice!=none)
+    {
+     PlaySound( voice, SLOT_Talk,vol*0.9 );
+     PlaySound( voice, SLOT_None,vol*0.9 );
+    }
+}
+
+function ChargePhrase()
+{
+    local float vol;
+    local sound voice;
+	Local int StoredArray;
+
+	vol = 2.0;
+	LastTalkTime=level.TimeSeconds;
+    LastTalker = self;
+    Talker( LastTalker );
+    bGetResponse=false;
+    bRespond=false;
+
+	if(!bIsFemale)
+	{
+		StoredArray=Rand(Array_Size(ChargePhrases.MaleSounds));
+		Voice=ChargePhrases.MaleSounds[StoredArray].Male;
+		bGetResponse=ChargePhrases.MaleSounds[StoredArray].bAllowResponse;
+	}
+	else
+	{
+		StoredArray=Rand(Array_Size(ChargePhrases.FemaleSounds));
+		Voice=ChargePhrases.FemaleSounds[StoredArray].Female;
+		bGetResponse=ChargePhrases.FemaleSounds[StoredArray].bAllowResponse;
+	}
+
+    if(voice!=none)
+    {
+     PlaySound( voice, SLOT_Talk,vol*0.9 );
+     PlaySound( voice, SLOT_None,vol*0.9 );
+    }
+}
+
+function RespondPhrase()
+{
+    local float vol;
+    local sound voice;
+
+    bRespond=false;
+    NotifyPeers( 'responded');
+    if( Level.TimeSeconds - LastTalkTime > 2.0 )
+     return;
+	vol = 2.0;
+	LastTalkTime=level.TimeSeconds;
+    LastTalker = self;
+    Talker( LastTalker );
+
+	if(!bIsFemale)
+	{
+		Voice=RespondPhrases.MaleSounds[Rand(Array_Size(RespondPhrases.MaleSounds))].Male;
+	}
+	else
+	{
+		Voice=RespondPhrases.FemaleSounds[Rand(Array_Size(RespondPhrases.FemaleSounds))].Female;
+	}
+
+    if(voice!=none)
+    {
+     PlaySound( voice, SLOT_Talk,vol );
+     PlaySound( voice, SLOT_None,vol );
+    }
+}
+
 //Animation Functions
 function PlayRunning()
 {
@@ -3372,153 +3519,6 @@ function Killed( pawn killer, pawn Other, name damageType )
 			GotoState('Attacking');
 	}
 }
-
-function KillPhrase()
-{
-    local float vol;
-    local sound voice;
-
-    LastTalkTime=level.TimeSeconds;
-	vol = 2.0;
-    LastTalker = self;
-    Talker( LastTalker );
-    bGetResponse=false;
-    bRespond=false;
-
-	if(!bIsFemale)
-	{
-		Voice=KillPhrases.MaleSounds[Rand(Array_Size(KillPhrases.MaleSounds))].Male;
-	}
-	else
-	{
-		Voice=KillPhrases.FemaleSounds[Rand(Array_Size(KillPhrases.FemaleSounds))].Female;
-	}
-
-    if(voice!=none)
-    {
-     PlaySound( voice, SLOT_Talk,vol*0.9 );
-     PlaySound( voice, SLOT_None,vol*0.9 );
-    }
-}
-
-function HelpPhrase()
-{
-    local float vol;
-    local sound voice;
-
-    LastTalkTime=level.TimeSeconds;
-	vol = 2.0;
-	LastTalker = self;
-    Talker( LastTalker );
-    bGetResponse=true;
-    bRespond=false;
-
-	if(!bIsFemale)
-	{
-		Voice=HelpPhrases.MaleSounds[Rand(Array_Size(HelpPhrases.MaleSounds))].Male;
-	}
-	else
-	{
-		Voice=HelpPhrases.FemaleSounds[Rand(Array_Size(HelpPhrases.FemaleSounds))].Female;
-	}
-
-    if(voice!=none)
-    {
-     PlaySound( voice, SLOT_Talk,vol*0.9 );
-     PlaySound( voice, SLOT_None,vol*0.9 );
-    }
-}
-
-function AcquirePhrase()
-{
-    local float vol;
-    local sound voice;
-
-    LastTalkTime=level.TimeSeconds;
-	vol = 2.0;
-    LastTalker = self;
-    Talker( LastTalker );
-    bRespond=false;
-
-	if(!bIsFemale)
-	{
-		Voice=AcquirePhrases.MaleSounds[Rand(Array_Size(AcquirePhrases.MaleSounds))].Male;
-	}
-	else
-	{
-		Voice=AcquirePhrases.FemaleSounds[Rand(Array_Size(AcquirePhrases.FemaleSounds))].Female;
-	}
-
-    if(voice!=none)
-    {
-     PlaySound( voice, SLOT_Talk,vol*0.9 );
-     PlaySound( voice, SLOT_None,vol*0.9 );
-    }
-}
-
-function ChargePhrase()
-{
-    local float vol;
-    local sound voice;
-	Local int StoredArray;
-
-	vol = 2.0;
-	LastTalkTime=level.TimeSeconds;
-    LastTalker = self;
-    Talker( LastTalker );
-    bGetResponse=false;
-    bRespond=false;
-
-	if(!bIsFemale)
-	{
-		StoredArray=Rand(Array_Size(ChargePhrases.MaleSounds));
-		Voice=ChargePhrases.MaleSounds[StoredArray].Male;
-		bGetResponse=ChargePhrases.MaleSounds[StoredArray].bAllowResponse;
-	}
-	else
-	{
-		StoredArray=Rand(Array_Size(ChargePhrases.FemaleSounds));
-		Voice=ChargePhrases.FemaleSounds[StoredArray].Female;
-		bGetResponse=ChargePhrases.FemaleSounds[StoredArray].bAllowResponse;
-	}
-
-    if(voice!=none)
-    {
-     PlaySound( voice, SLOT_Talk,vol*0.9 );
-     PlaySound( voice, SLOT_None,vol*0.9 );
-    }
-}
-
-function RespondPhrase()
-{
-    local float vol;
-    local sound voice;
-
-    bRespond=false;
-    NotifyPeers( 'responded');
-    if( Level.TimeSeconds - LastTalkTime > 2.0 )
-     return;
-	vol = 2.0;
-	LastTalkTime=level.TimeSeconds;
-    LastTalker = self;
-    Talker( LastTalker );
-
-	if(!bIsFemale)
-	{
-		Voice=RespondPhrases.MaleSounds[Rand(Array_Size(RespondPhrases.MaleSounds))].Male;
-	}
-	else
-	{
-		Voice=RespondPhrases.FemaleSounds[Rand(Array_Size(RespondPhrases.FemaleSounds))].Female;
-	}
-
-    if(voice!=none)
-    {
-     PlaySound( voice, SLOT_Talk,vol );
-     PlaySound( voice, SLOT_None,vol );
-    }
-}
-
 
 function ChangedWeapon()
 {
