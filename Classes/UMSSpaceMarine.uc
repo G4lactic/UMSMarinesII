@@ -3642,6 +3642,8 @@ ignores SeePlayer, HearNoise, Bump;
 
 	function AnimEnd()
 	{
+		if(bRespond && Level.TimeSeconds - LastTalkTime > 1.0 )
+		RespondPhrase();
 		if (Enemy != None)
 			PlayCombatMove();
 		else if ( (Physics == PHYS_Falling) && (Velocity.Z < -300) )
@@ -4622,6 +4624,8 @@ check if attack hit target, and if so damage it
 
 	function AnimEnd()
 	{
+		if(bRespond && Level.TimeSeconds - LastTalkTime > 1.0 )
+		RespondPhrase();
 		GotoState('MeleeAttack', 'DoneAttacking');
 	}
 
@@ -5390,6 +5394,8 @@ ignores EnemyNotVisible;
 		bFire = 0;
 		bAltFire = 0;
 		bReadyToAttack = true;
+		if(bRespond && Level.TimeSeconds - LastTalkTime > 1.0 )
+		RespondPhrase();
 		Disable('AnimEnd');
 	}
 	
@@ -6427,6 +6433,8 @@ ignores SeePlayer, HearNoise, Bump;
 	{
 		local float decision;
 
+		if(bRespond && Level.TimeSeconds - LastTalkTime > 1.0 )
+		RespondPhrase();
 		if ( health <= 0 || bDeleteme)
 			return;
 		if ( (Weapon == None) || ((bFire == 0) && (bAltFire == 0)) )
