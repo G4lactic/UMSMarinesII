@@ -3,13 +3,39 @@
 //=============================================================================
 class UMSSpaceMarine extends ScriptedPawn;
 
+//OBJ Loads
+//=============================================================================
 #exec OBJ LOAD FILE=..\Sounds\Ambmodern.uax
+#exec OBJ LOAD FILE=Sounds\Voice\Marine.uax PACKAGE=UMSMarinesII.Voice
+#exec OBJ LOAD FILE=..\Sounds\Activates.uax
+//SFX Imports
+//=============================================================================
 #exec AUDIO IMPORT FILE="Sounds\SFX\PowerON.WAV" NAME="PowerON" GROUP="SFX"
 #exec AUDIO IMPORT FILE="Sounds\SFX\PowerOFF.WAV" NAME="PowerOFF" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\UMSStatic.WAV" NAME="UMSStatic" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st1.WAV" NAME="st1" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st2.WAV" NAME="st2" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st3.WAV" NAME="st3" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st4.WAV" NAME="st4" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st5.WAV" NAME="st5" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st6.WAV" NAME="st6" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st7.WAV" NAME="st7" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st8.WAV" NAME="st8" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st9.WAV" NAME="st9" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st10.WAV" NAME="st10" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\MCloakL.WAV" NAME="MCloakL" GROUP="SFX"
+#exec AUDIO IMPORT FILE="SOUNDS\SFX\CloakOff.WAV" NAME="BeamedIn" GROUP="SFX"
+//Footstep Imports
+//=============================================================================
+#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowR.WAV" NAME="MStep1" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowR2.WAV" NAME="MStep2" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowL.WAV" NAME="MStep3" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowL2.WAV" NAME="MStep4" GROUP="Footsteps"
+//Voice Imports
+//=============================================================================
 #exec AUDIO IMPORT FILE="Sounds\Voice\sirmale.WAV" NAME="sirmale" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\sirfemale.WAV" NAME="sirfemale" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\snore.WAV" NAME="snore" GROUP="Voice"
-
 #exec AUDIO IMPORT FILE="Sounds\Voice\stepm.WAV" NAME="stepm" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\stepf.WAV" NAME="stepf" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\gladm.WAV" NAME="gladm" GROUP="Voice"
@@ -20,7 +46,6 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec AUDIO IMPORT FILE="Sounds\Voice\moveonf.WAV" NAME="moveonf" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\howm.WAV" NAME="howm" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\howf.WAV" NAME="howf" GROUP="Voice"
-
 #exec AUDIO IMPORT FILE="Sounds\Voice\hopelessm.WAV" NAME="hopelessm" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\hopelessf.WAV" NAME="hopelessf" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\bastm.WAV" NAME="bastm" GROUP="Voice"
@@ -43,7 +68,6 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec AUDIO IMPORT FILE="Sounds\Voice\sprintf.WAV" NAME="sprintf" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\expectm.WAV" NAME="expectm" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\expectf.WAV" NAME="expectf" GROUP="Voice"
-
 #exec AUDIO IMPORT FILE="Sounds\Voice\friendlyff.WAV" NAME="friendlyfF" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\friendlyfm.WAV" NAME="friendlyfM" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\coastf.WAV" NAME="coastf" GROUP="Voice"
@@ -121,7 +145,6 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec AUDIO IMPORT FILE="Sounds\Voice\sdownm.WAV" name="sdownm" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\takeemf.WAV" name="takeemf" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\takeemm.WAV" name="takeemm" GROUP="Voice"
-
 #exec AUDIO IMPORT FILE="Sounds\Voice\seeyaf.WAV" NAME="seeyaf" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\seeyam.WAV" NAME="seeyam" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\seeyaf2.WAV" NAME="seeyaf2" GROUP="Voice"
@@ -130,7 +153,6 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec AUDIO IMPORT FILE="Sounds\Voice\backupm.WAV" NAME="backupm" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\hellof.WAV" NAME="hellof" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\hellom.WAV" NAME="hellom" GROUP="Voice"
-
 #exec AUDIO IMPORT FILE="Sounds\Voice\brbackf.WAV" NAME="brbackf" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\brbackm.WAV" name="brbackm" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\breakf.WAV" NAME="breakf" GROUP="Voice"
@@ -141,57 +163,44 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec AUDIO IMPORT FILE="Sounds\Voice\herem.WAV" name="herem" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\imgoodf.WAV" name="imgoodf" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\imgoodm.WAV" name="imgoodm" GROUP="Voice"
-
 #exec AUDIO IMPORT FILE="Sounds\Voice\companyf.WAV" name="companyf" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\companym.WAV" name="companym" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\gogom.WAV" name="gogom" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\gogof.WAV" name="gogof" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\moveitm.WAV" name="moveitm" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\movem.WAV" name="movem" GROUP="Voice"
-
 #exec AUDIO IMPORT FILE="Sounds\Voice\imonitf.WAV" name="imonitf" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\imonitm.WAV" name="imonitm" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\affirmativef.WAV" name="affirmativef" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\affirmativem.WAV" name="affirmativem" GROUP="Voice"
-
 #exec AUDIO IMPORT FILE="Sounds\Voice\willdom.WAV" name="willdom" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\aquiref.WAV" name="aquiref" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\okf.WAV" name="okf" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\yougotitm.WAV" name="yougotitm" GROUP="Voice"
-
 #exec AUDIO IMPORT FILE="Sounds\Voice\ten4f.WAV" name="ten4f" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\ten4m.WAV" name="ten4m" GROUP="Voice"
 
+//Texture Imports
+//=============================================================================
 #exec OBJ LOAD FILE=Textures\FX\beam.utx PACKAGE=UMSMarinesII.FX
-#exec AUDIO IMPORT FILE="SOUNDS\SFX\CloakOff.WAV" NAME="BeamedIn" GROUP="SFX"
-
 #exec texture IMPORT NAME=MCloak FILE=Textures\FX\MCloak.PCX GROUP="FX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\MCloakL.WAV" NAME="MCloakL" GROUP="SFX"
+//ArcticMarine
+#exec texture IMPORT NAME=Jmarine1 FILE=Textures\Skins\Jmarine1.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=Jmarine2 FILE=Textures\Skins\jmarine2.PCX GROUP=Skins LODSET=2
+//JungleMarine
+#exec texture IMPORT NAME=Jmarine3 FILE=Textures\Skins\Jmarine3.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=Jmarine4 FILE=Textures\Skins\jmarine4.PCX GROUP=Skins LODSET=2
+//DesertMarine
+#exec texture IMPORT NAME=Jmarine5 FILE=Textures\Skins\Jmarine5.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=Jmarine6 FILE=Textures\Skins\jmarine6.PCX GROUP=Skins LODSET=2
+//SpaceMarine
+#exec texture IMPORT NAME=Jmarine7 FILE=Textures\Skins\Jmarine7.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=Jmarine8 FILE=Textures\Skins\jmarine8.PCX GROUP=Skins LODSET=2
 
-#exec OBJ LOAD FILE=Sounds\Voice\Marine.uax PACKAGE=UMSMarinesII.Voice
-#exec OBJ LOAD FILE=..\Sounds\Activates.uax
-
-#exec AUDIO IMPORT FILE="Sounds\SFX\UMSStatic.WAV" NAME="UMSStatic" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st1.WAV" NAME="st1" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st2.WAV" NAME="st2" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st3.WAV" NAME="st3" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st4.WAV" NAME="st4" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st5.WAV" NAME="st5" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st6.WAV" NAME="st6" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st7.WAV" NAME="st7" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st8.WAV" NAME="st8" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st9.WAV" NAME="st9" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st10.WAV" NAME="st10" GROUP="SFX"
-
-#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowR.WAV" NAME="MStep1" GROUP="Footsteps"
-#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowR2.WAV" NAME="MStep2" GROUP="Footsteps"
-#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowL.WAV" NAME="MStep3" GROUP="Footsteps"
-#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowL2.WAV" NAME="MStep4" GROUP="Footsteps"
-
+//Model import with Anims
+//=============================================================================
 #exec mesh IMPORT MESH=UMSMarine ANIVFILE=MODELS\UMSMarine\UMSMarine_a.3d DATAFILE=MODELS\UMSMarine\UMSMarine_d.3d X=0 Y=0 Z=0 UNMIRROR=0
 #exec mesh ORIGIN MESH=UMSMarine X=0 Y=0 Z=0
-
-//cleaned up these animations... tagged OBSOLETE are animations from older versions (pre v2.00) or test anims
 
 #exec mesh SEQUENCE MESH=UMSMarine SEQ=All         STARTFRAME=0 NUMFRAMES=1
 #exec MESH SEQUENCE MESH=UMSMarine SEQ=ACTIVATE   STARTFRAME=26 NUMFRAMES=26
@@ -330,7 +339,6 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec mesh SEQUENCE MESH=UMSMarine SEQ=Dead11    STARTFRAME=136 NUMFRAMES=16 RATE=15
 #exec mesh SEQUENCE MESH=UMSMarine SEQ=BackRun   STARTFRAME=833 NUMFRAMES=15 RATE=15 Group=MovingFire
 
-//=============================================================================
 //NOTIFIES
 //=============================================================================
 #exec MESH NOTIFY MESH=UMSMarine SEQ=Run TIME=0.25 FUNCTION=PlayFootStep
@@ -415,46 +423,28 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec mesh NOTIFY MESH=UMSMarine SEQ=COCKGUNL TIME=0.45 FUNCTION=Reload
 #exec mesh NOTIFY MESH=UMSMarine SEQ=RELOADSM TIME=0.45 FUNCTION=Reload
 #exec mesh NOTIFY MESH=UMSMarine SEQ=RELOADLG TIME=0.45 FUNCTION=Reload
-//ut notifies
+//UT Notifies
 #exec MESH NOTIFY MESH=UMSMarine SEQ=Dead7 TIME=0.7 FUNCTION=LandThump
 #exec mesh NOTIFY MESH=UMSMarine SEQ=Dead8 TIME=0.7 FUNCTION=LandThump
 #exec MESH NOTIFY MESH=UMSMarine SEQ=Dead9B TIME=0.8 FUNCTION=LandThump
 #exec mesh NOTIFY MESH=UMSMarine SEQ=Dead11 TIME=0.57 FUNCTION=LandThump
 
-//Marine Textures
-//=============================================================================
-//===ArcticMarine
-#exec texture IMPORT NAME=Jmarine1 FILE=Textures\Skins\Jmarine1.PCX GROUP=Skins LODSET=2
-#exec texture IMPORT NAME=Jmarine2 FILE=Textures\Skins\jmarine2.PCX GROUP=Skins LODSET=2
-//===JungleMarine
-#exec texture IMPORT NAME=Jmarine3 FILE=Textures\Skins\Jmarine3.PCX GROUP=Skins LODSET=2
-#exec texture IMPORT NAME=Jmarine4 FILE=Textures\Skins\jmarine4.PCX GROUP=Skins LODSET=2
-//===DesertMarine
-#exec texture IMPORT NAME=Jmarine5 FILE=Textures\Skins\Jmarine5.PCX GROUP=Skins LODSET=2
-#exec texture IMPORT NAME=Jmarine6 FILE=Textures\Skins\jmarine6.PCX GROUP=Skins LODSET=2
-//===SpaceMarine
-#exec texture IMPORT NAME=Jmarine7 FILE=Textures\Skins\Jmarine7.PCX GROUP=Skins LODSET=2
-#exec texture IMPORT NAME=Jmarine8 FILE=Textures\Skins\jmarine8.PCX GROUP=Skins LODSET=2
-
 //Mesh scaling
-//=============================================================================
 #exec MESHMAP NEW   MESHMAP=UMSMarine MESH=UMSMarine
 #exec MESHMAP SCALE MESHMAP=UMSMarine X=0.1 Y=0.1 Z=0.2
 
 //Apply Spacemarine Textures so unrealed mesh browser displays the mesh with textures
-//=============================================================================
 #exec MESHMAP SETTEXTURE MESHMAP=UMSMarine NUM=1 TEXTURE=Jmarine7
 #exec MESHMAP SETTEXTURE MESHMAP=UMSMarine NUM=2 TEXTURE=Jmarine8
 
-//Reduxed Marine
-//=============================================================================
+//Reduxed Marine import
 #exec MESH MODELIMPORT STATICMESH MODELFILE="Models/UMSMarineV2/ReduxMarine3MC_3.obj" NAME=UMSMarineRedux
 #exec STATICMESH TRANSFORM NAME=UMSMarineRedux ORIGIN=(0.0,0.0,0.0) SIZE=(1.05,1.05,1.05) YAW=0 PITCH=0 ROLL=0
 #exec MESHMAP SETTEXTURE MESHMAP=UMSMarineRedux NUM=0 TEXTURE=Jmarine7
 #exec MESHMAP SETTEXTURE MESHMAP=UMSMarineRedux NUM=1 TEXTURE=Jmarine8
 
-
 //Structs
+//=============================================================================
 Struct ListAcquirePhrase
 {
 	Struct AMaleS
@@ -532,7 +522,8 @@ Struct ListRespondPhrase
 	var() array <RFMaleS> FemaleSounds;
 };
 
-// UMSSpaceMarine
+//UMSSpaceMarine
+//=============================================================================
 var() class<weapon> WeaponType;
 var() bool bButtonPusher;
 var() bool bCadet; // Simulates a less experienced Marine.
@@ -547,7 +538,8 @@ var() enum MSkin
 }
 MarineSkin; // Replacement for needing classes for different marine skins. NOTE: SpecialForces overrides this.
 
-// Misc. Variables for things that should stay default but the user can change if they wish.
+//Misc. Variables for things that should stay default but the user can change if they wish.
+//=============================================================================
 var(Misc) bool bTeleportWhenHurt,bExplodeWhenHurt;
 var(Misc) sound Reloadsound;
 var(Misc) byte PunchDamage,SlamDamage;
@@ -563,14 +555,16 @@ var(Misc) enum GOverride
 }
 Gender;
 
-// Phrases. Reccomend keeping these default, but mappers and modders can change em if they want!
+//Phrases. Reccomend keeping these default, but mappers and modders can change em if they want!
+//=============================================================================
 var(Phrases) ListAcquirePhrase AcquirePhrases;
 var(Phrases) ListHelpPhrase HelpPhrases;
 var(Phrases) ListChargePhrase ChargePhrases;
 var(Phrases) ListKillPhrase KillPhrases;
 var(Phrases) ListRespondPhrase RespondPhrases;
 
-// Sounds.
+//Sounds.
+//=============================================================================
 var(Sounds) sound slap;
 var(Sounds) sound static1,static2,static3,static4,static5,static6,static7,static8,static9,static10;
 var(Sounds) sound ExplodeSound,ActiveExlo;
@@ -581,7 +575,8 @@ var(Sounds) sound Die2,Die3,Die4;
 var(Sounds) sound UWHit1,UWHit2;
 var(Sounds) sound LandGrunt,JumpSound,GaspSound;
 
-// Global Vars. annoying variables I must have. Feast your eyes upon the BLOAT!
+//Global Vars. annoying variables I must have. Feast your eyes upon the BLOAT!
+//=============================================================================
 var bool bInitz;
 var bool bWimp;
 var bool strafedodge;
@@ -602,7 +597,8 @@ var UMSMarineWaveTool MarineBeamController;
 var SilentBallExplosion sbc;
 var BlackSmoke bsm;
 
-//Start up stuff
+//Startup Functions
+//=============================================================================
 function PreBeginPlay()
 {
     local int newskill;
@@ -770,7 +766,8 @@ Function SetMarineSkin()
 	}
 }
 
-// Phrase Functions
+//Phrase Functions
+//=============================================================================
 function KillPhrase()
 {
     local float vol;
@@ -918,6 +915,7 @@ function RespondPhrase()
 }
 
 //Animation Functions
+//=============================================================================
 function PlayRunning()
 {
     local float strafeMag;
@@ -1944,7 +1942,8 @@ function PlayVictoryDance()
 	  GotoState( 'KillVictory' );
 }
 
-// Functions
+//Pawn Functions
+//=============================================================================
 simulated event Destroyed()
 {
 	local Inventory Inv;
@@ -3606,7 +3605,8 @@ function Died(pawn Killer, name damageType, vector HitLocation)
 	GotoState('Dying');
 }
 
-// States
+//Pawn States
+//=============================================================================
 state FindAir
 {
 ignores SeePlayer, HearNoise, Bump;
