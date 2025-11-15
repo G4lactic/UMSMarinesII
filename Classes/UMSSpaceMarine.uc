@@ -546,19 +546,13 @@ var() enum MSkin
 	SKIN_Jungle
 }
 MarineSkin; // Replacement for needing classes for different marine skins. NOTE: SpecialForces overrides this.
-//var(UMSSpaceMarine) int DispPowerLevel;
 
-// Misc
-var(Misc) bool bTeleportWhenHurt;
-var(Misc) bool bExplodeWhenHurt;
+// Misc. Variables for things that should stay default but the user can change if they wish.
+var(Misc) bool bTeleportWhenHurt,bExplodeWhenHurt;
 var(Misc) sound Reloadsound;
-var(Misc) byte PunchDamage;
-var(Misc) byte SlamDamage;
-var(Misc) float ExploRange;
-var(Misc) float ExploDamage;
-var(Misc) float ExploMomentum;
-var(Misc) float BeamWaitTime;
-var(Misc) float BeamTime;
+var(Misc) byte PunchDamage,SlamDamage;
+var(Misc) float ExploRange,ExploDamage,ExploMomentum;
+var(Misc) float BeamWaitTime,BeamTime;
 var(Misc) float CommandRadius;
 var(Misc) string HumanKillMessage;
 var(Misc) enum GOverride
@@ -569,62 +563,37 @@ var(Misc) enum GOverride
 }
 Gender;
 
-// Phrases
+// Phrases. Reccomend keeping these default, but mappers and modders can change em if they want!
 var(Phrases) ListAcquirePhrase AcquirePhrases;
 var(Phrases) ListHelpPhrase HelpPhrases;
 var(Phrases) ListChargePhrase ChargePhrases;
 var(Phrases) ListKillPhrase KillPhrases;
 var(Phrases) ListRespondPhrase RespondPhrases;
 
-// Sounds
+// Sounds.
 var(Sounds) sound slap;
-var(Sounds) sound static1;
-var(Sounds) sound static2;
-var(Sounds) sound static3;
-var(Sounds) sound static4;
-var(Sounds) sound static5;
-var(Sounds) sound static6;
-var(Sounds) sound static7;
-var(Sounds) sound static8;
-var(Sounds) sound static9;
-var(Sounds) sound static10;
-var(Sounds) sound ExplodeSound;
-var(Sounds) sound ActiveExlo;
-var(Sounds) sound drown;
-var(Sounds) sound	breathagain;
-var(Sounds) sound	Footstep1;
-var(Sounds) sound	Footstep2;
-var(Sounds) sound	Footstep3;
-var(Sounds) sound	HitSound3;
-var(Sounds) sound	HitSound4;
-var(Sounds) sound	Die2;
-var(Sounds) sound	Die3;
-var(Sounds) sound	Die4;
-var(Sounds) sound	GaspSound;
-var(Sounds) sound	UWHit1;
-var(Sounds) sound	UWHit2;
-var(Sounds) sound LandGrunt;
-var(Sounds) sound	JumpSound;
+var(Sounds) sound static1,static2,static3,static4,static5,static6,static7,static8,static9,static10;
+var(Sounds) sound ExplodeSound,ActiveExlo;
+var(Sounds) sound drown,breathagain;
+var(Sounds) sound Footstep1,Footstep2,Footstep3;
+var(Sounds) sound HitSound3,HitSound4;
+var(Sounds) sound Die2,Die3,Die4;
+var(Sounds) sound UWHit1,UWHit2;
+var(Sounds) sound LandGrunt,JumpSound,GaspSound;
 
-// Global Vars
+// Global Vars. annoying variables I must have. Feast your eyes upon the BLOAT!
 var bool bInitz;
 var bool bWimp;
 var bool strafedodge;
 var bool bBeamingIn;
-var bool bReadyToTalk;
-var bool bGetResponse;
-var bool bRespond;
+var bool bReadyToTalk,bGetResponse,bRespond,Randsir;
 var bool bSkinOverride;
-var int Randsir;
-var float SETimer;
-var float FXFadeTime; // Should always be 1.5 higher then BeamWaitTime.
-var float FadeTimer;
-var float LastTalkTime;
-var float MessageTime;
+var float SETimer,FXFadeTime,FadeTimer;
+var float LastTalkTime,MessageTime;
 var float Accuracy;
+var name LogSkinName;
 var Pawn SaluteTarget;
 var UMSSpaceMarine LastTalker;
-var UMSSpaceMarine BetrayBuddy;
 var	Weapon myWeapon;
 var UMSBeamOctagon Octagon;
 var UMSBeamShieldEffect BeamEffect;
@@ -632,7 +601,6 @@ var DynamicCorona BeamGlow;
 var UMSMarineWaveTool MarineBeamController;
 var SilentBallExplosion sbc;
 var BlackSmoke bsm;
-var name LogSkinName;
 
 //Start up stuff
 function PreBeginPlay()
@@ -3564,14 +3532,6 @@ function ChangedWeapon()
 	    Weapon.PlayerViewOffset = Weapon.PlayerViewOffset * DrawScale;
 
         Weapon.SetHand(-0.5);
-       /*if (weapon.IsA('DispersionPistol'))
-       {
-           If(DispPowerLevel >4)
-              DispPowerLevel=4;
-           If(DispPowerLevel <0)
-              DispPowerLevel=0;
-	       DispersionPistol(weapon).PowerLevel=DispPowerLevel;
-	    }*/
     }
 }
 
@@ -3932,67 +3892,40 @@ Begin:
 	 NextAnim = '';
 	 gotoState( 'Attacking' );
  }
- if (LastTalker !=none && LastTalker!=self && LastTalker.Health >0)
- {
-	//log("state acquisition ....last talker "$LastTalker);
-   if ( Enemy == LastTalker.Enemy && LastTalker.Enemy!=none && LastTalker.Enemy.Health >0)
+	if (LastTalker !=none && LastTalker!=self && LastTalker.Health >0)
 	{
-     if (LineOfSightTo(LastTalker) )
-	 {
-      if (LastTalker.bTeamLeader )
- 	  {
-       TurnToward( LastTalker );
-	   PlayAnim( 'Salute', 1.0 );
-       if( !bIsFemale )
-	    {
-		    Randsir = Rand( 2 );
-		    if (Randsir==0)
-              {
-			   PlaySound( sound'UMSMarinesII.MS208a', SLOT_Talk );  //yes sir
-	           PlaySound( sound'UMSMarinesII.MS208a', SLOT_None );  //yes sir
-              }
-            else if (Randsir==1)
-              {
-               PlaySound( sound'UMSMarinesII.MS208b', SLOT_Talk );  //yes sir
-               PlaySound( sound'UMSMarinesII.MS208b', SLOT_None );  //yes sir
-              }
-		}
-		else
+		//log("state acquisition ....last talker "$LastTalker);
+		if ( Enemy == LastTalker.Enemy && LastTalker.Enemy!=none && LastTalker.Enemy.Health >0)
 		{
-            Randsir = Rand( 2 );
-			if (Randsir==0)
-              {
-			   PlaySound( sound'UMSMarinesII.MS308a', SLOT_Talk );  //yes sir
-               PlaySound( sound'UMSMarinesII.MS308a', SLOT_None );  //yes sir
-              }
-			else if (Randsir==1)
-              {
-               PlaySound( sound'UMSMarinesII.MS308b', SLOT_Talk );  //yes sir
-               PlaySound( sound'UMSMarinesII.MS308b', SLOT_None );  //yes sir
-              }
+			if (LineOfSightTo(LastTalker) )
+			{
+				if (LastTalker.bTeamLeader )
+				{
+					TurnToward( LastTalker );
+					PlayAnim( 'Salute', 1.0 );
+					RespondPhrase();
+				}
+				else
+				{
+					if (FRand()< 0.4)
+					{
+						TurnToward( LastTalker );
+						PlayAnim( 'Wave', 1.6 );
+					}
+				}
+			}
+			else
+			PlayAnim( 'Talk', 0.5 );
+			FinishAnim();
 		}
-     }
-     else
-     {
-	  if (FRand()< 0.4)
-       {
-        TurnToward( LastTalker );
-	    PlayAnim( 'Wave', 1.6 );
-	   }
-	 }
+		if (NeedToTurn(LastSeenPos))
+		{
+			PlayTurning();
+			TurnTo(LastSeenPos);
+			FinishAnim();
+		}
 	}
-    else
-      PlayAnim( 'Talk', 0.5 );
-    FinishAnim();
-   }
-  if (NeedToTurn(LastSeenPos))
-  {
-  	 PlayTurning();
-     TurnTo(LastSeenPos);
-     FinishAnim();
-  }
- }
- GotoState( 'Attacking' );
+	GotoState( 'Attacking' );
 }
 
 state Dying
