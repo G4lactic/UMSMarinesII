@@ -6987,7 +6987,8 @@ Begin:
 
 state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 {
-	ignores EnemyAcquired, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
+	ignores EnemyAcquired, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, 
+			FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
 
 	function BeginState()
 	{
