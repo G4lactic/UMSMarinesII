@@ -663,11 +663,11 @@ function PostBeginPlay()
 function PreSetMovement()
 {
 	if ( Skill >= 3 )
-		RotationRate.Yaw = 100000;
+	RotationRate.Yaw = 100000;
 	else
-		RotationRate.Yaw = 30000 + 16000 * skill;
+	RotationRate.Yaw = 30000 + 16000 * skill;
 	if (JumpZ > 0)
-		bCanJump = true;
+	bCanJump = true;
 	bCanWalk = true;
 	bCanSwim = true;
 	bCanFly = false;
