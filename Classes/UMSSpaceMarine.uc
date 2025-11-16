@@ -541,7 +541,6 @@ MarineSkin; // Replacement for needing classes for different marine skins. NOTE:
 //Misc. Variables for things that should stay default but the user can change if they wish.
 //=============================================================================
 var(Misc) bool bTeleportWhenHurt,bExplodeWhenHurt;
-var(Misc) sound Reloadsound;
 var(Misc) byte PunchDamage,SlamDamage;
 var(Misc) float ExploRange,ExploDamage,ExploMomentum;
 var(Misc) float BeamWaitTime,BeamTime;
@@ -7177,7 +7176,6 @@ defaultproperties
 	static10=Sound'UMSMarinesII.UMSMarines.st10'
 	ExplodeSound=Sound'UnrealShare.Flak.expl2'
 	ActiveExlo=Sound'Activates.Beeps.mactiv62'
-	Reloadsound=None
 	PunchDamage=5
 	SlamDamage=9
 	bTeleportWhenHurt=False
