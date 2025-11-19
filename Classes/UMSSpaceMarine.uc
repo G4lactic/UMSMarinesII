@@ -7072,35 +7072,6 @@ Begin:
     Spawn(class'SMteleport');
 }
 
-State ReloadMyGun // This is called from a weapon and not called by the marine itself.
-{
-	ignores Fireweapon, SeePlayer, EnemyNotVisible, HearNoise, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget;
-
-	Function BeginState()
-	{
-		Acceleration = vect(0,0,0);
-		if(bRespond && Level.TimeSeconds - LastTalkTime > 1.0 )
-		RespondPhrase();
-	}
-
-	Function EndState()
-	{
-		GotoState('Attacking');
-	}
-
-	Begin:
-	if(MyWeapon.Mass < 20)
-	{
-		PlayAnim('ReloadSM',1.5);
-	}
-	else
-	{
-		PlayAnim('ReloadLG',1.5);
-	}
-	FinishAnim();
-	GotoState('Attacking');
-}
-
 defaultproperties
 {
 	Event='None'
