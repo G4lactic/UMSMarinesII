@@ -26,38 +26,30 @@ var( Misc ) bool bLogStuff;
 var int TotalMarines;
 var int MarinesLeft;
 var int CurrentMarine;
-var bool bActive;
 
 // Functions
 event Trigger(Actor Other,Pawn EventInstigator)
 {
 	if(BeamDelay > 0)
 	{	
-		bActive=False;
 		SetTimer( BeamDelay, False );
 	}
-	else if (bActive)
-	{
-		Startup();
-	}
+	else
+	Startup();
 }
 
 Function Timer()
 {
-	bActive=True;
 	Startup();
 }
 
 Function Startup()
 {
-	if (bActive)
-	{
-		TotalMarines = CountMarines();
-		if(bLogStuff)
-		log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
-		BeamMarine();
-		TriggerEvent(Event);
-	}
+	TotalMarines = CountMarines();
+	if(bLogStuff)
+	log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
+	BeamMarine();
+	TriggerEvent(Event);
 }
 
 Function BeamMarine()
@@ -166,5 +158,4 @@ defaultproperties
 	DrawScale=2.5
 	ActorRenderColor=(R=255,G=128,B=64)
 	DefaultMarineSkin=SKIN_Random
-	bActive=False
 }
