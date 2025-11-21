@@ -31,10 +31,26 @@ var bool bActive;
 // Functions
 event Trigger(Actor Other,Pawn EventInstigator)
 {
-	bActive=True;
 	if(BeamDelay > 0)
-	SetTimer( BeamDelay, False );
-	else
+	{	
+		bActive=False;
+		SetTimer( BeamDelay, False );
+	}
+	else if (bActive)
+	{
+		Startup();
+	}
+}
+
+Function Timer()
+{
+	bActive=True;
+	Startup();
+}
+
+Function Startup()
+{
+	if (bActive)
 	{
 		TotalMarines = CountMarines();
 		if(bLogStuff)
@@ -42,15 +58,6 @@ event Trigger(Actor Other,Pawn EventInstigator)
 		BeamMarine();
 		TriggerEvent(Event);
 	}
-}
-
-Function Timer()
-{
-	TotalMarines = CountMarines();
-	if(bLogStuff)
-	log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
-	BeamMarine();
-	TriggerEvent(Event);
 }
 
 Function BeamMarine()
@@ -123,18 +130,15 @@ Function int CountMarines()
 
 function SubtractMarine(UMSSpaceMarine DeadMarine)
 {
-	if(bActive)
+	TotalMarines--;
+	if(bLogStuff)
+	Log("Marines Left: "@TotalMarines);
+	if( TotalMarines <= 0 )
 	{
-		TotalMarines--;
 		if(bLogStuff)
-		Log("Marines Left: "@TotalMarines);
-		if( TotalMarines <= 0 )
-		{
-			if(bLogStuff)
-			log( "Less than or = to 0 marines remaining." );		
-			TriggerEvent(WaveEndTag);
-			Destroy();
-		}
+		log( "Less than or = to 0 marines remaining." );		
+		TriggerEvent(WaveEndTag);
+		Destroy();
 	}
 }
 
@@ -162,4 +166,5 @@ defaultproperties
 	DrawScale=2.5
 	ActorRenderColor=(R=255,G=128,B=64)
 	DefaultMarineSkin=SKIN_Random
+	bActive=False
 }
