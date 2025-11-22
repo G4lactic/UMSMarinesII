@@ -46,6 +46,8 @@ Function Timer()
 Function Startup()
 {
 	TotalMarines = CountMarines();
+	if(TotalMarines > 16)
+	BroadcastMessage("MAX MARINES IS TYPICALLY 16 PLEASE FIX!",True,'CriticalEvent');
 	if(bLogStuff)
 	log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
 	BeamMarine();
