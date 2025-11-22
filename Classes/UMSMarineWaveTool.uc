@@ -109,7 +109,7 @@ Function int CountMarines()
 	
 	MarinesLeft = 0;
 	
-	for( i = 0; i <= 8; i++ )
+	for( i = 0; i <= 16; i++ )
 	{
 		if( MarineList[ i ].MarineType != none )
 			MarinesLeft++;
