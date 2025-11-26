@@ -6932,6 +6932,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		MyWeapon.bMeshEnviroMap = false;
 		MyWeapon.Style=STY_Normal;
 		MyWeapon.bUnlit=Weapon.Default.bUnlit;
+		HuntOffDistance=16384;
 		GoToState('Hunting');
 	}
 
@@ -7172,6 +7173,8 @@ defaultproperties
 	Skill=1
 	FadeTimer=1
 	MarineSkin=SKIN_Random
+	bEnhancedSightCheck=True
+	bDoAutoSerpentine=True
 	AcquirePhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms106'),(Male=Sound'UMSMarinesII.Voice.Ms206a'),(Male=Sound'UMSMarinesII.Voice.Ms206b')),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms306a'),(Female=Sound'UMSMarinesII.Voice.Ms306b')))
 	HelpPhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms114'),(Male=Sound'UMSMarinesII.Voice.Ms109'),(Male=Sound'UMSMarinesII.Voice.Ms104'),(Male=Sound'UMSMarinesII.Voice.Ms204a'),(Male=Sound'UMSMarinesII.Voice.Ms204b'),(Male=Sound'UMSMarinesII.Voice.Ms209a'),(Male=Sound'UMSMarinesII.Voice.Ms209b'),(Male=Sound'UMSMarinesII.Voice.Ms214a'),(Male=Sound'UMSMarinesII.Voice.Ms214b')),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms304a'),(Female=Sound'UMSMarinesII.Voice.Ms304b'),(Female=Sound'UMSMarinesII.Voice.Ms309a'),(Female=Sound'UMSMarinesII.Voice.Ms309b'),(Female=Sound'UMSMarinesII.Voice.Ms314a'),(Female=Sound'UMSMarinesII.Voice.Ms314b')))
 	ChargePhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms111',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms112',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms211a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms211b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms212a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms212b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms113',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms213a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms213b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms105',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.Ms205a',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.Ms205b',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.Ms107',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms207a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms207b',bAllowResponse=True)),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms305a',bAllowResponse=False),(Female=Sound'UMSMarinesII.Voice.Ms305b',bAllowResponse=False),(Female=Sound'UMSMarinesII.Voice.Ms311a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms311b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms312a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms312b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms313a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms313b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms307a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms307b',bAllowResponse=True)))
