@@ -3247,6 +3247,17 @@ function TakeDamage( int Damage, Pawn instigatedBy, Vector hitlocation,
 {
 	local int actualDamage;
 	local bool bAlreadyDead;
+	local GameRules GR;
+
+	if ( Level.Game && Level.Game.GameRules )
+	{
+		for (GR = Level.Game.GameRules; GR != none; GR = GR.NextRules)
+			if (GR.bModifyDamage && GR.PreventDamage(self, instigatedBy, Damage, hitlocation, damageType, momentum))
+				return;
+		for (GR = Level.Game.GameRules; GR != none; GR = GR.NextRules)
+			if (GR.bModifyDamage)
+				GR.ModifyDamage(self, instigatedBy, Damage, hitlocation, damageType, momentum);
+	}
 
      if(Damagetype=='Marineexplo')
       return;
