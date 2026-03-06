@@ -6715,9 +6715,7 @@ ignores SeePlayer, HearNoise;
 
 function PlayRunning()
 {
-    local float strafeMag;
-	local vector Focus2D, Loc2D, Dest2D;
-	local vector lookDir, moveDir, X,Y,Z, Dir;
+	local vector X,Y,Z, Dir;
 
     strafedodge=false;
 	if (Region.Zone.bWaterZone )
@@ -6806,109 +6804,7 @@ function PlayRunning()
 	   }
 	}
 	else
-	{
-		DesiredSpeed = MaxDesiredSpeed;
-		BaseEyeHeight = Default.BaseEyeHeight;
-		EyeHeight = BaseEyeHeight;
-		if (Weapon == None)
-		{
-			LoopAnim('Run',,, 0.5);
-			return;
-		}
-		if (Focus == Destination)
-		{
-			if ( Weapon.bPointing )
-			{
-				if (Weapon.Mass < 20)
-					LoopAnim('RUNSMFR',-2.0/GroundSpeed,, 0.5);
-				else
-					LoopAnim('RUNLGFR',-2.0/GroundSpeed,, 0.5);
-			}
-			else
-			{
-				if (Weapon.Mass < 20)
-					LoopAnim('RUNSM',-2.0/GroundSpeed,, 0.5);
-				else
-					LoopAnim('RUNLG',-2.0/GroundSpeed,, 0.5);
-			}
-		}
-		Focus2D = Focus;
-		Focus2D.Z = 0;
-		Loc2D = Location;
-		Loc2D.Z = 0;
-		Dest2D = Destination;
-		Dest2D.Z = 0;
-		lookDir = Normal(Focus2D - Loc2D);
-		moveDir = Normal(Dest2D - Loc2D);
-		strafeMag = lookDir dot moveDir;
-		if (strafeMag > 0.8)
-		{
-			if ( Weapon.bPointing )
-			{
-				if (Weapon.Mass < 20)
-				LoopAnim('RUNSMFR',-1.2/GroundSpeed,, 0.5);
-				else
-				LoopAnim('RUNLGFR',-1.2/GroundSpeed,, 0.5);
-			}
-			else
-			{
-				if (Weapon.Mass < 20)
-				LoopAnim('RUNSM',-1.2/GroundSpeed,, 0.5);
-				else
-				LoopAnim('RUNLG2',-1.2/GroundSpeed,, 0.5);
-			}
-		}
-		else if (strafeMag < -0.8)
-		{
-
-			DesiredSpeed = (2*WalkingSpeed) * MaxDesiredSpeed;
-			if (Weapon == None)
-			LoopAnim('BackStep',(-16*WalkingSpeed)/GroundSpeed,, 0.5);
-			else
-			{
-				if (Weapon.Mass < 20)
-				LoopAnim('BackStepSMFR',(-16*WalkingSpeed)/GroundSpeed,, 0.5);
-				else
-				LoopAnim('BackStepLGFR',(-16*WalkingSpeed)/GroundSpeed,, 0.5);
-			}
-		}
-		else
-		{
-
-		BaseEyeHeight = 0.7 * Default.BaseEyeHeight;
-		EyeHeight = BaseEyeHeight;
-
-			Y = (lookDir cross vect(0,0,1));
-			if ((Y Dot (Dest2D - Loc2D)) > 0)
-			{
-				if (AnimSequence == 'straferSM')
-				LoopAnim('straferSM',-1.2/GroundSpeed,, 1.0);
-				else if (AnimSequence == 'straferlg')
-				LoopAnim('straferlg',-1.2/GroundSpeed,, 1.0);
-				else
-				{
-					if (Weapon.Mass < 20)
-					LoopAnim('straferSM',-1.2/GroundSpeed,0.1, 1.0);
-					else
-					LoopAnim('straferlg',-1.2/GroundSpeed,0.1, 1.0);
-				}
-			}
-			else
-			{
-				if (AnimSequence == 'strafelSM')
-				LoopAnim('strafelSM',-1.2/GroundSpeed,, 1.0);
-				else if (AnimSequence == 'strafellg')
-				LoopAnim('strafellg',-1.2/GroundSpeed,, 1.0);
-				else
-				{
-					if (Weapon.Mass < 20)
-					LoopAnim('strafelSM',-1.2/GroundSpeed,0.1, 1.0);
-					else
-					LoopAnim('strafellg',-1.2/GroundSpeed,0.1, 1.0);
-				}
-			}
-		}
-	}
+	Global.PlayRunning();
 }
 
 	function SetFall()
