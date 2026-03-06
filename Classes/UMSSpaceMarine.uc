@@ -527,6 +527,7 @@ Struct ListRespondPhrase
 var() class<weapon> WeaponType;
 var() bool bButtonPusher;
 var() bool bCadet; // Simulates a less experienced Marine.
+var() bool bPerfersRanged; // Perfers to stay back and shoot
 var() enum MSkin
 {
 	SKIN_Default,
@@ -646,6 +647,9 @@ function PostBeginPlay()
 	if(bTeleportWhenHurt)
 	bExplodeWhenHurt=false;
 
+	if(bPerfersRanged)
+	CombatStyle = Default.CombatStyle - 0.6;
+
 	bCanSpeak = true;
 	bIsFemale = false;
 	LastTalkTime=0;
@@ -661,24 +665,51 @@ function PostBeginPlay()
 
 function PreSetMovement()
 {
-	if ( Skill >= 3 )
-	RotationRate.Yaw = 100000;
+	if(bPerfersRanged)
+	{
+		if ( Skill >= 3 )
+		RotationRate.Yaw = 100000;
+		else
+		RotationRate.Yaw = 30000 + 16000 * skill;
+		if (JumpZ > 0)
+		bCanJump = true;
+		bCanWalk = true;
+		bCanSwim = true;
+		bCanFly = false;
+		MinHitWall = -0.5;
+		bCanOpenDoors = true;
+		bCanDoSpecial = true;
+		if ( Skill > 3 )
+		Skill=3;
+		MaxDesiredSpeed = 0.7 + 0.1 * skill;
+		PunchDamage=default.PunchDamage + (skill *4);
+		SlamDamage=default.PunchDamage  + (skill *4);
+		if ( skill <= 1 )
+		bCanDuck = false;
+		else
+		bCanDuck = true;
+	}
 	else
-	RotationRate.Yaw = 30000 + 16000 * skill;
-	if (JumpZ > 0)
-	bCanJump = true;
-	bCanWalk = true;
-	bCanSwim = true;
-	bCanFly = false;
-	MinHitWall = -0.5;
-	bCanOpenDoors = true;
-	bCanDoSpecial = true;
-    if ( Skill > 3 )
-    Skill=3;
-    MaxDesiredSpeed = 0.7 + 0.1 * skill;
-    PunchDamage=default.PunchDamage + (skill *4);
-    SlamDamage=default.PunchDamage  + (skill *4);
-	bCanDuck = false;
+	{
+		if ( Skill >= 3 )
+		RotationRate.Yaw = 100000;
+		else
+		RotationRate.Yaw = 30000 + 16000 * skill;
+		if (JumpZ > 0)
+		bCanJump = true;
+		bCanWalk = true;
+		bCanSwim = true;
+		bCanFly = false;
+		MinHitWall = -0.5;
+		bCanOpenDoors = true;
+		bCanDoSpecial = true;
+		if ( Skill > 3 )
+		Skill=3;
+		MaxDesiredSpeed = 0.7 + 0.1 * skill;
+		PunchDamage=default.PunchDamage + (skill *4);
+		SlamDamage=default.PunchDamage  + (skill *4);
+		bCanDuck = false;
+	}
 }
 
 function SetFemaleGender()
@@ -1534,7 +1565,6 @@ function PlayWalking()
 	}
 }
 
-
 function PlayChallenge()
 {
 	local float decision;
@@ -1907,6 +1937,7 @@ function PushButtons()
 
 function PlayMeleeAttack()
 {
+	/*
 	if ((Region.Zone.bWaterZone || Physics == PHYS_Flying) && weapon!=none)
 	{
 		PlayRangedAttack();
@@ -1915,7 +1946,26 @@ function PlayMeleeAttack()
 	if (FRand()<0.5)
 	PlayAnim('Punch');
 	else
-	PlayAnim('Slam');
+	PlayAnim('Slam');*/
+	if ((Region.Zone.bWaterZone || Physics == PHYS_Flying) && weapon!=none)
+	{
+		PlayRangedAttack();
+		return;
+	}
+   	if ( (Weapon == None) || (Weapon.Mass < 20) )
+	{
+		if (Frand()<0.5)
+     			PlayAnim('Punch');
+		else
+	 		PlayAnim('Slam');
+	}
+	else
+	{
+		if (Frand()<0.5)
+     			PlayAnim('RifleStomp');
+		else
+	 		PlayAnim('RifleStomp2');
+	}
 }
 
 function PlayVictoryDance()
@@ -4806,6 +4856,8 @@ ignores SeePlayer, HearNoise;
 
 	function BeginState()
 	{
+		if(bPerfersRanged && FRand() < 0.95)
+		GotoState('TacticalMove');
 	 if ( skill <= 1 )
 	   bCanDuck = false;
      else
@@ -6661,6 +6713,204 @@ state TacticalMove
 {
 ignores SeePlayer, HearNoise;
 
+function PlayRunning()
+{
+    local float strafeMag;
+	local vector Focus2D, Loc2D, Dest2D;
+	local vector lookDir, moveDir, X,Y,Z, Dir;
+
+    strafedodge=false;
+	if (Region.Zone.bWaterZone )
+	{
+		PlaySwimming();
+        return;
+	}
+	if(bPerfersRanged)
+	{
+	      if(Weapon != None)
+        DesiredSpeed = WalkingSpeed * MaxDesiredSpeed;
+       else
+        DesiredSpeed = MaxDesiredSpeed;
+       BaseEyeHeight = Default.BaseEyeHeight;
+       EyeHeight = BaseEyeHeight;
+
+	// determine facing direction
+       GetAxes(Rotation, X,Y,Z);
+       Dir = Normal(Acceleration);
+	   if ( (Dir dot X < 0.75) && (Dir != vect(0,0,0)) )
+	   {
+		// strafing or backing up
+		   if ( Dir dot X < -0.75 )
+	       {
+		      if (Weapon == None)
+				LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
+		      else
+		      {
+		         if (Weapon.Mass < 20)
+				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
+			     else
+				    LoopAnim('BackStepLGFR',-7/GroundSpeed,, 0.5);
+		      }
+
+	       }
+		   else if ( Dir Dot Y > 0 )
+			{
+		      if (Weapon == None)
+				LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
+		      else
+		      {
+		         if (Weapon.Mass < 20)
+				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
+			     else
+				    LoopAnim('walkstrafel',-7/GroundSpeed,, 0.5);
+		      }
+			}
+		   else
+			{
+		      if (Weapon == None)
+				LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
+		      else
+		      {
+		         if (Weapon.Mass < 20)
+				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
+			     else
+				    LoopAnim('walkstrafer',-7/GroundSpeed,, 0.5);
+		      }
+			}
+	   }
+       else if(Weapon == None)
+	   {
+		global.PlayRunning();
+        return;
+       }
+	   else if ( Weapon.bPointing )
+	   {
+		   if (Weapon.Mass < 20)
+		       LoopAnim('WalkSMFR',-7/GroundSpeed,, 0.5);
+		   else
+			   LoopAnim('WalkLGFR',-7/GroundSpeed,, 0.5);
+	   }
+	   else if (Enemy == None)
+	   {
+	       if (Weapon.Mass < 20)
+		       LoopAnim('WalkSM',-7/GroundSpeed,, 0.5);
+		   else
+		       LoopAnim('WalkLG',-7/GroundSpeed,, 0.5);
+	   }
+       else
+	   {
+	       if (Weapon.Mass < 20)
+	           LoopAnim('WalkSMFR',-7/GroundSpeed,, 0.5);
+		   else
+		       LoopAnim('WalkLGFR',-7/GroundSpeed,, 0.5);
+	   }
+	}
+	else
+	{
+		DesiredSpeed = MaxDesiredSpeed;
+		BaseEyeHeight = Default.BaseEyeHeight;
+		EyeHeight = BaseEyeHeight;
+		if (Weapon == None)
+		{
+			LoopAnim('Run',,, 0.5);
+			return;
+		}
+		if (Focus == Destination)
+		{
+			if ( Weapon.bPointing )
+			{
+				if (Weapon.Mass < 20)
+					LoopAnim('RUNSMFR',-2.0/GroundSpeed,, 0.5);
+				else
+					LoopAnim('RUNLGFR',-2.0/GroundSpeed,, 0.5);
+			}
+			else
+			{
+				if (Weapon.Mass < 20)
+					LoopAnim('RUNSM',-2.0/GroundSpeed,, 0.5);
+				else
+					LoopAnim('RUNLG',-2.0/GroundSpeed,, 0.5);
+			}
+		}
+		Focus2D = Focus;
+		Focus2D.Z = 0;
+		Loc2D = Location;
+		Loc2D.Z = 0;
+		Dest2D = Destination;
+		Dest2D.Z = 0;
+		lookDir = Normal(Focus2D - Loc2D);
+		moveDir = Normal(Dest2D - Loc2D);
+		strafeMag = lookDir dot moveDir;
+		if (strafeMag > 0.8)
+		{
+			if ( Weapon.bPointing )
+			{
+				if (Weapon.Mass < 20)
+				LoopAnim('RUNSMFR',-1.2/GroundSpeed,, 0.5);
+				else
+				LoopAnim('RUNLGFR',-1.2/GroundSpeed,, 0.5);
+			}
+			else
+			{
+				if (Weapon.Mass < 20)
+				LoopAnim('RUNSM',-1.2/GroundSpeed,, 0.5);
+				else
+				LoopAnim('RUNLG2',-1.2/GroundSpeed,, 0.5);
+			}
+		}
+		else if (strafeMag < -0.8)
+		{
+
+			DesiredSpeed = (2*WalkingSpeed) * MaxDesiredSpeed;
+			if (Weapon == None)
+			LoopAnim('BackStep',(-16*WalkingSpeed)/GroundSpeed,, 0.5);
+			else
+			{
+				if (Weapon.Mass < 20)
+				LoopAnim('BackStepSMFR',(-16*WalkingSpeed)/GroundSpeed,, 0.5);
+				else
+				LoopAnim('BackStepLGFR',(-16*WalkingSpeed)/GroundSpeed,, 0.5);
+			}
+		}
+		else
+		{
+
+		BaseEyeHeight = 0.7 * Default.BaseEyeHeight;
+		EyeHeight = BaseEyeHeight;
+
+			Y = (lookDir cross vect(0,0,1));
+			if ((Y Dot (Dest2D - Loc2D)) > 0)
+			{
+				if (AnimSequence == 'straferSM')
+				LoopAnim('straferSM',-1.2/GroundSpeed,, 1.0);
+				else if (AnimSequence == 'straferlg')
+				LoopAnim('straferlg',-1.2/GroundSpeed,, 1.0);
+				else
+				{
+					if (Weapon.Mass < 20)
+					LoopAnim('straferSM',-1.2/GroundSpeed,0.1, 1.0);
+					else
+					LoopAnim('straferlg',-1.2/GroundSpeed,0.1, 1.0);
+				}
+			}
+			else
+			{
+				if (AnimSequence == 'strafelSM')
+				LoopAnim('strafelSM',-1.2/GroundSpeed,, 1.0);
+				else if (AnimSequence == 'strafellg')
+				LoopAnim('strafellg',-1.2/GroundSpeed,, 1.0);
+				else
+				{
+					if (Weapon.Mass < 20)
+					LoopAnim('strafelSM',-1.2/GroundSpeed,0.1, 1.0);
+					else
+					LoopAnim('strafellg',-1.2/GroundSpeed,0.1, 1.0);
+				}
+			}
+		}
+	}
+}
+
 	function SetFall()
 	{
 		Acceleration = vect(0,0,0);
@@ -7166,7 +7416,7 @@ defaultproperties
 	Randsir=0
 	bGetResponse=False
 	bRespond=False
-	WalkingSpeed=0.2
+	WalkingSpeed=0.3
 	JumpZ=425.0
 	BaseEyeHeight=39.0
 	EyeHeight=39.0
