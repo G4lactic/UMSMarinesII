@@ -6713,99 +6713,99 @@ state TacticalMove
 {
 ignores SeePlayer, HearNoise;
 
-function PlayRunning()
-{
-	local vector X,Y,Z, Dir;
-
-    strafedodge=false;
-	if (Region.Zone.bWaterZone )
+	function PlayRunning()
 	{
-		PlaySwimming();
-        return;
-	}
-	if(bPerfersRanged)
-	{
-	      if(Weapon != None)
-        DesiredSpeed = WalkingSpeed * MaxDesiredSpeed;
-       else
-        DesiredSpeed = MaxDesiredSpeed;
-       BaseEyeHeight = Default.BaseEyeHeight;
-       EyeHeight = BaseEyeHeight;
+		local vector X,Y,Z, Dir;
 
-	// determine facing direction
-       GetAxes(Rotation, X,Y,Z);
-       Dir = Normal(Acceleration);
-	   if ( (Dir dot X < 0.75) && (Dir != vect(0,0,0)) )
-	   {
-		// strafing or backing up
-		   if ( Dir dot X < -0.75 )
-	       {
-		      if (Weapon == None)
-				LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
-		      else
-		      {
-		         if (Weapon.Mass < 20)
-				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
-			     else
-				    LoopAnim('BackStepLGFR',-7/GroundSpeed,, 0.5);
-		      }
+		strafedodge=false;
+		if (Region.Zone.bWaterZone )
+		{
+			PlaySwimming();
+			return;
+		}
+		if(bPerfersRanged)
+		{
+			if(Weapon != None)
+			DesiredSpeed = WalkingSpeed * MaxDesiredSpeed;
+		else
+			DesiredSpeed = MaxDesiredSpeed;
+		BaseEyeHeight = Default.BaseEyeHeight;
+		EyeHeight = BaseEyeHeight;
 
-	       }
-		   else if ( Dir Dot Y > 0 )
+		// determine facing direction
+		GetAxes(Rotation, X,Y,Z);
+		Dir = Normal(Acceleration);
+		if ( (Dir dot X < 0.75) && (Dir != vect(0,0,0)) )
+		{
+			// strafing or backing up
+			if ( Dir dot X < -0.75 )
 			{
-		      if (Weapon == None)
-				LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
-		      else
-		      {
-		         if (Weapon.Mass < 20)
-				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
-			     else
-				    LoopAnim('walkstrafel',-7/GroundSpeed,, 0.5);
-		      }
+				if (Weapon == None)
+					LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
+				else
+				{
+					if (Weapon.Mass < 20)
+						LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
+					else
+						LoopAnim('BackStepLGFR',-7/GroundSpeed,, 0.5);
+				}
+
 			}
-		   else
-			{
-		      if (Weapon == None)
-				LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
-		      else
-		      {
-		         if (Weapon.Mass < 20)
-				    LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
-			     else
-				    LoopAnim('walkstrafer',-7/GroundSpeed,, 0.5);
-		      }
-			}
-	   }
-       else if(Weapon == None)
-	   {
-		global.PlayRunning();
-        return;
-       }
-	   else if ( Weapon.bPointing )
-	   {
-		   if (Weapon.Mass < 20)
-		       LoopAnim('WalkSMFR',-7/GroundSpeed,, 0.5);
-		   else
-			   LoopAnim('WalkLGFR',-7/GroundSpeed,, 0.5);
-	   }
-	   else if (Enemy == None)
-	   {
-	       if (Weapon.Mass < 20)
-		       LoopAnim('WalkSM',-7/GroundSpeed,, 0.5);
-		   else
-		       LoopAnim('WalkLG',-7/GroundSpeed,, 0.5);
-	   }
-       else
-	   {
-	       if (Weapon.Mass < 20)
-	           LoopAnim('WalkSMFR',-7/GroundSpeed,, 0.5);
-		   else
-		       LoopAnim('WalkLGFR',-7/GroundSpeed,, 0.5);
-	   }
+			else if ( Dir Dot Y > 0 )
+				{
+				if (Weapon == None)
+					LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
+				else
+				{
+					if (Weapon.Mass < 20)
+						LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
+					else
+						LoopAnim('walkstrafel',-7/GroundSpeed,, 0.5);
+				}
+				}
+			else
+				{
+				if (Weapon == None)
+					LoopAnim('BackStep',-7/GroundSpeed,, 0.5);
+				else
+				{
+					if (Weapon.Mass < 20)
+						LoopAnim('BackStepSMFR',-7/GroundSpeed,, 0.5);
+					else
+						LoopAnim('walkstrafer',-7/GroundSpeed,, 0.5);
+				}
+				}
+		}
+		else if(Weapon == None)
+		{
+			global.PlayRunning();
+			return;
+		}
+		else if ( Weapon.bPointing )
+		{
+			if (Weapon.Mass < 20)
+				LoopAnim('WalkSMFR',-7/GroundSpeed,, 0.5);
+			else
+				LoopAnim('WalkLGFR',-7/GroundSpeed,, 0.5);
+		}
+		else if (Enemy == None)
+		{
+			if (Weapon.Mass < 20)
+				LoopAnim('WalkSM',-7/GroundSpeed,, 0.5);
+			else
+				LoopAnim('WalkLG',-7/GroundSpeed,, 0.5);
+		}
+		else
+		{
+			if (Weapon.Mass < 20)
+				LoopAnim('WalkSMFR',-7/GroundSpeed,, 0.5);
+			else
+				LoopAnim('WalkLGFR',-7/GroundSpeed,, 0.5);
+		}
+		}
+		else
+		Global.PlayRunning();
 	}
-	else
-	Global.PlayRunning();
-}
 
 	function SetFall()
 	{
