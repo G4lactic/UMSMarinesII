@@ -732,68 +732,43 @@ function SetFemaleGender()
 	bIsFemale = true;
 }
 
-Function SetMarineSkin()
+function SetMarineSkin() // Thx rayne for helping clean this function up.
 {
-	Local int RandNum;
+    Local int RandNum;
 
-	RandNum = Rand(4);
+    if(!bSkinOverride)
+    {
+        if(MarineSkin == SKIN_Default)
+        Return;
 
-	if(!bSkinOverride)
-	{
-		if(MarineSkin == SKIN_Default)
-		Return;
-		else if(MarineSkin == SKIN_Random)
-		{
-			if(RandNum == 0)
-			{
-				MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine7';
-				MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine8';
-				LogSkinName='Space';
-			}
-			else if(RandNum == 1)
-			{
-				MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine1';
-				MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine2';
-				LogSkinName='Arctic';
-			}
-			else if(RandNum == 2)
-			{
-				MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine5';
-				MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine6';
-				LogSkinName='Desert';
-			}
-			else if(RandNum == 3)
-			{
-				MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine3';
-				MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine4';
-				LogSkinName='Jungle';
-			}
-		}
-		else if(MarineSkin == SKIN_Space)
-		{
-			MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine7';
-			MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine8';
-			LogSkinName='Space';
-		}
-		else if(MarineSkin == SKIN_Arctic)
-		{
-			MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine1';
-			MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine2';
-			LogSkinName='Arctic';
-		}
-		else if(MarineSkin == SKIN_Desert)
-		{
-			MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine5';
-			MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine6';
-			LogSkinName='Desert';
-		}
-		else if(MarineSkin == SKIN_Jungle)
-		{
-			MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine3';
-			MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine4';
-			LogSkinName='Jungle';
-		}
-	}
+        if(MarineSkin == SKIN_Random)
+        RandNum = RandRange(1,4);
+        
+        if(MarineSkin == SKIN_Space || RandNum == 1)
+        {
+            MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine7';
+            MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine8';
+            LogSkinName='Space';
+        }
+        else if(MarineSkin == SKIN_Arctic || RandNum == 2)
+        {
+            MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine1';
+            MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine2';
+            LogSkinName='Arctic';
+        }
+        else if(MarineSkin == SKIN_Desert || RandNum == 3)
+        {
+            MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine5';
+            MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine6';
+            LogSkinName='Desert';
+        }
+        else if(MarineSkin == SKIN_Jungle || RandNum == 4)
+        {
+            MultiSkins[1]=Texture'UMSMarinesII.Skins.JMarine3';
+            MultiSkins[2]=Texture'UMSMarinesII.Skins.JMarine4';
+            LogSkinName='Jungle';
+        }
+    }
 }
 
 //Phrase Functions
