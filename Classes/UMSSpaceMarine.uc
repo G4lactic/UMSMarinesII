@@ -648,7 +648,7 @@ function PostBeginPlay()
 	bExplodeWhenHurt=false;
 
 	if(bPerfersRanged)
-	CombatStyle = Default.CombatStyle - 0.6;
+	CombatStyle = Default.CombatStyle - 0.3;
 
 	bCanSpeak = true;
 	bIsFemale = false;
@@ -4823,7 +4823,7 @@ ignores SeePlayer, HearNoise;
 
 	function BeginState()
 	{
-		if(bPerfersRanged && FRand() < 0.95)
+		if(bPerfersRanged && FRand() < 0.75)
 		GotoState('TacticalMove');
 	 if ( skill <= 1 )
 	   bCanDuck = false;
