@@ -4696,14 +4696,6 @@ DoneAttacking:
     Sleep(0.0);
 	FinishAnim();
 	KeepAttacking();
-	if ( FRand() < 0.3 - 0.1 * skill )
-	{
-		Acceleration = vect(0,0,0); //stop
-		DesiredRotation = Rotator(Enemy.Location - Location);
-		PlayChallenge();
-		FinishAnim();
-		TweenToFighter(0.1);
-	}
 	Goto('FaceTarget');
 }
 
@@ -5636,16 +5628,6 @@ Follow:
 		SetEnemy(Enemy);
 	PickDestination();
 SpecialNavig:
-	if ( SpecialPause > 0.0 )
-	{
-		Disable('AnimEnd');
-		Acceleration = vect(0,0,0);
-		PlayChallenge();
-		Sleep(SpecialPause);
-		SpecialPause = 0.0;
-		Enable('AnimEnd');
-		Goto('AfterFall');
-	}
 	if (MoveTarget == None)
 		MoveTo(Destination);
 	else
@@ -6506,22 +6488,6 @@ ignores SeePlayer, HearNoise, Bump;
 		bAltFire = 0;
 		Super.EndState();
 	}
-Challenge:
-    FinishAnim();
-
-	Disable('AnimEnd');
-	Sleep(0.0);
-
-	Acceleration = vect(0,0,0); //stop
-	if ( Enemy != none)
-	 DesiredRotation = Rotator(Enemy.Location - Location);
-	PlayChallenge();
-	FinishAnim();
-	if ( bCrouching && !Region.Zone.bWaterZone )
-		Sleep(0.8 + FRand());
-	bCrouching = false;
-	TweenToFighter(0.1);
-	Goto('FaceTarget');
 
 Begin:
     FinishAnim();

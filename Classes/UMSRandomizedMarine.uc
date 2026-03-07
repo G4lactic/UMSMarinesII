@@ -10,6 +10,8 @@ Function PostBeginPlay()
 	if(WeaponType == None)
 	PickRWeapon();
 	Super.PostBeginPlay();
+	if( FRand() < 0.5 )
+	bPerfersRanged=True;
 }
 
 Function PickRWeapon()
