@@ -665,51 +665,24 @@ function PostBeginPlay()
 
 function PreSetMovement()
 {
-	if(bPerfersRanged)
-	{
-		if ( Skill >= 3 )
-		RotationRate.Yaw = 100000;
-		else
-		RotationRate.Yaw = 30000 + 16000 * skill;
-		if (JumpZ > 0)
-		bCanJump = true;
-		bCanWalk = true;
-		bCanSwim = true;
-		bCanFly = false;
-		MinHitWall = -0.5;
-		bCanOpenDoors = true;
-		bCanDoSpecial = true;
-		if ( Skill > 3 )
-		Skill=3;
-		MaxDesiredSpeed = 0.7 + 0.1 * skill;
-		PunchDamage=default.PunchDamage + (skill *4);
-		SlamDamage=default.PunchDamage  + (skill *4);
-		if ( skill <= 1 )
-		bCanDuck = false;
-		else
-		bCanDuck = true;
-	}
+	if ( Skill >= 3 )
+	RotationRate.Yaw = 100000;
 	else
-	{
-		if ( Skill >= 3 )
-		RotationRate.Yaw = 100000;
-		else
-		RotationRate.Yaw = 30000 + 16000 * skill;
-		if (JumpZ > 0)
-		bCanJump = true;
-		bCanWalk = true;
-		bCanSwim = true;
-		bCanFly = false;
-		MinHitWall = -0.5;
-		bCanOpenDoors = true;
-		bCanDoSpecial = true;
-		if ( Skill > 3 )
-		Skill=3;
-		MaxDesiredSpeed = 0.7 + 0.1 * skill;
-		PunchDamage=default.PunchDamage + (skill *4);
-		SlamDamage=default.PunchDamage  + (skill *4);
-		bCanDuck = false;
-	}
+	RotationRate.Yaw = 30000 + 16000 * skill;
+	if (JumpZ > 0)
+	bCanJump = true;
+	bCanWalk = true;
+	bCanSwim = true;
+	bCanFly = false;
+	MinHitWall = -0.5;
+	bCanOpenDoors = true;
+	bCanDoSpecial = true;
+	if ( Skill > 3 )
+	Skill=3;
+	MaxDesiredSpeed = 0.7 + 0.1 * skill;
+	PunchDamage=default.PunchDamage + (skill *4);
+	SlamDamage=default.PunchDamage  + (skill *4);
+	bCanDuck = false;
 }
 
 function SetFemaleGender()
@@ -1295,7 +1268,6 @@ function PlayInAir()
 	TweenAnim('JumpLGFR', 0.8);
 }
 
-
 function PlayHeadDeath(name DamageType)
 {
 	local carcass carc;
@@ -1320,7 +1292,6 @@ function PlayFrontDeath()
 	else
 	PlayAnim('Dead5', 0.7, 0.1);
 }
-
 
 function PlayBackDeath()
 {
