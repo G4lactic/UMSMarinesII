@@ -3,10 +3,6 @@
 //=============================================================================
 class UMSSpaceSpectre extends UMSSpecialForces;
 
-#exec texture IMPORT NAME=SMarine1 FILE=Textures\Skins\UMSBlackOpMarine.PCX GROUP=Skins LODSET=2
-#exec texture IMPORT NAME=SMarine2 FILE=Textures\Skins\UMSBlackOpMarine2.PCX GROUP=Skins LODSET=2
-#exec texture IMPORT NAME=MarineBlackOpsGlow FILE=Textures\FX\UMSBlackOpMarineNV.PCX GROUP=FX LODSET=2
-
 var sound CloakAmbient;
 var sound cloakon;
 var sound cloakoff;
@@ -21,11 +17,9 @@ var bool bExpanding;
 var texture CloakTexture;
 var Effects GhostT;
 
-var Effects Glowy;
-
 Function PostBeginPlay()
 {
-    Glowy=Spawn(Class'UMSGlowyVisor',Self,,Location,Rotation);
+    //Glowy=Spawn(Class'UMSGlowyVisor',Self,,Location,Rotation);
 	//if(bAlwaysCloak)
 	//CloakingTime();
 	CloakTimer=0;
@@ -123,6 +117,7 @@ Function EndCloak()
 	if(bCloaked)
 	{
     	Glowy=Spawn(Class'UMSGlowyVisor',Self,,Location,Rotation);
+		Glowy.MultiSkins[1]=GlowingVisorTexture;
 		bCloaked=False;
 		bCooldown=True;
 		CloakTimer=CooldownDuration;
@@ -200,4 +195,5 @@ defaultproperties
 	MultiSkins(1)=Texture'UMSMarinesII.Skins.SMarine1'
 	MultiSkins(2)=Texture'UMSMarinesII.Skins.SMarine2'
 	Skill=3
+	GlowingVisorTexture=Texture'UMSMarinesII.FX.MarineBlackOpsGlow'
 }

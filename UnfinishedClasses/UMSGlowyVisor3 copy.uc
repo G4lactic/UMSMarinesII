@@ -3,8 +3,6 @@
 //=============================================================================
 class UMSGlowyVisor3 extends Effects;
 
-#exec texture IMPORT NAME=SoldierGlow FILE=Textures\FX\FieldSpecGlow.PCX GROUP=FX LODSET=2
-
 simulated function Destroyed()
 {
     if ( Level.NetMode!=NM_Client && Owner!=None && !Owner.bDeleteMe )

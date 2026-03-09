@@ -196,6 +196,17 @@ class UMSSpaceMarine extends ScriptedPawn;
 //SpaceMarine
 #exec texture IMPORT NAME=Jmarine7 FILE=Textures\Skins\Jmarine7.PCX GROUP=Skins LODSET=2
 #exec texture IMPORT NAME=Jmarine8 FILE=Textures\Skins\jmarine8.PCX GROUP=Skins LODSET=2
+//EliteMarine
+#exec texture IMPORT NAME=EMarine1 FILE=Textures\Skins\banditmarine1.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=EMarine2 FILE=Textures\Skins\banditmarine2.PCX GROUP=Skins LODSET=2
+//SpectreMarine
+#exec texture IMPORT NAME=SMarine1 FILE=Textures\Skins\UMSBlackOpMarine.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=SMarine2 FILE=Textures\Skins\UMSBlackOpMarine2.PCX GROUP=Skins LODSET=2
+
+//Visors
+#exec texture IMPORT NAME=MarineVisorGlowBasic FILE=Textures\FX\MarineVisorGlowBasic.PCX GROUP=FX LODSET=2
+#exec texture IMPORT NAME=MarineBlackOpsGlow FILE=Textures\FX\UMSBlackOpMarineNV.PCX GROUP=FX LODSET=2
+#exec texture IMPORT NAME=SoldierGlow FILE=Textures\FX\FieldSpecGlow.PCX GROUP=FX LODSET=2
 
 //Model import with Anims
 //=============================================================================
@@ -547,6 +558,7 @@ var(Misc) float ExploRange,ExploDamage,ExploMomentum;
 var(Misc) float BeamWaitTime,BeamTime;
 var(Misc) float CommandRadius;
 var(Misc) string HumanKillMessage;
+var(Misc) Texture GlowingVisorTexture;
 var(Misc) enum GOverride
 {
 	GENDER_Random,
@@ -588,6 +600,7 @@ var float LastTalkTime,MessageTime;
 var float Accuracy;
 var name LogSkinName;
 var Pawn SaluteTarget;
+var Effects Glowy;
 var UMSSpaceMarine LastTalker;
 var	Weapon myWeapon;
 var UMSBeamOctagon Octagon;
@@ -649,6 +662,12 @@ function PostBeginPlay()
 
 	if(bPerfersRanged)
 	CombatStyle = Default.CombatStyle - 0.3;
+
+	if(GlowingVisorTexture != None)
+	{
+		Glowy = Spawn(Class'UMSGlowyVisor',Self,,Location,Rotation);
+		Glowy.MultiSkins[1]=GlowingVisorTexture;
+	}
 
 	bCanSpeak = true;
 	bIsFemale = false;
@@ -6629,14 +6648,15 @@ ignores SeePlayer, HearNoise;
 	{
 		local vector X,Y,Z, Dir;
 
-		strafedodge=false;
-		if (Region.Zone.bWaterZone )
-		{
-			PlaySwimming();
-			return;
-		}
 		if(bPerfersRanged)
 		{
+			strafedodge=false;
+			if (Region.Zone.bWaterZone )
+			{
+				PlaySwimming();
+				return;
+			}
+
 			if(Weapon != None)
 			DesiredSpeed = WalkingSpeed * MaxDesiredSpeed;
 			else
@@ -6832,10 +6852,10 @@ state StakeOut
 {
 ignores EnemyNotVisible;
 
-     function PlayChallenge()
+     /*function PlayChallenge()
      {
          PlayWaiting();
-     }
+     }*/
 
 	function TakeDamage( int Damage, Pawn instigatedBy, Vector hitlocation,
 							Vector momentum, name damageType)
