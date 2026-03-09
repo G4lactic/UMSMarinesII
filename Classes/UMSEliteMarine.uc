@@ -4,7 +4,6 @@
 
 class UMSEliteMarine extends UMSSpecialForces;
 
-//var() bool bShieldBeltOn; //--OBSOLETE--DELETE ME
 var bool bShieldOn;
 var bool bCheckedWeapon;
 
