@@ -46,7 +46,6 @@ Acceleration*=0;
 PlayAnim('Activate',1.4,0.2);
 PlaySound(Sound'Activates.Beeps.Mactiv63', SLOT_Interact);
 FinishAnim();
-//CloakingTime();
 GotoState('TacticalMove');
 }
 
