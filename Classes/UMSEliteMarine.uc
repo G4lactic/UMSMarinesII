@@ -9,13 +9,7 @@ var bool bShieldOn;
 var bool bCheckedWeapon;
 
 var inventory SB;
-/*
-Function PostBeginPlay()
-{
-    Glowy=Spawn(Class'UMSGlowyVisor2',Self,,Location,Rotation);
-	Super.PostBeginPlay();
-}
-*/
+
 Function FireWeapon()
 {
     if(bDoSpecial && !bAutoDoSpecial && !bShieldOn)

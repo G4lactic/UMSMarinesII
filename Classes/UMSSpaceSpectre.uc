@@ -8,7 +8,6 @@ var sound cloakon;
 var sound cloakoff;
 var(UMSSpecialForces) float CloakDuration;
 var(UMSSpecialForces) float CooldownDuration;
-//var() bool bAlwaysCloak;//--OBSOLETE--DELETE ME
 var float CloakTimer;
 
 var bool bCloaked;
@@ -19,9 +18,6 @@ var Effects GhostT;
 
 Function PostBeginPlay()
 {
-    //Glowy=Spawn(Class'UMSGlowyVisor',Self,,Location,Rotation);
-	//if(bAlwaysCloak)
-	//CloakingTime();
 	CloakTimer=0;
 	Super.PostBeginPlay();
 }
@@ -157,7 +153,6 @@ Acceleration*=0;
 PlayAnim('Activate',1.4,0.2);
 PlaySound(Sound'Activates.Beeps.Mactiv63', SLOT_Interact);
 FinishAnim();
-//CloakingTime();
 GotoState('TacticalMove');
 }
 
