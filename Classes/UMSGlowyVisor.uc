@@ -10,15 +10,13 @@ simulated function Destroyed()
     Super.Destroyed();
 }
 
-
-
 simulated function Tick(float DeltaTime)
 {
     Fatness = Owner.Fatness+1;
     if ( Pawn(Owner)!=None && Pawn(Owner).Health>0)
     {
         Mesh = Owner.Mesh;
-        bHidden = Owner.bHidden;
+        bHidden = Owner.bHidden || Owner.bMeshEnviroMap;
         PrePivot = Owner.PrePivot;
         DrawScale = Owner.DrawScale;
     }

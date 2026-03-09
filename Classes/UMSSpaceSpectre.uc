@@ -88,7 +88,7 @@ Function CloakingTime()
 {
 	if(!bCloaked)
 	{
-		Glowy.Destroy();
+		Glowy.bHidden = True;
 		CloakTimer=CloakDuration;
 	 	//bunlit=true;
      	ScaleGlow = 0.2;
@@ -116,8 +116,7 @@ Function EndCloak()
 {
 	if(bCloaked)
 	{
-    	Glowy=Spawn(Class'UMSGlowyVisor',Self,,Location,Rotation);
-		Glowy.MultiSkins[1]=GlowingVisorTexture;
+		Glowy.bHidden = False;
 		bCloaked=False;
 		bCooldown=True;
 		CloakTimer=CooldownDuration;
