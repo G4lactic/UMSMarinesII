@@ -593,13 +593,12 @@ var bool bInitz;
 var bool bWimp;
 var bool strafedodge;
 var bool bBeamingIn;
-var bool bReadyToTalk,bGetResponse,bRespond,Randsir;
+var bool bReadyToTalk,bGetResponse,bRespond;
 var bool bSkinOverride;
 var float SETimer,FXFadeTime,FadeTimer;
 var float LastTalkTime,MessageTime;
 var float Accuracy;
 var name LogSkinName;
-var Pawn SaluteTarget;
 var Effects Glowy;
 var UMSSpaceMarine LastTalker;
 var	Weapon myWeapon;
@@ -1999,17 +1998,6 @@ simulated event Destroyed()
 	super(actor).Destroyed();
 }
 
-singular function Falling()
-{
-	if (bCanFly)
-	{
-		SetPhysics(PHYS_Flying);
-		return;
-	}
- 	if (health > 0 && !bDeleteme)
-	SetFall();
-}
-
 function JumpOffPawn()
 {
 	Velocity += (60 + CollisionRadius) * VRand();
@@ -2018,70 +2006,6 @@ function JumpOffPawn()
 	bJumpOffPawn = true;
     if (health > 0 && !bDeleteme)
  	SetFall();
-}
-
-function LongFall()
-{
-   	if (health > 0 && !bDeleteme)
-   	{
-		SetFall();
-		GotoState('FallingState', 'LongFall');
-   	}
-}
-
-function Bump(actor Other)
-{
-	local vector VelDir, OtherDir;
-	local float speed;
-
-	if ( Health <= 0 || bDeleteme)
-		return;
-	if ( Enemy != None )
-	{
-		if (Other == Enemy)
-		{
-			GotoState('MeleeAttack');
-			return;
-		}
-		else if ( (Pawn(Other) != None) && SetEnemy(Pawn(Other)) )
-		{
-			GotoState('MeleeAttack');
-			return;
-		}
-	}
-	else
-	{
-		if (Pawn(Other) != None)
-		{
-			AnnoyedBy(Pawn(Other));
-			if ( SetEnemy(Pawn(Other)) )
-			{
-				bReadyToAttack = True; //can melee right away
-				PlayAcquisitionSound();
-				GotoState('Attacking');
-				return;
-			}
-		}
-		if ( bCanSpeak && (ScriptedPawn(Other) != None) && ((TeamLeader == None) || !TeamLeader.bTeamSpeaking) )
-		SpeakTo(ScriptedPawn(Other));
-	}
-
-	speed = VSize(Velocity);
-	if ( speed > 1 )
-	{
-		VelDir = Velocity/speed;
-		VelDir.Z = 0;
-		OtherDir = Other.Location - Location;
-		OtherDir.Z = 0;
-		OtherDir = Normal(OtherDir);
-		if ( (VelDir dot OtherDir) > 0.8 )
-		{
-			Velocity.X = VelDir.Y;
-			Velocity.Y = -1 * VelDir.X;
-			Velocity *= FMax(speed, 280);
-		}
-	}
-	Disable('Bump');
 }
 
 singular event BaseChange()
@@ -2181,17 +2105,6 @@ event FootZoneChange(ZoneInfo newFootZone)
 		PainTime = -1.0;
 		else
 		PainTime = 0.01;
-	}
-}
-
-function SetFall()
-{
-	if (Enemy != None)
-	{
-		NextState = 'Attacking'; //default
-		NextLabel = 'Begin';
-        NextAnim = AnimSequence;
-		GotoState('FallingState');
 	}
 }
 
@@ -2298,100 +2211,6 @@ function Trigger( actor Other, pawn EventInstigator )
 	}
 }
 
-function rotator AdjustAim(float projSpeed, vector projStart, int aimerror, bool leadTarget, bool warnTarget)
-{
-	local rotator FireRotation;
-	local vector FireSpot;
-	local actor HitActor;
-	local vector HitLocation, HitNormal;
-    local int modifier;
-
-	if ( Target == None )
-	{
-		if ( enemy != none && enemy.health >0  && !enemy.bDeleteme && enemy!=self )
-		Target = Enemy;
-    }
-	if ( Target == None)
-	return Rotation;
-	if ( !Target.IsA('Pawn') )
-	return rotator(Target.Location - Location);
-
-	FireSpot = Target.Location;
-
-	aimerror = aimerror * (1 - 10 * ((Normal(Target.Location - Location) Dot Normal((Target.Location + 0.5 * Target.Velocity) - (Location + 0.5 * Velocity))) - 1));
-	aimerror = aimerror * (2.4 - 0.5 * (skill + FRand()));
-    modifier = FClamp(Level.Game.difficulty-3, 1, 3);
-    if(Level.Game.difficulty > 3)
-    aimerror *= 1-(0.3*modifier);
-
-	if (leadTarget && (projSpeed > 0))
-	{
-		FireSpot += FMin(1, 0.7 + 0.6 * FRand()) * (Target.Velocity * VSize(Target.Location - ProjStart)/projSpeed);
-		HitActor = Trace(HitLocation, HitNormal, FireSpot, ProjStart, false);
-		if (HitActor != None)
-		FireSpot = 0.5 * (FireSpot + Target.Location);
-	}
-
-	HitActor = self; //so will fail first check unless shooting at feet
-	if ( bIsPlayer && (Location.Z + 19 >= Target.Location.Z) && Target.IsA('Pawn') && (Weapon != None) && Weapon.bSplashDamage && (0.5 * (skill - 1) > FRand()) )
-	{
-		// Try to aim at feet
- 		HitActor = Trace(HitLocation, HitNormal, FireSpot - vect(0,0,80), FireSpot, false);
-		if ( HitActor != None )
-		{
-			FireSpot = HitLocation + vect(0,0,3);
-			HitActor = Trace(HitLocation, HitNormal, FireSpot, ProjStart, false);
-		}
-		else
-		HitActor = self;
-	}
-	if ( HitActor != None )
-	{
-		//try middle
-		FireSpot.Z = Target.Location.Z;
- 		HitActor = Trace(HitLocation, HitNormal, FireSpot, ProjStart, false);
-	}
-	if( HitActor != None )
-	{
-		//try head
- 		FireSpot.Z = Target.Location.Z + 0.9 * Target.CollisionHeight;
- 		HitActor = Trace(HitLocation, HitNormal, FireSpot, ProjStart, false);
-	}
-	if ( (HitActor != None) && (Target == Enemy) )
-	{
-		FireSpot = LastSeenPos;
-		if ( Location.Z >= LastSeenPos.Z )
-		FireSpot.Z -= 0.5 * Enemy.CollisionHeight;
-		if ( Weapon != None )
-		{
-	 		HitActor = Trace(HitLocation, HitNormal, FireSpot, ProjStart, false);
-			if ( HitActor != None )
-			{
-				bFire = 0;
-				bAltFire = 0;
-				SetTimer(TimeBetweenAttacks, false);
-			}
-		}
-	}
-
-	FireRotation = Rotator(FireSpot - ProjStart);
-
-	FireRotation.Yaw = FireRotation.Yaw + 0.5 * (Rand(2 * aimerror) - aimerror);
-	if (warnTarget && Pawn(Target) != None)
-	Pawn(Target).WarnTarget(self, projSpeed, vector(FireRotation));
-
-	FireRotation.Yaw = FireRotation.Yaw & 65535;
-	if ( (Abs(FireRotation.Yaw - (Rotation.Yaw & 65535)) > 8192) && (Abs(FireRotation.Yaw - (Rotation.Yaw & 65535)) < 57343) )
-	{
-		if ( (FireRotation.Yaw > Rotation.Yaw + 32768) || ((FireRotation.Yaw < Rotation.Yaw) && (FireRotation.Yaw > Rotation.Yaw - 32768)) )
-		FireRotation.Yaw = Rotation.Yaw - 8192;
-		else
-		FireRotation.Yaw = Rotation.Yaw + 8192;
-	}
-	viewRotation = FireRotation;
-	return FireRotation;
-}
-
 function bool CanFireAtEnemy()
 {
 	local vector HitLocation, HitNormal, EnemyDir, EnemyUp;
@@ -2475,27 +2294,6 @@ function bool ChooseTeamAttackFor(ScriptedPawn TeamMember)
 	return true;
 }
 
-function bool CanStakeOut()
-{
-	local vector HitLocation, HitNormal;
-	local actor HitActor;
-
-	if ( (Physics == PHYS_Flying) && !bCanStrafe )
-	return false;
-	if (Enemy == none || Enemy.bDeleteme || Enemy.Health<=0 || Enemy==self )
-	return false;
-	if ( VSize(Enemy.Location - LastSeenPos) > 800 )
-	return false;
-
-	HitActor = Trace(HitLocation, HitNormal, LastSeenPos, Location + EyeHeight * vect(0,0,1), false);
-	if ( HitActor == None )
-	{
-		HitActor = Trace(HitLocation, HitNormal, LastSeenPos , Enemy.Location + Enemy.BaseEyeHeight * vect(0,0,1), false);
-		return (HitActor == None);
-	}
-	return false;
-}
-
 function bool MeleeDamageTarget(int hitdamage, vector pushdir)
 {
 	local vector HitLocation, HitNormal;
@@ -2520,123 +2318,6 @@ function bool MeleeDamageTarget(int hitdamage, vector pushdir)
 		return true;
 	}
 	return false;
-}
-
-function bool SetEnemy( Pawn NewEnemy )
-{
-	local bool resultz;
-	local eAttitude newAttitude, oldAttitude;
-	local bool noOldEnemyz;
-	local float newStrengthz;
-
-	if ( (NewEnemy == Self) || (NewEnemy == None) || (NewEnemy.Health <= 0)
-	|| NewEnemy.bDeleteme || NewEnemy.IsA('FlockPawn') || NewEnemy.IsA('FlockMasterPawn')
-	|| Health <= 0 || NewEnemy.IsA('Spectator') )
-		return false;
-	if ( !bCanWalk && !bCanFly && !NewEnemy.FootRegion.Zone.bWaterZone )
-		return false;
-
-	noOldEnemyz = (Enemy == None);
-	resultz = false;
-	newAttitude = AttitudeTo(NewEnemy);
-//	log ("Attitude to potential enemy is "$newAttitude);
-
-	if ( !noOldEnemyz )
-	{
-		if (Enemy == NewEnemy)
-		return true;
-		else if ( NewEnemy.IsA('PlayerPawn') && (AlarmTag != '') )
-		{
-			OldEnemy = Enemy;
-			Enemy = NewEnemy;
-			resultz = true;
-		}
-		else if ( newAttitude == ATTITUDE_Friendly )
-		{
-			if ( bIgnoreFriends )
-				return false;
-			if (NewEnemy.bIsPlayer && NewEnemy.Enemy == NewEnemy)
-			return false;
-			if ( NewEnemy.Enemy != self && NewEnemy.Enemy != None && NewEnemy.Enemy.Health > 0 && !NewEnemy.Enemy.bDeleteme )
-			{
-				if (!NewEnemy.IsA('ScriptedPawn') && NewEnemy.Enemy.bIsPlayer && (NewEnemy.AttitudeToPlayer < AttitudeToPlayer) )
-				AttitudeToPlayer = NewEnemy.AttitudeToPlayer;
-				if ( AttitudeTo(NewEnemy.Enemy) < AttitudeTo(Enemy) )
-				{
-					OldEnemy = Enemy;
-					Enemy = NewEnemy.Enemy;
-					resultz = true;
-				}
-			}
-		}
-		else
-		{
-			oldAttitude = AttitudeTo(Enemy);
-			if ( (newAttitude < oldAttitude) || ( (newAttitude == oldAttitude) && ((VSize(NewEnemy.Location - Location) < VSize(Enemy.Location - Location)) || !LineOfSightTo(Enemy)) ) )
-			{
-				if ( bIsPlayer && Enemy.IsA('PlayerPawn') && !NewEnemy.IsA('PlayerPawn') )
-				{
-					newStrengthz = relativeStrength(NewEnemy);
-					if ( (newStrengthz < 0.2) && (relativeStrength(Enemy) < FMin(0, newStrengthz)) && (IsInState('Hunting')) && (Level.TimeSeconds - HuntStartTime < 5) )
-					resultz = false;
-					else
-					{
-						resultz = true;
-						OldEnemy = Enemy;
-						Enemy = NewEnemy;
-					}
-				}
-				else
-				{
-					resultz = true;
-					OldEnemy = Enemy;
-					Enemy = NewEnemy;
-				}
-			}
-		}
-	}
-	else if ( newAttitude < ATTITUDE_Ignore )
-	{
-		resultz = true;
-		Enemy = NewEnemy;
-	}
-	else if ( newAttitude == ATTITUDE_Friendly ) //your enemy is my enemy
-	{
-	    //log("noticed a friend" $newenemy);
-		if ( NewEnemy.IsA('PlayerPawn') && (AlarmTag != '') )
-		{
-			Enemy = NewEnemy;
-			resultz = true;
-		}
-		if (bIgnoreFriends)
-		return false;
-		if (NewEnemy.bIsPlayer && NewEnemy.Enemy == NewEnemy)
-		return false;
-		if ( NewEnemy.Enemy != self && NewEnemy.Enemy != None && NewEnemy.Enemy.Health > 0 && !NewEnemy.Enemy.bDeleteme )
-		{
-			resultz = true;
- 			//log("his enemy is my enemy");
-			Enemy = NewEnemy.Enemy;
-			if (!NewEnemy.IsA('ScriptedPawn') && NewEnemy.Enemy.bIsPlayer && (NewEnemy.AttitudeToPlayer < AttitudeToPlayer) )
-			AttitudeToPlayer = NewEnemy.AttitudeToPlayer;
-			else if ( NewEnemy.IsA('ScriptedPawn') && (ScriptedPawn(NewEnemy) != None) && (ScriptedPawn(NewEnemy).Hated == Enemy) )
-			Hated = Enemy;
-		}
-	}
-
-	if ( resultz )
-	{
-		//log(class$" has new enemy - "$enemy.class);
-		LastSeenPos = Enemy.Location;
-		LastSeeingPos = Location;
-		EnemyAcquired();
-		if ( !bFirstHatePlayer && Enemy.bIsPlayer && (FirstHatePlayerEvent != '') )
-		TriggerFirstHate();
-	}
-	else if ( !NewEnemy.IsA('ScriptedPawn') && NewEnemy.bIsPlayer && (NewAttitude < ATTITUDE_Threaten) )
-	OldEnemy = NewEnemy;
-
-	return resultz;
 }
 
 function HaltFiring()
@@ -3245,11 +2926,6 @@ function eAttitude AttitudeToCreature(Pawn Other)
     return ATTITUDE_Friendly;
     else
 	return ATTITUDE_Hate;
-}
-
-function eAttitude AttitudeWithFear()
-{
-    return ATTITUDE_Hate;
 }
 
 function string KillMessage(name damageType, pawn Other)
@@ -7212,7 +6888,6 @@ defaultproperties
 	RotationRate=(Pitch=3072,Yaw=30000,Roll=2048)
 	DrawType=DT_Mesh
 	bStasis=False
-	SaluteTarget=None
 	LastTalker=None
 	LastTalkTime=0.0
 	MessageTime=0.0
@@ -7241,7 +6916,6 @@ defaultproperties
 	sbc=None
 	bsm=None
 	bInitz=False
-	Randsir=0
 	bGetResponse=False
 	bRespond=False
 	WalkingSpeed=0.3
