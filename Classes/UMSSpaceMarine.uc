@@ -593,7 +593,7 @@ var bool bInitz;
 var bool bWimp;
 var bool strafedodge;
 var bool bBeamingIn;
-var bool bReadyToTalk,bGetResponse,bRespond;
+var bool bGetResponse,bRespond;
 var bool bSkinOverride;
 var float SETimer,FXFadeTime,FadeTimer;
 var float LastTalkTime,MessageTime;
