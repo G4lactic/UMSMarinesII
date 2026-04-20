@@ -62,7 +62,8 @@ Function Tick(float DeltaTime)
 			else
 				bExpanding = False;
 		}
-    	GhostT=Spawn(Class'UMSGhostTrail',Self,,Location,Rotation);
+		if(VSize(Velocity) > 100)
+		GhostT=Spawn(Class'UMSGhostTrail',Self,,Location,Rotation);
 	}
 	else if(!bCloaked)
 	{

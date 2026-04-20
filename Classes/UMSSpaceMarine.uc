@@ -6,180 +6,182 @@ class UMSSpaceMarine extends ScriptedPawn;
 //OBJ Loads
 //=============================================================================
 #exec OBJ LOAD FILE=..\Sounds\Ambmodern.uax
-#exec OBJ LOAD FILE=Sounds\Voice\Marine.uax PACKAGE=UMSMarinesII.Voice
+#exec OBJ LOAD FILE=Sounds\Voice\Marine.uax 	PACKAGE=UMSMarinesII.Voice
 #exec OBJ LOAD FILE=..\Sounds\Activates.uax
-#exec OBJ LOAD FILE=Textures\FX\beam.utx PACKAGE=UMSMarinesII.FX
+#exec OBJ LOAD FILE=Textures\FX\beam.utx 		PACKAGE=UMSMarinesII.FX
 //SFX Imports
 //=============================================================================
-#exec AUDIO IMPORT FILE="Sounds\SFX\PowerON.WAV" NAME="PowerON" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\PowerOFF.WAV" NAME="PowerOFF" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\UMSStatic.WAV" NAME="UMSStatic" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st1.WAV" NAME="st1" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st2.WAV" NAME="st2" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st3.WAV" NAME="st3" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st4.WAV" NAME="st4" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st5.WAV" NAME="st5" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st6.WAV" NAME="st6" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st7.WAV" NAME="st7" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st8.WAV" NAME="st8" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st9.WAV" NAME="st9" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\st10.WAV" NAME="st10" GROUP="SFX"
-#exec AUDIO IMPORT FILE="Sounds\SFX\MCloakL.WAV" NAME="MCloakL" GROUP="SFX"
-#exec AUDIO IMPORT FILE="SOUNDS\SFX\CloakOff.WAV" NAME="BeamedIn" GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\PowerON.WAV" 	NAME="PowerON" 		GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\PowerOFF.WAV" 	NAME="PowerOFF" 	GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\UMSStatic.WAV" 	NAME="UMSStatic"	GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st1.WAV" 		NAME="st1" 			GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st2.WAV" 		NAME="st2" 			GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st3.WAV" 		NAME="st3" 			GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st4.WAV" 		NAME="st4" 			GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st5.WAV" 		NAME="st5" 			GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st6.WAV" 		NAME="st6" 			GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st7.WAV" 		NAME="st7" 			GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st8.WAV" 		NAME="st8" 			GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st9.WAV" 		NAME="st9" 			GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\st10.WAV" 		NAME="st10" 		GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\MCloakL.WAV" 	NAME="MCloakL" 		GROUP="SFX"
+#exec AUDIO IMPORT FILE="Sounds\SFX\CloakLoop1a.WAV" 	NAME="ReconCloakLoop" 		GROUP="SFX"
+#exec AUDIO IMPORT FILE="SOUNDS\SFX\CloakOff.WAV" 	NAME="BeamedIn" 	GROUP="SFX"
 //Footstep Imports
 //=============================================================================
-#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowR.WAV" NAME="MStep1" GROUP="Footsteps"
-#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowR2.WAV" NAME="MStep2" GROUP="Footsteps"
-#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowL.WAV" NAME="MStep3" GROUP="Footsteps"
-#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowL2.WAV" NAME="MStep4" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowR.WAV" 	NAME="MStep1" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowR2.WAV" 	NAME="MStep2" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowL.WAV" 	NAME="MStep3" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowL2.WAV" 	NAME="MStep4" GROUP="Footsteps"
 //Voice Imports
 //=============================================================================
-#exec AUDIO IMPORT FILE="Sounds\Voice\sirmale.WAV" NAME="sirmale" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\sirfemale.WAV" NAME="sirfemale" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\snore.WAV" NAME="snore" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\stepm.WAV" NAME="stepm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\stepf.WAV" NAME="stepf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\gladm.WAV" NAME="gladm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\gladf.WAV" NAME="gladf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\bodiesm.WAV" NAME="bodiesm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\bodiesf.WAV" NAME="bodiesf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\moveonm.WAV" NAME="moveonm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\moveonf.WAV" NAME="moveonf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\howm.WAV" NAME="howm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\howf.WAV" NAME="howf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\hopelessm.WAV" NAME="hopelessm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\hopelessf.WAV" NAME="hopelessf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\bastm.WAV" NAME="bastm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\bastf.WAV" NAME="bastf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\closem.WAV" NAME="closem" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\closef.WAV" NAME="closef" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\hellm.WAV" NAME="hellm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\hellf.WAV" NAME="hellf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\godm.WAV" NAME="godm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\godf.WAV" NAME="godf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\nightm.WAV" NAME="nightm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\nightf.WAV" NAME="nightf" GROUP="Voice
-#exec AUDIO IMPORT FILE="Sounds\Voice\startm.WAV" NAME="startm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\startf.WAV" NAME="startf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\atlastm.WAV" NAME="atlastm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\atlastf.WAV" NAME="atlastf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\luckym.WAV" NAME="luckym" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\luckyf.WAV" NAME="luckyf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\sprintm.WAV" NAME="sprintm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\sprintf.WAV" NAME="sprintf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\expectm.WAV" NAME="expectm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\expectf.WAV" NAME="expectf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\friendlyff.WAV" NAME="friendlyfF" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\friendlyfm.WAV" NAME="friendlyfM" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\coastf.WAV" NAME="coastf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\coastm.WAV" NAME="coastm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\lookoutf.WAV" NAME="lookoutf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\lookoutm.WAV" NAME="lookoutm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\incomingf.WAV" NAME="incomingf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\incomingm.WAV" NAME="incomingm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\onmywayf.WAV" NAME="onmywayf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\onmywaym.WAV" NAME="onmywaym" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\infestf.WAV" NAME="infestf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\infestm.WAV" NAME="infestm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\letsgof.WAV" NAME="letsgof" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\letsgom.WAV" NAME="letsgom" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\saddlef.WAV" NAME="saddlef" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\saddlem.WAV" NAME="saddlem" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\MBreath1.WAV" 	NAME="MarineBreath1" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\sirmale.WAV" 		NAME="sirmale" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\sirfemale.WAV" 	NAME="sirfemale" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\snore.WAV" 		NAME="snore" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\stepm.WAV" 		NAME="stepm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\stepf.WAV" 		NAME="stepf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\gladm.WAV" 		NAME="gladm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\gladf.WAV" 		NAME="gladf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\bodiesm.WAV" 		NAME="bodiesm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\bodiesf.WAV" 		NAME="bodiesf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\moveonm.WAV" 		NAME="moveonm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\moveonf.WAV" 		NAME="moveonf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\howm.WAV" 		NAME="howm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\howf.WAV" 		NAME="howf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\hopelessm.WAV" 	NAME="hopelessm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\hopelessf.WAV" 	NAME="hopelessf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\bastm.WAV" 		NAME="bastm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\bastf.WAV" 		NAME="bastf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\closem.WAV" 		NAME="closem" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\closef.WAV" 		NAME="closef" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\hellm.WAV" 		NAME="hellm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\hellf.WAV" 		NAME="hellf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\godm.WAV" 		NAME="godm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\godf.WAV" 		NAME="godf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\nightm.WAV" 		NAME="nightm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\nightf.WAV" 		NAME="nightf" GROUP="Voice
+#exec AUDIO IMPORT FILE="Sounds\Voice\startm.WAV" 		NAME="startm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\startf.WAV" 		NAME="startf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\atlastm.WAV" 		NAME="atlastm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\atlastf.WAV" 		NAME="atlastf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\luckym.WAV" 		NAME="luckym" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\luckyf.WAV" 		NAME="luckyf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\sprintm.WAV" 		NAME="sprintm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\sprintf.WAV" 		NAME="sprintf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\expectm.WAV" 		NAME="expectm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\expectf.WAV" 		NAME="expectf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\friendlyff.WAV" 	NAME="friendlyfF" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\friendlyfm.WAV" 	NAME="friendlyfM" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\coastf.WAV" 		NAME="coastf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\coastm.WAV" 		NAME="coastm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\lookoutf.WAV" 	NAME="lookoutf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\lookoutm.WAV" 	NAME="lookoutm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\incomingf.WAV" 	NAME="incomingf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\incomingm.WAV" 	NAME="incomingm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\onmywayf.WAV" 	NAME="onmywayf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\onmywaym.WAV" 	NAME="onmywaym" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\infestf.WAV" 		NAME="infestf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\infestm.WAV" 		NAME="infestm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\letsgof.WAV" 		NAME="letsgof" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\letsgom.WAV" 		NAME="letsgom" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\saddlef.WAV" 		NAME="saddlef" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\saddlem.WAV" 		NAME="saddlem" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\whatthehellf.WAV" NAME="whatthehellf" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\whatthehellm.WAV" NAME="whatthehellm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\beforef.WAV" NAME="beforef" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\beforem.WAV" NAME="beforem" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\getf.WAV" NAME="getf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\getm.WAV" NAME="getm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\rogerf.WAV" NAME="rogerf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\rogerm.WAV" NAME="rogerm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\negativef.WAV" NAME="negativef" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\negativem.WAV" NAME="negativem" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\scratchf.WAV" NAME="scratchf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\scratchm.WAV" NAME="scratchm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\wasteammof.WAV" NAME="wasteammof" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\wasteammom.WAV" NAME="wasteammom" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\sorryf.WAV" NAME="sorryf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\sorrym.WAV" NAME="sorrym" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\gotemf.WAV" NAME="gotemf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\gotemm.WAV" NAME="gotemm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\UhOhf.WAV" NAME="UhOhf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\UhOhm.WAV" NAME="UhOhm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\betterf.WAV" NAME="betterf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\dammgoodm.WAV" NAME="dammgoodm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\blowupf.WAV" NAME="blowupf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\livinm.WAV" NAME="livinm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\marksmanf.WAV" NAME="marksmanf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\cockym.WAV" NAME="cockym" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\herof.WAV" NAME="herof" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\doitagainm.WAV" NAME="doitagainm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\welldonef.WAV" NAME="welldonef" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\niceworkm.WAV" NAME="niceworkm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\missionf.WAV" NAME="missionf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\tooeasym.WAV" NAME="tooeasym" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\tooeasym2.WAV" NAME="tooeasym2" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\takethatf.WAV" NAME="takethatf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\ashesm.WAV" NAME="ashesm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\messf.WAV" NAME="messf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\messm.WAV" NAME="messm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\nastyf.WAV" NAME="nastyf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\thathurtm.WAV" NAME="thathurtm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\rockf.WAV" NAME="rockf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\rockm.WAV" NAME="rockm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\covermef.WAV" NAME="covermef" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\covermem.WAV" NAME="covermem" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\bestf.WAV" NAME="bestf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\seethatm.WAV" NAME="seethatm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\woof.WAV" NAME="woof" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\lockm.WAV" NAME="lockm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\wasclosef.WAV" NAME="wasclosef" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\quietm.WAV" NAME="quietm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\hif.WAV" NAME="hif" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\hif2.WAV" NAME="hif2" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\him.WAV" NAME="him" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\him2.WAV" NAME="him2" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\playf.WAV" NAME="playf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\nextonem.WAV" NAME="nextonem" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\prepf.WAV" NAME="prepf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\prepm.WAV" NAME="prepm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\adownf.WAV" name="adownf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\sdownm.WAV" name="sdownm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\takeemf.WAV" name="takeemf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\takeemm.WAV" name="takeemm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\seeyaf.WAV" NAME="seeyaf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\seeyam.WAV" NAME="seeyam" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\seeyaf2.WAV" NAME="seeyaf2" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\seeyam2.WAV" NAME="seeyam2" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\backupf.WAV" NAME="backupf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\backupm.WAV" NAME="backupm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\hellof.WAV" NAME="hellof" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\hellom.WAV" NAME="hellom" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\brbackf.WAV" NAME="brbackf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\brbackm.WAV" name="brbackm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\breakf.WAV" NAME="breakf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\breakm.WAV" name="breakm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\sloggingf.WAV" NAME="sloggingf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\sloggingm.WAV" name="sloggingm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\heref.WAV" name="heref" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\herem.WAV" name="herem" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\imgoodf.WAV" name="imgoodf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\imgoodm.WAV" name="imgoodm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\companyf.WAV" name="companyf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\companym.WAV" name="companym" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\gogom.WAV" name="gogom" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\gogof.WAV" name="gogof" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\moveitm.WAV" name="moveitm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\movem.WAV" name="movem" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\imonitf.WAV" name="imonitf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\imonitm.WAV" name="imonitm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\beforef.WAV" 		NAME="beforef" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\beforem.WAV" 		NAME="beforem" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\getf.WAV" 		NAME="getf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\getm.WAV" 		NAME="getm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\rogerf.WAV" 		NAME="rogerf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\rogerm.WAV" 		NAME="rogerm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\negativef.WAV" 	NAME="negativef" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\negativem.WAV" 	NAME="negativem" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\scratchf.WAV" 	NAME="scratchf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\scratchm.WAV" 	NAME="scratchm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\wasteammof.WAV" 	NAME="wasteammof" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\wasteammom.WAV" 	NAME="wasteammom" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\sorryf.WAV" 		NAME="sorryf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\sorrym.WAV" 		NAME="sorrym" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\gotemf.WAV" 		NAME="gotemf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\gotemm.WAV" 		NAME="gotemm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\UhOhf.WAV" 		NAME="UhOhf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\UhOhm.WAV" 		NAME="UhOhm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\betterf.WAV" 		NAME="betterf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\dammgoodm.WAV" 	NAME="dammgoodm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\blowupf.WAV" 		NAME="blowupf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\livinm.WAV" 		NAME="livinm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\marksmanf.WAV" 	NAME="marksmanf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\cockym.WAV" 		NAME="cockym" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\herof.WAV" 		NAME="herof" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\doitagainm.WAV" 	NAME="doitagainm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\welldonef.WAV" 	NAME="welldonef" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\niceworkm.WAV" 	NAME="niceworkm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\missionf.WAV" 	NAME="missionf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\tooeasym.WAV" 	NAME="tooeasym" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\tooeasym2.WAV" 	NAME="tooeasym2" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\takethatf.WAV" 	NAME="takethatf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\ashesm.WAV" 		NAME="ashesm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\messf.WAV" 		NAME="messf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\messm.WAV" 		NAME="messm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\nastyf.WAV" 		NAME="nastyf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\thathurtm.WAV" 	NAME="thathurtm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\rockf.WAV" 		NAME="rockf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\rockm.WAV" 		NAME="rockm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\covermef.WAV" 	NAME="covermef" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\covermem.WAV" 	NAME="covermem" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\bestf.WAV" 		NAME="bestf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\seethatm.WAV" 	NAME="seethatm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\woof.WAV" 		NAME="woof" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\lockm.WAV" 		NAME="lockm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\wasclosef.WAV" 	NAME="wasclosef" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\quietm.WAV" 		NAME="quietm" 			GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\hif.WAV" 			NAME="hif" 			GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\hif2.WAV" 		NAME="hif2" 				GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\him.WAV" 			NAME="him" 			GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\him2.WAV" 		NAME="him2" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\playf.WAV" 		NAME="playf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\nextonem.WAV" 	NAME="nextonem" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\prepf.WAV" 		NAME="prepf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\prepm.WAV" 		NAME="prepm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\adownf.WAV" 		name="adownf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\sdownm.WAV" 		name="sdownm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\takeemf.WAV" 		name="takeemf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\takeemm.WAV" 		name="takeemm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\seeyaf.WAV" 		NAME="seeyaf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\seeyam.WAV" 		NAME="seeyam" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\seeyaf2.WAV" 		NAME="seeyaf2" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\seeyam2.WAV" 		NAME="seeyam2" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\backupf.WAV" 		NAME="backupf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\backupm.WAV" 		NAME="backupm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\hellof.WAV" 		NAME="hellof" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\hellom.WAV" 		NAME="hellom" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\brbackf.WAV" 		NAME="brbackf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\brbackm.WAV" 		name="brbackm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\breakf.WAV" 		NAME="breakf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\breakm.WAV" 		name="breakm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\sloggingf.WAV" 	NAME="sloggingf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\sloggingm.WAV" 	name="sloggingm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\heref.WAV" 		name="heref" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\herem.WAV" 		name="herem" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\imgoodf.WAV" 		name="imgoodf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\imgoodm.WAV" 		name="imgoodm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\companyf.WAV" 	name="companyf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\companym.WAV" 	name="companym" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\gogom.WAV" 		name="gogom" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\gogof.WAV" 		name="gogof" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\moveitm.WAV" 		name="moveitm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\movem.WAV" 		name="movem" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\imonitf.WAV" 		name="imonitf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\imonitm.WAV" 		name="imonitm" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\affirmativef.WAV" name="affirmativef" GROUP="Voice"
 #exec AUDIO IMPORT FILE="Sounds\Voice\affirmativem.WAV" name="affirmativem" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\willdom.WAV" name="willdom" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\aquiref.WAV" name="aquiref" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\okf.WAV" name="okf" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\yougotitm.WAV" name="yougotitm" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\ten4f.WAV" name="ten4f" GROUP="Voice"
-#exec AUDIO IMPORT FILE="Sounds\Voice\ten4m.WAV" name="ten4m" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\willdom.WAV" 		name="willdom" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\aquiref.WAV" 		name="aquiref" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\okf.WAV" 			name="okf" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\yougotitm.WAV" 	name="yougotitm" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\ten4f.WAV" 		name="ten4f" GROUP="Voice"
+#exec AUDIO IMPORT FILE="Sounds\Voice\ten4m.WAV" 		name="ten4m" GROUP="Voice"
 
 //Texture Imports
 //=============================================================================
@@ -202,6 +204,9 @@ class UMSSpaceMarine extends ScriptedPawn;
 //SpectreMarine
 #exec texture IMPORT NAME=SMarine1 FILE=Textures\Skins\UMSBlackOpMarine.PCX GROUP=Skins LODSET=2
 #exec texture IMPORT NAME=SMarine2 FILE=Textures\Skins\UMSBlackOpMarine2.PCX GROUP=Skins LODSET=2
+//ReconMarine
+#exec texture IMPORT NAME=RMarine1 FILE=Textures\Skins\Recon1.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=RMarine2 FILE=Textures\Skins\Recon2.PCX GROUP=Skins LODSET=2
 
 //Visors
 #exec texture IMPORT NAME=MarineVisorGlowBasic FILE=Textures\FX\MarineVisorGlowBasic.PCX GROUP=FX LODSET=2
@@ -2848,7 +2853,7 @@ function NotifyPeers( name Message, optional Pawn Other )
 
 	foreach RadiusActors( class'UMSSpacemarine', Friend, CommandRadius )
 	{
-		if( Friend != self )
+		if(Friend != self)
 		{
             Friend.PeerNotification( Self, Message, Other );
 		}
@@ -2964,7 +2969,7 @@ function ChangedWeapon()
 {
     Super.ChangedWeapon();
     bIsPlayer = false;
-    bMovingRangedAttack = true;
+    //bMovingRangedAttack = true;
     bHasRangedAttack = true;
     if ( Weapon != None )
     {
@@ -6265,7 +6270,8 @@ ignores SeePlayer, HearNoise;
 
 state Exploding
 {
-ignores Fireweapon, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
+	ignores Fireweapon, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, 
+		ZoneChange, Falling, WarnTarget, Died, EnemyAcquired;
 
      function destroyed()
      {
@@ -6570,7 +6576,8 @@ Begin:
 
 State Teleporting
 {
-ignores Fireweapon, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
+	ignores Fireweapon, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, 
+			FootZoneChange, ZoneChange, Falling, WarnTarget, Died, EnemyAcquired;
 
 	function Tick(float DeltaTime)
 	{
@@ -6666,6 +6673,8 @@ defaultproperties
 	bCanStrafe=True
 	bAutoActivate=True
 	TransientSoundVolume=1.0
+	AmbientSound='MarineBreath1'
+	SoundVolume=24
 	Buoyancy=200.0
 	Skin=Texture'UnrealShare.Skins.Kurgan'
 	Mesh=LodMesh'UMSMarinesII.UMSMarine'
@@ -6718,11 +6727,13 @@ defaultproperties
 	BeamWaitTime=2.0
 	BeamTime=5
 	FXFadeTime=3.65
-	Skill=1
+	Skill=2
 	FadeTimer=1
 	MarineSkin=SKIN_Random
 	bEnhancedSightCheck=True
 	bDoAutoSerpentine=True
+	bMovingRangedAttack=True
+	SightCheckType=SEE_All
 	AcquirePhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms106'),(Male=Sound'UMSMarinesII.Voice.Ms206a'),(Male=Sound'UMSMarinesII.Voice.Ms206b')),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms306a'),(Female=Sound'UMSMarinesII.Voice.Ms306b')))
 	HelpPhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms114'),(Male=Sound'UMSMarinesII.Voice.Ms109'),(Male=Sound'UMSMarinesII.Voice.Ms104'),(Male=Sound'UMSMarinesII.Voice.Ms204a'),(Male=Sound'UMSMarinesII.Voice.Ms204b'),(Male=Sound'UMSMarinesII.Voice.Ms209a'),(Male=Sound'UMSMarinesII.Voice.Ms209b'),(Male=Sound'UMSMarinesII.Voice.Ms214a'),(Male=Sound'UMSMarinesII.Voice.Ms214b')),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms304a'),(Female=Sound'UMSMarinesII.Voice.Ms304b'),(Female=Sound'UMSMarinesII.Voice.Ms309a'),(Female=Sound'UMSMarinesII.Voice.Ms309b'),(Female=Sound'UMSMarinesII.Voice.Ms314a'),(Female=Sound'UMSMarinesII.Voice.Ms314b')))
 	ChargePhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.Ms111',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms112',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms211a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms211b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms212a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms212b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms113',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms213a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms213b',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms105',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.Ms205a',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.Ms205b',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.Ms107',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms207a',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.Ms207b',bAllowResponse=True)),FemaleSounds=((Female=Sound'UMSMarinesII.Voice.Ms305a',bAllowResponse=False),(Female=Sound'UMSMarinesII.Voice.Ms305b',bAllowResponse=False),(Female=Sound'UMSMarinesII.Voice.Ms311a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms311b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms312a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms312b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms313a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms313b',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms307a',bAllowResponse=True),(Female=Sound'UMSMarinesII.Voice.Ms307b',bAllowResponse=True)))

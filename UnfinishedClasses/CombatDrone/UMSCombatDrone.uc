@@ -292,201 +292,6 @@ simulated function PlayFootStep()
 		PlaySound(step, SLOT_Interact, 4, false, 1200.0, 1.0);
 }
 
-function KillPhrase()
-{
-	local int RandNum;
-    local float vol;
-    local sound voice;
-
-    LastTalkTime=level.TimeSeconds;
-	vol = 2.0;
-    LastTalker = self;
-    Talker( LastTalker );
-    bGetResponse=false;
-    bRespond=false;
-
-	if( !bIsFemale )
-	{
-		RandNum = Rand( 3 );
-
-		if (RandNum==0)
-				voice=sound'UMSMarinesII.CDM110';  //target eliminated
-		else if (RandNum==1)
-				voice=sound'UMSMarinesII.CDM115';  //enemy's dead
-		else if (RandNum==2)
-				voice=sound'UMSMarinesII.CDM116';  //target eliminated
-	}
-    if(voice!=none)
-    {
-     PlaySound( voice, SLOT_Talk,vol*0.9 );
-     PlaySound( voice, SLOT_None,vol*0.9 );
-    }
-}
-
-function HelpPhrase()
-{
-	local int RandNum;
-    local float vol;
-    local sound voice;
-
-    LastTalkTime=level.TimeSeconds;
-	vol = 2.0;
-	LastTalker = self;
-    Talker( LastTalker );
-    bGetResponse=true;
-    bRespond=false;
-	if( !bIsFemale )
-    {
-         RandNum = Rand( 3 );
-         if (RandNum==0)
-		    	voice=sound'UMSMarinesII.CDM114';  //I need some help here
-	     else if (RandNum==1)
-				voice=sound'UMSMarinesII.CDM109';  //I need some help here
-         else if (RandNum==2)
-				voice=sound'UMSMarinesII.CDM104';  //Im in trouble
-	}
-    if(voice!=none)
-    {
-     PlaySound( voice, SLOT_Talk,vol*0.9 );
-     PlaySound( voice, SLOT_None,vol*0.9 );
-    }
-}
-
-function AcquirePhrase()
-{
-	local int RandNum;
-    local float vol;
-    local sound voice;
-
-    LastTalkTime=level.TimeSeconds;
-	vol = 2.0;
-    LastTalker = self;
-    Talker( LastTalker );
-    bRespond=false;
-
-	if(bActFriendly)
-	{
-		if(!bIsFemale)
-		voice=sound'UMSMarinesII.Him2'; // Hi!
-		else
-		voice=sound'UMSMarinesII.Hif2'; // Hi!
-	}
-	else
-	{
-		if( !bIsFemale )
-		{
-			RandNum = Rand( 3 );
-
-			if (RandNum==0)
-					voice=sound'UMSMarinesII.CDM106'; //target acquired
-			else if (RandNum==1)
-					voice=sound'UMSMarinesII.CDM106'; //target acquired
-			else if (RandNum==2)
-					voice=sound'UMSMarinesII.CDM106'; //target acquired
-		}
-	}
-    if(voice!=none)
-    {
-     PlaySound( voice, SLOT_Talk,vol*0.9 );
-     PlaySound( voice, SLOT_None,vol*0.9 );
-    }
-}
-
-function ChargePhrase()
-{
-	local int RandNum;
-    local float vol;
-    local sound voice;
-
-	vol = 2.0;
-	LastTalkTime=level.TimeSeconds;
-    LastTalker = self;
-    Talker( LastTalker );
-    bGetResponse=false;
-    bRespond=false;
-	if( !bIsFemale )
-	{
-       	RandNum = Rand( 3 );
-
-		if (RandNum==0)
-				voice=sound'UMSMarinesII.CDM111';  //fire
-		else if (RandNum==1)
-				voice=sound'UMSMarinesII.CDM112'; //fire
-		else if (RandNum==2)
-				voice=sound'UMSMarinesII.CDM113';  //fire
-
-        if((RandNum==0 || RandNum==1 || RandNum==2 || RandNum==3 || RandNum==4
-           || RandNum==5 || RandNum==6 || RandNum==7 || RandNum==8
-           || RandNum==13)&& FRand()<0.5)
-
-           bGetResponse=true;
-	}
-    if(voice!=none)
-    {
-     PlaySound( voice, SLOT_Talk,vol*0.9 );
-     PlaySound( voice, SLOT_None,vol*0.9 );
-    }
-}
-
-function RespondPhrase()
-{
-	local int RandNum;
-    local float vol;
-    local sound voice;
-
-    bRespond=false;
-    NotifyPeers( 'responded');
-    if( Level.TimeSeconds - LastTalkTime > 2.0 )
-     return;
-	vol = 2.0;
-	LastTalkTime=level.TimeSeconds;
-    LastTalker = self;
-    Talker( LastTalker );
-
-	if( !bIsFemale )
-	{
-       	RandNum = Rand( 7 );
-      if (RandNum==0)
-         voice=sound'onmywaym';
-      else if (RandNum==1)
-         voice=sound'imonitm';
-      else if (RandNum==2)
-         voice=sound'rogerm';
-      else if (RandNum==3)
-         voice=sound'affirmativem';
-      else if (RandNum==4)
-         voice=sound'willdom';
-      else if (RandNum==5)
-         voice=sound'yougotitm';
-      else if (RandNum==6)
-         voice=sound'ten4m';
-    }
-    else
-    {
-     RandNum = Rand( 7 );
-
-       if (RandNum==0)
-         voice=sound'onmywayf';
-       else if (RandNum==1)
-         voice=sound'imonitf';
-       else if (RandNum==2)
-         voice=sound'rogerf';
-      else if (RandNum==3)
-         voice=sound'affirmativef';
-      else if (RandNum==4)
-         voice=sound'aquiref';
-      else if (RandNum==5)
-         voice=sound'okf';
-      else if (RandNum==6)
-         voice=sound'ten4f';
-    }
-    if(voice!=none)
-    {
-     PlaySound( voice, SLOT_Talk,vol );
-     PlaySound( voice, SLOT_None,vol );
-    }
-}
-
 function PlayRunning()
 {
     local float strafeMag;
@@ -720,7 +525,7 @@ Run:
 	{
 		Acceleration = Vect(0,0,0);
 		PlayAnim('Thrust',1.5);
-		AmbientSound=Sound'TWAlarm';
+		AmbientSound=Sound'ambmodern.looping.alarm2';
 		SoundRadius=128;
 		Sleep(0.8);
  		Playsound(ActiveExlo);
@@ -808,101 +613,39 @@ function PlayDeathHit(float Damage, vector HitLocation, name damageType)
 
 defaultproperties
 {
-	Event='None'
-	Accuracy=0.0
-	drown=Sound'UnrealShare.Male.MDrown1'
-	breathagain=Sound'UnrealShare.Male.MGasp1'
+	ExplodeSound=None
 	Footstep1=Sound'UMSMarinesII.Footsteps.DroneStep1'
 	Footstep2=Sound'UMSMarinesII.Footsteps.DroneStep2'
 	Footstep3=Sound'UMSMarinesII.Footsteps.DroneStep3'
-	HitSound3=Sound'UnrealShare.Male.MInjur3'
-	HitSound4=Sound'UnrealShare.Male.MInjur4'
-	Die2=None
-	Die3=None
-	Die4=None
-	GaspSound=Sound'UnrealShare.Male.MGasp2'
-	UWHit1=Sound'UnrealShare.Male.MUWHit1'
-	UWHit2=Sound'UnrealShare.Male.MUWHit2'
-	LandGrunt=Sound'UnrealShare.Male.lland01'
-	JumpSound=Sound'UnrealShare.Male.MJump1'
+	Die2=Sound'UMSMarinesII.Voice.CDM117B'
+	Die3=Sound'UMSMarinesII.Voice.CDM117C'
+	Die4=Sound'UMSMarinesII.Voice.CDM117D'
 	WeaponType=Class'UnrealShare.Stinger'
-	myWeapon=None
+	AcquirePhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.CDM106')),FemaleSounds=())
+	HelpPhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.CDM104'),(Male=Sound'UMSMarinesII.Voice.CDM114'),(Male=Sound'UMSMarinesII.Voice.CDM109'),(Male=Sound'UMSMarinesII.Voice.CDM114')),FemaleSounds=())
+	ChargePhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.CDM105',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.CDM107',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.CDM111',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.CDM112',bAllowResponse=True),(Male=Sound'UMSMarinesII.Voice.CDM113',bAllowResponse=True)),FemaleSounds=())
+	KillPhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.CDM110'),(Male=Sound'UMSMarinesII.Voice.CDM115'),(Male=Sound'UMSMarinesII.Voice.CDM116')),FemaleSounds=())
+	RespondPhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.CDM108')),FemaleSounds=())
 	HumanKillMessage=" was blown away by a UMS Combat Drone"
-	DispPowerLevel=1
-	strafedodge=False
-	Aggressiveness=0.9
-	RefireRate=0.3
+	Gender=GENDER_Male
+	WalkingSpeed=0.2
 	CarcassType=Class'UMSMarinesII.UMSDroneCarcass'
 	Health=500
-	MeleeRange=50.0
 	GroundSpeed=280.0
-	AirSpeed=400.0
-	AccelRate=1248.0
-	AirControl=0.35
-	SightRadius=4000.0
-	UnderWaterTime=-1.0
 	CombatStyle=0.85
 	HitSound1=None
 	HitSound2=None
-	Die=None
-	Intelligence=BRAINS_HUMAN
-	bCanStrafe=True
-	bAutoActivate=True
-	TransientSoundVolume=1.0
-	Buoyancy=200.0
-	Skin=Texture'UnrealShare.Skins.Kurgan'
+	Die=Sound'UMSMarinesII.Voice.CDM117A'
+	MenuName="UMS Combat Drone"
+	DrawScale=1.25
+	CollisionRadius=21.0
+	CollisionHeight=53.5
+	Mass=400.0
 	Mesh=LodMesh'UMSMarinesII.UMSDrone'
-	AnimSequence="Breath1L"
-	RotationRate=(Pitch=3072,Yaw=30000,Roll=2048)
-	DrawType=DT_Mesh
+	MultiSkins(0)=Texture'UMSMarinesII.Skins.UMS0'
+	MultiSkins(1)=Texture'UMSMarinesII.Skins.GlowRed'
 	LightBrightness=70
 	LightHue=40
 	LightSaturation=128
 	LightRadius=6
-	bStasis=False
-	SaluteTarget=None
-	LastTalker=None
-	LastTalkTime=0.0
-	MessageTime=0.0
-	CommandRadius=3000.0
-	bButtonPusher=False
-	Slap=Sound'UnrealI.Titan.slaphit1Ti'
-	static1=Sound'UMSMarinesII.UMSMarines.st1'
-	static2=Sound'UMSMarinesII.UMSMarines.st2'
-	static3=Sound'UMSMarinesII.UMSMarines.st3'
-	static4=Sound'UMSMarinesII.UMSMarines.st4'
-	static5=Sound'UMSMarinesII.UMSMarines.st5'
-	static6=Sound'UMSMarinesII.UMSMarines.st6'
-	static7=Sound'UMSMarinesII.UMSMarines.st7'
-	static8=Sound'UMSMarinesII.UMSMarines.st8'
-	static9=Sound'UMSMarinesII.UMSMarines.st9'
-	static10=Sound'UMSMarinesII.UMSMarines.st10'
-	ExplodeSound=Sound'UMSMarinesII.tripwire.tripExplo'
-	ActiveExlo=Sound'Activates.Beeps.mactiv62'
-	Reloadsound=None
-	PunchDamage=5
-	SlamDamage=9
-	bTeleportWhenHurt=False
-	bExplodeWhenHurt=False
-	sbc=None
-	bsm=None
-	bInitz=False
-	Randsir=0
-	bGetResponse=False
-	bRespond=False
-	WalkingSpeed=0.2
-	JumpZ=425.0
-	BaseEyeHeight=39.0
-	EyeHeight=39.0
-	MenuName="UMS Combat Drone"
-	Mass=400.0
-	DrawScale=1.25
-	CollisionRadius=21.0
-	CollisionHeight=53.500000
-	Fatness=130
-	BeamWaitTime=2.0
-	BeamTime=5
-	Skill=2
-	MultiSkins(0)=Texture'UMSMarinesII.Skins.UMS0'
-	MultiSkins(1)=Texture'UMSMarinesII.FX.GlowRed'
 }
