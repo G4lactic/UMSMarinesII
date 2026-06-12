@@ -538,6 +538,11 @@ Struct ListRespondPhrase
 	var() array <RFMaleS> FemaleSounds;
 };
 
+Struct ListStaticSound
+{
+	var() array <sound> Static;
+};
+
 //UMSSpaceMarine
 //=============================================================================
 var() class<weapon> WeaponType;
@@ -583,7 +588,7 @@ var(Phrases) ListRespondPhrase RespondPhrases;
 //Sounds.
 //=============================================================================
 var(Sounds) sound slap;
-var(Sounds) sound static1,static2,static3,static4,static5,static6,static7,static8,static9,static10;
+var(Sounds) ListStaticSound StaticSounds;
 var(Sounds) sound ExplodeSound,ActiveExlo;
 var(Sounds) sound drown,breathagain;
 var(Sounds) sound Footstep1,Footstep2,Footstep3;
@@ -2624,30 +2629,17 @@ function Reload()
 
 function radio()
 {
-    local int RandNum;
+    local float vol;
+    local sound StaticSound;
 
-	RandNum = Rand( 10 );
+	vol = 2.0;
+	StaticSound=StaticSounds.Static[Rand(Array_Size(StaticSounds.Static))];
 
-    if (RandNum==0)
-		PlaySound(static1, SLOT_None, 2.0, true );
-	else if (RandNum==1)
-		PlaySound(static2, SLOT_None, 2.0, true );
-    else if (RandNum==2)
-		PlaySound(static3, SLOT_None, 2.0, true );
-	else if (RandNum==3)
-		PlaySound(static4, SLOT_None, 2.0, true );
-    else if (RandNum==4)
-		PlaySound(static5, SLOT_None, 2.0, true );
-	else if (RandNum==5)
-		PlaySound(static6, SLOT_None, 2.0, true );
-	else if (RandNum==6)
-		PlaySound(static7, SLOT_None, 2.0, true );
-	else if (RandNum==7)
-		PlaySound(static8, SLOT_None, 2.0, true );
-	else if (RandNum==8)
-		PlaySound(static9, SLOT_None, 2.0, true );
-	else
-		PlaySound(static10, SLOT_None, 2.0, true );
+    if(StaticSound!=none)
+    {
+    	PlaySound( StaticSound, SLOT_None,vol*0.9 );
+    	PlaySound( StaticSound, SLOT_None,vol*0.9 );
+    }
 }
 
 function PlayDyingSound()
@@ -6688,16 +6680,7 @@ defaultproperties
 	CommandRadius=3000.0
 	bButtonPusher=False
 	Slap=Sound'UnrealI.Titan.slaphit1Ti'
-	static1=Sound'UMSMarinesII.UMSMarines.st1'
-	static2=Sound'UMSMarinesII.UMSMarines.st2'
-	static3=Sound'UMSMarinesII.UMSMarines.st3'
-	static4=Sound'UMSMarinesII.UMSMarines.st4'
-	static5=Sound'UMSMarinesII.UMSMarines.st5'
-	static6=Sound'UMSMarinesII.UMSMarines.st6'
-	static7=Sound'UMSMarinesII.UMSMarines.st7'
-	static8=Sound'UMSMarinesII.UMSMarines.st8'
-	static9=Sound'UMSMarinesII.UMSMarines.st9'
-	static10=Sound'UMSMarinesII.UMSMarines.st10'
+	StaticSounds=(Static=(Sound'UMSMarinesII.SFX.st1',Sound'UMSMarinesII.SFX.st2',Sound'UMSMarinesII.SFX.st3',Sound'UMSMarinesII.SFX.st4',Sound'UMSMarinesII.SFX.st5',Sound'UMSMarinesII.SFX.st6',Sound'UMSMarinesII.SFX.st7',Sound'UMSMarinesII.SFX.st8',Sound'UMSMarinesII.SFX.st9',Sound'UMSMarinesII.SFX.st10'))
 	ExplodeSound=Sound'UnrealShare.Flak.expl2'
 	ActiveExlo=Sound'Activates.Beeps.mactiv62'
 	PunchDamage=5
