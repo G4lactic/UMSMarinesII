@@ -79,11 +79,6 @@ defaultproperties
 	Health=150
 	bExplodeWhenHurt=True
 	WeaponType=Weapon'UnrealShare.Eightball'
-	AcquirePhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.JRage10')),FemaleSounds=())
-	HelpPhrases=(MaleSounds=(),FemaleSounds=())
-	ChargePhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.JRage4',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.JRage3',bAllowResponse=False),(Male=Sound'UMSMarinesII.Voice.JRage5',bAllowResponse=False)),FemaleSounds=())
-	KillPhrases=(MaleSounds=((Male=Sound'UMSMarinesII.Voice.JRage7'),(Male=Sound'UMSMarinesII.Voice.JRage6'),(Male=Sound'UMSMarinesII.Voice.JRage8'),(Male=Sound'UMSMarinesII.Voice.JRage9')),FemaleSounds=())
-	RespondPhrases=(MaleSounds=(),FemaleSounds=())
 	Gender=GENDER_Male
 	bSkinOverride=False
 	MarineSkin=SKIN_Jungle
