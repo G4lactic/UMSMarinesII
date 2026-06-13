@@ -72,5 +72,5 @@ defaultproperties
 	MenuName="UMS Elite Soldier"
 	MultiSkins(1)=Texture'UMSMarinesII.Skins.EMarine1'
 	MultiSkins(2)=Texture'UMSMarinesII.Skins.EMarine2'
-	GlowingVisorTexture=Texture'UMSMarinesII.FX.MarineVisorGlowBasic'
+	GlowyBits=(EffectMultiSkin1=None,EffectMultiSkin2=None,ExtraEffect=Texture'UMSMarinesII.FX.MarineVisorGlowBasic',ExtraEffectLayer=MultiSkin1)
 }

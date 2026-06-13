@@ -27,7 +27,7 @@ defaultproperties
 {
     ScaleGlow=0.5
     Texture=None
-    MultiSkins(1)=Texture'UMSMarinesII.MarineBlackOpsGlow'
+    MultiSkins(1)=Texture'UWindow.BlackTexture'
     MultiSkins(2)=Texture'UWindow.BlackTexture'
     Physics=PHYS_Trailer
     RemoteRole=ROLE_SimulatedProxy

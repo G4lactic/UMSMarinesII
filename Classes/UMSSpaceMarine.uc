@@ -543,6 +543,19 @@ Struct ListStaticSound
 	var() array <sound> Static;
 };
 
+Struct ListGlowyBits
+{
+	var() texture EffectMultiSkin1;
+	var() texture EffectMultiSkin2;
+	var() texture ExtraEffect;
+	var() enum EELayer
+	{
+		MultiSkin1,
+		MultiSkin2
+	}
+	ExtraEffectLayer;
+};
+
 //UMSSpaceMarine
 //=============================================================================
 var() class<weapon> WeaponType;
@@ -568,7 +581,8 @@ var(Misc) float ExploRange,ExploDamage,ExploMomentum;
 var(Misc) float BeamWaitTime,BeamTime;
 var(Misc) float CommandRadius;
 var(Misc) string HumanKillMessage;
-var(Misc) Texture GlowingVisorTexture;
+//var(Misc) Texture GlowingVisorTexture;
+var(Misc) ListGlowyBits GlowyBits;
 var(Misc) enum GOverride
 {
 	GENDER_Random,
@@ -610,6 +624,7 @@ var float LastTalkTime,MessageTime;
 var float Accuracy;
 var name LogSkinName;
 var Effects Glowy;
+var Effects GlowyE;
 var UMSSpaceMarine LastTalker;
 var	Weapon myWeapon;
 var UMSBeamOctagon Octagon;
@@ -672,10 +687,23 @@ function PostBeginPlay()
 	if(bPerfersRanged)
 	CombatStyle = Default.CombatStyle - 0.3;
 
-	if(GlowingVisorTexture != None)
+	//There is a better way to do this, im just not smart enough to do it!
+	if(GlowyBits.EffectMultiSkin1 != None || GlowyBits.EffectMultiSkin2 != None)
 	{
 		Glowy = Spawn(Class'UMSGlowyVisor',Self,,Location,Rotation);
-		Glowy.MultiSkins[1]=GlowingVisorTexture;
+		if (GlowyBits.EffectMultiSkin1 != None)
+		Glowy.MultiSkins[1]=GlowyBits.EffectMultiSkin1;
+		if (GlowyBits.EffectMultiSkin2 != None)
+		Glowy.MultiSkins[2]=GlowyBits.EffectMultiSkin2;
+	}
+
+	if(GlowyBits.ExtraEffect != None)
+	{
+		GlowyE = Spawn(Class'UMSGlowyVisor',Self,,Location,Rotation);
+		if (GlowyBits.ExtraEffectLayer != MultiSkin1)
+		GlowyE.MultiSkins[2]=GlowyBits.ExtraEffect;
+		else
+		GlowyE.MultiSkins[1]=GlowyBits.ExtraEffect;
 	}
 
 	bCanSpeak = true;
@@ -6704,7 +6732,7 @@ defaultproperties
 	MultiSkins(1)=Texture'UMSMarinesII.Skins.JMarine7'
 	MultiSkins(2)=Texture'UMSMarinesII.Skins.JMarine8'
 	DrawScale=1
-	CollisionRadius=20.5
+	CollisionRadius=19
 	CollisionHeight=41.0
 	Fatness=130
 	BeamWaitTime=2.0

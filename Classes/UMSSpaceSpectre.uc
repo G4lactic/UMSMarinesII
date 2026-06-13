@@ -190,5 +190,5 @@ defaultproperties
 	MultiSkins(1)=Texture'UMSMarinesII.Skins.SMarine1'
 	MultiSkins(2)=Texture'UMSMarinesII.Skins.SMarine2'
 	Skill=3
-	GlowingVisorTexture=Texture'UMSMarinesII.FX.MarineBlackOpsGlow'
+	GlowyBits=(EffectMultiSkin1=None,EffectMultiSkin2=None,ExtraEffect=Texture'UMSMarinesII.FX.MarineBlackOpsGlow',ExtraEffectLayer=MultiSkin1)
 }
