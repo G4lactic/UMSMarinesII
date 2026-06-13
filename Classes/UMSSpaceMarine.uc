@@ -514,7 +514,7 @@ Struct ListGlowyBits
 var() class<weapon> WeaponType;
 var() bool bButtonPusher;
 var() bool bCadet; // Simulates a less experienced Marine.
-var() bool bPerfersRanged; // Perfers to stay back and shoot
+var() bool bPrefersRanged; // Perfers to stay back and shoot
 var() enum MSkin
 {
 	SKIN_Default,
@@ -637,7 +637,7 @@ function PostBeginPlay()
 	if(bTeleportWhenHurt)
 	bExplodeWhenHurt=false;
 
-	if(bPerfersRanged)
+	if(bPrefersRanged)
 	CombatStyle = Default.CombatStyle - 0.3;
 
 	//There is a better way to do this, im just not smart enough to do it!
@@ -4247,7 +4247,7 @@ ignores SeePlayer, HearNoise;
 
 	function BeginState()
 	{
-		if(bPerfersRanged && FRand() < 0.75)
+		if(bPrefersRanged && FRand() < 0.75)
 		GotoState('TacticalMove');
 	 if ( skill <= 1 )
 	   bCanDuck = false;
@@ -6082,7 +6082,7 @@ ignores SeePlayer, HearNoise;
 	{
 		local vector X,Y,Z, Dir;
 
-		if(bPerfersRanged)
+		if(bPrefersRanged)
 		{
 			strafedodge=false;
 			if (Region.Zone.bWaterZone )

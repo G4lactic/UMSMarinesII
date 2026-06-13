@@ -174,7 +174,7 @@ defaultproperties
 	CombatStyle=-1
 	Skill=6
 	bMovingRangedAttack=False;
-	bPerfersRanged=True
+	bPrefersRanged=True
 	bDoSpecial=False
 	WeaponType='Rifle'
 	Texture=Texture'UnrealShare.Invis'

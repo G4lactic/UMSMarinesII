@@ -12,7 +12,7 @@ Struct MSetup
 {
 	var() class <umsspacemarine> MarineType;
 	var() class <Weapon> WeaponType;
-	var() bool bPerfersRanged;
+	var() bool bPrefersRanged;
 	var() UMSSpaceMarine.MSkin MarineSkin; // Use this if you want a specific skin. otherwise set DefaultMarineSkin.
 };
 
@@ -91,7 +91,7 @@ Function BeamMarine()
         	NewMarine.WeaponType = MarineList[M].WeaponType;
         	NewMarine.bBeamingIn = True;
 			NewMarine.MarineSkin = MarineList[M].MarineSkin;
-			NewMarine.bPerfersRanged = MarineList[M].bPerfersRanged;
+			NewMarine.bPrefersRanged = MarineList[M].bPrefersRanged;
 			if(NewMarine.MarineSkin == SKIN_Default)
 			NewMarine.MarineSkin = DefaultMarineSkin;
         	NewMarine.SetEnemy(GetPlayerPawn());

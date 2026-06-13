@@ -61,7 +61,7 @@ auto state StartUp
 
 defaultproperties
 {
-	bPerfersRanged=True
+	bPrefersRanged=True
     bShieldOn=False
 	WeaponType=Class'ASMD'
 	HumanKillMessage=" was blown away by a UMS Elite Soldier"

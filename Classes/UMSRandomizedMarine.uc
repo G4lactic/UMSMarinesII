@@ -11,7 +11,7 @@ Function PostBeginPlay()
 	PickRWeapon();
 	Super.PostBeginPlay();
 	if( FRand() < 0.5 )
-	bPerfersRanged=True;
+	bPrefersRanged=True;
 }
 
 Function PickRWeapon()
