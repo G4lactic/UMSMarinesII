@@ -6690,9 +6690,11 @@ defaultproperties
 	FadeTimer=1
 	MarineSkin=SKIN_Random
 	bEnhancedSightCheck=True
-	bDoAutoSerpentine=True
+	//bDoAutoSerpentine=True
 	bMovingRangedAttack=True
 	SightCheckType=SEE_All
+	BonusSkill=1.5
+	bIsPackHunter=True
 	AcquirePhrases=(MaleSounds=(Sound'UMSMarinesII.Voice.Ms106',Sound'UMSMarinesII.Voice.Ms107',Sound'UMSMarinesII.Voice.Ms206a',Sound'UMSMarinesII.Voice.Ms206b',Sound'UMSMarinesII.Voice.Ms207a',Sound'UMSMarinesII.Voice.Ms207b'),FemaleSounds=(Sound'UMSMarinesII.Voice.Ms306a',Sound'UMSMarinesII.Voice.Ms306b',Sound'UMSMarinesII.Voice.Ms307a',Sound'UMSMarinesII.Voice.Ms307b'))
 	HelpPhrases=(MaleSounds=(Sound'UMSMarinesII.Voice.Ms104',Sound'UMSMarinesII.Voice.Ms109',Sound'UMSMarinesII.Voice.Ms114',Sound'UMSMarinesII.Voice.Ms204a',Sound'UMSMarinesII.Voice.Ms204b',Sound'UMSMarinesII.Voice.Ms209a',Sound'UMSMarinesII.Voice.Ms209b',Sound'UMSMarinesII.Voice.Ms214a',Sound'UMSMarinesII.Voice.Ms214b'),FemaleSounds=(Sound'UMSMarinesII.Voice.Ms304a',Sound'UMSMarinesII.Voice.Ms304b',Sound'UMSMarinesII.Voice.Ms309a',Sound'UMSMarinesII.Voice.Ms309b',Sound'UMSMarinesII.Voice.Ms314a',Sound'UMSMarinesII.Voice.Ms314b'))
 	ChargePhrases=(MaleSounds=(Sound'UMSMarinesII.Voice.Ms105',Sound'UMSMarinesII.Voice.Ms107',Sound'UMSMarinesII.Voice.Ms111',Sound'UMSMarinesII.Voice.Ms112',Sound'UMSMarinesII.Voice.Ms113',Sound'UMSMarinesII.Voice.Ms205a',Sound'UMSMarinesII.Voice.Ms205b',Sound'UMSMarinesII.Voice.Ms207a',Sound'UMSMarinesII.Voice.Ms207b',Sound'UMSMarinesII.Voice.Ms211a',Sound'UMSMarinesII.Voice.Ms211b',Sound'UMSMarinesII.Voice.Ms212a',Sound'UMSMarinesII.Voice.Ms212b',Sound'UMSMarinesII.Voice.Ms213a',Sound'UMSMarinesII.Voice.Ms213b'),FemaleSounds=(Sound'UMSMarinesII.Voice.Ms305a',Sound'UMSMarinesII.Voice.Ms305b',Sound'UMSMarinesII.Voice.Ms307a',Sound'UMSMarinesII.Voice.Ms307b',Sound'UMSMarinesII.Voice.Ms311a',Sound'UMSMarinesII.Voice.Ms311b',Sound'UMSMarinesII.Voice.Ms312a',Sound'UMSMarinesII.Voice.Ms312b',Sound'UMSMarinesII.Voice.Ms313a',Sound'UMSMarinesII.Voice.Ms313b'))
