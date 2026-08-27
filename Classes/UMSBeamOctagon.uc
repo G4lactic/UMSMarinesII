@@ -130,7 +130,7 @@ defaultproperties
     Texture=FireTexture'UMSMarinesII.FX.beam3'
     Skin=FireTexture'UMSMarinesII.FX.beam3'
     Physics=PHYS_None
-    RemoteRole=ROLE_SimulatedProxy
+    RemoteRole=ROLE_DumbProxy
     DrawType=DT_Mesh
     Style=STY_Translucent
     Mesh=Mesh'UMSOctagon'

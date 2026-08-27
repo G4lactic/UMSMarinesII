@@ -501,6 +501,7 @@ Struct ListGlowyBits
 	var() texture EffectMultiSkin1;
 	var() texture EffectMultiSkin2;
 	var() texture ExtraEffect;
+	var() color GlowyBitsColor; // Does not effect ExtraLayer.
 	var() enum EELayer
 	{
 		MultiSkin1,
@@ -644,6 +645,7 @@ function PostBeginPlay()
 	if(GlowyBits.EffectMultiSkin1 != None || GlowyBits.EffectMultiSkin2 != None)
 	{
 		Glowy = Spawn(Class'UMSGlowyVisor',Self,,Location,Rotation);
+		Glowy.ActorGUnlitColor=GlowyBits.GlowyBitsColor;
 		if (GlowyBits.EffectMultiSkin1 != None)
 		Glowy.MultiSkins[1]=GlowyBits.EffectMultiSkin1;
 		if (GlowyBits.EffectMultiSkin2 != None)
@@ -1527,13 +1529,13 @@ function PlayChallenge()
     TweenToWaiting(0.1);
     else  if (  Weapon == none )
     PlayAnim('Talk');
-    else if ( decision < 0.4 && Weapon != none && Weapon.bInstantHit )
+    /*else if ( decision < 0.4 && Weapon != none && Weapon.bInstantHit )
     {
         if (Weapon.Mass < 20)
         PlayAnim('RELOADSM');
         else
         PlayAnim('RELOADLG');
-    }
+    }*/
     else if ( decision < 0.8 )
 	PlayAnim('CockGun');
 	else
@@ -2747,8 +2749,7 @@ function TakeDamage( int Damage, Pawn instigatedBy, Vector hitlocation,
 		else
 			actualDamage = Damage;
 	}
-	else if ( (InstigatedBy != None) &&
-				(InstigatedBy.IsA(Class.Name) || self.IsA(InstigatedBy.Class.Name)) )
+	else if ( (InstigatedBy != None) && (InstigatedBy.IsA(Class.Name) || self.IsA(InstigatedBy.Class.Name)) )
 		ActualDamage = ActualDamage * FMin(1 - ReducedDamagePct, 0.35);
 	else if ( (ReducedDamageType == 'All') ||
 		((ReducedDamageType != '') && (ReducedDamageType == damageType)) )
@@ -6287,11 +6288,6 @@ state StakeOut
 {
 ignores EnemyNotVisible;
 
-     /*function PlayChallenge()
-     {
-         PlayWaiting();
-     }*/
-
 	function TakeDamage( int Damage, Pawn instigatedBy, Vector hitlocation,
 							Vector momentum, name damageType)
 	{
@@ -6445,7 +6441,6 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		BeamEffect.Destroy();
 		BeamGlow.Destroy();
 		bHidden = False;
-		SightRadius=227327;
 		myWeapon.PickupSound = myWeapon.Default.PickupSound;
 		myWeapon.SelectSound = myWeapon.Default.SelectSound;
 		myWeapon.Misc1Sound = myWeapon.Default.Misc1Sound;
@@ -6456,7 +6451,6 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		MyWeapon.bMeshEnviroMap = false;
 		MyWeapon.Style=STY_Normal;
 		MyWeapon.bUnlit=Weapon.Default.bUnlit;
-		HuntOffDistance=16384;
 		GoToState('Hunting');
 	}
 
@@ -6625,7 +6619,7 @@ defaultproperties
 	Aggressiveness=0.9
 	RefireRate=0.3
 	CarcassType=Class'UMSMarinesII.UMSSpaceMarineCarcass'
-	Health=100
+	Health=110
 	MeleeRange=50.0
 	GroundSpeed=340.0
 	AirSpeed=400.0
@@ -6680,21 +6674,21 @@ defaultproperties
 	MultiSkins(1)=Texture'UMSMarinesII.Skins.JMarine7'
 	MultiSkins(2)=Texture'UMSMarinesII.Skins.JMarine8'
 	DrawScale=1
-	CollisionRadius=19
-	CollisionHeight=41.0
+	CollisionRadius=22
+	CollisionHeight=41.25
 	Fatness=130
 	BeamWaitTime=2.0
 	BeamTime=5
 	FXFadeTime=3.65
-	Skill=2
+	Skill=3
 	FadeTimer=1
 	MarineSkin=SKIN_Random
 	bEnhancedSightCheck=True
-	//bDoAutoSerpentine=True
 	bMovingRangedAttack=True
 	SightCheckType=SEE_All
-	BonusSkill=1.5
 	bIsPackHunter=True
+	HeadRadius=9.0
+	HeadOffset=(X=0.0,Y=0.0,Z=45.0)
 	AcquirePhrases=(MaleSounds=(Sound'UMSMarinesII.Voice.Ms106',Sound'UMSMarinesII.Voice.Ms107',Sound'UMSMarinesII.Voice.Ms206a',Sound'UMSMarinesII.Voice.Ms206b',Sound'UMSMarinesII.Voice.Ms207a',Sound'UMSMarinesII.Voice.Ms207b'),FemaleSounds=(Sound'UMSMarinesII.Voice.Ms306a',Sound'UMSMarinesII.Voice.Ms306b',Sound'UMSMarinesII.Voice.Ms307a',Sound'UMSMarinesII.Voice.Ms307b'))
 	HelpPhrases=(MaleSounds=(Sound'UMSMarinesII.Voice.Ms104',Sound'UMSMarinesII.Voice.Ms109',Sound'UMSMarinesII.Voice.Ms114',Sound'UMSMarinesII.Voice.Ms204a',Sound'UMSMarinesII.Voice.Ms204b',Sound'UMSMarinesII.Voice.Ms209a',Sound'UMSMarinesII.Voice.Ms209b',Sound'UMSMarinesII.Voice.Ms214a',Sound'UMSMarinesII.Voice.Ms214b'),FemaleSounds=(Sound'UMSMarinesII.Voice.Ms304a',Sound'UMSMarinesII.Voice.Ms304b',Sound'UMSMarinesII.Voice.Ms309a',Sound'UMSMarinesII.Voice.Ms309b',Sound'UMSMarinesII.Voice.Ms314a',Sound'UMSMarinesII.Voice.Ms314b'))
 	ChargePhrases=(MaleSounds=(Sound'UMSMarinesII.Voice.Ms105',Sound'UMSMarinesII.Voice.Ms107',Sound'UMSMarinesII.Voice.Ms111',Sound'UMSMarinesII.Voice.Ms112',Sound'UMSMarinesII.Voice.Ms113',Sound'UMSMarinesII.Voice.Ms205a',Sound'UMSMarinesII.Voice.Ms205b',Sound'UMSMarinesII.Voice.Ms207a',Sound'UMSMarinesII.Voice.Ms207b',Sound'UMSMarinesII.Voice.Ms211a',Sound'UMSMarinesII.Voice.Ms211b',Sound'UMSMarinesII.Voice.Ms212a',Sound'UMSMarinesII.Voice.Ms212b',Sound'UMSMarinesII.Voice.Ms213a',Sound'UMSMarinesII.Voice.Ms213b'),FemaleSounds=(Sound'UMSMarinesII.Voice.Ms305a',Sound'UMSMarinesII.Voice.Ms305b',Sound'UMSMarinesII.Voice.Ms307a',Sound'UMSMarinesII.Voice.Ms307b',Sound'UMSMarinesII.Voice.Ms311a',Sound'UMSMarinesII.Voice.Ms311b',Sound'UMSMarinesII.Voice.Ms312a',Sound'UMSMarinesII.Voice.Ms312b',Sound'UMSMarinesII.Voice.Ms313a',Sound'UMSMarinesII.Voice.Ms313b'))

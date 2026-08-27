@@ -19,14 +19,15 @@ Struct MSetup
 // Variables
 var( MarineWaveSetup ) array <MSetup> MarineList;
 var( MarineWaveSetup ) name WaveEndTag; // Once all marines are dead this tag gets triggered
-var( MarineWaveSetup ) name BeampointTag;
-var( MarineWaveSetup ) float BeamDelay;
+var( MarineWaveSetup ) name BeampointTag; // Tag of the beampoint marines from this actor will get beamed to.
+var( MarineWaveSetup ) float BeamDelay; // how long before the beaming sequence starts.
 var( MarineWaveSetup ) UMSSpaceMarine.MSkin DefaultMarineSkin; // Set to random by default. Gets overidden when you set the marine skin in MarineList.
-var( Misc ) bool bLogStuff;
+var( Misc ) bool bLogStuff; // For developers can ignore :3
 
 var int TotalMarines;
 var int MarinesLeft;
 var int CurrentMarine;
+var umsspacemarine WaveMarine;
 
 // Functions
 event Trigger(Actor Other,Pawn EventInstigator)
@@ -44,6 +45,16 @@ Function Timer()
 	Startup();
 }
 
+Function HateTimer()
+{
+    if(WaveMarine.Enemy==None) //|| !WaveMarine.ActorReachable(WaveMarine.Enemy))
+    {
+      if(!WaveMarine.CanSee(GetPlayerPawn()))    
+      //GetPlayerPawn().ClientMessage(WaveMarine.SetEnemy(GetPlayerPawn())); : DEBUG MESSAGE DO NOT DELETE
+      WaveMarine.SetEnemy(GetPlayerPawn());
+    }
+}
+
 Function Startup()
 {
 	TotalMarines = CountMarines();
@@ -52,6 +63,7 @@ Function Startup()
 	if(bLogStuff)
 	log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
 	BeamMarine();
+	SetTimer(4, True, 'HateTimer'); // Remember to go kill the player(s)
 	TriggerEvent(Event);
 }
 
@@ -95,10 +107,11 @@ Function BeamMarine()
 			if(NewMarine.MarineSkin == SKIN_Default)
 			NewMarine.MarineSkin = DefaultMarineSkin;
         	NewMarine.SetEnemy(GetPlayerPawn());
-           	NewMarine.Target = GetPlayerPawn();
 			NewMarine.Orders = 'Hunting';
 			NewMarine.OrderTag = 'Enemy';
 			NewMarine.SetMarineSkin();
+			NewMarine.Tag = 'WaveMarine';
+			WaveMarine=NewMarine;
 			if(bLogStuff)
 			log("Skin:"@NewMarine.LogSkinName@"on marine"@M);
 			M++;
@@ -138,28 +151,28 @@ function SubtractMarine(UMSSpaceMarine DeadMarine)
 	}
 }
 
-function Pawn GetPlayerPawn() // Stolen from the MarineWaveInfo, just lets marines auto hate the player.
+function Pawn GetPlayerPawn()
 {
-	local Pawn P,EList[32];
-	local byte c;
+    local Pawn P,EList[32];
+    local byte c;
 
-	For( P=Level.PawnList; P!=None; P=P.NextPawn )
-	{
-		if( P!=none && P.bIsPlayer )
-		{
-			EList[c] = P;
-			c++;
-			if( c==32 )
-				Break;
-		}
-	}
-	Return EList[Rand(c)];
+    For( P=Level.PawnList; P!=None; P=P.NextPawn )
+    {
+        if( P!=none && P.bIsPlayer )
+        {
+            EList[c] = P;
+            c++;
+            if( c==32 )
+                Break;
+        }
+    }
+    Return EList[Rand(c)];
 }
 
 defaultproperties
 {
 	Texture=Texture'Engine.S_Flag'
-	DrawScale=2.5
+	DrawScale=2.0
 	ActorRenderColor=(R=255,G=128,B=64)
 	DefaultMarineSkin=SKIN_Random
 }
