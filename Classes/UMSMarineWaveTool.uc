@@ -14,10 +14,11 @@ Struct MSetup
 	var() class <umsspacemarine> MarineType;
 	var() class <Weapon> WeaponType;
 	var() UMSSpaceMarine.MSkin MarineSkin; // Use this if you want a specific skin. otherwise set DefaultMarineSkin.
+	var() int MarineCount; //How many of this marine to spawn
 };
 
 // Variables
-var( MarineWaveSetup ) array <MSetup> MarineList[16];
+var( MarineWaveSetup ) array <MSetup> MarineList;
 var( MarineWaveSetup ) name WaveEndEvent; // Once all marines are dead this tag gets triggered
 var( MarineWaveSetup ) name BeampointTag; // Tag of the beampoint marines from this actor will get beamed to.
 var( MarineWaveSetup ) name MarineTag; // Tag used for marines beamed from this specific tool.
@@ -27,7 +28,7 @@ var( MarineWaveSetup ) UMSSpaceMarine.MSkin DefaultMarineSkin; // Set to random 
 var int TotalMarines;
 var int MarinesLeft;
 var int CurrentMarine;
-var umsspacemarine WaveMarine[16];
+var array <UMSSpaceMarine> WaveMarine;
 
 // Functions
 event Trigger(Actor Other,Pawn EventInstigator)
@@ -51,7 +52,7 @@ Function HateTimer()
 	local pawn PP;
     local int i,Failsafe;
 
-	for(i = 0; i < 16; i++)
+	for(i = 0; i < array_size(MarineList); i++)
 	{	while((WaveMarine[i].Enemy==None || !WaveMarine[i].Enemy.bIsPlayer) && CheckPlayers()>0 && Failsafe<100)
 		{
 			foreach AllActors(class'Pawn', PP)
@@ -70,8 +71,7 @@ Function HateTimer()
 Function Startup()
 {
 	TotalMarines = CountMarines();
-	if(TotalMarines > 16)
-	BroadcastMessage("MAX MARINES IS TYPICALLY 16 PLEASE FIX!",True,'CriticalEvent');
+
 	if(bLogStuff)
 	log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
 	BeamMarine();
@@ -133,7 +133,7 @@ Function int CountMarines()
 	
 	MarinesLeft = 0;
 	
-	for( i = 0; i <= 16; i++ )
+	for( i = 0; i <= array_size(MarineList); i++ )
 	{
 		if( MarineList[ i ].MarineType != none )
 			MarinesLeft++;
