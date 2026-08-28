@@ -107,22 +107,26 @@ Function BeamMarine()
       {
         if(MarineList[M].MarineType==None)
         M=0;
-        NewMarine = Spawn(MarineList[M].MarineType,self,,MSP.Location,MSP.Rotation);
-        if(NewMarine!=None)
-        {
-			WaveMarine[MarineCount]=NewMarine;
-           	MarineCount++;
-        	NewMarine.WeaponType = MarineList[M].WeaponType;
-        	NewMarine.bBeamingIn = True;
-			NewMarine.MarineSkin = MarineList[M].MarineSkin;
-			if(NewMarine.MarineSkin == SKIN_Default)
-			NewMarine.MarineSkin = DefaultMarineSkin;
-			NewMarine.SetMarineSkin();
-			NewMarine.Tag = MarineTag;
-			if(bLogStuff)
-			log("Skin:"@NewMarine.LogSkinName@"on marine"@M);
-			M++;
-        }
+		while(MarineList[M].MarineCount>0)
+		{
+        	NewMarine = Spawn(MarineList[M].MarineType,self,,MSP.Location,MSP.Rotation);
+        	if(NewMarine!=None)
+        	{
+				WaveMarine[MarineCount]=NewMarine;
+        	   	MarineCount++;
+				MarineList[M].MarineCount--;
+        		NewMarine.WeaponType = MarineList[M].WeaponType;
+        		NewMarine.bBeamingIn = True;
+				NewMarine.MarineSkin = MarineList[M].MarineSkin;
+				if(NewMarine.MarineSkin == SKIN_Default)
+				NewMarine.MarineSkin = DefaultMarineSkin;
+				NewMarine.SetMarineSkin();
+				NewMarine.Tag = MarineTag;
+				if(bLogStuff)
+				log("Skin:"@NewMarine.LogSkinName@"on marine"@M);
+				M++;
+        	}
+		}
       }
 	}
 }
@@ -136,7 +140,11 @@ Function int CountMarines()
 	for( i = 0; i <= array_size(MarineList); i++ )
 	{
 		if( MarineList[ i ].MarineType != none )
-			MarinesLeft++;
+		{
+			if(MarineList[i].MarineCount<=0)
+			MarineList[i].MarineCount=1;
+			MarinesLeft+=MarineList[i].MarineCount;
+		}
 		else 
 		return MarinesLeft;
 	}
