@@ -124,9 +124,9 @@ Function BeamMarine()
 				NewMarine.Tag = MarineTag;
 				if(bLogStuff)
 				log("Skin:"@NewMarine.LogSkinName@"on marine"@M);
-				M++;
         	}
 		}
+		M++;
       }
 	}
 }
