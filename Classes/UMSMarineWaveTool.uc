@@ -80,7 +80,7 @@ Function Startup()
 
 Function BeamMarine()
 {
-    local int i,M,MarineCount;
+    local int i,M,MarineCount,failsafe;
     local umsspacemarine NewMarine;
     local UMSMarineBeampoint MSP;
     local UMSMarineBeampoint UMSBP[16];
@@ -99,7 +99,6 @@ Function BeamMarine()
     i=0;
     while(MarineCount<TotalMarines && failsafe<1000)
     {
-      {
         if(MarineList[M].MarineType==None)
         M=0;
 		while(MarineList[M].MarineCount>0 && failsafe<1000)
@@ -127,7 +126,6 @@ Function BeamMarine()
 			else failsafe++;
 		}
 		M++;
-      }
 	}
 }
 
