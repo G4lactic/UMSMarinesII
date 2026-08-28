@@ -1,37 +1,38 @@
 //=============================================================================
 // UMSMarineWaveTool - GFour
+// Event gets casted out once triggered.
 // Requires UMSMarineBeampoints to be placed.
 // When the wave starts the tag in Event is cast out.
 // Beams in SpaceMarines and allows you chain waves together or cast an event by setting WaveEndTag.
 // Note to Mappers: I heavily reccomend keeping the ammount of Marines spawned at around 3-4.
 //=============================================================================
-class UMSMarineWaveTool extends Triggers;
+class UMSMarineWaveTool extends UMSTools;
 
 //Structs
 Struct MSetup
 {
 	var() class <umsspacemarine> MarineType;
 	var() class <Weapon> WeaponType;
-	var() bool bPrefersRanged;
 	var() UMSSpaceMarine.MSkin MarineSkin; // Use this if you want a specific skin. otherwise set DefaultMarineSkin.
 };
 
 // Variables
-var( MarineWaveSetup ) array <MSetup> MarineList;
-var( MarineWaveSetup ) name WaveEndTag; // Once all marines are dead this tag gets triggered
+var( MarineWaveSetup ) array <MSetup> MarineList[16];
+var( MarineWaveSetup ) name WaveEndEvent; // Once all marines are dead this tag gets triggered
 var( MarineWaveSetup ) name BeampointTag; // Tag of the beampoint marines from this actor will get beamed to.
+var( MarineWaveSetup ) name MarineTag; // Tag used for marines beamed from this specific tool.
 var( MarineWaveSetup ) float BeamDelay; // how long before the beaming sequence starts.
 var( MarineWaveSetup ) UMSSpaceMarine.MSkin DefaultMarineSkin; // Set to random by default. Gets overidden when you set the marine skin in MarineList.
-var( Misc ) bool bLogStuff; // For developers can ignore :3
 
 var int TotalMarines;
 var int MarinesLeft;
 var int CurrentMarine;
-var umsspacemarine WaveMarine;
+var umsspacemarine WaveMarine[16];
 
 // Functions
 event Trigger(Actor Other,Pawn EventInstigator)
 {
+	TriggerEvent(Event);
 	if(BeamDelay > 0)
 	{	
 		SetTimer( BeamDelay, False );
@@ -47,12 +48,23 @@ Function Timer()
 
 Function HateTimer()
 {
-    if(WaveMarine.Enemy==None) //|| !WaveMarine.ActorReachable(WaveMarine.Enemy))
-    {
-      if(!WaveMarine.CanSee(GetPlayerPawn()))    
-      //GetPlayerPawn().ClientMessage(WaveMarine.SetEnemy(GetPlayerPawn())); : DEBUG MESSAGE DO NOT DELETE
-      WaveMarine.SetEnemy(GetPlayerPawn());
-    }
+	local pawn PP;
+    local int i,Failsafe;
+
+	for(i = 0; i < 16; i++)
+	{	while((WaveMarine[i].Enemy==None || !WaveMarine[i].Enemy.bIsPlayer) && CheckPlayers()>0 && Failsafe<100)
+		{
+			foreach AllActors(class'Pawn', PP)
+			{
+				if(Failsafe<=20 && !WaveMarine[i].CanSee(PP) && !WaveMarine[i].actorReachable(PP))
+				continue; //Unless we failed to find anyone for a few times, ignore players who are not visible and unreachable
+
+				if(PP.bIsPlayer && PP.Health>0 && !PP.bHidden && PP.Style!=STY_Translucent && !PP.IsInState('PlayerSpectating') && FRand()<(1.0/CheckPlayers()))
+				{WaveMarine[i].DamageAttitudeTo(PP); WaveMarine[i].Enemy=PP; WaveMarine[i].LastSeenPos=PP.Location; WaveMarine[i].LastSeenTime=Level.TimeSeconds; WaveMarine[i].LastSeeingPos=PP.Location;}
+			}
+			Failsafe++;
+		}
+	}
 }
 
 Function Startup()
@@ -63,8 +75,7 @@ Function Startup()
 	if(bLogStuff)
 	log( "MARINES IN THIS WAVE: "$self$" are "$TotalMarines );
 	BeamMarine();
-	SetTimer(4, True, 'HateTimer'); // Remember to go kill the player(s)
-	TriggerEvent(Event);
+	SetTimer(1, True, 'HateTimer'); // Remember to go kill the player(s)
 }
 
 Function BeamMarine()
@@ -99,19 +110,15 @@ Function BeamMarine()
         NewMarine = Spawn(MarineList[M].MarineType,self,,MSP.Location,MSP.Rotation);
         if(NewMarine!=None)
         {
+			WaveMarine[MarineCount]=NewMarine;
            	MarineCount++;
         	NewMarine.WeaponType = MarineList[M].WeaponType;
         	NewMarine.bBeamingIn = True;
 			NewMarine.MarineSkin = MarineList[M].MarineSkin;
-			NewMarine.bPrefersRanged = MarineList[M].bPrefersRanged;
 			if(NewMarine.MarineSkin == SKIN_Default)
 			NewMarine.MarineSkin = DefaultMarineSkin;
-        	NewMarine.SetEnemy(GetPlayerPawn());
-			NewMarine.Orders = 'Hunting';
-			NewMarine.OrderTag = 'Enemy';
 			NewMarine.SetMarineSkin();
-			NewMarine.Tag = 'WaveMarine';
-			WaveMarine=NewMarine;
+			NewMarine.Tag = MarineTag;
 			if(bLogStuff)
 			log("Skin:"@NewMarine.LogSkinName@"on marine"@M);
 			M++;
@@ -146,32 +153,28 @@ function SubtractMarine(UMSSpaceMarine DeadMarine)
 	{
 		if(bLogStuff)
 		log( "Less than or = to 0 marines remaining." );		
-		TriggerEvent(WaveEndTag);
+		TriggerEvent(WaveEndEvent);
 		Destroy();
 	}
 }
 
-function Pawn GetPlayerPawn()
+function int CheckPlayers()
 {
-    local Pawn P,EList[32];
-    local byte c;
+    local PlayerReplicationInfo PRI;
+    local int PlayerCount;
 
-    For( P=Level.PawnList; P!=None; P=P.NextPawn )
+    foreach AllActors(class'PlayerReplicationInfo', PRI)
     {
-        if( P!=none && P.bIsPlayer )
-        {
-            EList[c] = P;
-            c++;
-            if( c==32 )
-                Break;
-        }
+        if(Pawn(PRI.Owner).bIsPlayer && Pawn(PRI.Owner).Health>0 && !PRI.bIsSpectator)
+        PlayerCount++;
     }
-    Return EList[Rand(c)];
+    return PlayerCount;
 }
 
 defaultproperties
 {
 	Texture=Texture'Engine.S_Flag'
+	MarineTag="WaveMarine"
 	DrawScale=2.0
 	ActorRenderColor=(R=255,G=128,B=64)
 	DefaultMarineSkin=SKIN_Random

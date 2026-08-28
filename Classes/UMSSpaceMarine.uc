@@ -11,6 +11,7 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec OBJ LOAD FILE=Textures\FX\beam.utx 		PACKAGE=UMSMarinesII.FX
 //SFX Imports
 //=============================================================================
+#exec AUDIO IMPORT FILE="Sounds\SFX\BeamInV3.WAV" 	NAME="BeamInV2" GROUP="SFX"
 #exec AUDIO IMPORT FILE="Sounds\SFX\PowerON.WAV" 	NAME="PowerON" 		GROUP="SFX"
 #exec AUDIO IMPORT FILE="Sounds\SFX\PowerOFF.WAV" 	NAME="PowerOFF" 	GROUP="SFX"
 #exec AUDIO IMPORT FILE="Sounds\SFX\UMSStatic.WAV" 	NAME="UMSStatic"	GROUP="SFX"
@@ -29,10 +30,10 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec AUDIO IMPORT FILE="SOUNDS\SFX\CloakOff.WAV" 	NAME="BeamedIn" 	GROUP="SFX"
 //Footstep Imports
 //=============================================================================
-#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowR.WAV" 	NAME="MStep1" GROUP="Footsteps"
-#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowR2.WAV" 	NAME="MStep2" GROUP="Footsteps"
-#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowL.WAV" 	NAME="MStep3" GROUP="Footsteps"
-#exec AUDIO IMPORT FILE="Sounds\Footsteps\MetalHollowL2.WAV" 	NAME="MStep4" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\Footsteps\MarineStepR.WAV" 	NAME="MStep1" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\Footsteps\MarineStepR2.WAV" 	NAME="MStep2" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\Footsteps\MarineStepL.WAV" 	NAME="MStep3" GROUP="Footsteps"
+#exec AUDIO IMPORT FILE="Sounds\Footsteps\MarineStepL2.WAV" 	NAME="MStep4" GROUP="Footsteps"
 //Voice Imports
 //=============================================================================
 #exec AUDIO IMPORT FILE="Sounds\Voice\MBreath1.WAV" 	NAME="MarineBreath1" GROUP="Voice"
@@ -527,16 +528,14 @@ var() enum MSkin
 }
 MarineSkin; // Replacement for needing classes for different marine skins. NOTE: SpecialForces overrides this.
 
-//Misc. Variables for things that should stay default but the user can change if they wish.
+//Extra Events
+var(Events) name ButtonEvent;
+
+//Misc Variables for things that should either stay default or are extra customizable options for custom marines.
 //=============================================================================
 var(Misc) bool bTeleportWhenHurt,bExplodeWhenHurt;
-var(Misc) byte PunchDamage,SlamDamage;
-var(Misc) float ExploRange,ExploDamage,ExploMomentum;
-var(Misc) float BeamWaitTime,BeamTime;
-var(Misc) float CommandRadius;
-var(Misc) string HumanKillMessage;
-//var(Misc) Texture GlowingVisorTexture;
-var(Misc) ListGlowyBits GlowyBits;
+var(Misc) float CommandRadius; // The radius in which this marine can talk to other marines.
+var(Misc) ListGlowyBits GlowyBits; // To make parts of the marine glow.
 var(Misc) enum GOverride
 {
 	GENDER_Random,
@@ -573,20 +572,24 @@ var bool strafedodge;
 var bool bBeamingIn;
 var bool bGetResponse,bRespond;
 var bool bSkinOverride;
+var byte PunchDamage,SlamDamage;
+var BlackSmoke bsm;
+var DynamicCorona BeamGlow;
+var Effects Glowy;
+var Effects GlowyE;
 var float SETimer,FXFadeTime,FadeTimer;
 var float LastTalkTime,MessageTime;
 var float Accuracy;
+var float ExploRange,ExploDamage,ExploMomentum;
+var float BeamWaitTime,BeamTime;
 var name LogSkinName;
-var Effects Glowy;
-var Effects GlowyE;
+var string HumanKillMessage;
+var SilentBallExplosion sbc;
 var UMSSpaceMarine LastTalker;
-var	Weapon myWeapon;
 var UMSBeamOctagon Octagon;
 var UMSBeamShieldEffect BeamEffect;
-var DynamicCorona BeamGlow;
 var UMSMarineWaveTool MarineBeamController;
-var SilentBallExplosion sbc;
-var BlackSmoke bsm;
+var	Weapon myWeapon;
 
 //Startup Functions
 //=============================================================================
@@ -6451,7 +6454,6 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		MyWeapon.bMeshEnviroMap = false;
 		MyWeapon.Style=STY_Normal;
 		MyWeapon.bUnlit=Weapon.Default.bUnlit;
-		GoToState('Hunting');
 	}
 
 	simulated function Tick( float DeltaTime )

@@ -123,7 +123,10 @@ simulated state FadingOut
 
 defaultproperties
 {
-    AmbientSound=sound'UMSMarinesII.SFX.BeamIn'
+    AmbientSound=sound'UMSMarinesII.SFX.BeamInV2'
+	SoundRadius=128
+	SoundVolume=192
+	SoundPitch=72
     LifeSpan=10.0
     CollisionRadius=22.0
     CollisionHeight=1.0
@@ -137,8 +140,6 @@ defaultproperties
     bUnlit=True
     Fatness=220
     bCollideWorld=True
-	SoundVolume=128
-    SoundRadius=128
 	FadeInTime=2.0
 	FadeOutTime=5
 	HoldTime=0.5
