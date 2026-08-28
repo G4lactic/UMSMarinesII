@@ -99,15 +99,15 @@ Function BeamMarine()
     i=0;
     while(MarineCount<TotalMarines && failsafe<1000)
     {
-      MSP=None;
-      While(MSP==None && i<1000)
-      {MSP=UMSBP[RandRange(0,16)]; i++;}
-      if(MSP!=None)
       {
         if(MarineList[M].MarineType==None)
         M=0;
 		while(MarineList[M].MarineCount>0 && failsafe<1000)
 		{
+    		MSP=None;
+      		While(MSP==None && i<1000)
+      		{MSP=UMSBP[RandRange(0,16)]; i++;}
+      		if(MSP!=None)
         	NewMarine = Spawn(MarineList[M].MarineType,self,,MSP.Location,MSP.Rotation);
         	if(NewMarine!=None)
         	{
