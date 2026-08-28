@@ -97,9 +97,8 @@ Function BeamMarine()
     }
 
     i=0;
-    while(MarineCount<TotalMarines && i<1000)
+    while(MarineCount<TotalMarines && failsafe<1000)
     {
-      i++;
       MSP=None;
       While(MSP==None && i<1000)
       {MSP=UMSBP[RandRange(0,16)]; i++;}
@@ -107,7 +106,7 @@ Function BeamMarine()
       {
         if(MarineList[M].MarineType==None)
         M=0;
-		while(MarineList[M].MarineCount>0)
+		while(MarineList[M].MarineCount>0 && failsafe<1000)
 		{
         	NewMarine = Spawn(MarineList[M].MarineType,self,,MSP.Location,MSP.Rotation);
         	if(NewMarine!=None)
@@ -125,6 +124,7 @@ Function BeamMarine()
 				if(bLogStuff)
 				log("Skin:"@NewMarine.LogSkinName@"on marine"@M);
         	}
+			else failsafe++;
 		}
 		M++;
       }
