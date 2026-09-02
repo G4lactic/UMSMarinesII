@@ -124,7 +124,7 @@ simulated state FadingOut
 defaultproperties
 {
     AmbientSound=sound'UMSMarinesII.SFX.BeamInV2'
-	SoundRadius=128
+	SoundRadius=200
 	SoundVolume=192
 	SoundPitch=72
     LifeSpan=10.0

@@ -455,7 +455,7 @@ class UMSSpaceMarine extends ScriptedPawn;
 #exec MESHMAP SETTEXTURE MESHMAP=UMSMarine NUM=2 TEXTURE=Jmarine8
 
 //Reduxed Marine import
-#exec MESH MODELIMPORT STATICMESH MODELFILE="Models/UMSMarineV2/ReduxMarine3MC_3.obj" NAME=UMSMarineRedux
+#exec MESH MODELIMPORT STATICMESH MODELFILE="Models/UMSMarineV2/unrealmarine.obj" NAME=UMSMarineRedux
 #exec STATICMESH TRANSFORM NAME=UMSMarineRedux ORIGIN=(0.0,0.0,0.0) SIZE=(1.05,1.05,1.05) YAW=0 PITCH=0 ROLL=0
 #exec MESHMAP SETTEXTURE MESHMAP=UMSMarineRedux NUM=0 TEXTURE=Jmarine7
 #exec MESHMAP SETTEXTURE MESHMAP=UMSMarineRedux NUM=1 TEXTURE=Jmarine8
@@ -511,6 +511,29 @@ Struct ListGlowyBits
 	ExtraEffectLayer;
 };
 
+//Anim Structs
+//=============================================================================
+Struct ListAnimationsBase
+{
+	var() name WalkDisarmed,WalkOneHanded,WalkTwoHanded,RunDisarmed,RunOneHanded,RunOneHandedPointing,RunTwoHanded,RunTwoHandedPointing,CrouchOneHanded,CrouchTwoHanded,SwimOneHanded,SwimTwoHanded,DodgeLeft,DodgeRight,DodgeForward,DodgeBackward,StrafeRightTwoHanded,StrafeRightOneHanded,StrafeLeftTwoHanded,StrafeLeftOneHanded,Backstep,BreatheOneHanded,BreatheTwoHanded,BreatheUnarmed;
+};
+
+Struct ListAnimationsADS
+{
+	var() name WalkOneHandedADS,WalkTwoHandedADS,BackStepOneHandedADS,BackStepTwoHandedADS,StrafeRightTwoHandedADS,StrafeLeftTwoHandedADS;
+};
+
+Struct ListAnimationsMisc
+{
+	var() name RadioTalk,Wave,Salute,ButtonPusher1,ButtonPusher2,ButtonPusher3,Activate,Rappelling;
+};
+
+//Animation Variables - To help make swapping anims easier if need be.
+//=============================================================================
+var(Animations) ListAnimationsBase BaseAnimations;
+var(Animations) ListAnimationsADS ADSAnimations;
+var(Animations) ListAnimationsMisc MiscAnimations;
+
 //UMSSpaceMarine
 //=============================================================================
 var() class<weapon> WeaponType;
@@ -529,6 +552,7 @@ var() enum MSkin
 MarineSkin; // Replacement for needing classes for different marine skins. NOTE: SpecialForces overrides this.
 
 //Extra Events
+//=============================================================================
 var(Events) name ButtonEvent;
 
 //Misc Variables for things that should either stay default or are extra customizable options for custom marines.
@@ -920,7 +944,7 @@ function PlayRunning()
     EyeHeight = BaseEyeHeight;
 	if (Weapon == None)
 	{
-		LoopAnim('Run',,, 0.5);
+		LoopAnim(BaseAnimations.RunDisarmed,,, 0.5);
 		return;
 	}
 	if (Focus == Destination)
@@ -928,16 +952,16 @@ function PlayRunning()
         if ( Weapon.bPointing )
 		{
 			if (Weapon.Mass < 20)
-				LoopAnim('RUNSMFR',-2.0/GroundSpeed,, 0.5);
+				LoopAnim(BaseAnimations.RunOneHandedPointing,-2.0/GroundSpeed,, 0.5);
 			else
-				LoopAnim('RUNLGFR',-2.0/GroundSpeed,, 0.5);
+				LoopAnim(BaseAnimations.RunTwoHandedPointing,-2.0/GroundSpeed,, 0.5);
 		}
 		else
 		{
 			if (Weapon.Mass < 20)
-				LoopAnim('RUNSM',-2.0/GroundSpeed,, 0.5);
+				LoopAnim(BaseAnimations.RunOneHanded,-2.0/GroundSpeed,, 0.5);
 			else
-				LoopAnim('RUNLG',-2.0/GroundSpeed,, 0.5);
+				LoopAnim(BaseAnimations.RunTwoHanded,-2.0/GroundSpeed,, 0.5);
 		}
     }
 	Focus2D = Focus;
@@ -954,16 +978,16 @@ function PlayRunning()
 		if ( Weapon.bPointing )
 		{
 			if (Weapon.Mass < 20)
-			LoopAnim('RUNSMFR',-1.2/GroundSpeed,, 0.5);
+			LoopAnim(BaseAnimations.RunOneHandedPointing,-1.2/GroundSpeed,, 0.5);
 			else
-			LoopAnim('RUNLGFR',-1.2/GroundSpeed,, 0.5);
+			LoopAnim(BaseAnimations.RunTwoHandedPointing,-1.2/GroundSpeed,, 0.5);
 		}
 		else
 		{
 			if (Weapon.Mass < 20)
-			LoopAnim('RUNSM',-1.2/GroundSpeed,, 0.5);
+			LoopAnim(BaseAnimations.RunOneHanded,-1.2/GroundSpeed,, 0.5);
 			else
-			LoopAnim('RUNLG2',-1.2/GroundSpeed,, 0.5);
+			LoopAnim(BaseAnimations.RunTwoHanded,-1.2/GroundSpeed,, 0.5);
 		}
 	}
 	else if (strafeMag < -0.8)
@@ -971,13 +995,13 @@ function PlayRunning()
 
         DesiredSpeed = (2*WalkingSpeed) * MaxDesiredSpeed;
 		if (Weapon == None)
-		LoopAnim('BackStep',(-16*WalkingSpeed)/GroundSpeed,, 0.5);
+		LoopAnim(BaseAnimations.BackStep,(-16*WalkingSpeed)/GroundSpeed,, 0.5);
 		else
 		{
 		    if (Weapon.Mass < 20)
-			LoopAnim('BackStepSMFR',(-16*WalkingSpeed)/GroundSpeed,, 0.5);
+			LoopAnim(ADSAnimations.BackstepOneHandedADS,(-16*WalkingSpeed)/GroundSpeed,, 0.5);
 		    else
-			LoopAnim('BackStepLGFR',(-16*WalkingSpeed)/GroundSpeed,, 0.5);
+			LoopAnim(ADSAnimations.BackstepTwoHandedADS,(-16*WalkingSpeed)/GroundSpeed,, 0.5);
 		}
 	}
 	else
@@ -989,30 +1013,30 @@ function PlayRunning()
 		Y = (lookDir cross vect(0,0,1));
 		if ((Y Dot (Dest2D - Loc2D)) > 0)
 		{
-			if (AnimSequence == 'straferSM')
-			LoopAnim('straferSM',-1.2/GroundSpeed,, 1.0);
-			else if (AnimSequence == 'straferlg')
-			LoopAnim('straferlg',-1.2/GroundSpeed,, 1.0);
+			if (AnimSequence == BaseAnimations.StrafeRightOneHanded)
+			LoopAnim(BaseAnimations.StrafeRightOneHanded,-1.2/GroundSpeed,, 1.0);
+			else if (AnimSequence == BaseAnimations.StrafeRightTwoHanded)
+			LoopAnim(BaseAnimations.StrafeRightTwoHanded,-1.2/GroundSpeed,, 1.0);
 			else
 			{
 				if (Weapon.Mass < 20)
-				LoopAnim('straferSM',-1.2/GroundSpeed,0.1, 1.0);
+				LoopAnim(BaseAnimations.StrafeRightOneHanded,-1.2/GroundSpeed,0.1, 1.0);
 				else
-				LoopAnim('straferlg',-1.2/GroundSpeed,0.1, 1.0);
+				LoopAnim(BaseAnimations.StrafeRightTwoHanded,-1.2/GroundSpeed,0.1, 1.0);
 			}
 		}
 		else
 		{
-			if (AnimSequence == 'strafelSM')
-			LoopAnim('strafelSM',-1.2/GroundSpeed,, 1.0);
-			else if (AnimSequence == 'strafellg')
-			LoopAnim('strafellg',-1.2/GroundSpeed,, 1.0);
+			if (AnimSequence == BaseAnimations.StrafeLeftOneHanded)
+			LoopAnim(BaseAnimations.StrafeLeftOneHanded,-1.2/GroundSpeed,, 1.0);
+			else if (AnimSequence == BaseAnimations.StrafeLeftTwoHanded)
+			LoopAnim(BaseAnimations.StrafeLeftTwoHanded,-1.2/GroundSpeed,, 1.0);
 			else
 			{
 				if (Weapon.Mass < 20)
-				LoopAnim('strafelSM',-1.2/GroundSpeed,0.1, 1.0);
+				LoopAnim(BaseAnimations.StrafeLeftOneHanded,-1.2/GroundSpeed,0.1, 1.0);
 				else
-				LoopAnim('strafellg',-1.2/GroundSpeed,0.1, 1.0);
+				LoopAnim(BaseAnimations.StrafeLeftTwoHanded,-1.2/GroundSpeed,0.1, 1.0);
 			}
 		}
 	}
@@ -1023,9 +1047,9 @@ function PlayRising()
 	BaseEyeHeight = 0.4 * Default.BaseEyeHeight;
     EyeHeight = BaseEyeHeight;
     if (Weapon == none  || Weapon.Mass < 20)
-	TweenAnim('DuckWlkS', 0.7);
+	TweenAnim(BaseAnimations.CrouchOneHanded, 0.7);
 	else
-    TweenAnim('DuckWlkL', 0.7);
+    TweenAnim(BaseAnimations.CrouchTwoHanded, 0.7);
 }
 
 function PlayFeignDeath()
@@ -1062,9 +1086,9 @@ function TweenToCrawl(float tweentime)
 	}
 	BaseEyeHeight = 0;
  	if ( (Weapon == None) || (Weapon.Mass < 20) )
-	TweenAnim('DuckWlkS', tweentime);
+	TweenAnim(BaseAnimations.CrouchOneHanded, tweentime);
 	else
-	TweenAnim('DuckWlkL', tweentime);
+	TweenAnim(BaseAnimations.CrouchTwoHanded, tweentime);
 }
 
 function PlayCrawling()
@@ -1077,9 +1101,9 @@ function PlayCrawling()
 	}
 	BaseEyeHeight = 0;
 	if ( (Weapon == None) || (Weapon.Mass < 20) )
-	LoopAnim('DuckWlkS');
+	LoopAnim(BaseAnimations.CrouchOneHanded);
 	else
-	LoopAnim('DuckWlkL');
+	LoopAnim(BaseAnimations.CrouchTwoHanded);
 }
 
 function TweenToPatrolStop(float tweentime)
@@ -1097,9 +1121,9 @@ function PlayOutOfWater()
 	BaseEyeHeight = 0;
 	EyeHeight = BaseEyeHeight;
 	if ( (Weapon == None) || (Weapon.Mass < 20) )
-	TweenAnim('DuckWlkS', 0.25);
+	TweenAnim(BaseAnimations.CrouchOneHanded, 0.25);
 	else
-	TweenAnim('DuckWlkL', 0.25);
+	TweenAnim(BaseAnimations.CrouchTwoHanded, 0.25);
 }
 
 function PlayDying(name DamageType, vector HitLoc)
@@ -2685,7 +2709,7 @@ function SlamDamageTarget()
 
 function eAttitude AttitudeToCreature(Pawn Other)
 {
-	if ( Other.IsA('UMSSpaceMarine') )
+	if ( Other.IsA('UMSSpaceMarine') || Other.IsA('Nali') || Other.IsA('NaliCow'))
     return ATTITUDE_Friendly;
     else
 	return ATTITUDE_Hate;
@@ -6621,7 +6645,7 @@ defaultproperties
 	Aggressiveness=0.9
 	RefireRate=0.3
 	CarcassType=Class'UMSMarinesII.UMSSpaceMarineCarcass'
-	Health=110
+	Health=80
 	MeleeRange=50.0
 	GroundSpeed=340.0
 	AirSpeed=400.0
@@ -6691,6 +6715,8 @@ defaultproperties
 	bIsPackHunter=True
 	HeadRadius=9.0
 	HeadOffset=(X=0.0,Y=0.0,Z=45.0)
+	BaseAnimations=(WALKDISARMED="WALKDISARMED",WalkOneHanded="WalkSm",WalkTwoHanded="WalkLg",RunDisarmed="Run",RunOneHanded="RunSm",RunOneHandedPointing="RunSmFr",RunTwoHanded="RunLg",RunTwoHandedPointing="RunLgFr",CrouchOneHanded="DuckWlkS",CrouchTwoHanded="DuckWlkL",SwimOneHanded="SwimSm",SwimTwoHanded="SwimLg",DodgeLeft="None",DodgeRight="None",DodgeForward="None",DodgeBackward="None",StrafeRightTwoHanded="STRAFErLG",StrafeRightOneHanded="STRAFErSM",StrafeLeftTwoHanded="STRAFElLG",StrafeLeftOneHanded="STRAFElSM",Backstep="Backstep",BreatheOneHanded="BREATHSM",BreatheTwoHanded="BREATHLG",BreatheUnarmed="BREATHUNARMED")
+	ADSAnimations=(WalkOneHandedADS="WalkSmFr",WalkTwoHandedADS="WalkLgFr",BackStepOneHandedADS="BACKSTEPSMFR",BackStepTwoHandedADS="BACKSTEPLGFR",StrafeRightTwoHandedADS="WALKSTRAFER",StrafeLeftTwoHandedADS="WALKSTRAFEL")
 	AcquirePhrases=(MaleSounds=(Sound'UMSMarinesII.Voice.Ms106',Sound'UMSMarinesII.Voice.Ms107',Sound'UMSMarinesII.Voice.Ms206a',Sound'UMSMarinesII.Voice.Ms206b',Sound'UMSMarinesII.Voice.Ms207a',Sound'UMSMarinesII.Voice.Ms207b'),FemaleSounds=(Sound'UMSMarinesII.Voice.Ms306a',Sound'UMSMarinesII.Voice.Ms306b',Sound'UMSMarinesII.Voice.Ms307a',Sound'UMSMarinesII.Voice.Ms307b'))
 	HelpPhrases=(MaleSounds=(Sound'UMSMarinesII.Voice.Ms104',Sound'UMSMarinesII.Voice.Ms109',Sound'UMSMarinesII.Voice.Ms114',Sound'UMSMarinesII.Voice.Ms204a',Sound'UMSMarinesII.Voice.Ms204b',Sound'UMSMarinesII.Voice.Ms209a',Sound'UMSMarinesII.Voice.Ms209b',Sound'UMSMarinesII.Voice.Ms214a',Sound'UMSMarinesII.Voice.Ms214b'),FemaleSounds=(Sound'UMSMarinesII.Voice.Ms304a',Sound'UMSMarinesII.Voice.Ms304b',Sound'UMSMarinesII.Voice.Ms309a',Sound'UMSMarinesII.Voice.Ms309b',Sound'UMSMarinesII.Voice.Ms314a',Sound'UMSMarinesII.Voice.Ms314b'))
 	ChargePhrases=(MaleSounds=(Sound'UMSMarinesII.Voice.Ms105',Sound'UMSMarinesII.Voice.Ms107',Sound'UMSMarinesII.Voice.Ms111',Sound'UMSMarinesII.Voice.Ms112',Sound'UMSMarinesII.Voice.Ms113',Sound'UMSMarinesII.Voice.Ms205a',Sound'UMSMarinesII.Voice.Ms205b',Sound'UMSMarinesII.Voice.Ms207a',Sound'UMSMarinesII.Voice.Ms207b',Sound'UMSMarinesII.Voice.Ms211a',Sound'UMSMarinesII.Voice.Ms211b',Sound'UMSMarinesII.Voice.Ms212a',Sound'UMSMarinesII.Voice.Ms212b',Sound'UMSMarinesII.Voice.Ms213a',Sound'UMSMarinesII.Voice.Ms213b'),FemaleSounds=(Sound'UMSMarinesII.Voice.Ms305a',Sound'UMSMarinesII.Voice.Ms305b',Sound'UMSMarinesII.Voice.Ms307a',Sound'UMSMarinesII.Voice.Ms307b',Sound'UMSMarinesII.Voice.Ms311a',Sound'UMSMarinesII.Voice.Ms311b',Sound'UMSMarinesII.Voice.Ms312a',Sound'UMSMarinesII.Voice.Ms312b',Sound'UMSMarinesII.Voice.Ms313a',Sound'UMSMarinesII.Voice.Ms313b'))
