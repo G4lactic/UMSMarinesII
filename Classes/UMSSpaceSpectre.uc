@@ -3,11 +3,12 @@
 //=============================================================================
 class UMSSpaceSpectre extends UMSSpecialForces;
 
-var sound CloakAmbient;
 var sound cloakon;
 var sound cloakoff;
-var(UMSSpecialForces) float CloakDuration;
-var(UMSSpecialForces) float CooldownDuration;
+var(UMSSpaceSpectre) float CloakDuration;
+var(UMSSpaceSpectre) float CooldownDuration;
+var(UMSSpaceSpectre) bool bDoCloak;
+var(UMSSpaceSpectre) bool bStartCloaked;
 var float CloakTimer;
 
 var bool bCloaked;
@@ -24,7 +25,7 @@ Function PostBeginPlay()
 
 Function Tick(float DeltaTime)
 {
-	if(bCloaked && !bCooldown && !bAutoDoSpecial)
+	if(bCloaked && !bCooldown && !bStartCloaked)
 	{
 		CloakTimer -= DeltaTime;
 		//Log(CloakTimer);
@@ -75,7 +76,7 @@ Function Tick(float DeltaTime)
 
 Function FireWeapon()
 {
-    if(bDoSpecial && !bAutoDoSpecial && !bCooldown && !bCloaked && FRand() < 0.45 )
+    if(bDoCloak && !bStartCloaked && !bCooldown && !bCloaked) //&& FRand() < 0.45 )
     GotoState('BlackOpsSpecial');
     else
     super.FireWeapon();
@@ -88,7 +89,7 @@ Function CloakingTime()
 		Glowy.bHidden = True;
 		CloakTimer=CloakDuration;
 	 	//bunlit=true;
-     	ScaleGlow = 0.2;
+     	ScaleGlow = 0.8;
      	bMeshEnviroMap=true;
      	texture = CloakTexture;
 	 	style=STY_Translucent;
@@ -103,8 +104,11 @@ Function CloakingTime()
       		Weapon.texture = CloakTexture;
       		weapon.style=STY_Translucent;
 		}
+		SoundRadius=24;
+		SoundPitch=56;
+		SoundVolume=128;
+		AmbientSound=sound'UMSMarinesII.ReconCloakLoop';
     	PlaySound(cloakon);
-    	AmbientSound = CloakAmbient;
 		bCloaked=True;
 	}
 }
@@ -132,7 +136,10 @@ Function EndCloak()
 			 Weapon.texture = weapon.default.Texture;
 			 weapon.style=Weapon.default.style;
 		}
-		AmbientSound = none;
+		SoundRadius=Default.SoundRadius;
+		SoundPitch=Default.SoundPitch;
+		SoundVolume=Default.SoundVolume;
+		AmbientSound=Default.AmbientSound;
 		PlaySound(cloakoff);
 	}
 }
@@ -151,7 +158,7 @@ state BlackOpsSpecial
 begin:
 Velocity*=0;
 Acceleration*=0;
-PlayAnim('Activate',1.4,0.2);
+PlayAnim('Activate',2.4,0.2);
 PlaySound(Sound'Activates.Beeps.Mactiv63', SLOT_Interact);
 FinishAnim();
 GotoState('TacticalMove');
@@ -162,7 +169,7 @@ auto state StartUp
 	function sethome()
 	{
 		Super.sethome();
-		if(bAutoDoSpecial)
+		if(bStartCloaked)
 		CloakingTime();
 	}
 }
@@ -175,15 +182,15 @@ function Died(pawn Killer, name damageType, vector HitLocation)
 
 defaultproperties
 {
-	Health=100
-	CloakDuration=4
-	CooldownDuration=8
+	bDoCloak=True
+	bStartCloaked=False
+	CloakDuration=6
+	CooldownDuration=10
 	WeaponType=class'UnrealShare.Flakcannon'
-	CloakAmbient=Sound'UMSMarinesII.MCloakL'
 	CloakOn=Sound'UMSMarinesII.PowerON'
 	CloakOff=Sound'UMSMarinesII.PowerOFF'
 	bExpanding=False
-	CloakTexture=Texture'UMSMarinesII.MCloak'
+	CloakTexture=Texture'UnrealShare.fireeffect3a'
 	HumanKillMessage=" was assassinated by a UMS Spectre Marine"
 	CombatStyle=0.8
 	MenuName="UMS Spectre Marine"

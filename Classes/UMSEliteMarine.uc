@@ -1,25 +1,31 @@
 //=============================================================================
 // UMSEliteMarine
 //=============================================================================
-
 class UMSEliteMarine extends UMSSpecialForces;
 
 var bool bShieldOn;
-var bool bCheckedWeapon;
-
+var float ShieldCDTime;
+var float NoEnemyTick;
 var inventory SB;
 
-Function FireWeapon()
+Function Tick(Float DeltaTime)
 {
-    if(bDoSpecial && !bAutoDoSpecial && !bShieldOn)
-    GotoState('TurnOnShield');
-    else
-    super.FireWeapon();
+    if(Enemy == None)
+    {
+        NoEnemyTick+=DeltaTime;
+        if(ShieldCDTime > 0)
+        ShieldCDTime -= DeltaTime;
+        if(SB != None && NoEnemyTick>5)
+        {
+          NoEnemyTick=0;
+          GotoState('TurnOffShield');
+        }
+    }
 }
 
 Function AddArmor()
 {
-    if(!bShieldOn)
+    if(!bShieldOn && ShieldCDTime <= 0)
     {
 		SB=Spawn(class'UMSEliteBelt');
 		bIsPlayer = True;
@@ -27,6 +33,13 @@ Function AddArmor()
 		bIsPlayer = False;
         bShieldOn=True;
     }
+}
+
+Function RemoveArmor()
+{
+	PlaySound(Sound'UnrealShare.Pickups.Sbelthe2', SLOT_Interact);
+	SB.Destroy();
+	SB=None;
 }
 
 state TurnOnShield
@@ -49,24 +62,58 @@ FinishAnim();
 GotoState('TacticalMove');
 }
 
-auto state StartUp
+state TurnOffShield
 {
-	function sethome()
+	ignores SeePlayer, EnemyNotVisible, HearNoise, Bump, HitWall, HeadZoneChange, 	FootZoneChange, ZoneChange, Falling, WarnTarget, DamageAttitudeTo, PlayTakeHit;
+
+	Function EndState()
 	{
-		Super.sethome();
-		if(bAutoDoSpecial)
-		AddArmor();
+		if(Health>0)
+		RemoveArmor();
+		Super.EndState();
+	}
+
+begin:
+Velocity*=0;
+Acceleration*=0;
+PlayAnim('Activate',1.4,0.2);
+PlaySound(Sound'Activates.Beeps.Mactiv63', SLOT_Interact);
+FinishAnim();
+GotoState('Attacking');
+}
+
+state BeamingIn
+{
+	ignores EnemyAcquired, PeerNotification, TakeDamage, SeePlayer, EnemyNotVisible, HearNoise, KilledBy, Bump, HitWall, HeadZoneChange, 
+			FootZoneChange, ZoneChange, Falling, WarnTarget, Died;
+
+	function EndState()
+	{
+		if(bBeamingIn)
+		GotoState('TurnOnShield');
+		Super.EndState();
+	}
+}
+
+state Acquisition
+{
+	ignores falling, landed;
+
+	Function BeginState()
+	{
+		if(!bShieldOn && ShieldCDTime <= 0)
+		GotoState('TurnOnShield');
+		Super.BeginState();
 	}
 }
 
 defaultproperties
 {
-	bPrefersRanged=True
+	//bPrefersRanged=True
     bShieldOn=False
 	WeaponType=Class'ASMD'
 	HumanKillMessage=" was blown away by a UMS Elite Soldier"
 	bWarnTarget=False
-	Health=100
 	CombatStyle=1
     Skill=3.0
 	MenuName="UMS Elite Soldier"

@@ -208,6 +208,9 @@ class UMSSpaceMarine extends ScriptedPawn;
 //ReconMarine
 #exec texture IMPORT NAME=RMarine1 FILE=Textures\Skins\Recon1.PCX GROUP=Skins LODSET=2
 #exec texture IMPORT NAME=RMarine2 FILE=Textures\Skins\Recon2.PCX GROUP=Skins LODSET=2
+//CommanderMarine
+#exec texture IMPORT NAME=CMarine1 FILE=Textures\Skins\Cmarine1.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=CMarine2 FILE=Textures\Skins\Cmarine2.PCX GROUP=Skins LODSET=2
 
 //Visors
 #exec texture IMPORT NAME=MarineVisorGlowBasic FILE=Textures\FX\MarineVisorGlowBasic.PCX GROUP=FX LODSET=2
@@ -2743,13 +2746,13 @@ function TakeDamage( int Damage, Pawn instigatedBy, Vector hitlocation,
       return;
      if( InstigatedBy!=none )
      {
-        if (InstigatedBy.IsA( 'UMSSpacemarine' ) && !Level.Game.bTeamGame )
-           Damage=0;
+        if (InstigatedBy.IsA( 'UMSSpacemarine' ) && InstigatedBy != self)
+           Damage*=0.25;
     	if( InstigatedBy.IsA( 'PlayerPawn' ) && Health <= default.health* 0.75 && Health >= 30 )
-     	  {
-           if ( Level.TimeSeconds - LastTalkTime > 1.0 && LastTalker!=self )
- 		      HelpPhrase();
-   	      }
+     	{
+        	if ( Level.TimeSeconds - LastTalkTime > 1.0 && LastTalker!=self )
+ 			HelpPhrase();
+   	    }
      }
      if ( Enemy != None )
         LastSeenPos = Enemy.Location;
@@ -4037,7 +4040,7 @@ ignores SeePlayer, HearNoise, Bump;
 	/* DamageTarget
 check if attack hit target, and if so damage it
 */
-	function TakeDamage( int Damage, Pawn instigatedBy, Vector hitlocation,
+	/*function TakeDamage( int Damage, Pawn instigatedBy, Vector hitlocation,
 							Vector momentum, name damageType)
 	{
 		Global.TakeDamage(Damage, instigatedBy, hitlocation, momentum, damageType);
@@ -4045,10 +4048,10 @@ check if attack hit target, and if so damage it
 			return;
 		if (NextState == 'TakeHit')
 		{
-			NextState = 'MeleeAttack';
+			NextState = 'TacticalMove';
 			NextLabel = 'Begin';
 		}
-	}
+	}*/
 
 	function KeepAttacking()
 	{
@@ -4148,7 +4151,7 @@ ignores SeePlayer, HearNoise;
 			TryStrafe(duckDir);
 	}
 
-	function bool StrafeFromDamage(vector momentum, float Damage, name DamageType, bool bFindDest)
+	/*function bool StrafeFromDamage(vector momentum, float Damage, name DamageType, bool bFindDest)
 	{
 		local vector sideDir;
 		local float healthpct;
@@ -4170,7 +4173,7 @@ ignores SeePlayer, HearNoise;
 			sidedir *= -1;
 
 		return TryStrafe(sideDir);
-	}
+	}*/
 
 	function bool TryStrafe(vector sideDir)
 	{
@@ -4947,7 +4950,7 @@ ignores EnemyNotVisible;
 			}
 		}
 
-		bAvoidLedges = (CollisionRadius > 42);
+		//bAvoidLedges = (CollisionRadius > 42);
 		posZ = LastSeenPos.Z + CollisionHeight - Enemy.CollisionHeight;
 		nextSpot = LastSeenPos - Normal(Enemy.Location - Enemy.OldLocation) * CollisionRadius;
 		nextSpot.Z = posZ;
@@ -6646,14 +6649,14 @@ defaultproperties
 	RefireRate=0.3
 	CarcassType=Class'UMSMarinesII.UMSSpaceMarineCarcass'
 	Health=80
-	MeleeRange=50.0
+	MeleeRange=30.0
 	GroundSpeed=340.0
 	AirSpeed=400.0
 	AccelRate=1248.0
 	AirControl=0.35
 	SightRadius=4000.0
 	UnderWaterTime=-1.0
-	CombatStyle=0.6
+	CombatStyle=0.8
 	HitSound1=Sound'UnrealShare.Male.MInjur1'
 	HitSound2=Sound'UnrealShare.Male.MInjur2'
 	Die=Sound'UnrealShare.Male.MDeath1'
@@ -6713,7 +6716,7 @@ defaultproperties
 	bMovingRangedAttack=True
 	SightCheckType=SEE_All
 	bIsPackHunter=True
-	HeadRadius=9.0
+	HeadRadius=0.0
 	HeadOffset=(X=0.0,Y=0.0,Z=45.0)
 	BaseAnimations=(WALKDISARMED="WALKDISARMED",WalkOneHanded="WalkSm",WalkTwoHanded="WalkLg",RunDisarmed="Run",RunOneHanded="RunSm",RunOneHandedPointing="RunSmFr",RunTwoHanded="RunLg",RunTwoHandedPointing="RunLgFr",CrouchOneHanded="DuckWlkS",CrouchTwoHanded="DuckWlkL",SwimOneHanded="SwimSm",SwimTwoHanded="SwimLg",DodgeLeft="None",DodgeRight="None",DodgeForward="None",DodgeBackward="None",StrafeRightTwoHanded="STRAFErLG",StrafeRightOneHanded="STRAFErSM",StrafeLeftTwoHanded="STRAFElLG",StrafeLeftOneHanded="STRAFElSM",Backstep="Backstep",BreatheOneHanded="BREATHSM",BreatheTwoHanded="BREATHLG",BreatheUnarmed="BREATHUNARMED")
 	ADSAnimations=(WalkOneHandedADS="WalkSmFr",WalkTwoHandedADS="WalkLgFr",BackStepOneHandedADS="BACKSTEPSMFR",BackStepTwoHandedADS="BACKSTEPLGFR",StrafeRightTwoHandedADS="WALKSTRAFER",StrafeLeftTwoHandedADS="WALKSTRAFEL")

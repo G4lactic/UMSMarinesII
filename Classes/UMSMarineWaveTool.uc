@@ -50,10 +50,15 @@ Function Timer()
 Function HateTimer()
 {
 	local pawn PP;
-    local int i,Failsafe;
+    local int i,Failsafe,MaxMarines;
 
 	for(i = 0; i < array_size(MarineList); i++)
-	{	while((WaveMarine[i].Enemy==None || !WaveMarine[i].Enemy.bIsPlayer) && CheckPlayers()>0 && Failsafe<100)
+	{
+		MaxMarines+=Max(1,MarineList[i].MarineCount);
+	}
+
+	for(i = 0; i < MaxMarines; i++)
+	{	while(WaveMarine[i]!=None && ((WaveMarine[i].Enemy==None || !WaveMarine[i].Enemy.bIsPlayer) && CheckPlayers()>0 && Failsafe<100))
 		{
 			foreach AllActors(class'Pawn', PP)
 			{

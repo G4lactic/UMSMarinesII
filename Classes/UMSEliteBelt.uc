@@ -3,6 +3,16 @@
 //=============================================================================
 class UMSEliteBelt extends ShieldBelt;
 
+Function Destroyed()
+{
+	if(UMSEliteMarine(Owner))
+	{
+		UMSEliteMarine(Owner).bShieldOn=False;
+		UMSEliteMarine(Owner).ShieldCDTime = 10.0;
+	}
+	Super.Destroyed();
+}
+
 defaultproperties
 {
 	TeamFireTextures(0)=FireTexture'UnrealShare.Belt_fx.ShieldBelt.RedShield'
@@ -13,7 +23,7 @@ defaultproperties
 	TeamTextures(1)=Texture'UnrealShare.Belt_fx.ShieldBelt.newred'
 	TeamTextures(2)=Texture'UnrealShare.Belt_fx.ShieldBelt.newred'
 	TeamTextures(3)=Texture'UnrealShare.Belt_fx.ShieldBelt.newred'
-	Charge=150
+	Charge=100
 	ArmorAbsorption=100
 	AbsorptionPriority=10
 	RespawnTime=0.0
