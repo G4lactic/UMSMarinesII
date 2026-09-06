@@ -1,0 +1,1 @@
+class UMSProxMine extends Projectile;
