@@ -19,4 +19,6 @@ DefaultProperties
 	bRelativeToRotation=True
 	bUseRelativeLocation=True
 	DrawScale=0.5
+	bStatic=False
+	bNoDelete=False
 }

@@ -4,7 +4,8 @@ DefaultProperties
 {
 	ParticleMesh=LodMesh'UnrealShare.Ringex'
 	InitialRot=(X=(Min=0.25,Max=0.25))
-	MaxParticles=9999
+	bRespawnParticles=False
+	MaxParticles=1
 	ParticlesPerSec=1.0
 	FadeOutTime=0.8
 	FadeInMaxAmount=0.6
@@ -18,4 +19,7 @@ DefaultProperties
 	bRelativeToRotation=True
 	bUseRelativeLocation=True
 	DrawScale=0.5
+	LifeSpan=2.0
+	bStatic=False
+	bNoDelete=False
 }

@@ -11,4 +11,7 @@ DefaultProperties
 	LifetimeRange=(Min=0.8,Max=0.6)
 	ParticleColor=(Y=(Min=0.0,Max=0.0),Z=(Min=0.0,Max=0.0))
 	FadeStyle=STY_Translucent
+	Physics=PHYS_Trailer
+	bStatic=False
+	bNoDelete=False	
 }
