@@ -6,6 +6,7 @@ DefaultProperties
 	ParticlesPerSec=0.5
 	FadeInTime=0.08
 	FadeOutTime=0.1
+	bRespawnParticles=False
 	ParticleTextures(0)=Texture'GenFX.LensFlar.Dot_B'
 	LifetimeRange=(Min=0.2,Max=0.2)
 	StartingScale=(Min=0.3,Max=0.3)

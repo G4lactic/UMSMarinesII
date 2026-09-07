@@ -16,7 +16,7 @@ class UMSProxMine extends Projectile;
 var Sound IdleSound, AlertSound;
 var bool bOnGround, bJustStateChanged;
 var vector SurfaceNormal;
-var Actor Trail, AlertFX, AlertGlare;
+var Actor Trail, AlertFX, AlertGlare, IdleFX, IdleGlare;
 var class<Actor> IdleFXClass, GlareIdleFXClass, AlertFXClass, GlareAlertFXClass, TrailFXClass;
 var float IdleFXRate, AlertFXRate;
 var float IdleCollisionRadius;
@@ -57,6 +57,8 @@ function Explode(vector HitLocation, vector HitNormal)
 {
 	HurtRadius(Damage, 150, 'Exploded', MomentumTransfer, HitLocation);
 	Spawn(class'FlameExplosion',,,Location + vect(0,0,10));
+	IdleFX.Destroy();
+	IdleGlare.Destroy();
 	AlertFX.Destroy();
 	AlertGlare.Destroy();
 	Destroy();
@@ -116,8 +118,8 @@ state OnSurfaceIdle
 	{
 		// XXX: right slot?
 		PlaySound(IdleSound, SLOT_Misc);
-		Spawn(IdleFXClass, Self,, Location);
-		Spawn(GlareIdleFXClass, Self,, Location + vect(0,0,6));
+		IdleFX=Spawn(IdleFXClass, Self,, Location);
+		IdleGlare=Spawn(GlareIdleFXClass, Self,, Location + vect(0,0,6));
 		if (bJustStateChanged)
 		{
 			bJustStateChanged = False;
@@ -133,6 +135,8 @@ state OnSurfaceAlert
 		//SetCollisionSize(Default.CollisionRadius, Default.CollisionHeight);
 		bJustStateChanged = True;
 		AlertTicks = 0;
+		IdleFX.Destroy();
+		IdleGlare.Destroy();
 		AlertFX = Spawn(AlertFXClass, Self,, Location);
 		AlertGlare = Spawn(GlareAlertFXClass, Self,, Location + vect(0,0,6));
 		SetTimer(0.1, False);
@@ -166,20 +170,21 @@ defaultproperties
 {
 	CollisionHeight=3.500000
 	CollisionRadius=16.000000
-	IdleCollisionRadius=80.000000
+	IdleCollisionRadius=112.000000
 	DrawType=DT_Mesh
 	Mesh=StaticMesh'ProxMineMesh'
 	SpawnSound=Sound'UnrealShare.General.ArrowSpawn'
 	ImpactSound=Sound'UnrealShare.General.Chunkhit2'
 	MiscSound=Sound'Activates.ClicksSmall.mclick3'
 	Speed=800.000000
-	Damage=65.000000
-	MomentumTransfer=37500
+	Damage=200.000000
+	MomentumTransfer=175000
 	Physics=PHYS_Falling
 	RemoteRole=ROLE_SimulatedProxy
 	bNetTemporary=False
 	bNetInterpolatePos=True
-	ScaleGlow=0.800000
+	ScaleGlow=4
+	AmbientGlow=12
 	TrailFXClass=Class'UMSProxyFX_Trail'
 	IdleSound=Sound'MineIdle'
 	AlertSound=Sound'MineAlert'
@@ -189,6 +194,6 @@ defaultproperties
 	GlareAlertFXClass=Class'UMSProxyFX_GlareAlert'
 	IdleFXRate=2.0
 	AlertFXRate=0.2
-	MaxAlertTicks=6
+	MaxAlertTicks=3
 	Health=50
 }

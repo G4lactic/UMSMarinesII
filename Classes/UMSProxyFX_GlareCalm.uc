@@ -13,6 +13,5 @@ DefaultProperties
 	DrawScale=0.1
 	bStatic=False
 	bNoDelete=False
-    bRespawnParticles=False
 	LifeSpan=2.0
 }
