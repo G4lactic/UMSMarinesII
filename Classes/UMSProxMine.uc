@@ -12,6 +12,9 @@ class UMSProxMine extends Projectile;
 
 #exec AUDIO IMPORT FILE="Sounds\SFX\MineAlert.wav" NAME="MineAlert" GROUP="ProxMine"
 #exec AUDIO IMPORT FILE="Sounds\SFX\MineIdle.wav" NAME="MineIdle" GROUP="ProxMine"
+#exec AUDIO IMPORT FILE="Sounds\SFX\MineSet.wav" NAME="MineSet" GROUP="ProxMine"
+#exec AUDIO IMPORT FILE="Sounds\SFX\MineLand.wav" NAME="MineLand" GROUP="ProxMine"
+#exec AUDIO IMPORT FILE="Sounds\SFX\MineLaunch.wav" NAME="MineLaunch" GROUP="ProxMine"
 
 var Sound IdleSound, AlertSound;
 var bool bOnGround, bJustStateChanged;
@@ -173,9 +176,9 @@ defaultproperties
 	IdleCollisionRadius=112.000000
 	DrawType=DT_Mesh
 	Mesh=StaticMesh'ProxMineMesh'
-	SpawnSound=Sound'UnrealShare.General.ArrowSpawn'
-	ImpactSound=Sound'UnrealShare.General.Chunkhit2'
-	MiscSound=Sound'Activates.ClicksSmall.mclick3'
+	SpawnSound=Sound'MineLaunch'
+	ImpactSound=Sound'MineLand'
+	MiscSound=Sound'MineSet'
 	Speed=800.000000
 	Damage=200.000000
 	MomentumTransfer=175000

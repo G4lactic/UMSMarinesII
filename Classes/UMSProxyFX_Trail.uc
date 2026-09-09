@@ -4,11 +4,11 @@ DefaultProperties
 {
 	TrailTreshold=0.1
 	bDynamicParticleCount=False
-	MaxParticles=100
-	FadeInTime=0.2
-	FadeOutTime=0.5
+	MaxParticles=10
+	FadeInTime=0
+	FadeOutTime=0.2
 	ParticleTextures(0)=Texture'UnrealShare.Skins.raindropspark'
-	LifetimeRange=(Min=0.8,Max=0.6)
+	LifetimeRange=(Min=0.7,Max=0.2)
 	ParticleColor=(Y=(Min=0.0,Max=0.0),Z=(Min=0.0,Max=0.0))
 	FadeStyle=STY_Translucent
 	Physics=PHYS_Trailer
