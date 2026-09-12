@@ -211,11 +211,14 @@ class UMSSpaceMarine extends ScriptedPawn;
 //CommanderMarine
 #exec texture IMPORT NAME=CMarine1 FILE=Textures\Skins\Cmarine1.PCX GROUP=Skins LODSET=2
 #exec texture IMPORT NAME=CMarine2 FILE=Textures\Skins\Cmarine2.PCX GROUP=Skins LODSET=2
+//DemolitionMarine
+#exec texture IMPORT NAME=DMarine1 FILE=Textures\Skins\DemoMarine1.PCX GROUP=Skins LODSET=2
+#exec texture IMPORT NAME=DMarine2 FILE=Textures\Skins\DemoMarine2.PCX GROUP=Skins LODSET=2
 
 //Visors
 #exec texture IMPORT NAME=MarineVisorGlowBasic FILE=Textures\FX\MarineVisorGlowBasic.PCX GROUP=FX LODSET=2
 #exec texture IMPORT NAME=MarineBlackOpsGlow FILE=Textures\FX\UMSBlackOpMarineNV.PCX GROUP=FX LODSET=2
-#exec texture IMPORT NAME=SoldierGlow FILE=Textures\FX\FieldSpecGlow.PCX GROUP=FX LODSET=2
+#exec texture IMPORT NAME=DemoMarineGlow FILE=Textures\FX\DemoMarineGlowFX.PCX GROUP=FX LODSET=2
 
 //Model import with Anims
 //=============================================================================
