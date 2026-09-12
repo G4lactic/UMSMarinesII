@@ -1,4 +1,4 @@
-class UMSProxyFX_GlareCalm extends Emitter;
+class UMSProxyFX_GlareCalm extends NetworkEmitter;
 
 DefaultProperties
 {

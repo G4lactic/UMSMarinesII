@@ -1,4 +1,4 @@
-class UMSProxyFX_RingCalm extends MeshEmitter;
+class UMSProxyFX_RingCalm extends NetworkMeshEmitter;
 
 DefaultProperties
 {

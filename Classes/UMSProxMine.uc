@@ -17,48 +17,46 @@ class UMSProxMine extends Projectile;
 #exec AUDIO IMPORT FILE="Sounds\SFX\MineLaunch.wav" NAME="MineLaunch" GROUP="ProxMine"
 
 var Sound IdleSound, AlertSound;
-var bool bOnGround, bJustStateChanged;
+var bool bOnGround;
 var vector SurfaceNormal;
-var Actor Trail, AlertFX, AlertGlare, IdleFX, IdleGlare;
+var UMSProxMineDetector Detector;
+var Actor Trail; 
+var class<UMSProxMineDetector> DetectorClass;
 var class<Actor> IdleFXClass, GlareIdleFXClass, AlertFXClass, GlareAlertFXClass, TrailFXClass;
 var float IdleFXRate, AlertFXRate;
 var float IdleCollisionRadius;
 var int AlertTicks, MaxAlertTicks, NumTouching;
 var int Health;
 
-simulated function PreBeginPlay()
+simulated function HitWall( vector HitNormal, actor Wall )
 {
-	CollisionGroups = 0x7fffffdf;
-}
+	local Texture T;
 
-simulated function Touch(Actor Other)
-{
-	if (Other.Class == Class)
-		return;
-
-	if ( !IsInState('OnSurfaceAlert') )
-		GoToState('OnSurfaceAlert');
-	NumTouching++;
-}
-
-simulated function UnTouch(Actor Other)
-{
-	if (Other.Class == Class)
-		return;
-	
-	if ( NumTouching > 0 )
-		NumTouching--;
-
-	if ( NumTouching <= 0 )
-		GoToState('OnSurfaceIdle');
-}
-
-simulated function SetWall(vector HitNormal, Actor Wall)
-{
-	SurfaceNormal = HitNormal;
-	SetRotation(rotator(HitNormal) + rotang(0,-90,90));
-	if ( Mover(Wall) != None )
-		SetBase(Wall);
+	T = GetHitTexture();
+	if( T==None || (T.SurfaceType!=EST_Plant && T.SurfaceType!=EST_Flesh && T.SurfaceType!=EST_Carpet && T.SurfaceType!=EST_Snow) ) // Hard material...
+	{
+		Velocity = MirrorVectorByNormal(Velocity,HitNormal)*0.8f; // Reflect off Wall w/damping
+		Speed = VSize(Velocity);
+		if ( Level.NetMode != NM_DedicatedServer )
+		{
+			PlaySound(ImpactSound, SLOT_Misc, FMax(0.5, Speed/800) );
+			if( !Level.bDropDetail && T!=None && T.SurfaceType==EST_Metal && Speed>300 ) // Make sparks on metal impact.
+				Spawn(Class'SmallSpark',,,Location+HitNormal,rotator(HitNormal)).RemoteRole = ROLE_None;
+		}
+	}
+	else // Soft
+	{
+		Velocity = MirrorVectorByNormal(Velocity,HitNormal)*0.4f; // Reflect off Wall w/damping
+		Speed = VSize(Velocity);
+	}
+	RandSpin(100000);
+	if ( Velocity.Z > 400 )
+		Velocity.Z = 0.5 * (400 + Velocity.Z);
+	else if ( Speed < 20 )
+	{
+		bBounce = False;
+		SetPhysics(PHYS_None);
+	}
 }
 
 simulated function PlayClick()
@@ -70,17 +68,15 @@ function Explode(vector HitLocation, vector HitNormal)
 {
 	HurtRadius(Damage, 150, 'Exploded', MomentumTransfer, HitLocation);
 	Spawn(class'FlameExplosion',,,Location + vect(0,0,10));
-	IdleFX.Destroy();
-	IdleGlare.Destroy();
-	AlertFX.Destroy();
-	AlertGlare.Destroy();
+	Detector.Destroy();
 	Destroy();
 }
 
 function TakeDamage(int Damage, Pawn EventInstigator, vector HitLocation, vector Momentum, name DamageType)
 {
+	// TODO: spark effect on non-lethal damage
 	Health -= Damage;
-	if ( Health < 0 )
+	if ( Health <= 0 )
 		Explode(Location, vect(0,0,0));
 }
 
@@ -90,7 +86,6 @@ auto state Flying
 	{
 		local Rotator NewRot;
 
-		CollisionGroups = Default.CollisionGroups;
 		SetTimer(0.1, False, 'PlayClick');
 		Trail.LifeSpan = 5.0;
 		SetPhysics(PHYS_Falling);
@@ -101,7 +96,21 @@ auto state Flying
 	
 		bOnGround = True;
 		PlaySound(ImpactSound);
-		GoToState('OnSurfaceIdle');
+
+		Detector = Spawn(DetectorClass, Owner,, Location);
+		Detector.Mine = Self;
+		Detector.IdleSound = IdleSound;
+		Detector.AlertSound = AlertSound;
+		Detector.IdleFXRate = IdleFXRate;
+		Detector.AlertFXRate = AlertFXRate;
+		Detector.IdleFXClass = IdleFXClass;
+		Detector.GlareIdleFXClass = GlareIdleFXClass;
+		Detector.AlertFXClass = AlertFXClass;
+		Detector.GlareAlertFXClass = GlareAlertFXClass;
+		Detector.MaxAlertTicks = MaxAlertTicks;
+		Detector.GoToState('Idle');
+
+		GoToState('');
 	}
 
 	function BeginState()
@@ -111,72 +120,12 @@ auto state Flying
 			Trail = Spawn(TrailFXClass, Self,, Location);
 			Velocity = Vector(Rotation) * Speed;
 
-			// TODO: make Z velocity configurable, get throw height from owner?
+			if (Pawn(Owner) && !Pawn(Owner).bIsPlayer)
+				Velocity = (Pawn(Owner).LastSeenPos - Owner.Location);
 			Velocity.Z += 80;
 			bOnGround = False;
 			PlaySound(SpawnSound);
 		}
-	}
-}
-
-state OnSurfaceIdle
-{
-	function BeginState()
-	{
-		SetCollisionSize(IdleCollisionRadius, Default.CollisionHeight + 64);
-		bJustStateChanged = True;
-		SetTimer(0.5, False);
-	}
-
-	function Timer()
-	{
-		// XXX: right slot?
-		PlaySound(IdleSound, SLOT_Misc);
-		IdleFX=Spawn(IdleFXClass, Self,, Location);
-		IdleGlare=Spawn(GlareIdleFXClass, Self,, Location + vect(0,0,6));
-		if (bJustStateChanged)
-		{
-			bJustStateChanged = False;
-			SetTimer(IdleFXRate, True);
-		}
-	}
-}
-
-state OnSurfaceAlert
-{
-	function BeginState()
-	{
-		//SetCollisionSize(Default.CollisionRadius, Default.CollisionHeight);
-		bJustStateChanged = True;
-		AlertTicks = 0;
-		IdleFX.Destroy();
-		IdleGlare.Destroy();
-		AlertFX = Spawn(AlertFXClass, Self,, Location);
-		AlertGlare = Spawn(GlareAlertFXClass, Self,, Location + vect(0,0,6));
-		SetTimer(0.1, False);
-	}
-
-	function EndState()
-	{
-		AlertFX.LifeSpan = 0.3;
-		AlertGlare.LifeSpan = 0.3;
-	}
-
-	function Timer()
-	{
-		PlaySound(AlertSound, SLOT_None);
-		if (bJustStateChanged)
-		{
-			bJustStateChanged = False;
-			SetTimer(AlertFXRate, True);
-		}
-
-		Log(Name$":"@AlertTicks);
-		if (NumTouching > 0)
-			AlertTicks++;
-
-		if (AlertTicks >= MaxAlertTicks)
-			Explode(Location, vect(0,0,0));
 	}
 }
 
@@ -185,6 +134,7 @@ defaultproperties
 	CollisionHeight=3.5
 	CollisionRadius=16.0
 	IdleCollisionRadius=112.000000
+	bProjTarget=True
 	DrawType=DT_Mesh
 	Mesh=StaticMesh'ProxMineMesh'
 	SpawnSound=Sound'MineLaunch'
@@ -199,6 +149,7 @@ defaultproperties
 	bNetInterpolatePos=True
 	ScaleGlow=4
 	AmbientGlow=12
+	DetectorClass=Class'UMSProxMineDetector'
 	TrailFXClass=Class'UMSProxyFX_Trail'
 	IdleSound=Sound'MineIdle'
 	AlertSound=Sound'MineAlert'

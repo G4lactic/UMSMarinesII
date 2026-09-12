@@ -1,4 +1,4 @@
-class UMSProxyFX_RingAlert extends MeshEmitter;
+class UMSProxyFX_RingAlert extends NetworkMeshEmitter;
 
 DefaultProperties
 {

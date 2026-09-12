@@ -1,4 +1,4 @@
-class UMSProxyFX_Trail extends TrailEmitter;
+class UMSProxyFX_Trail extends NetworkTrailEmitter;
 
 DefaultProperties
 {

@@ -1,4 +1,4 @@
-class UMSProxyFX_GlareAlert extends Emitter;
+class UMSProxyFX_GlareAlert extends NetworkEmitter;
 
 DefaultProperties
 {
