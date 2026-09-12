@@ -26,6 +26,11 @@ var float IdleCollisionRadius;
 var int AlertTicks, MaxAlertTicks, NumTouching;
 var int Health;
 
+simulated function PreBeginPlay()
+{
+	CollisionGroups = 0x7fffffdf;
+}
+
 simulated function Touch(Actor Other)
 {
 	if (Other.Class == Class)
@@ -38,7 +43,12 @@ simulated function Touch(Actor Other)
 
 simulated function UnTouch(Actor Other)
 {
-	NumTouching--;
+	if (Other.Class == Class)
+		return;
+	
+	if ( NumTouching > 0 )
+		NumTouching--;
+
 	if ( NumTouching <= 0 )
 		GoToState('OnSurfaceIdle');
 }
@@ -80,9 +90,10 @@ auto state Flying
 	{
 		local Rotator NewRot;
 
+		CollisionGroups = Default.CollisionGroups;
 		SetTimer(0.1, False, 'PlayClick');
 		Trail.LifeSpan = 5.0;
-		SetPhysics(PHYS_None);
+		SetPhysics(PHYS_Falling);
 
 		NewRot = Rot(0, 0, 0);
 		NewRot.Yaw = Rotation.Yaw;
@@ -160,7 +171,7 @@ state OnSurfaceAlert
 			SetTimer(AlertFXRate, True);
 		}
 
-		Log(AlertTicks);
+		Log(Name$":"@AlertTicks);
 		if (NumTouching > 0)
 			AlertTicks++;
 
@@ -171,8 +182,8 @@ state OnSurfaceAlert
 
 defaultproperties
 {
-	CollisionHeight=3.500000
-	CollisionRadius=16.000000
+	CollisionHeight=3.5
+	CollisionRadius=16.0
 	IdleCollisionRadius=112.000000
 	DrawType=DT_Mesh
 	Mesh=StaticMesh'ProxMineMesh'
