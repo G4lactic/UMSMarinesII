@@ -6484,6 +6484,7 @@ state BeamingIn // Code taken from RLCoopE and adjusted THX Rayne!
 		MyWeapon.bMeshEnviroMap = false;
 		MyWeapon.Style=STY_Normal;
 		MyWeapon.bUnlit=Weapon.Default.bUnlit;
+		bBeamingIn=False;
 	}
 
 	simulated function Tick( float DeltaTime )

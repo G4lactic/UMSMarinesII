@@ -68,7 +68,6 @@ function Explode(vector HitLocation, vector HitNormal)
 {
 	HurtRadius(Damage, 150, 'Exploded', MomentumTransfer, HitLocation);
 	Spawn(class'FlameExplosion',,,Location + vect(0,0,10));
-	Detector.Destroy();
 	Destroy();
 }
 
@@ -78,6 +77,12 @@ function TakeDamage(int Damage, Pawn EventInstigator, vector HitLocation, vector
 	Health -= Damage;
 	if ( Health <= 0 )
 		Explode(Location, vect(0,0,0));
+}
+
+simulated function Destroyed()
+{
+	UMSDemoMarine(Owner).ActiveMines--;
+    Detector.Destroy();
 }
 
 auto state Flying
@@ -115,14 +120,22 @@ auto state Flying
 
 	function BeginState()
 	{
+		local float MaxZ;
+
 		if ( Role == ROLE_Authority )
 		{
 			Trail = Spawn(TrailFXClass, Self,, Location);
 			Velocity = Vector(Rotation) * Speed;
 
-			if (Pawn(Owner) && !Pawn(Owner).bIsPlayer)
-				Velocity = (Pawn(Owner).LastSeenPos - Owner.Location);
-			Velocity.Z += 80;
+            if (Pawn(Owner) && !Pawn(Owner).bIsPlayer)
+            {
+                Velocity = (Pawn(Owner).LastSeenPos - Owner.Location);
+                if (Pawn(Owner).LastSeenPos.Z > Owner.Location.Z)
+                    MaxZ = 600;
+                else
+                    MaxZ = 300;
+                Velocity.Z += Min(VSize(Pawn(Owner).LastSeenPos - Owner.Location), MaxZ);
+            }
 			bOnGround = False;
 			PlaySound(SpawnSound);
 		}
@@ -140,9 +153,9 @@ defaultproperties
 	SpawnSound=Sound'MineLaunch'
 	ImpactSound=Sound'MineLand'
 	MiscSound=Sound'MineSet'
-	Speed=800.000000
+	Speed=1000.000000
 	Damage=200.000000
-	MomentumTransfer=175000
+	MomentumTransfer=75000
 	Physics=PHYS_Falling
 	RemoteRole=ROLE_SimulatedProxy
 	bNetTemporary=False

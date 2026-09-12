@@ -16,7 +16,7 @@ var UMSProxMine Mine;
 
 simulated function Touch(Actor Other)
 {
-	if ( Other == Owner || Other == Mine || !Other.IsA('Pawn') )
+	if ( Other.IsA('UMSSpaceMarine') || Other == Mine || !Other.IsA('Pawn') )
 		return;
 
 	if ( !IsInState('Alert') )
@@ -26,7 +26,7 @@ simulated function Touch(Actor Other)
 
 simulated function UnTouch(Actor Other)
 {
-	if ( Other == Owner || Other == Mine || !Other.IsA('Pawn') )
+	if ( Other.IsA('UMSSpaceMarine') || Other == Mine || !Other.IsA('Pawn') )
 		return;
 	
 	if ( NumTouching > 0 )
