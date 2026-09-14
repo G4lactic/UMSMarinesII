@@ -15,7 +15,7 @@ var float MineCD;
 Function Tick(Float DeltaTime)
 {
 	if( !bBeamingIn && bCastMines && MaxMines > 0 && ActiveMines < MaxActiveMines && Enemy != None && (!IsInState('ThrowMine')) 
-	&& (!CanSee(Enemy)) && MineCD <= 0 && VSize(Enemy.Location - Location) < 1500 && MineCD <= 0 && VSize(LastSeenPos - Location) > 200 && FRand() < 0.75)
+	&& (!CanSee(Enemy)) && MineCD <= 0 && VSize(Enemy.Location - Location) < 1500 && MineCD <= 0 && VSize(LastSeenPos - Location) > 200 && FRand() < 0.75 && LastSeenPos!=vect(0,0,0))
 	{
 		GotoState('ThrowMine');
 	}
