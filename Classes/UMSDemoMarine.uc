@@ -142,8 +142,10 @@ State ThrowMine
 
 defaultproperties
 {
+	Health=120
+	Fatness=132
 	ReducedDamageType='Exploded'
-	ReducedDamagePct=0.5
+	ReducedDamagePct=0.8
 	TackleSound=Sound'MarineTackle'
 	bMovingRangedAttack=False
 	RefireRate=2
