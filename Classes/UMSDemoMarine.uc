@@ -9,7 +9,7 @@ class UMSDemoMarine extends UMSSpecialForces;
 var(UMSDemolitionsMarine) bool bTurret,bCastMines;
 var(UMSDemolitionsMarine) int MaxMines,MaxActiveMines;
 var(UMSDemolitionsMarine) float MineCastCooldown;
-var(UMSDemolitionsMarine) sound TackleSound;
+var(UMSDemolitionsMarine) sound TackleSound,TackleWarnF1,TackleWarnF2,TackleSuccessF1,TackleSuccessF2,TackleWarnM1,TackleWarnM2,TackleSuccessM1,TackleSuccessM2;
 
 var int ActiveMines,TackleDelay;
 var float MineCD,SavedGroundSpeed,SavedAccelRate,TackleCD,EffectTick;
@@ -67,17 +67,17 @@ State Tackle
 			PlaySound(Slap, SLOT_Misc);
 			if(bIsFemale)
 			{
-				if(FRand()<0.5)
-				PlaySound(Sound'woof', SLOT_Misc);
+				if(FRand()<=0.5)
+				PlaySound(TackleSuccessF1,SLOT_Talk);
 				else
-				PlaySound(Sound'takethatf', SLOT_Misc);
+				PlaySound(TackleSuccessF2,SLOT_Talk);
 			}
 			else
 			{
-				if(FRand()<0.5)
-				PlaySound(Sound'lockm', SLOT_Misc);
+				if(FRand()<=0.5)
+				PlaySound(TackleSuccessM1,SLOT_Talk);
 				else
-				PlaySound(Sound'sdownm', SLOT_Misc);
+				PlaySound(TackleSuccessM2,SLOT_Talk);
 			}
 
 			if(Physics==PHYS_Walking)
@@ -114,17 +114,17 @@ State Tackle
 		PlaySound(TackleSound,SLOT_None);
 		if(bIsFemale)
 		{
-			if(FRand()<0.5)
-			PlaySound(sound'heref',SLOT_Talk);
+			if(FRand()<=0.5)
+			PlaySound(TackleWarnF1,SLOT_Talk);
 			else
-			PlaySound(sound'rockf',SLOT_Talk);
+			PlaySound(TackleWarnF2,SLOT_Talk);
 		}
 		else
 		{
-			if(FRand()<0.5)
-			PlaySound(sound'herem',SLOT_Talk);
+			if(FRand()<=0.5)
+			PlaySound(TackleWarnM1,SLOT_Talk);
 			else
-			PlaySound(sound'letsgom',SLOT_Talk);
+			PlaySound(TackleWarnM2,SLOT_Talk);
 		}
 		TweenAnim('Punch',0.05);
 		while(TackleDelay<5)
@@ -141,6 +141,9 @@ State Tackle
 		MoveTo(Enemy.Location+(Enemy.Velocity*0.25),800);
 		Sleep(0.05);
 	}
+	
+	if(Enemy!=None)
+	TurnTo(Enemy.Location);
 
 	if(AnimSequence!='RIFLESTOMP')
 	{
@@ -203,4 +206,12 @@ defaultproperties
 	MultiSkins(2)=Texture'UMSMarinesII.Skins.DMarine2'
 	GlowyBits=(EffectMultiSkin1=None,EffectMultiSkin2=None,ExtraEffect=Texture'UMSMarinesII.FX.DemoMarineGlow',ExtraEffectLayer=MultiSkin1)
 	WeaponType=Class'UnrealShare.Eightball'
+	TackleSuccessF1=Sound'woof'
+	TackleSuccessF2=Sound'takethatf'
+	TackleSuccessM1=Sound'lockm'
+	TackleSuccessM2=Sound'sdownm'
+	TackleWarnF1=Sound'heref'
+	TackleWarnF2=Sound'rockf'
+	TackleWarnM1=Sound'herem'
+	TackleWarnM2=Sound'letsgom'
 }
