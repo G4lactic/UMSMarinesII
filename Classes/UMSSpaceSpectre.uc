@@ -9,7 +9,7 @@ var(UMSSpaceSpectre) float CloakDuration;
 var(UMSSpaceSpectre) float CooldownDuration;
 var(UMSSpaceSpectre) bool bDoCloak;
 var(UMSSpaceSpectre) bool bStartCloaked;
-var float CloakTimer;
+var float CloakTimer,EffectTick;
 
 var bool bCloaked;
 var bool bCooldown;
@@ -63,8 +63,12 @@ Function Tick(float DeltaTime)
 			else
 				bExpanding = False;
 		}
-		if(VSize(Velocity) > 100)
-		GhostT=Spawn(Class'UMSGhostTrail',Self,,Location,Rotation);
+		EffectTick+=DeltaTime*60;
+		if(VSize(Velocity) > 100 && EffectTick>1)
+		{
+			EffectTick=0;
+			GhostT=Spawn(Class'UMSGhostTrail',Self,,Location,Rotation);
+		}
 	}
 	else if(!bCloaked)
 	{

@@ -12,7 +12,7 @@ var(UMSDemolitionsMarine) float MineCastCooldown;
 var(UMSDemolitionsMarine) sound TackleSound;
 
 var int ActiveMines,TackleDelay;
-var float MineCD,SavedGroundSpeed,SavedAccelRate,TackleCD;
+var float MineCD,SavedGroundSpeed,SavedAccelRate,TackleCD,EffectTick;
 
 function Tick(Float DeltaTime)
 {
@@ -21,15 +21,18 @@ function Tick(Float DeltaTime)
 	if(TackleCD>0)
 		TackleCD -= DeltaTime;
 
-	if(Physics==PHYS_Walking && Enemy!=None && CanSee(Enemy) && actorReachable(Enemy) && VSize(Enemy.Location-Location)<=350 && TackleCD<=0)
+	if(!bBeamingIn)
 	{
-		TackleCD=5;
-		GoToState('Tackle');
+		if(Physics==PHYS_Walking && Enemy!=None && CanSee(Enemy) && actorReachable(Enemy) && VSize(Enemy.Location-Location)<=350 && TackleCD<=0)
+		{
+			TackleCD=5;
+			GoToState('Tackle');
+		}
+		else if( bCastMines && MaxMines > 0 && ActiveMines < MaxActiveMines && Enemy != None && (!IsInState('ThrowMine')) 
+		&& (!CanSee(Enemy)) && MineCD <= 0 && VSize(Enemy.Location - Location) < 1000 && MineCD <= 0 && VSize(LastSeenPos - Location) > 200
+		&& VSize(LastSeenPos - Location) < 1000 && FRand() < 0.75 && LastSeenPos!=vect(0,0,0))
+			GotoState('ThrowMine');
 	}
-	else if( !bBeamingIn && bCastMines && MaxMines > 0 && ActiveMines < MaxActiveMines && Enemy != None && (!IsInState('ThrowMine')) 
-	&& (!CanSee(Enemy)) && MineCD <= 0 && VSize(Enemy.Location - Location) < 1000 && MineCD <= 0 && VSize(LastSeenPos - Location) > 200
-	&& VSize(LastSeenPos - Location) < 1000 && FRand() < 0.75 && LastSeenPos!=vect(0,0,0))
-		GotoState('ThrowMine');
 }
 
 
@@ -44,23 +47,42 @@ function TakeDamage( int Damage, Pawn instigatedBy, Vector hitlocation,
 State Tackle
 {
 	function Tick(Float DeltaTime)
-	{}
+	{
+		EffectTick+=DeltaTime*30;
+		if(VSize(Velocity)>0 && EffectTick>1)
+		{
+			EffectTick=0;
+			Spawn(Class'UMSAfterImage',Self,,Location,Rotation);
+		}
+	}
 
 	function Bump(actor Other)
 	{
 		if(Enemy==Other && VSize(Velocity)>0)
 		{	
+			PlaySound(Sound'Swing1t',SLOT_None);
 			PlayAnim('RIFLESTOMP',1,0.05);
 			Other.TakeDamage(SlamDamage*2,Self,Location+(Enemy.Location-Location),100000*Normal(Velocity),'hacked');
 			PlaySound(Slap, SLOT_Interact);
 			PlaySound(Slap, SLOT_Misc);
+			if(bIsFemale)
+			{
+				if(FRand()<0.5)
+				PlaySound(Sound'woof', SLOT_Misc);
+				else
+				PlaySound(Sound'takethatf', SLOT_Misc);
+			}
+			else
+			{
+				if(FRand()<0.5)
+				PlaySound(Sound'lockm', SLOT_Misc);
+				else
+				PlaySound(Sound'sdownm', SLOT_Misc);
+			}
 
 			if(Physics==PHYS_Walking)
 			Velocity*=0;
-
-			if(Enemy!=None)
-			GoToState('Attacking');
-			else GoToState('Waiting');
+			Disable('Bump');
 		}
 		else
 		Global.Bump(Other);
@@ -74,6 +96,7 @@ State Tackle
 
 	function EndState()
 	{
+		Enable('Bump');
 		AccelRate=SavedAccelRate;
 		GroundSpeed=SavedGroundSpeed;
 	}
@@ -82,11 +105,27 @@ State Tackle
 
 	if(Enemy!=None && CanSee(Enemy) && actorReachable(Enemy) && VSize(Enemy.Location-Location)<=350)
 	{
+		Spawn(Class'SparkleEffect',Self,,Location,Rotation);
+		Spawn(Class'ChargeRingEffect',Self,,Location-vect(0,0,0.8)*CollisionHeight,Rotation);
 		Velocity*=0;
 		TackleDelay=0;
 		PlaySound(TackleSound,SLOT_None);
 		PlaySound(TackleSound,SLOT_None);
 		PlaySound(TackleSound,SLOT_None);
+		if(bIsFemale)
+		{
+			if(FRand()<0.5)
+			PlaySound(sound'heref',SLOT_Talk);
+			else
+			PlaySound(sound'rockf',SLOT_Talk);
+		}
+		else
+		{
+			if(FRand()<0.5)
+			PlaySound(sound'herem',SLOT_Talk);
+			else
+			PlaySound(sound'letsgom',SLOT_Talk);
+		}
 		TweenAnim('Punch',0.05);
 		while(TackleDelay<5)
 		{
@@ -103,7 +142,12 @@ State Tackle
 		Sleep(0.05);
 	}
 
-	if(AnimSequence=='RIFLESTOMP')
+	if(AnimSequence!='RIFLESTOMP')
+	{
+		PlaySound(Sound'Swing1t',SLOT_None);
+		PlayAnim('RIFLESTOMP',1,0.05);
+	}
+	else
 	FinishAnim();
 
 	if(Enemy!=None)
