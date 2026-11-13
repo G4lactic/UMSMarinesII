@@ -724,8 +724,8 @@ function PreSetMovement()
 	if ( Skill > 3 )
 	Skill=3;
 	MaxDesiredSpeed = 0.7 + 0.1 * skill;
-	PunchDamage=default.PunchDamage + (skill *4);
-	SlamDamage=default.PunchDamage  + (skill *4);
+	PunchDamage=default.PunchDamage;
+	SlamDamage=default.SlamDamage;
 	bCanDuck = false;
 }
 
@@ -6686,8 +6686,8 @@ defaultproperties
 	StaticSounds=(Static=(Sound'UMSMarinesII.SFX.st1',Sound'UMSMarinesII.SFX.st2',Sound'UMSMarinesII.SFX.st3',Sound'UMSMarinesII.SFX.st4',Sound'UMSMarinesII.SFX.st5',Sound'UMSMarinesII.SFX.st6',Sound'UMSMarinesII.SFX.st7',Sound'UMSMarinesII.SFX.st8',Sound'UMSMarinesII.SFX.st9',Sound'UMSMarinesII.SFX.st10'))
 	ExplodeSound=Sound'UnrealShare.Flak.expl2'
 	ActiveExlo=Sound'Activates.Beeps.mactiv62'
-	PunchDamage=5
-	SlamDamage=9
+	PunchDamage=10
+	SlamDamage=15
 	bTeleportWhenHurt=False
 	bExplodeWhenHurt=False
 	ExploRange=384

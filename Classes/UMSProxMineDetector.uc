@@ -38,9 +38,13 @@ simulated function UnTouch(Actor Other)
 
 function Destroyed()
 {
+	if(IdleFX!=None)
 	IdleFX.Destroy();
+	if(IdleGlare!=None)
 	IdleGlare.Destroy();
+	if(AlertFX!=None)
 	AlertFX.Destroy();
+	if(AlertGlare!=None)
 	AlertGlare.Destroy();
 }
 

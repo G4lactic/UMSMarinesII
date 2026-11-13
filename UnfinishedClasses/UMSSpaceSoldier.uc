@@ -602,8 +602,8 @@ ignores SeePlayer, HearNoise, Bump;
 
 defaultproperties
 {
-	PunchDamage=5
-	SlamDamage=9
+	PunchDamage=10
+	SlamDamage=15
 	WeaponType=Class'UnrealShare.Rifle'
 	HumanKillMessage=" was blown away by a UMS Terran Soldier"
 	WalkingSpeed=0.27

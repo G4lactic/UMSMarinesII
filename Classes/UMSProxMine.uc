@@ -81,7 +81,9 @@ function TakeDamage(int Damage, Pawn EventInstigator, vector HitLocation, vector
 
 simulated function Destroyed()
 {
+	if(UMSDemoMarine(Owner)!=None)
 	UMSDemoMarine(Owner).ActiveMines--;
+	if(Detector!=None)
     Detector.Destroy();
 }
 

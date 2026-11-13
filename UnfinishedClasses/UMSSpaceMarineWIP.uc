@@ -9,7 +9,7 @@
 //  -Figure out why marines are playing a rifle holding walk anim on a pistol.
 //=============================================================================
 
-class UMSSpaceMarine extends ScriptedPawn;
+class UMSSpaceMarineWIP extends ScriptedPawn;
 
 #exec OBJ LOAD FILE=..\Sounds\Ambmodern.uax
 #exec AUDIO IMPORT FILE="Sounds\MAmb.WAV" NAME="MAmb" GROUP="SFX"
@@ -1975,8 +1975,8 @@ function PreSetMovement()
     if ( Skill > 3 )
      Skill=3;
     MaxDesiredSpeed = 0.7 + 0.1 * skill;
-    PunchDamage=default.PunchDamage + (skill *4);
-    SlamDamage=default.PunchDamage  + (skill *4);
+    PunchDamage=default.PunchDamage;
+    SlamDamage=default.SlamDamage;
 	bCanDuck = false;
 }
 
@@ -7829,8 +7829,8 @@ defaultproperties
 	ExplodeSound=Sound'UMSMarinesII.tripwire.tripExplo'
 	ActiveExlo=Sound'Activates.Beeps.mactiv62'
 	Reloadsound=None
-	PunchDamage=5
-	SlamDamage=9
+	PunchDamage=10
+	SlamDamage=15
 	bTeleportWhenHurt=False
 	bExplodeWhenHurt=False
 	ExploRange=650.0
